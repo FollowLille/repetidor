@@ -1,0 +1,23 @@
+{{ define "content" }}
+<section class="card">
+    <h2>Start training</h2>
+    <p class="muted">Choose a mode and begin a short review session.</p>
+
+    <div class="mode_grid">
+        {{ range .Modes }}
+        <button class="mode_button" type="button">{{ . }}</button>
+        {{ end }}
+    </div>
+</section>
+
+<section class="card">
+    <h2>Topics</h2>
+    <p class="muted">Topic-based vocabulary and notes will appear here.</p>
+
+    <ul class="topic_list">
+        {{ range .Topics }}
+        <li class="topic_item">{{ . }}</li>
+        {{ end }}
+    </ul>
+</section>
+{{ end }}

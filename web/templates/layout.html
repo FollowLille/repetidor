@@ -1,0 +1,27 @@
+{{ define "layout" }}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+<div class="page">
+    <header class="page_header">
+        <div>
+            <h1 class="page_title">Repetidor</h1>
+            <p class="page_subtitle">
+                Personal Spanish learning app focused on vocabulary review, topics, and interactive practice.
+            </p>
+        </div>
+    </header>
+
+    <main class="page_content">
+        {{ template "content" . }}
+    </main>
+</div>
+</body>
+</html>
+{{ end }}
