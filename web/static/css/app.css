@@ -86,6 +86,42 @@ body {
     background: var(--accent-hover);
 }
 
+
+.secondary_link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.secondary_link:hover {
+    color: var(--accent-hover);
+}
+
+.stub_meta {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+}
+
+.stub_row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.stub_label {
+    color: var(--muted);
+    min-width: 72px;
+}
+
+.stub_value {
+    font-weight: 600;
+}
+
+.page_actions {
+    margin-top: 20px;
+}
+
 .topic_list {
     list-style: none;
     padding: 0;
@@ -94,9 +130,43 @@ body {
     gap: 10px;
 }
 
+.topic_list li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 .topic_item {
+    display: block;
     background: var(--topic-bg);
     border: 1px solid var(--panel-border);
     border-radius: 10px;
     padding: 12px 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.topic_item:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.mode_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #0f1424;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mode_button:hover {
+    background: var(--accent-hover);
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"repetidor/internal/web/handlers"
 
 	"repetidor/internal/config"
 	"repetidor/internal/logger"
@@ -33,7 +34,12 @@ func main() {
 		"log_format", cfg.LogFormat,
 	)
 
-	router, err := web.NewRouter()
+	handlersContainer, err := handlers.NewContainer()
+	if err != nil {
+		log.Fatalf("failed to initialize handlers: %v", err)
+	}
+
+	router := web.NewRouter(handlersContainer)
 	if err != nil {
 		log.Fatalf("failed to initialize router: %v", err)
 	}
