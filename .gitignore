@@ -28,5 +28,17 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+
+# SQL storage
+*.db
+*.sqlite
+*.sqlite3
+
+# Temp directory
+tmp/
+temp/
+dist/
+build/
+bin/
