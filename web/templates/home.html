@@ -5,7 +5,7 @@
 
     <div class="mode_grid">
         {{ range .Modes }}
-        <button class="mode_button" type="button">{{ . }}</button>
+        <a class="mode_button" href="{{ .URL }}">{{ .Name }}</a>
         {{ end }}
     </div>
 </section>
@@ -16,7 +16,9 @@
 
     <ul class="topic_list">
         {{ range .Topics }}
-        <li class="topic_item">{{ . }}</li>
+        <li>
+            <a class="topic_item" href="{{ .URL }}">{{ .Name }}</a>
+        </li>
         {{ end }}
     </ul>
 </section>

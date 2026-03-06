@@ -1,0 +1,31 @@
+{{ define "content" }}
+<section class="card">
+    <h2>Topic: {{ .TopicName }}</h2>
+    <p class="muted">{{ .TopicNotes }}</p>
+
+    <div class="stub_meta">
+        <div class="stub_row">
+            <span class="stub_label">Key</span>
+            <span class="stub_value">{{ .TopicKey }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Words</h2>
+
+    <ul class="topic_word_list">
+        {{ range .Words }}
+        <li class="topic_word_item">
+            <span class="topic_word_es">{{ .Spanish }}</span>
+            <span class="topic_word_sep">—</span>
+            <span class="topic_word_ru">{{ .Russian }}</span>
+        </li>
+        {{ end }}
+    </ul>
+
+    <div class="page_actions">
+        <a class="secondary_link" href="/">← Back to home</a>
+    </div>
+</section>
+{{ end }}

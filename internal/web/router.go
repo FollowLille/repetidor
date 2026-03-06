@@ -8,18 +8,23 @@ import (
 	"repetidor/internal/web/handlers"
 )
 
-func NewRouter() (http.Handler, error) {
+func NewRouter(container *handlers.Container) http.Handler {
 	r := chi.NewRouter()
-
-	homeHandler, err := handlers.NewHomeHandler()
-	if err != nil {
-		return nil, err
-	}
 
 	fileServer := http.FileServer(http.Dir("./web/static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))
 
-	r.Get("/", homeHandler.ServeHTTP)
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		container.Home.ServeHTTP(w, r)
+	})
 
-	return r, nil
+	r.Get("/train/{train_mode}", func(w http.ResponseWriter, r *http.Request) {
+		container.Training.ServeHTTP(w, r)
+	})
+
+	r.Get("/topics/{topic_name}", func(w http.ResponseWriter, r *http.Request) {
+		container.Topic.ServeHTTP(w, r)
+	})
+
+	return r
 }

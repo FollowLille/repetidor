@@ -1,0 +1,17 @@
+{{ define "content" }}
+<section class="card">
+    <h2>{{ .PageTitle }}</h2>
+    <p class="muted">{{ .PageNotice }}</p>
+
+    <div class="stub_meta">
+        <div class="stub_row">
+            <span class="stub_label">Mode</span>
+            <span class="stub_value">{{ .TrainMode }}</span>
+        </div>
+    </div>
+
+    <div class="page_actions">
+        <a class="secondary_link" href="/">← Back to home</a>
+    </div>
+</section>
+{{ end }}
