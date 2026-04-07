@@ -3,11 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
-	"repetidor/internal/web/handlers"
 
 	"repetidor/internal/config"
 	"repetidor/internal/logger"
+	"repetidor/internal/sqlite"
 	"repetidor/internal/web"
+	"repetidor/internal/web/handlers"
 )
 
 func main() {
@@ -33,6 +34,15 @@ func main() {
 		"log_level", cfg.LogLevel,
 		"log_format", cfg.LogFormat,
 	)
+
+	db, err := sqlite.Open(cfg.SQLitePath)
+	if err != nil {
+		appLogger.Error("failed to open sqlite database", "error", err)
+		log.Fatalf("failed to open sqlite database: %v", err)
+	}
+	defer db.Close()
+
+	appLogger.Info("sqlite database opened", "sqlite_path", cfg.SQLitePath)
 
 	handlersContainer, err := handlers.NewContainer()
 	if err != nil {
