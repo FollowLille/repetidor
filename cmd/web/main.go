@@ -44,15 +44,22 @@ func main() {
 
 	appLogger.Info("sqlite database opened", "sqlite_path", cfg.SQLitePath)
 
-	handlersContainer, err := handlers.NewContainer()
+	if err := sqlite.Migrate(db, "./migrations"); err != nil {
+		appLogger.Error("failed to apply migrations", "error", err)
+		log.Fatalf("failed to apply migrations: %v", err)
+	}
+
+	appLogger.Info("sqlite migrations applied")
+
+	topicRepository := sqlite.NewTopicRepository(db)
+
+	handlersContainer, err := handlers.NewContainer(topicRepository)
 	if err != nil {
+		appLogger.Error("failed to initialize handlers", "error", err)
 		log.Fatalf("failed to initialize handlers: %v", err)
 	}
 
 	router := web.NewRouter(handlersContainer)
-	if err != nil {
-		log.Fatalf("failed to initialize router: %v", err)
-	}
 
 	server := &http.Server{
 		Addr:    cfg.Address(),

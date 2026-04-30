@@ -22,6 +22,14 @@ func NewRouter(container *handlers.Container) http.Handler {
 		container.Training.ServeHTTP(w, r)
 	})
 
+	r.Get("/topics", func(w http.ResponseWriter, r *http.Request) {
+		container.Topics.ServeHTTP(w, r)
+	})
+
+	r.Post("/topics", func(w http.ResponseWriter, r *http.Request) {
+		container.Topics.ServeHTTP(w, r)
+	})
+
 	r.Get("/topics/{topic_name}", func(w http.ResponseWriter, r *http.Request) {
 		container.Topic.ServeHTTP(w, r)
 	})

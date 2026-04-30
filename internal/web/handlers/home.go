@@ -4,10 +4,14 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+
+	"repetidor/internal/domain"
+	"repetidor/internal/storage"
 )
 
 type HomeHandler struct {
-	templates *template.Template
+	templates       *template.Template
+	topicRepository storage.TopicRepository
 }
 
 type ModeLink struct {
@@ -20,7 +24,7 @@ type TopicLink struct {
 	URL  string
 }
 
-func NewHomeHandler() (*HomeHandler, error) {
+func NewHomeHandler(topicRepository storage.TopicRepository) (*HomeHandler, error) {
 	tmpl, err := template.ParseFiles(
 		filepath.Join("web", "templates", "layout.html"),
 		filepath.Join("web", "templates", "home.html"),
@@ -29,11 +33,18 @@ func NewHomeHandler() (*HomeHandler, error) {
 		return nil, err
 	}
 	return &HomeHandler{
-		templates: tmpl,
+		templates:       tmpl,
+		topicRepository: topicRepository,
 	}, nil
 }
 
 func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	topics, err := h.topicRepository.List(r.Context())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	data := map[string]any{
 		"Title": "Repetidor",
 		"Modes": []ModeLink{
@@ -42,16 +53,27 @@ func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			{Name: "Easy", URL: "/train/easy"},
 			{Name: "Random", URL: "/train/random"},
 		},
-		"Topics": []TopicLink{
-			{Name: "Comida", URL: "/topics/comida"},
-			{Name: "Trabajo", URL: "/topics/trabajo"},
-			{Name: "Viajes", URL: "/topics/viajes"},
-		},
+		"Topics":    buildTopicLinks(topics),
+		"HasTopics": len(topics) > 0,
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
-		panic(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
+}
+
+func buildTopicLinks(topics []domain.Topic) []TopicLink {
+	result := make([]TopicLink, 0, len(topics))
+
+	for _, topic := range topics {
+		result = append(result, TopicLink{
+			Name: topic.Name,
+			URL:  "/topics/" + topic.Name,
+		})
+	}
+
+	return result
 }

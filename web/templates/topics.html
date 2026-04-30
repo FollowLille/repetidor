@@ -1,0 +1,51 @@
+{{ define "content" }}
+<section class="card">
+    <h2>Topics</h2>
+    <p class="muted">Create and browse vocabulary topics.</p>
+
+    {{ if .FormError }}
+    <div class="form_error">{{ .FormError }}</div>
+    {{ end }}
+
+    <form class="topic_form" method="post" action="/topics">
+        <div class="form_group">
+            <label class="form_label" for="name">Name</label>
+            <input class="form_input" id="name" name="name" type="text" value="{{ .FormName }}" placeholder="Comida" required>
+        </div>
+
+        <div class="form_group">
+            <label class="form_label" for="description">Description</label>
+            <textarea class="form_textarea" id="description" name="description" rows="4" placeholder="Short notes, examples, or grammar reminders...">{{ .FormDescription }}</textarea>
+        </div>
+
+        <div class="page_actions">
+            <button class="mode_button" type="submit">Create topic</button>
+        </div>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Saved topics</h2>
+
+    {{ if .HasTopics }}
+    <ul class="topic_list">
+        {{ range .Topics }}
+        <li>
+            <a class="topic_item" href="/topics/{{ .Name }}">
+                <span class="topic_name">{{ .Name }}</span>
+                {{ if .Description }}
+                <span class="topic_description">{{ .Description }}</span>
+                {{ end }}
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+    {{ else }}
+    <p class="muted">No topics yet. Create your first one above.</p>
+    {{ end }}
+
+    <div class="page_actions">
+        <a class="secondary_link" href="/">← Back to home</a>
+    </div>
+</section>
+{{ end }}

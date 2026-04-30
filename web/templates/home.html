@@ -12,8 +12,9 @@
 
 <section class="card">
     <h2>Topics</h2>
-    <p class="muted">Topic-based vocabulary and notes will appear here.</p>
+    <p class="muted">Topic-based vocabulary and notes live here.</p>
 
+    {{ if .HasTopics }}
     <ul class="topic_list">
         {{ range .Topics }}
         <li>
@@ -21,5 +22,12 @@
         </li>
         {{ end }}
     </ul>
+    {{ else }}
+    <p class="muted">No topics yet. Create your first one on the topics page.</p>
+    {{ end }}
+
+    <div class="page_actions">
+        <a class="secondary_link" href="/topics">Open all topics →</a>
+    </div>
 </section>
 {{ end }}
