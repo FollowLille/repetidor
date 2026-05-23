@@ -170,3 +170,17 @@ body {
 .mode_button:hover {
     background: var(--accent-hover);
 }
+.topic_form {
+    display: grid;
+    gap: 10px;
+}
+
+.topic_form input,
+.topic_form textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: #0f1424;
+    color: var(--text);
+    padding: 10px;
+}

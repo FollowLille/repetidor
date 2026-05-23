@@ -1,0 +1,23 @@
+{{ define "content" }}
+<section class="card">
+    <h2>Topics</h2>
+    <form method="post" action="/topics" class="topic_form">
+        <label>Name</label>
+        <input type="text" name="name" required>
+        <label>Description</label>
+        <textarea name="description" rows="4"></textarea>
+        <button class="mode_button" type="submit">Create topic</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Existing topics</h2>
+    <ul class="topic_list">
+        {{ range .Topics }}
+        <li><a class="topic_item" href="/topics/{{ .Name }}">{{ .Name }}</a></li>
+        {{ else }}
+        <li class="muted">No topics yet.</li>
+        {{ end }}
+    </ul>
+</section>
+{{ end }}
