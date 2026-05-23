@@ -1,31 +1,55 @@
 {{ define "content" }}
 <section class="card">
-    <h2>Topic: {{ .TopicName }}</h2>
-    <p class="muted">{{ .TopicNotes }}</p>
+    <h2>Topic: {{ .Topic.Name }}</h2>
+    <p class="muted">{{ .Topic.Description }}</p>
 
-    <div class="stub_meta">
-        <div class="stub_row">
-            <span class="stub_label">Key</span>
-            <span class="stub_value">{{ .TopicKey }}</span>
+    {{ if .Error }}
+    <p class="form_error">{{ .Error }}</p>
+    {{ end }}
+
+    <h3>Add word</h3>
+    <form method="post" action="/topics/{{ .Topic.Name }}/words" class="word_form">
+        <div class="form_group">
+            <label for="word_spanish">Spanish</label>
+            <input id="word_spanish" class="form_input" type="text" name="spanish" value="{{ .WordForm.Spanish }}" required>
         </div>
-    </div>
+
+        <div class="form_group">
+            <label for="word_russian">Russian</label>
+            <input id="word_russian" class="form_input" type="text" name="russian" value="{{ .WordForm.Russian }}" required>
+        </div>
+
+        <div class="form_group">
+            <label for="word_notes">Notes</label>
+            <textarea id="word_notes" class="form_textarea" name="notes" rows="3">{{ .WordForm.Notes }}</textarea>
+        </div>
+
+        <button class="mode_button" type="submit">Add word</button>
+    </form>
 </section>
 
 <section class="card">
-    <h2>Words</h2>
+    <h3>Saved words</h3>
 
-    <ul class="topic_word_list">
+    {{ if .Words }}
+    <ul class="word_list">
         {{ range .Words }}
-        <li class="topic_word_item">
-            <span class="topic_word_es">{{ .Spanish }}</span>
-            <span class="topic_word_sep">—</span>
-            <span class="topic_word_ru">{{ .Russian }}</span>
+        <li class="word_item">
+            <div class="word_pair">{{ .Spanish }} → {{ .Russian }}</div>
+            {{ if .Notes }}
+            <div class="word_notes">{{ .Notes }}</div>
+            {{ end }}
         </li>
         {{ end }}
     </ul>
+    {{ else }}
+    <p class="muted">No words yet. Add the first one above.</p>
+    {{ end }}
 
     <div class="page_actions">
-        <a class="secondary_link" href="/">← Back to home</a>
+        <a class="secondary_link" href="/topics/{{ .Topic.Name }}/edit">Edit topic</a>
+        <a class="secondary_link" href="/topics">← Back to topics</a>
+        <a class="secondary_link" href="/">Back to home</a>
     </div>
 </section>
 {{ end }}

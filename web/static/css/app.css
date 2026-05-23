@@ -88,13 +88,24 @@ body {
 
 
 .secondary_link {
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    background: var(--topic-bg);
+    color: var(--text);
     text-decoration: none;
     font-weight: 600;
+    line-height: 1;
 }
 
 .secondary_link:hover {
-    color: var(--accent-hover);
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(124, 156, 255, 0.12);
 }
 
 .stub_meta {
@@ -119,6 +130,10 @@ body {
 }
 
 .page_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
     margin-top: 20px;
 }
 
@@ -169,4 +184,85 @@ body {
 
 .mode_button:hover {
     background: var(--accent-hover);
+}
+.topic_form {
+    display: grid;
+    gap: 10px;
+}
+
+.topic_form input,
+.topic_form textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: #0f1424;
+    color: var(--text);
+    padding: 10px;
+}
+
+.form_group {
+    display: grid;
+    gap: 8px;
+}
+
+.form_input,
+.form_textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: #0f1424;
+    color: var(--text);
+    padding: 10px;
+}
+
+.form_error {
+    color: #ffb4b4;
+    font-weight: 600;
+    margin: 0;
+}
+
+.warning_block {
+    border: 1px solid #6f4f4f;
+    background: #2b1c1c;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 14px;
+}
+
+.warning_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+
+.word_form {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.word_list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: grid;
+    gap: 10px;
+}
+
+.word_item {
+    background: var(--topic-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+}
+
+.word_pair {
+    font-weight: 700;
+}
+
+.word_notes {
+    margin-top: 6px;
+    color: var(--muted);
 }

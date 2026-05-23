@@ -2,29 +2,28 @@ package web
 
 import (
 	"net/http"
+	"repetidor/internal/logger"
+	"repetidor/internal/web/handlers"
+	webmiddleware "repetidor/internal/web/middleware"
 
 	"github.com/go-chi/chi/v5"
-
-	"repetidor/internal/web/handlers"
 )
 
-func NewRouter(container *handlers.Container) http.Handler {
+func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Handler {
 	r := chi.NewRouter()
+	r.Use(webmiddleware.RequestLogger(appLogger))
 
 	fileServer := http.FileServer(http.Dir("./web/static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		container.Home.ServeHTTP(w, r)
-	})
-
-	r.Get("/train/{train_mode}", func(w http.ResponseWriter, r *http.Request) {
-		container.Training.ServeHTTP(w, r)
-	})
-
-	r.Get("/topics/{topic_name}", func(w http.ResponseWriter, r *http.Request) {
-		container.Topic.ServeHTTP(w, r)
-	})
+	r.Get("/", container.Home.ServeHTTP)
+	r.Get("/train/{train_mode}", container.Training.ServeHTTP)
+	r.Method(http.MethodGet, "/topics", container.Topics)
+	r.Method(http.MethodPost, "/topics", container.Topics)
+	r.Method(http.MethodGet, "/topics/{topic_name}", container.Topic)
+	r.Method(http.MethodPost, "/topics/{topic_name}/words", container.Topic)
+	r.Method(http.MethodGet, "/topics/{topic_name}/edit", container.TopicEdit)
+	r.Method(http.MethodPost, "/topics/{topic_name}/edit", container.TopicEdit)
 
 	return r
 }

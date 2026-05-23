@@ -3,11 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
-	"repetidor/internal/web/handlers"
 
 	"repetidor/internal/config"
 	"repetidor/internal/logger"
+	"repetidor/internal/sqlite"
 	"repetidor/internal/web"
+	"repetidor/internal/web/handlers"
 )
 
 func main() {
@@ -16,10 +17,7 @@ func main() {
 		log.Fatalf("failed to load config: %v", err)
 	}
 
-	appLogger, err := logger.New(logger.Options{
-		Level:  cfg.LogLevel,
-		Format: cfg.LogFormat,
-	})
+	appLogger, err := logger.New(logger.Options{Level: cfg.LogLevel, Format: cfg.LogFormat})
 	if err != nil {
 		log.Fatalf("failed to initialize logger: %v", err)
 	}
@@ -34,23 +32,34 @@ func main() {
 		"log_format", cfg.LogFormat,
 	)
 
-	handlersContainer, err := handlers.NewContainer()
+	db, err := sqlite.Open(cfg.SQLitePath)
 	if err != nil {
+		appLogger.Error("failed to open sqlite database", "error", err, "sqlite_path", cfg.SQLitePath)
+		log.Fatalf("failed to open sqlite database: %v", err)
+	}
+	defer db.Close()
+
+	appLogger.Info("sqlite database opened", "sqlite_path", cfg.SQLitePath)
+
+	if err := sqlite.Migrate(db, "migrations"); err != nil {
+		appLogger.Error("failed to apply migrations", "error", err)
+		log.Fatalf("failed to apply migrations: %v", err)
+	}
+
+	appLogger.Info("sqlite migrations applied")
+
+	topicRepo := sqlite.NewTopicRepository(db)
+	wordRepo := sqlite.NewWordRepository(db)
+	handlersContainer, err := handlers.NewContainer(topicRepo, wordRepo)
+	if err != nil {
+		appLogger.Error("failed to initialize handlers", "error", err)
 		log.Fatalf("failed to initialize handlers: %v", err)
 	}
 
-	router := web.NewRouter(handlersContainer)
-	if err != nil {
-		log.Fatalf("failed to initialize router: %v", err)
-	}
-
-	server := &http.Server{
-		Addr:    cfg.Address(),
-		Handler: router,
-	}
+	router := web.NewRouter(handlersContainer, appLogger)
+	server := &http.Server{Addr: cfg.Address(), Handler: router}
 
 	appLogger.Info("http server is starting", "address", cfg.Address())
-
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		appLogger.Error("http server stopped with error", "error", err)
 		log.Fatalf("server failed: %v", err)

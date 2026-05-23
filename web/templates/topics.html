@@ -1,0 +1,48 @@
+{{ define "content" }}
+<section class="card">
+    <h2>Topics</h2>
+
+    {{ if .Warning }}
+    <div class="warning_block">
+        <p class="form_error">{{ .Warning }}</p>
+        {{ if .Form.Name }}
+        <div class="warning_actions">
+            <a class="secondary_link" href="/topics/{{ .Form.Name }}">Open existing topic</a>
+            <a class="secondary_link" href="/topics/{{ .Form.Name }}/edit">Edit existing topic</a>
+            <a class="secondary_link" href="/topics">Back to topics</a>
+            <a class="secondary_link" href="/">Back to home</a>
+        </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <form method="post" action="/topics" class="topic_form">
+        <div class="form_group">
+            <label for="topic_name">Name</label>
+            <input id="topic_name" class="form_input" type="text" name="name" value="{{ .Form.Name }}" required>
+        </div>
+
+        <div class="form_group">
+            <label for="topic_description">Description</label>
+            <textarea id="topic_description" class="form_textarea" name="description" rows="4">{{ .Form.Description }}</textarea>
+        </div>
+
+        <button class="mode_button" type="submit">Create topic</button>
+    </form>
+
+    <div class="page_actions">
+        <a class="secondary_link" href="/">← Back to home</a>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Existing topics</h2>
+    <ul class="topic_list">
+        {{ range .Topics }}
+        <li><a class="topic_item" href="/topics/{{ .Name }}">{{ .Name }}</a></li>
+        {{ else }}
+        <li class="muted">No topics yet.</li>
+        {{ end }}
+    </ul>
+</section>
+{{ end }}
