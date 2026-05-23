@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -90,7 +91,7 @@ func (h *TopicsHandler) create(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// TODO: replace string check with explicit driver-specific unique violation mapping.
 		if strings.Contains(strings.ToLower(err.Error()), "unique") {
-			h.renderList(w, r, `Topic "`+name+`" already exists.`, map[string]string{"Name": name, "Description": description})
+			h.renderList(w, r, fmt.Sprintf("Topic %q already exists.", name), map[string]string{"Name": name, "Description": description})
 			return
 		}
 		http.Error(w, "failed to create topic", http.StatusInternalServerError)
@@ -179,7 +180,7 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// TODO: replace string check with explicit driver-specific unique violation mapping.
 		if strings.Contains(strings.ToLower(err.Error()), "unique") {
-			h.renderEdit(w, r, `Topic "`+newName+`" already exists.`, map[string]string{"Name": newName, "Description": newDescription})
+			h.renderEdit(w, r, fmt.Sprintf("Topic %q already exists.", newName), map[string]string{"Name": newName, "Description": newDescription})
 			return
 		}
 		http.Error(w, "failed to update topic", http.StatusInternalServerError)
