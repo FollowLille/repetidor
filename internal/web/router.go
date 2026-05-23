@@ -2,13 +2,16 @@ package web
 
 import (
 	"net/http"
+	"repetidor/internal/logger"
 	"repetidor/internal/web/handlers"
+	webmiddleware "repetidor/internal/web/middleware"
 
 	"github.com/go-chi/chi/v5"
 )
 
-func NewRouter(container *handlers.Container) http.Handler {
+func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Handler {
 	r := chi.NewRouter()
+	r.Use(webmiddleware.RequestLogger(appLogger))
 
 	fileServer := http.FileServer(http.Dir("./web/static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))

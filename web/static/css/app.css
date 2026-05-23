@@ -220,3 +220,16 @@ body {
     gap: 12px;
     flex-wrap: wrap;
 }
+
+.page_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.secondary_link {
+    display: inline-flex;
+    align-items: center;
+}

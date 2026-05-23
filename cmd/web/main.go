@@ -55,7 +55,7 @@ func main() {
 		log.Fatalf("failed to initialize handlers: %v", err)
 	}
 
-	router := web.NewRouter(handlersContainer)
+	router := web.NewRouter(handlersContainer, appLogger)
 	server := &http.Server{Addr: cfg.Address(), Handler: router}
 
 	appLogger.Info("http server is starting", "address", cfg.Address())
