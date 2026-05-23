@@ -1,15 +1,17 @@
 package handlers
 
-import "net/http"
+import "repetidor/internal/storage"
 
 type Container struct {
-	Home     http.Handler
-	Training http.Handler
-	Topic    http.Handler
+	Home      *HomeHandler
+	Training  *TrainingHandler
+	Topics    *TopicsHandler
+	Topic     *TopicHandler
+	TopicEdit *TopicEditHandler
 }
 
-func NewContainer() (*Container, error) {
-	homeHandler, err := NewHomeHandler()
+func NewContainer(topicRepo storage.TopicRepository) (*Container, error) {
+	homeHandler, err := NewHomeHandler(topicRepo)
 	if err != nil {
 		return nil, err
 	}
@@ -19,14 +21,20 @@ func NewContainer() (*Container, error) {
 		return nil, err
 	}
 
-	topicHandler, err := NewTopicHandler()
+	topicsHandler, err := NewTopicsHandler(topicRepo)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Container{
-		Home:     homeHandler,
-		Training: trainingHandler,
-		Topic:    topicHandler,
-	}, nil
+	topicHandler, err := NewTopicHandler(topicRepo)
+	if err != nil {
+		return nil, err
+	}
+
+	topicEditHandler, err := NewTopicEditHandler(topicRepo)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler}, nil
 }

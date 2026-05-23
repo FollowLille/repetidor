@@ -170,3 +170,53 @@ body {
 .mode_button:hover {
     background: var(--accent-hover);
 }
+.topic_form {
+    display: grid;
+    gap: 10px;
+}
+
+.topic_form input,
+.topic_form textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: #0f1424;
+    color: var(--text);
+    padding: 10px;
+}
+
+.form_group {
+    display: grid;
+    gap: 8px;
+}
+
+.form_input,
+.form_textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: #0f1424;
+    color: var(--text);
+    padding: 10px;
+}
+
+.form_error {
+    color: #ffb4b4;
+    font-weight: 600;
+    margin: 0;
+}
+
+.warning_block {
+    border: 1px solid #6f4f4f;
+    background: #2b1c1c;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 14px;
+}
+
+.warning_actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
