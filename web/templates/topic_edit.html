@@ -1,0 +1,29 @@
+{{ define "content" }}
+<section class="card">
+    <h2>Edit topic: {{ .OriginalName }}</h2>
+
+    {{ if .Error }}
+    <p class="form_error">{{ .Error }}</p>
+    {{ end }}
+
+    <form method="post" action="/topics/{{ .OriginalName }}/edit" class="topic_form">
+        <div class="form_group">
+            <label for="topic_name">Name</label>
+            <input id="topic_name" class="form_input" type="text" name="name" value="{{ .Topic.Name }}" required>
+        </div>
+
+        <div class="form_group">
+            <label for="topic_description">Description</label>
+            <textarea id="topic_description" class="form_textarea" name="description" rows="4">{{ .Topic.Description }}</textarea>
+        </div>
+
+        <button class="mode_button" type="submit">Save changes</button>
+    </form>
+
+    <div class="page_actions">
+        <a class="secondary_link" href="/topics/{{ .OriginalName }}">Back to topic</a>
+        <a class="secondary_link" href="/topics">Back to topics</a>
+        <a class="secondary_link" href="/">Back to home</a>
+    </div>
+</section>
+{{ end }}
