@@ -2,10 +2,9 @@ package web
 
 import (
 	"net/http"
+	"repetidor/internal/web/handlers"
 
 	"github.com/go-chi/chi/v5"
-
-	"repetidor/internal/web/handlers"
 )
 
 func NewRouter(container *handlers.Container) http.Handler {
@@ -14,17 +13,11 @@ func NewRouter(container *handlers.Container) http.Handler {
 	fileServer := http.FileServer(http.Dir("./web/static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		container.Home.ServeHTTP(w, r)
-	})
-
-	r.Get("/train/{train_mode}", func(w http.ResponseWriter, r *http.Request) {
-		container.Training.ServeHTTP(w, r)
-	})
-
-	r.Get("/topics/{topic_name}", func(w http.ResponseWriter, r *http.Request) {
-		container.Topic.ServeHTTP(w, r)
-	})
+	r.Get("/", container.Home.ServeHTTP)
+	r.Get("/train/{train_mode}", container.Training.ServeHTTP)
+	r.Method(http.MethodGet, "/topics", container.Topics)
+	r.Method(http.MethodPost, "/topics", container.Topics)
+	r.Get("/topics/{topic_name}", container.Topic.ServeHTTP)
 
 	return r
 }
