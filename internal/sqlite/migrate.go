@@ -1,7 +1,6 @@
 package sqlite
 
 import (
-	"database/sql"
 	"errors"
 	"fmt"
 
@@ -10,8 +9,14 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-func Migrate(db *sql.DB, migrationsDir string) error {
-	driver, err := sqlitemigrate.WithInstance(db, &sqlitemigrate.Config{})
+func Migrate(sqlitePath string, migrationsDir string) error {
+	migrationDB, err := Open(sqlitePath)
+	if err != nil {
+		return fmt.Errorf("open migration database: %w", err)
+	}
+	defer migrationDB.Close()
+
+	driver, err := sqlitemigrate.WithInstance(migrationDB, &sqlitemigrate.Config{})
 	if err != nil {
 		return fmt.Errorf("create sqlite migration driver: %w", err)
 	}

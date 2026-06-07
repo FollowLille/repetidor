@@ -32,6 +32,13 @@ func main() {
 		"log_format", cfg.LogFormat,
 	)
 
+	if err := sqlite.Migrate(cfg.SQLitePath, "migrations"); err != nil {
+		appLogger.Error("failed to apply migrations", "error", err)
+		log.Fatalf("failed to apply migrations: %v", err)
+	}
+
+	appLogger.Info("sqlite migrations applied")
+
 	db, err := sqlite.Open(cfg.SQLitePath)
 	if err != nil {
 		appLogger.Error("failed to open sqlite database", "error", err, "sqlite_path", cfg.SQLitePath)
@@ -40,13 +47,6 @@ func main() {
 	defer db.Close()
 
 	appLogger.Info("sqlite database opened", "sqlite_path", cfg.SQLitePath)
-
-	if err := sqlite.Migrate(db, "migrations"); err != nil {
-		appLogger.Error("failed to apply migrations", "error", err)
-		log.Fatalf("failed to apply migrations: %v", err)
-	}
-
-	appLogger.Info("sqlite migrations applied")
 
 	topicRepo := sqlite.NewTopicRepository(db)
 	wordRepo := sqlite.NewWordRepository(db)
