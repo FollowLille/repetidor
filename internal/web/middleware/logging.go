@@ -12,6 +12,9 @@ type statusRecorder struct {
 }
 
 func (r *statusRecorder) WriteHeader(code int) {
+	if r.status != 0 {
+		return
+	}
 	r.status = code
 	r.ResponseWriter.WriteHeader(code)
 }
@@ -35,15 +38,23 @@ func RequestLogger(log logger.Logger) func(http.Handler) http.Handler {
 				recorder.status = http.StatusOK
 			}
 
-			log.Info(
-				"http request completed",
+			args := []any{
 				"method", r.Method,
 				"path", r.URL.Path,
 				"status", recorder.status,
 				"duration_ms", time.Since(startedAt).Milliseconds(),
 				"remote_addr", r.RemoteAddr,
 				"user_agent", r.UserAgent(),
-			)
+			}
+
+			switch {
+			case recorder.status >= http.StatusInternalServerError:
+				log.Error("http request completed", args...)
+			case recorder.status >= http.StatusBadRequest:
+				log.Warn("http request completed", args...)
+			default:
+				log.Info("http request completed", args...)
+			}
 		})
 	}
 }
