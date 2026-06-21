@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS words_old (
+CREATE TABLE words_old (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     topic_id INTEGER NOT NULL,
     spanish TEXT NOT NULL,
