@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"repetidor/internal/domain"
+	"repetidor/internal/logger"
 	"repetidor/internal/storage"
 	"strings"
 
@@ -16,41 +17,44 @@ import (
 type TopicsHandler struct {
 	templates *template.Template
 	topicRepo storage.TopicRepository
+	logger    logger.Logger
 }
 
 type TopicHandler struct {
 	templates *template.Template
 	topicRepo storage.TopicRepository
 	wordRepo  storage.WordRepository
+	logger    logger.Logger
 }
 
 type TopicEditHandler struct {
 	templates *template.Template
 	topicRepo storage.TopicRepository
+	logger    logger.Logger
 }
 
-func NewTopicsHandler(topicRepo storage.TopicRepository) (*TopicsHandler, error) {
+func NewTopicsHandler(topicRepo storage.TopicRepository, appLogger logger.Logger) (*TopicsHandler, error) {
 	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topics.html"))
 	if err != nil {
 		return nil, err
 	}
-	return &TopicsHandler{templates: tmpl, topicRepo: topicRepo}, nil
+	return &TopicsHandler{templates: tmpl, topicRepo: topicRepo, logger: appLogger}, nil
 }
 
-func NewTopicHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository) (*TopicHandler, error) {
+func NewTopicHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, appLogger logger.Logger) (*TopicHandler, error) {
 	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topic_show.html"))
 	if err != nil {
 		return nil, err
 	}
-	return &TopicHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo}, nil
+	return &TopicHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, logger: appLogger}, nil
 }
 
-func NewTopicEditHandler(topicRepo storage.TopicRepository) (*TopicEditHandler, error) {
+func NewTopicEditHandler(topicRepo storage.TopicRepository, appLogger logger.Logger) (*TopicEditHandler, error) {
 	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topic_edit.html"))
 	if err != nil {
 		return nil, err
 	}
-	return &TopicEditHandler{templates: tmpl, topicRepo: topicRepo}, nil
+	return &TopicEditHandler{templates: tmpl, topicRepo: topicRepo, logger: appLogger}, nil
 }
 
 func (h *TopicsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -67,12 +71,14 @@ func (h *TopicsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (h *TopicsHandler) renderList(w http.ResponseWriter, r *http.Request, warning string, form map[string]string) {
 	topics, err := h.topicRepo.List(r.Context())
 	if err != nil {
+		h.logger.Error("failed to load topics", "error", err)
 		http.Error(w, "failed to load topics", http.StatusInternalServerError)
 		return
 	}
 	data := map[string]any{"Title": "Topics", "Topics": topics, "Warning": warning, "Form": form}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("failed to render topics page", "error", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -95,6 +101,7 @@ func (h *TopicsHandler) create(w http.ResponseWriter, r *http.Request) {
 			h.renderList(w, r, fmt.Sprintf("Topic %q already exists.", name), map[string]string{"Name": name, "Description": description})
 			return
 		}
+		h.logger.Error("failed to create topic", "error", err, "topic_name", name)
 		http.Error(w, "failed to create topic", http.StatusInternalServerError)
 		return
 	}
@@ -117,12 +124,14 @@ func (h *TopicHandler) renderShow(w http.ResponseWriter, r *http.Request, warnin
 		return
 	}
 	if err != nil {
+		h.logger.Error("failed to load topic", "error", err, "topic_name", topicName)
 		http.Error(w, "failed to load topic", http.StatusInternalServerError)
 		return
 	}
 
 	words, err := h.wordRepo.ListByTopicID(r.Context(), topic.ID)
 	if err != nil {
+		h.logger.Error("failed to load words", "error", err, "topic_id", topic.ID)
 		http.Error(w, "failed to load words", http.StatusInternalServerError)
 		return
 	}
@@ -130,6 +139,7 @@ func (h *TopicHandler) renderShow(w http.ResponseWriter, r *http.Request, warnin
 	data := map[string]any{"Title": "Topic", "Topic": topic, "Words": words, "Warning": warning, "Form": form}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("failed to render topic page", "error", err, "topic_id", topic.ID)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -161,6 +171,7 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err != nil {
+		h.logger.Error("failed to load topic for word creation", "error", err, "topic_name", topicName)
 		http.Error(w, "failed to load topic", http.StatusInternalServerError)
 		return
 	}
@@ -169,9 +180,10 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// TODO: replace string check with explicit driver-specific unique violation mapping.
 		if strings.Contains(strings.ToLower(err.Error()), "unique") {
-			h.renderShow(w, r, fmt.Sprintf("Word %q → %q already exists in this topic.", spanish, russian), form)
+			h.renderShow(w, r, fmt.Sprintf("Word %q -> %q already exists in this topic.", spanish, russian), form)
 			return
 		}
+		h.logger.Error("failed to create word", "error", err, "topic_id", topic.ID)
 		http.Error(w, "failed to create word", http.StatusInternalServerError)
 		return
 	}
@@ -198,6 +210,7 @@ func (h *TopicEditHandler) renderEdit(w http.ResponseWriter, r *http.Request, er
 		return
 	}
 	if err != nil {
+		h.logger.Error("failed to load topic for edit", "error", err, "topic_name", topicName)
 		http.Error(w, "failed to load topic", http.StatusInternalServerError)
 		return
 	}
@@ -208,6 +221,7 @@ func (h *TopicEditHandler) renderEdit(w http.ResponseWriter, r *http.Request, er
 	data := map[string]any{"Title": "Edit topic", "Topic": topic, "Error": errMsg, "OriginalName": topicName}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("failed to render topic edit page", "error", err, "topic_id", topic.ID)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -220,6 +234,7 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err != nil {
+		h.logger.Error("failed to load topic for update", "error", err, "topic_name", originalName)
 		http.Error(w, "failed to load topic", http.StatusInternalServerError)
 		return
 	}
@@ -240,6 +255,7 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 			h.renderEdit(w, r, fmt.Sprintf("Topic %q already exists.", newName), map[string]string{"Name": newName, "Description": newDescription})
 			return
 		}
+		h.logger.Error("failed to update topic", "error", err, "topic_id", current.ID, "new_name", newName)
 		http.Error(w, "failed to update topic", http.StatusInternalServerError)
 		return
 	}
