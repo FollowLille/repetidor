@@ -10,7 +10,7 @@ type Container struct {
 	TopicEdit *TopicEditHandler
 }
 
-func NewContainer(topicRepo storage.TopicRepository) (*Container, error) {
+func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository) (*Container, error) {
 	homeHandler, err := NewHomeHandler(topicRepo)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func NewContainer(topicRepo storage.TopicRepository) (*Container, error) {
 		return nil, err
 	}
 
-	topicHandler, err := NewTopicHandler(topicRepo)
+	topicHandler, err := NewTopicHandler(topicRepo, wordRepo)
 	if err != nil {
 		return nil, err
 	}
