@@ -21,6 +21,7 @@ type TopicsHandler struct {
 type TopicHandler struct {
 	templates *template.Template
 	topicRepo storage.TopicRepository
+	wordRepo  storage.WordRepository
 }
 
 type TopicEditHandler struct {
@@ -36,12 +37,12 @@ func NewTopicsHandler(topicRepo storage.TopicRepository) (*TopicsHandler, error)
 	return &TopicsHandler{templates: tmpl, topicRepo: topicRepo}, nil
 }
 
-func NewTopicHandler(topicRepo storage.TopicRepository) (*TopicHandler, error) {
+func NewTopicHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository) (*TopicHandler, error) {
 	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topic_show.html"))
 	if err != nil {
 		return nil, err
 	}
-	return &TopicHandler{templates: tmpl, topicRepo: topicRepo}, nil
+	return &TopicHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo}, nil
 }
 
 func NewTopicEditHandler(topicRepo storage.TopicRepository) (*TopicEditHandler, error) {
@@ -101,6 +102,10 @@ func (h *TopicsHandler) create(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TopicHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	h.renderShow(w, r, "", nil)
+}
+
+func (h *TopicHandler) renderShow(w http.ResponseWriter, r *http.Request, warning string, form map[string]string) {
 	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
 	if topicName == "" {
 		http.NotFound(w, r)
@@ -115,11 +120,63 @@ func (h *TopicHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to load topic", http.StatusInternalServerError)
 		return
 	}
-	data := map[string]any{"Title": "Topic", "Topic": topic}
+
+	words, err := h.wordRepo.ListByTopicID(r.Context(), topic.ID)
+	if err != nil {
+		http.Error(w, "failed to load words", http.StatusInternalServerError)
+		return
+	}
+
+	data := map[string]any{"Title": "Topic", "Topic": topic, "Words": words, "Warning": warning, "Form": form}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "invalid form", http.StatusBadRequest)
+		return
+	}
+
+	spanish := strings.TrimSpace(r.FormValue("spanish"))
+	russian := strings.TrimSpace(r.FormValue("russian"))
+	notes := strings.TrimSpace(r.FormValue("notes"))
+	form := map[string]string{"Spanish": spanish, "Russian": russian, "Notes": notes}
+
+	if spanish == "" {
+		h.renderShow(w, r, "Spanish is required.", form)
+		return
+	}
+	if russian == "" {
+		h.renderShow(w, r, "Russian is required.", form)
+		return
+	}
+
+	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
+	if errors.Is(err, storage.ErrTopicNotFound) {
+		http.NotFound(w, r)
+		return
+	}
+	if err != nil {
+		http.Error(w, "failed to load topic", http.StatusInternalServerError)
+		return
+	}
+
+	_, err = h.wordRepo.Create(r.Context(), domain.Word{TopicID: topic.ID, Spanish: spanish, Russian: russian, Notes: notes})
+	if err != nil {
+		// TODO: replace string check with explicit driver-specific unique violation mapping.
+		if strings.Contains(strings.ToLower(err.Error()), "unique") {
+			h.renderShow(w, r, fmt.Sprintf("Word %q → %q already exists in this topic.", spanish, russian), form)
+			return
+		}
+		http.Error(w, "failed to create word", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/topics/"+topic.Name, http.StatusSeeOther)
 }
 
 func (h *TopicEditHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
