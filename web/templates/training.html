@@ -1,17 +1,22 @@
 {{ define "content" }}
-<section class="card">
-    <h2>{{ .PageTitle }}</h2>
-    <p class="muted">Mode: {{ .TrainMode }}</p>
+<section class="card training_card">
+    <div class="training_head">
+        <div>
+            <h2>{{ .PageTitle }}</h2>
+            <p class="muted">Mode: {{ .TrainMode }}</p>
+        </div>
+        <a class="secondary_link" href="/">Home</a>
+    </div>
 
     {{ if .Result }}
         <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
             <strong>{{ if .Result.Correct }}Correct{{ else }}Try again{{ end }}</strong>
-            <div class="training_result_grid">
-                <span>Direction</span><b>{{ .Result.DirectionLabel }}</b>
-                <span>Prompt</span><b>{{ .Result.Prompt }}</b>
-                <span>Your reply</span><b>{{ .Result.Reply }}</b>
-                <span>Target</span><b>{{ .Result.Target }}</b>
-            </div>
+            <dl class="result_grid">
+                <dt>Direction</dt><dd>{{ .Result.DirectionLabel }}</dd>
+                <dt>Prompt</dt><dd>{{ .Result.Prompt }}</dd>
+                <dt>Your reply</dt><dd>{{ .Result.Reply }}</dd>
+                <dt>Target</dt><dd>{{ .Result.Target }}</dd>
+            </dl>
         </div>
     {{ end }}
 
@@ -19,11 +24,10 @@
         <p class="muted">{{ .PageNotice }}</p>
         <div class="page_actions">
             <a class="secondary_link" href="/topics">Open topics</a>
-            <a class="secondary_link" href="/">Back to home</a>
         </div>
     {{ else }}
         <div class="training_prompt">
-            <p class="muted">{{ .DirectionLabel }} · topic: {{ .Topic.Name }}</p>
+            <p class="muted">{{ .DirectionLabel }} | topic: {{ .Topic.Name }} | input: {{ .InputMode }}</p>
             <div class="training_prompt_text">{{ .Prompt }}</div>
         </div>
 
@@ -32,16 +36,88 @@
             <input type="hidden" name="direction" value="{{ .Direction }}">
             <input type="hidden" name="prompt" value="{{ .Prompt }}">
             <input type="hidden" name="target" value="{{ .Target }}">
-            <label class="form_group">
-                Your reply
-                <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
-            </label>
+
+            {{ if eq .InputMode "build" }}
+                <div class="letter_builder" data-letter-builder data-target="{{ .Target }}">
+                    <input type="hidden" name="reply" data-letter-reply>
+                    <div class="letter_slots" data-letter-slots></div>
+                    <div class="letter_bank" data-letter-bank></div>
+                    <div class="page_actions compact_actions">
+                        <button class="secondary_link" type="button" data-letter-back>Backspace</button>
+                        <button class="secondary_link" type="button" data-letter-clear>Clear</button>
+                    </div>
+                </div>
+            {{ else }}
+                <label class="form_group">
+                    Your reply
+                    <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
+                </label>
+            {{ end }}
+
             <div class="page_actions">
                 <button class="mode_button" type="submit">Check</button>
                 <a class="secondary_link" href="/train/{{ .TrainMode }}">Skip</a>
-                <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>
     {{ end }}
 </section>
+
+<script>
+(function () {
+    const builders = document.querySelectorAll('[data-letter-builder]');
+    builders.forEach(function (builder) {
+        const target = builder.dataset.target || '';
+        const letters = Array.from(target).filter(function (ch) { return ch.trim() !== ''; });
+        const slots = builder.querySelector('[data-letter-slots]');
+        const bank = builder.querySelector('[data-letter-bank]');
+        const reply = builder.querySelector('[data-letter-reply]');
+        const picked = [];
+
+        function sync() {
+            reply.value = picked.join('');
+            slots.innerHTML = '';
+            letters.forEach(function (_, index) {
+                const cell = document.createElement('button');
+                cell.type = 'button';
+                cell.className = 'letter_slot';
+                cell.textContent = picked[index] || '';
+                cell.addEventListener('click', pop);
+                slots.appendChild(cell);
+            });
+        }
+
+        function pop() {
+            picked.pop();
+            sync();
+        }
+
+        function push(button) {
+            if (picked.length >= letters.length || button.disabled) return;
+            picked.push(button.textContent);
+            button.disabled = true;
+            sync();
+        }
+
+        letters.sort(function () { return Math.random() - 0.5; }).forEach(function (letter) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'letter_tile';
+            button.textContent = letter;
+            button.addEventListener('click', function () { push(button); });
+            bank.appendChild(button);
+        });
+
+        builder.querySelector('[data-letter-back]').addEventListener('click', function () {
+            pop();
+            Array.from(bank.children).forEach(function (button) { button.disabled = false; });
+        });
+        builder.querySelector('[data-letter-clear]').addEventListener('click', function () {
+            picked.length = 0;
+            Array.from(bank.children).forEach(function (button) { button.disabled = false; });
+            sync();
+        });
+        sync();
+    });
+}());
+</script>
 {{ end }}
