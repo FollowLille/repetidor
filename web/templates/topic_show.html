@@ -4,7 +4,7 @@
     <p class="muted">{{ .Topic.Description }}</p>
 
     <div class="page_actions">
-        <a class="secondary_link" href="/train/random">Train random</a>
+        <a class="secondary_link" href="/train/mixed">Train mixed</a>
         <a class="secondary_link" href="/topics/{{ .Topic.Name }}/edit">Edit topic</a>
         <a class="secondary_link" href="/topics">Back to topics</a>
         <a class="secondary_link" href="/">Back to home</a>
@@ -34,14 +34,22 @@
 <section class="card">
     <h2>Saved words</h2>
     {{ if .Words }}
-        <ul class="word_list">
+        <div class="word_cards">
             {{ range .Words }}
-                <li class="word_item">
-                    <div class="word_pair"><strong>{{ .Spanish }}</strong><span>to</span><strong>{{ .Russian }}</strong></div>
+                <article class="word_card">
+                    <div class="word_column">
+                        <span class="word_label">Spanish</span>
+                        <strong class="word_value">{{ .Spanish }}</strong>
+                    </div>
+                    <div class="word_separator">to</div>
+                    <div class="word_column">
+                        <span class="word_label">Russian</span>
+                        <strong class="word_value">{{ .Russian }}</strong>
+                    </div>
                     {{ if .Notes }}<div class="word_notes">{{ .Notes }}</div>{{ end }}
-                </li>
+                </article>
             {{ end }}
-        </ul>
+        </div>
     {{ else }}
         <p class="muted">No words yet. Add the first one above.</p>
     {{ end }}
