@@ -1,6 +1,9 @@
 package handlers
 
-import "repetidor/internal/storage"
+import (
+	"repetidor/internal/logger"
+	"repetidor/internal/storage"
+)
 
 type Container struct {
 	Home      *HomeHandler
@@ -10,7 +13,7 @@ type Container struct {
 	TopicEdit *TopicEditHandler
 }
 
-func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository) (*Container, error) {
+func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, appLogger logger.Logger) (*Container, error) {
 	homeHandler, err := NewHomeHandler(topicRepo)
 	if err != nil {
 		return nil, err
@@ -21,17 +24,17 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 		return nil, err
 	}
 
-	topicsHandler, err := NewTopicsHandler(topicRepo)
+	topicsHandler, err := NewTopicsHandler(topicRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
 
-	topicHandler, err := NewTopicHandler(topicRepo, wordRepo)
+	topicHandler, err := NewTopicHandler(topicRepo, wordRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
 
-	topicEditHandler, err := NewTopicEditHandler(topicRepo)
+	topicEditHandler, err := NewTopicEditHandler(topicRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
