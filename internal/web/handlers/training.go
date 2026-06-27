@@ -123,7 +123,8 @@ func (h *TrainingHandler) cards(r *http.Request) ([]trainingCard, error) {
 }
 
 func pickCard(cards []trainingCard) trainingCard {
-	return cards[int(time.Now().UnixNano()%int64(len(cards)))]
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return cards[r.Intn(len(cards))]
 }
 
 func directionForMode(mode string) string {
