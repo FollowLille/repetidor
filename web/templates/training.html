@@ -1,16 +1,53 @@
 {{ define "content" }}
-<section class="card">
-    <h2>{{ .PageTitle }}</h2>
-    <p class="muted">Mode: {{ .TrainMode }}</p>
+<section class="card training_card">
+    <style>
+        .training_card { max-width: 920px; }
+        .training_head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 18px; }
+        .training_head h2 { margin-bottom: 4px; }
+        .mode_pills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .mode_pill { border: 1px solid var(--panel-border); border-radius: 999px; padding: 7px 10px; background: var(--topic-bg); color: var(--muted); text-decoration: none; font-weight: 700; }
+        .mode_pill.is_active { color: var(--text); border-color: var(--accent); }
+        .result_card { border: 1px solid var(--panel-border); border-radius: 14px; padding: 14px; margin: 14px 0 18px; background: var(--topic-bg); }
+        .result_card.is_correct { border-color: #477a59; }
+        .result_card.is_wrong { border-color: #7a4747; }
+        .result_title { display: block; margin-bottom: 10px; font-size: 1.1rem; }
+        .result_grid { display: grid; grid-template-columns: 130px 1fr; gap: 8px 12px; }
+        .result_grid span { color: var(--muted); }
+        .prompt_panel { display: grid; gap: 12px; margin: 18px 0; }
+        .prompt_meta { color: var(--muted); }
+        .prompt_text { border: 1px solid var(--panel-border); border-radius: 18px; background: var(--topic-bg); padding: 28px; font-size: 2.2rem; font-weight: 900; text-align: center; }
+        .answer_cells { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; min-height: 52px; }
+        .answer_cell { width: 44px; height: 48px; border: 1px solid var(--panel-border); border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: #0f1424; font-size: 1.3rem; font-weight: 800; }
+        .letter_bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .letter_tile { min-width: 44px; min-height: 44px; border: 1px solid var(--panel-border); border-radius: 10px; background: var(--topic-bg); color: var(--text); font-size: 1.05rem; font-weight: 900; cursor: pointer; }
+        .letter_tile[disabled] { opacity: 0.35; cursor: default; }
+        .tiny_button { border: 1px solid var(--panel-border); border-radius: 10px; background: var(--topic-bg); color: var(--text); padding: 9px 12px; font-weight: 700; cursor: pointer; }
+        .build_controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+        @media (max-width: 640px) { .training_head { display: grid; } .result_grid { grid-template-columns: 1fr; } .prompt_text { font-size: 1.7rem; } }
+    </style>
+
+    <div class="training_head">
+        <div>
+            <h2>{{ .PageTitle }}</h2>
+            <p class="muted">Mode: {{ .TrainMode }}</p>
+        </div>
+        <div class="mode_pills">
+            <a class="mode_pill {{ if eq .TrainMode "mixed" }}is_active{{ end }}" href="/train/mixed">Mixed</a>
+            <a class="mode_pill {{ if eq .TrainMode "spanish-to-russian" }}is_active{{ end }}" href="/train/spanish-to-russian">ES to RU</a>
+            <a class="mode_pill {{ if eq .TrainMode "russian-to-spanish" }}is_active{{ end }}" href="/train/russian-to-spanish">RU to ES</a>
+            <a class="mode_pill {{ if eq .TrainMode "build" }}is_active{{ end }}" href="/train/build">Build</a>
+            <a class="mode_pill {{ if eq .TrainMode "type" }}is_active{{ end }}" href="/train/type">Type</a>
+        </div>
+    </div>
 
     {{ if .Result }}
-        <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
-            <strong>{{ if .Result.Correct }}Correct{{ else }}Try again{{ end }}</strong>
-            <div class="training_result_grid">
+        <div class="result_card {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
+            <strong class="result_title">{{ if .Result.Correct }}Correct{{ else }}Try again{{ end }}</strong>
+            <div class="result_grid">
                 <span>Direction</span><b>{{ .Result.DirectionLabel }}</b>
                 <span>Prompt</span><b>{{ .Result.Prompt }}</b>
-                <span>Your reply</span><b>{{ .Result.Reply }}</b>
-                <span>Target</span><b>{{ .Result.Target }}</b>
+                <span>Your answer</span><b>{{ .Result.Reply }}</b>
+                <span>Expected</span><b>{{ .Result.Target }}</b>
             </div>
         </div>
     {{ end }}
@@ -22,26 +59,78 @@
             <a class="secondary_link" href="/">Back to home</a>
         </div>
     {{ else }}
-        <div class="training_prompt">
-            <p class="muted">{{ .DirectionLabel }} · topic: {{ .Topic.Name }}</p>
-            <div class="training_prompt_text">{{ .Prompt }}</div>
+        <div class="prompt_panel">
+            <div class="prompt_meta">{{ .DirectionLabel }} · topic: {{ .Topic.Name }} · answer: {{ .AnswerMode }}</div>
+            <div class="prompt_text">{{ .Prompt }}</div>
         </div>
 
-        <form class="topic_form" method="post" action="/train/{{ .TrainMode }}">
+        <form class="topic_form training_form" method="post" action="/train/{{ .TrainMode }}" data-answer-mode="{{ .AnswerMode }}">
             <input type="hidden" name="word_id" value="{{ .Word.ID }}">
             <input type="hidden" name="direction" value="{{ .Direction }}">
             <input type="hidden" name="prompt" value="{{ .Prompt }}">
             <input type="hidden" name="target" value="{{ .Target }}">
-            <label class="form_group">
-                Your reply
-                <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
-            </label>
+
+            {{ if eq .AnswerMode "build" }}
+                <input type="hidden" name="reply" value="">
+                <div class="answer_cells" aria-label="Answer letters">
+                    {{ range .Letters }}<span class="answer_cell"></span>{{ end }}
+                </div>
+                <div class="letter_bank" aria-label="Available letters">
+                    {{ range .Letters }}<button class="letter_tile" type="button" data-letter="{{ . }}">{{ . }}</button>{{ end }}
+                </div>
+                <div class="build_controls">
+                    <button class="tiny_button" type="button" data-action="backspace">Backspace</button>
+                    <button class="tiny_button" type="button" data-action="clear">Clear</button>
+                </div>
+            {{ else }}
+                <label class="form_group">
+                    Your answer
+                    <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
+                </label>
+            {{ end }}
+
             <div class="page_actions">
                 <button class="mode_button" type="submit">Check</button>
                 <a class="secondary_link" href="/train/{{ .TrainMode }}">Skip</a>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>
+
+        <script>
+            (function () {
+                var form = document.querySelector('.training_form[data-answer-mode="build"]');
+                if (!form) return;
+                var input = form.querySelector('input[name="reply"]');
+                var cells = Array.prototype.slice.call(form.querySelectorAll('.answer_cell'));
+                var tiles = Array.prototype.slice.call(form.querySelectorAll('.letter_tile'));
+                var chosen = [];
+
+                function render() {
+                    input.value = chosen.map(function (item) { return item.letter; }).join('');
+                    cells.forEach(function (cell, idx) { cell.textContent = chosen[idx] ? chosen[idx].letter : ''; });
+                    tiles.forEach(function (tile) { tile.disabled = chosen.some(function (item) { return item.tile === tile; }); });
+                }
+
+                tiles.forEach(function (tile) {
+                    tile.addEventListener('click', function () {
+                        if (chosen.length >= cells.length || tile.disabled) return;
+                        chosen.push({ letter: tile.dataset.letter, tile: tile });
+                        render();
+                    });
+                });
+
+                form.addEventListener('click', function (event) {
+                    var action = event.target.getAttribute('data-action');
+                    if (action === 'backspace') { chosen.pop(); render(); }
+                    if (action === 'clear') { chosen = []; render(); }
+                });
+
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Backspace') { chosen.pop(); render(); event.preventDefault(); }
+                    if (event.key === 'Escape') { chosen = []; render(); }
+                });
+            }());
+        </script>
     {{ end }}
 </section>
 {{ end }}
