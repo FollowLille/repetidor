@@ -1,17 +1,47 @@
 {{ define "content" }}
 <section class="card">
     <h2>{{ .PageTitle }}</h2>
-    <p class="muted">{{ .PageNotice }}</p>
+    <p class="muted">Mode: {{ .TrainMode }}</p>
 
-    <div class="stub_meta">
-        <div class="stub_row">
-            <span class="stub_label">Mode</span>
-            <span class="stub_value">{{ .TrainMode }}</span>
+    {{ if .Result }}
+        <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
+            <strong>{{ if .Result.Correct }}Correct{{ else }}Try again{{ end }}</strong>
+            <div class="training_result_grid">
+                <span>Direction</span><b>{{ .Result.DirectionLabel }}</b>
+                <span>Prompt</span><b>{{ .Result.Prompt }}</b>
+                <span>Your reply</span><b>{{ .Result.Reply }}</b>
+                <span>Target</span><b>{{ .Result.Target }}</b>
+            </div>
         </div>
-    </div>
+    {{ end }}
 
-    <div class="page_actions">
-        <a class="secondary_link" href="/">← Back to home</a>
-    </div>
+    {{ if .NoWords }}
+        <p class="muted">{{ .PageNotice }}</p>
+        <div class="page_actions">
+            <a class="secondary_link" href="/topics">Open topics</a>
+            <a class="secondary_link" href="/">Back to home</a>
+        </div>
+    {{ else }}
+        <div class="training_prompt">
+            <p class="muted">{{ .DirectionLabel }} · topic: {{ .Topic.Name }}</p>
+            <div class="training_prompt_text">{{ .Prompt }}</div>
+        </div>
+
+        <form class="topic_form" method="post" action="/train/{{ .TrainMode }}">
+            <input type="hidden" name="word_id" value="{{ .Word.ID }}">
+            <input type="hidden" name="direction" value="{{ .Direction }}">
+            <input type="hidden" name="prompt" value="{{ .Prompt }}">
+            <input type="hidden" name="target" value="{{ .Target }}">
+            <label class="form_group">
+                Your reply
+                <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
+            </label>
+            <div class="page_actions">
+                <button class="mode_button" type="submit">Check</button>
+                <a class="secondary_link" href="/train/{{ .TrainMode }}">Skip</a>
+                <a class="secondary_link" href="/">Back to home</a>
+            </div>
+        </form>
+    {{ end }}
 </section>
 {{ end }}
