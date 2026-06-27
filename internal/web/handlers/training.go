@@ -73,7 +73,7 @@ func (h *TrainingHandler) check(w http.ResponseWriter, r *http.Request) {
 func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request, result map[string]any) {
 	mode := strings.TrimSpace(chi.URLParam(r, "train_mode"))
 	if mode == "" {
-		mode = "random"
+		mode = "mixed"
 	}
 	cards, err := h.cards(r)
 	if err != nil {
@@ -90,6 +90,7 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request, result 
 		data["Topic"] = card.Topic
 		data["Direction"] = direction
 		data["DirectionLabel"] = labelDirection(direction)
+		data["InputMode"] = inputModeForMode(mode)
 		data["Prompt"] = prompt
 		data["Target"] = target
 	}
@@ -126,12 +127,26 @@ func directionForMode(mode string) string {
 	switch strings.ToLower(strings.TrimSpace(mode)) {
 	case "russian-to-spanish", "reverse":
 		return "russian_to_spanish"
-	case "random", "due", "hard", "easy":
+	case "mixed", "random", "due", "hard", "easy", "type", "build":
 		if time.Now().UnixNano()%2 == 0 {
 			return "russian_to_spanish"
 		}
 	}
 	return "spanish_to_russian"
+}
+
+func inputModeForMode(mode string) string {
+	switch strings.ToLower(strings.TrimSpace(mode)) {
+	case "type":
+		return "type"
+	case "build", "letters":
+		return "build"
+	default:
+		if time.Now().UnixNano()%2 == 0 {
+			return "build"
+		}
+		return "type"
+	}
 }
 
 func cleanDirection(direction string) string {
