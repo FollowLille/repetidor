@@ -13,13 +13,13 @@ type Container struct {
 	TopicEdit *TopicEditHandler
 }
 
-func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, appLogger logger.Logger) (*Container, error) {
+func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, appLogger logger.Logger) (*Container, error) {
 	homeHandler, err := NewHomeHandler(topicRepo)
 	if err != nil {
 		return nil, err
 	}
 
-	trainingHandler, err := NewTrainingHandler()
+	trainingHandler, err := NewTrainingHandler(topicRepo, wordRepo, trainingRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
