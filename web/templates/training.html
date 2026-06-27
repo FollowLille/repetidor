@@ -33,7 +33,7 @@
             <div class="training_prompt_text">{{ .Prompt }}</div>
         </div>
 
-        <form class="topic_form training_form" method="post" action="/train/{{ .TrainMode }}" data-answer-mode="{{ .AnswerMode }}">
+        <form class="topic_form training_form" method="post" action="{{ .TrainPath }}" data-answer-mode="{{ .AnswerMode }}">
             <input type="hidden" name="word_id" value="{{ .Word.ID }}">
             <input type="hidden" name="direction" value="{{ .Direction }}">
             <input type="hidden" name="prompt" value="{{ .Prompt }}">
@@ -60,7 +60,7 @@
 
             <div class="page_actions training_actions">
                 <button class="mode_button" type="submit">Check</button>
-                <a class="secondary_link" href="/train/{{ .TrainMode }}">Skip</a>
+                <a class="secondary_link" href="{{ .TrainPath }}">Skip</a>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>
