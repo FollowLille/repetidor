@@ -49,7 +49,8 @@ func main() {
 	appLogger.Info("sqlite migrations applied")
 
 	topicRepo := sqlite.NewTopicRepository(db)
-	handlersContainer, err := handlers.NewContainer(topicRepo)
+	wordRepo := sqlite.NewWordRepository(db)
+	handlersContainer, err := handlers.NewContainer(topicRepo, wordRepo, appLogger)
 	if err != nil {
 		appLogger.Error("failed to initialize handlers", "error", err)
 		log.Fatalf("failed to initialize handlers: %v", err)

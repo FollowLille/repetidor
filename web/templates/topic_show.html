@@ -5,8 +5,44 @@
 
     <div class="page_actions">
         <a class="secondary_link" href="/topics/{{ .Topic.Name }}/edit">Edit topic</a>
-        <a class="secondary_link" href="/topics">← Back to topics</a>
+        <a class="secondary_link" href="/topics">Back to topics</a>
         <a class="secondary_link" href="/">Back to home</a>
     </div>
+</section>
+
+<section class="card">
+    <h2>Add word</h2>
+    {{ if .Warning }}<p class="form_error">{{ .Warning }}</p>{{ end }}
+    <form class="topic_form" method="post" action="/topics/{{ .Topic.Name }}/words">
+        <label class="form_group">
+            Spanish
+            <input class="form_input" type="text" name="spanish" value="{{ with .Form }}{{ index . "Spanish" }}{{ end }}" placeholder="pan">
+        </label>
+        <label class="form_group">
+            Russian
+            <input class="form_input" type="text" name="russian" value="{{ with .Form }}{{ index . "Russian" }}{{ end }}" placeholder="bread">
+        </label>
+        <label class="form_group">
+            Notes
+            <textarea class="form_textarea" name="notes" rows="3" placeholder="el pan, plural, example">{{ with .Form }}{{ index . "Notes" }}{{ end }}</textarea>
+        </label>
+        <button class="mode_button" type="submit">Save word</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Saved words</h2>
+    {{ if .Words }}
+        <ul class="word_list">
+            {{ range .Words }}
+                <li class="word_item">
+                    <div class="word_pair"><strong>{{ .Spanish }}</strong> - {{ .Russian }}</div>
+                    {{ if .Notes }}<div class="word_notes">{{ .Notes }}</div>{{ end }}
+                </li>
+            {{ end }}
+        </ul>
+    {{ else }}
+        <p class="muted">No words yet. Add the first one above.</p>
+    {{ end }}
 </section>
 {{ end }}
