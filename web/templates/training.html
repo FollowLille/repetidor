@@ -72,6 +72,7 @@
         const bank = builder.querySelector('[data-letter-bank]');
         const reply = builder.querySelector('[data-letter-reply]');
         const picked = [];
+        const usedButtons = [];
 
         function sync() {
             reply.value = picked.join('');
@@ -87,13 +88,17 @@
         }
 
         function pop() {
+            if (picked.length === 0) return;
             picked.pop();
+            const button = usedButtons.pop();
+            if (button) button.disabled = false;
             sync();
         }
 
         function push(button) {
             if (picked.length >= letters.length || button.disabled) return;
             picked.push(button.textContent);
+            usedButtons.push(button);
             button.disabled = true;
             sync();
         }
@@ -107,13 +112,13 @@
             bank.appendChild(button);
         });
 
-        builder.querySelector('[data-letter-back]').addEventListener('click', function () {
-            pop();
-            Array.from(bank.children).forEach(function (button) { button.disabled = false; });
-        });
+        builder.querySelector('[data-letter-back]').addEventListener('click', pop);
         builder.querySelector('[data-letter-clear]').addEventListener('click', function () {
             picked.length = 0;
-            Array.from(bank.children).forEach(function (button) { button.disabled = false; });
+            while (usedButtons.length > 0) {
+                const button = usedButtons.pop();
+                if (button) button.disabled = false;
+            }
             sync();
         });
         sync();
