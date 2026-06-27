@@ -50,7 +50,8 @@ func main() {
 
 	topicRepo := sqlite.NewTopicRepository(db)
 	wordRepo := sqlite.NewWordRepository(db)
-	handlersContainer, err := handlers.NewContainer(topicRepo, wordRepo, appLogger)
+	trainingRepo := sqlite.NewTrainingRepository(db)
+	handlersContainer, err := handlers.NewContainer(topicRepo, wordRepo, trainingRepo, appLogger)
 	if err != nil {
 		appLogger.Error("failed to initialize handlers", "error", err)
 		log.Fatalf("failed to initialize handlers: %v", err)
