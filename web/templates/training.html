@@ -1,7 +1,12 @@
 {{ define "content" }}
-<section class="card">
-    <h2>{{ .PageTitle }}</h2>
-    <p class="muted">Mode: {{ .TrainMode }}</p>
+<section class="card training_card">
+    <div class="training_head">
+        <div>
+            <h2>{{ .PageTitle }}</h2>
+            <p class="muted">Mode: {{ .TrainMode }}</p>
+        </div>
+        <div class="training_pill">{{ .AnswerMode }}</div>
+    </div>
 
     {{ if .Result }}
         <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
@@ -27,15 +32,31 @@
             <div class="training_prompt_text">{{ .Prompt }}</div>
         </div>
 
-        <form class="topic_form" method="post" action="/train/{{ .TrainMode }}">
+        <form class="topic_form training_form" method="post" action="/train/{{ .TrainMode }}" data-answer-mode="{{ .AnswerMode }}">
             <input type="hidden" name="word_id" value="{{ .Word.ID }}">
             <input type="hidden" name="direction" value="{{ .Direction }}">
             <input type="hidden" name="prompt" value="{{ .Prompt }}">
             <input type="hidden" name="target" value="{{ .Target }}">
-            <label class="form_group">
-                Your reply
-                <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
-            </label>
+
+            {{ if eq .AnswerMode "build" }}
+                <input type="hidden" name="reply" data-build-reply>
+                <div class="build_answer"></div>
+                <div class="letter_bank">
+                    {{ range .Letters }}
+                        <button class="letter_tile" type="button" data-letter="{{ . }}">{{ . }}</button>
+                    {{ end }}
+                </div>
+                <div class="page_actions compact_actions">
+                    <button class="secondary_link" type="button" data-build-backspace>Backspace</button>
+                    <button class="secondary_link" type="button" data-build-clear>Clear</button>
+                </div>
+            {{ else }}
+                <label class="form_group">
+                    Your reply
+                    <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
+                </label>
+            {{ end }}
+
             <div class="page_actions">
                 <button class="mode_button" type="submit">Check</button>
                 <a class="secondary_link" href="/train/{{ .TrainMode }}">Skip</a>
@@ -44,4 +65,5 @@
         </form>
     {{ end }}
 </section>
+<script src="/static/js/training.js"></script>
 {{ end }}
