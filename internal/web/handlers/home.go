@@ -35,9 +35,11 @@ func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	data := map[string]any{
 		"Title": "Repetidor",
 		"Modes": []ModeLink{
+			{Name: "Mixed", URL: "/train/mixed"},
+			{Name: "Build letters", URL: "/train/build"},
+			{Name: "Type answer", URL: "/train/type"},
 			{Name: "Spanish to Russian", URL: "/train/spanish-to-russian"},
 			{Name: "Russian to Spanish", URL: "/train/russian-to-spanish"},
-			{Name: "Random", URL: "/train/random"},
 		},
 		"Topics": topics,
 	}
