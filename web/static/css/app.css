@@ -86,7 +86,6 @@ body {
     background: var(--accent-hover);
 }
 
-
 .secondary_link {
     display: inline-flex;
     align-items: center;
@@ -236,3 +235,135 @@ body {
     margin-top: 12px;
 }
 
+.training_card {
+    display: grid;
+    gap: 18px;
+}
+
+.training_head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.training_prompt {
+    display: grid;
+    gap: 10px;
+}
+
+.training_prompt_text {
+    border: 1px solid var(--panel-border);
+    border-radius: 18px;
+    background: var(--topic-bg);
+    padding: 28px;
+    text-align: center;
+    font-size: clamp(2rem, 7vw, 4rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.training_result {
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 14px;
+    background: var(--topic-bg);
+}
+
+.training_result.is_correct {
+    border-color: #477a59;
+}
+
+.training_result.is_wrong {
+    border-color: #7a4747;
+}
+
+.result_grid {
+    display: grid;
+    grid-template-columns: minmax(100px, 140px) 1fr;
+    gap: 8px 12px;
+    margin: 12px 0 0;
+}
+
+.result_grid dt {
+    color: var(--muted);
+}
+
+.result_grid dd {
+    margin: 0;
+    font-weight: 700;
+}
+
+.word_list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    margin: 16px 0 0;
+}
+
+.word_item {
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    background: var(--topic-bg);
+    padding: 12px 14px;
+}
+
+.word_pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+    font-size: 1.05rem;
+}
+
+.word_pair span,
+.word_notes {
+    color: var(--muted);
+}
+
+.word_notes {
+    margin-top: 6px;
+}
+
+.letter_builder {
+    display: grid;
+    gap: 16px;
+}
+
+.letter_slots,
+.letter_bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.letter_slot,
+.letter_tile {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
+    color: var(--text);
+    background: var(--topic-bg);
+    font-size: 1.35rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.letter_slot {
+    background: #0f1424;
+}
+
+.letter_tile:hover {
+    border-color: var(--accent);
+}
+
+.letter_tile:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.compact_actions {
+    margin-top: 0;
+}
