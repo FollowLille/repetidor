@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"html/template"
+	"math/rand"
 	"net/http"
 	"path/filepath"
 	"repetidor/internal/domain"
@@ -73,7 +74,7 @@ func (h *TrainingHandler) check(w http.ResponseWriter, r *http.Request) {
 func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request, result map[string]any) {
 	mode := strings.TrimSpace(chi.URLParam(r, "train_mode"))
 	if mode == "" {
-		mode = "random"
+		mode = "mixed"
 	}
 	cards, err := h.cards(r)
 	if err != nil {
@@ -86,12 +87,15 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request, result 
 		card := pickCard(cards)
 		direction := directionForMode(mode)
 		prompt, target := promptAndTarget(card.Word, direction)
+		answerMode := answerModeFor(mode, target)
 		data["Word"] = card.Word
 		data["Topic"] = card.Topic
 		data["Direction"] = direction
 		data["DirectionLabel"] = labelDirection(direction)
 		data["Prompt"] = prompt
 		data["Target"] = target
+		data["AnswerMode"] = answerMode
+		data["Letters"] = lettersFor(target)
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
@@ -126,12 +130,45 @@ func directionForMode(mode string) string {
 	switch strings.ToLower(strings.TrimSpace(mode)) {
 	case "russian-to-spanish", "reverse":
 		return "russian_to_spanish"
-	case "random", "due", "hard", "easy":
+	case "mixed", "random", "due", "hard", "easy":
 		if time.Now().UnixNano()%2 == 0 {
 			return "russian_to_spanish"
 		}
 	}
 	return "spanish_to_russian"
+}
+
+func answerModeFor(mode string, target string) string {
+	cleanTarget := domain.NormalizeText(target)
+	if strings.Contains(cleanTarget, " ") {
+		return "type"
+	}
+	switch strings.ToLower(strings.TrimSpace(mode)) {
+	case "build", "crossword":
+		return "build"
+	case "type":
+		return "type"
+	case "mixed", "random", "due", "hard", "easy", "spanish-to-russian", "russian-to-spanish":
+		if time.Now().UnixNano()%2 == 0 {
+			return "build"
+		}
+	}
+	return "type"
+}
+
+func lettersFor(target string) []string {
+	letters := make([]string, 0)
+	for _, letter := range []rune(domain.NormalizeText(target)) {
+		if letter != ' ' {
+			letters = append(letters, string(letter))
+		}
+	}
+	seed := time.Now().UnixNano()
+	rng := rand.New(rand.NewSource(seed))
+	rng.Shuffle(len(letters), func(i int, j int) {
+		letters[i], letters[j] = letters[j], letters[i]
+	})
+	return letters
 }
 
 func cleanDirection(direction string) string {
