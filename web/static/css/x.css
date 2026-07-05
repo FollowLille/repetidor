@@ -1,0 +1,20 @@
+.training_card { text-align: center; }
+.training_form { max-width: 680px; margin: 0 auto; }
+.training_prompt { max-width: 680px; margin: 18px auto; }
+.training_prompt_text { font-size: 2.4rem; padding: 28px; }
+.result_rows { display: grid; gap: 8px; margin-top: 10px; }
+.result_row { display: grid; grid-template-columns: 140px 1fr; gap: 12px; text-align: left; }
+.result_row span { color: var(--muted); }
+.word_cards { display: grid; gap: 12px; margin-top: 16px; }
+.word_card { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; border: 1px solid var(--panel-border); border-radius: 14px; background: var(--topic-bg); padding: 14px; }
+.word_column { display: grid; gap: 4px; }
+.word_label { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+.word_value { font-size: 1.15rem; }
+.word_separator { color: var(--muted); font-weight: 700; }
+.word_notes { grid-column: 1 / -1; color: var(--muted); }
+.build_answer, .letter_bank { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.build_answer { min-height: 58px; margin-bottom: 18px; }
+.answer_cell, .letter_tile { width: 52px; height: 52px; border-radius: 12px; border: 1px solid #dbe4ff; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 850; background: #f8fafc; color: #111827; }
+.letter_tile { cursor: pointer; }
+.letter_tile:disabled { opacity: .28; cursor: default; }
+.compact_actions, .training_actions { justify-content: center; }

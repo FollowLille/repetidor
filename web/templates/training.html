@@ -1,4 +1,5 @@
 {{ define "content" }}
+<link rel="stylesheet" href="/static/css/x.css">
 <section class="card training_card">
     <div class="training_head">
         <div>
@@ -11,11 +12,11 @@
     {{ if .Result }}
         <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
             <strong>{{ if .Result.Correct }}Correct{{ else }}Try again{{ end }}</strong>
-            <div class="training_result_grid">
-                <span>Direction</span><b>{{ .Result.DirectionLabel }}</b>
-                <span>Prompt</span><b>{{ .Result.Prompt }}</b>
-                <span>Your reply</span><b>{{ .Result.Reply }}</b>
-                <span>Target</span><b>{{ .Result.Target }}</b>
+            <div class="result_rows">
+                <div class="result_row"><span>Direction</span><strong>{{ .Result.DirectionLabel }}</strong></div>
+                <div class="result_row"><span>Prompt</span><strong>{{ .Result.Prompt }}</strong></div>
+                <div class="result_row"><span>Your reply</span><strong>{{ .Result.Reply }}</strong></div>
+                <div class="result_row"><span>Target</span><strong>{{ .Result.Target }}</strong></div>
             </div>
         </div>
     {{ end }}
@@ -32,7 +33,7 @@
             <div class="training_prompt_text">{{ .Prompt }}</div>
         </div>
 
-        <form class="topic_form training_form" method="post" action="/train/{{ .TrainMode }}" data-answer-mode="{{ .AnswerMode }}">
+        <form class="topic_form training_form" method="post" action="{{ .TrainPath }}" data-answer-mode="{{ .AnswerMode }}">
             <input type="hidden" name="word_id" value="{{ .Word.ID }}">
             <input type="hidden" name="direction" value="{{ .Direction }}">
             <input type="hidden" name="prompt" value="{{ .Prompt }}">
@@ -51,15 +52,15 @@
                     <button class="secondary_link" type="button" data-build-clear>Clear</button>
                 </div>
             {{ else }}
-                <label class="form_group">
+                <label class="form_group training_type_input">
                     Your reply
                     <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
                 </label>
             {{ end }}
 
-            <div class="page_actions">
+            <div class="page_actions training_actions">
                 <button class="mode_button" type="submit">Check</button>
-                <a class="secondary_link" href="/train/{{ .TrainMode }}">Skip</a>
+                <a class="secondary_link" href="{{ .TrainPath }}">Skip</a>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>
