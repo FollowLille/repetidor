@@ -20,6 +20,10 @@
         <button class="mode_button" type="submit">Save changes</button>
     </form>
 
+    <form method="post" action="/topics/{{ .OriginalName }}/delete" onsubmit="return confirm('Delete this topic and all its words? This cannot be undone.');">
+        <button class="danger_button" type="submit">Delete topic</button>
+    </form>
+
     <div class="page_actions">
         <a class="secondary_link" href="/topics/{{ .OriginalName }}">Back to topic</a>
         <a class="secondary_link" href="/topics">Back to topics</a>

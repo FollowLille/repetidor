@@ -11,6 +11,8 @@ type Container struct {
 	Topics    *TopicsHandler
 	Topic     *TopicHandler
 	TopicEdit *TopicEditHandler
+	WordEdit  *WordEditHandler
+	Stats     *StatsHandler
 }
 
 func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, appLogger logger.Logger) (*Container, error) {
@@ -38,6 +40,14 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
+	wordEditHandler, err := NewWordEditHandler(topicRepo, wordRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
+	statsHandler, err := NewStatsHandler(trainingRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
 
-	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler}, nil
+	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler}, nil
 }

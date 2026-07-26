@@ -9,6 +9,7 @@ import (
 	"repetidor/internal/domain"
 	"repetidor/internal/logger"
 	"repetidor/internal/storage"
+	"strconv"
 	"strings"
 
 	"github.com/go-chi/chi/v5"
@@ -30,6 +31,13 @@ type TopicHandler struct {
 type TopicEditHandler struct {
 	templates *template.Template
 	topicRepo storage.TopicRepository
+	logger    logger.Logger
+}
+
+type WordEditHandler struct {
+	templates *template.Template
+	topicRepo storage.TopicRepository
+	wordRepo  storage.WordRepository
 	logger    logger.Logger
 }
 
@@ -55,6 +63,14 @@ func NewTopicEditHandler(topicRepo storage.TopicRepository, appLogger logger.Log
 		return nil, err
 	}
 	return &TopicEditHandler{templates: tmpl, topicRepo: topicRepo, logger: appLogger}, nil
+}
+
+func NewWordEditHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, appLogger logger.Logger) (*WordEditHandler, error) {
+	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "word_edit.html"))
+	if err != nil {
+		return nil, err
+	}
+	return &WordEditHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, logger: appLogger}, nil
 }
 
 func (h *TopicsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -96,8 +112,7 @@ func (h *TopicsHandler) create(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err := h.topicRepo.Create(r.Context(), domain.Topic{Name: name, Description: description})
 	if err != nil {
-		// TODO: replace string check with explicit driver-specific unique violation mapping.
-		if strings.Contains(strings.ToLower(err.Error()), "unique") {
+		if errors.Is(err, storage.ErrTopicAlreadyExists) {
 			h.renderList(w, r, fmt.Sprintf("Topic %q already exists.", name), map[string]string{"Name": name, "Description": description})
 			return
 		}
@@ -178,13 +193,45 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 
 	_, err = h.wordRepo.Create(r.Context(), domain.Word{TopicID: topic.ID, Spanish: spanish, Russian: russian, Notes: notes})
 	if err != nil {
-		// TODO: replace string check with explicit driver-specific unique violation mapping.
-		if strings.Contains(strings.ToLower(err.Error()), "unique") {
+		if errors.Is(err, storage.ErrWordAlreadyExists) {
 			h.renderShow(w, r, fmt.Sprintf("Word %q -> %q already exists in this topic.", spanish, russian), form)
 			return
 		}
 		h.logger.Error("failed to create word", "error", err, "topic_id", topic.ID)
 		http.Error(w, "failed to create word", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/topics/"+topic.Name, http.StatusSeeOther)
+}
+
+func (h *TopicHandler) DeleteWord(w http.ResponseWriter, r *http.Request) {
+	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
+	if errors.Is(err, storage.ErrTopicNotFound) {
+		http.NotFound(w, r)
+		return
+	}
+	if err != nil {
+		h.logger.Error("failed to load topic for word deletion", "error", err, "topic_name", topicName)
+		http.Error(w, "failed to load topic", http.StatusInternalServerError)
+		return
+	}
+
+	wordID, err := strconv.ParseInt(chi.URLParam(r, "word_id"), 10, 64)
+	if err != nil || wordID <= 0 {
+		http.NotFound(w, r)
+		return
+	}
+
+	err = h.wordRepo.Delete(r.Context(), topic.ID, wordID)
+	if errors.Is(err, storage.ErrWordNotFound) {
+		http.NotFound(w, r)
+		return
+	}
+	if err != nil {
+		h.logger.Error("failed to delete word", "error", err, "topic_id", topic.ID, "word_id", wordID)
+		http.Error(w, "failed to delete word", http.StatusInternalServerError)
 		return
 	}
 
@@ -250,8 +297,7 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = h.topicRepo.Update(r.Context(), domain.Topic{ID: current.ID, Name: newName, Description: newDescription})
 	if err != nil {
-		// TODO: replace string check with explicit driver-specific unique violation mapping.
-		if strings.Contains(strings.ToLower(err.Error()), "unique") {
+		if errors.Is(err, storage.ErrTopicAlreadyExists) {
 			h.renderEdit(w, r, fmt.Sprintf("Topic %q already exists.", newName), map[string]string{"Name": newName, "Description": newDescription})
 			return
 		}
@@ -260,4 +306,127 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/topics/"+newName, http.StatusSeeOther)
+}
+
+func (h *TopicEditHandler) Delete(w http.ResponseWriter, r *http.Request) {
+	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
+	if errors.Is(err, storage.ErrTopicNotFound) {
+		http.NotFound(w, r)
+		return
+	}
+	if err != nil {
+		h.logger.Error("failed to load topic for deletion", "error", err, "topic_name", topicName)
+		http.Error(w, "failed to load topic", http.StatusInternalServerError)
+		return
+	}
+
+	if err := h.topicRepo.Delete(r.Context(), topic.ID); errors.Is(err, storage.ErrTopicNotFound) {
+		http.NotFound(w, r)
+		return
+	} else if err != nil {
+		h.logger.Error("failed to delete topic", "error", err, "topic_id", topic.ID)
+		http.Error(w, "failed to delete topic", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/topics", http.StatusSeeOther)
+}
+
+func (h *WordEditHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		h.render(w, r, "", nil)
+	case http.MethodPost:
+		h.update(w, r)
+	default:
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+	}
+}
+
+func (h *WordEditHandler) load(w http.ResponseWriter, r *http.Request) (domain.Topic, domain.Word, bool) {
+	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
+	if errors.Is(err, storage.ErrTopicNotFound) {
+		http.NotFound(w, r)
+		return domain.Topic{}, domain.Word{}, false
+	}
+	if err != nil {
+		h.logger.Error("failed to load topic for word edit", "error", err, "topic_name", topicName)
+		http.Error(w, "failed to load topic", http.StatusInternalServerError)
+		return domain.Topic{}, domain.Word{}, false
+	}
+
+	wordID, err := strconv.ParseInt(chi.URLParam(r, "word_id"), 10, 64)
+	if err != nil || wordID <= 0 {
+		http.NotFound(w, r)
+		return domain.Topic{}, domain.Word{}, false
+	}
+	word, err := h.wordRepo.GetByID(r.Context(), topic.ID, wordID)
+	if errors.Is(err, storage.ErrWordNotFound) {
+		http.NotFound(w, r)
+		return domain.Topic{}, domain.Word{}, false
+	}
+	if err != nil {
+		h.logger.Error("failed to load word for edit", "error", err, "topic_id", topic.ID, "word_id", wordID)
+		http.Error(w, "failed to load word", http.StatusInternalServerError)
+		return domain.Topic{}, domain.Word{}, false
+	}
+	return topic, word, true
+}
+
+func (h *WordEditHandler) render(w http.ResponseWriter, r *http.Request, errMsg string, override map[string]string) {
+	topic, word, ok := h.load(w, r)
+	if !ok {
+		return
+	}
+	if override != nil {
+		word.Spanish = override["Spanish"]
+		word.Russian = override["Russian"]
+		word.Notes = override["Notes"]
+	}
+	data := map[string]any{"Title": "Edit word", "Topic": topic, "Word": word, "Error": errMsg}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("failed to render word edit page", "error", err, "word_id", word.ID)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func (h *WordEditHandler) update(w http.ResponseWriter, r *http.Request) {
+	topic, word, ok := h.load(w, r)
+	if !ok {
+		return
+	}
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "invalid form", http.StatusBadRequest)
+		return
+	}
+	spanish := strings.TrimSpace(r.FormValue("spanish"))
+	russian := strings.TrimSpace(r.FormValue("russian"))
+	notes := strings.TrimSpace(r.FormValue("notes"))
+	form := map[string]string{"Spanish": spanish, "Russian": russian, "Notes": notes}
+	if spanish == "" {
+		h.render(w, r, "Spanish is required.", form)
+		return
+	}
+	if russian == "" {
+		h.render(w, r, "Russian is required.", form)
+		return
+	}
+	word.Spanish = spanish
+	word.Russian = russian
+	word.Notes = notes
+	if _, err := h.wordRepo.Update(r.Context(), word); errors.Is(err, storage.ErrWordAlreadyExists) {
+		h.render(w, r, fmt.Sprintf("Word %q -> %q already exists in this topic.", spanish, russian), form)
+		return
+	} else if errors.Is(err, storage.ErrWordNotFound) {
+		http.NotFound(w, r)
+		return
+	} else if err != nil {
+		h.logger.Error("failed to update word", "error", err, "topic_id", topic.ID, "word_id", word.ID)
+		http.Error(w, "failed to update word", http.StatusInternalServerError)
+		return
+	}
+	http.Redirect(w, r, "/topics/"+topic.Name, http.StatusSeeOther)
 }

@@ -71,7 +71,7 @@ func (r *TrainingRepository) Save(ctx context.Context, wordID int64, direction s
 
 func (r *TrainingRepository) ListProgress(ctx context.Context, direction string) (map[int64]domain.TrainingProgress, error) {
 	rows, err := r.db.QueryContext(ctx, `
-		SELECT word_id, direction, seen_count, correct_count, wrong_count, correct_streak, recent_pain
+		SELECT word_id, direction, seen_count, correct_count, wrong_count, correct_streak, recent_pain, last_seen_at
 		FROM training_progress
 		WHERE direction = ?
 	`, direction)
@@ -83,8 +83,12 @@ func (r *TrainingRepository) ListProgress(ctx context.Context, direction string)
 	progress := make(map[int64]domain.TrainingProgress)
 	for rows.Next() {
 		item := domain.TrainingProgress{}
-		if err := rows.Scan(&item.WordID, &item.Direction, &item.SeenCount, &item.CorrectCount, &item.WrongCount, &item.CorrectStreak, &item.RecentPain); err != nil {
+		var lastSeen sql.NullTime
+		if err := rows.Scan(&item.WordID, &item.Direction, &item.SeenCount, &item.CorrectCount, &item.WrongCount, &item.CorrectStreak, &item.RecentPain, &lastSeen); err != nil {
 			return nil, fmt.Errorf("scan training progress: %w", err)
+		}
+		if lastSeen.Valid {
+			item.LastSeenAt = &lastSeen.Time
 		}
 		progress[item.WordID] = item
 	}
@@ -92,4 +96,64 @@ func (r *TrainingRepository) ListProgress(ctx context.Context, direction string)
 		return nil, fmt.Errorf("iterate training progress: %w", err)
 	}
 	return progress, nil
+}
+
+func (r *TrainingRepository) ListStats(ctx context.Context) ([]domain.TrainingWordStats, error) {
+	rows, err := r.db.QueryContext(ctx, `
+		SELECT
+			w.id,
+			GROUP_CONCAT(t.name, ', '),
+			w.spanish,
+			w.russian,
+			COALESCE(p.seen_count, 0),
+			COALESCE(p.correct_count, 0),
+			COALESCE(p.wrong_count, 0),
+			COALESCE(p.correct_streak, 0),
+			COALESCE(p.recent_pain, 0)
+		FROM words w
+		JOIN word_topics wt ON wt.word_id = w.id
+		JOIN topics t ON t.id = wt.topic_id
+		LEFT JOIN (
+			SELECT word_id,
+				SUM(seen_count) AS seen_count,
+				SUM(correct_count) AS correct_count,
+				SUM(wrong_count) AS wrong_count,
+				MAX(correct_streak) AS correct_streak,
+				MAX(recent_pain) AS recent_pain
+			FROM training_progress
+			GROUP BY word_id
+		) p ON p.word_id = w.id
+		GROUP BY w.id, w.spanish, w.russian, p.seen_count, p.correct_count, p.wrong_count, p.correct_streak, p.recent_pain
+		ORDER BY COALESCE(p.recent_pain, 0) DESC, COALESCE(p.seen_count, 0) ASC, GROUP_CONCAT(t.name, ', '), w.spanish_key
+	`)
+	if err != nil {
+		return nil, fmt.Errorf("list training stats: %w", err)
+	}
+	defer rows.Close()
+
+	stats := make([]domain.TrainingWordStats, 0)
+	for rows.Next() {
+		var item domain.TrainingWordStats
+		if err := rows.Scan(
+			&item.WordID,
+			&item.TopicName,
+			&item.Spanish,
+			&item.Russian,
+			&item.SeenCount,
+			&item.CorrectCount,
+			&item.WrongCount,
+			&item.CorrectStreak,
+			&item.RecentPain,
+		); err != nil {
+			return nil, fmt.Errorf("scan training stats: %w", err)
+		}
+		if item.SeenCount > 0 {
+			item.Accuracy = item.CorrectCount * 100 / item.SeenCount
+		}
+		stats = append(stats, item)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("iterate training stats: %w", err)
+	}
+	return stats, nil
 }

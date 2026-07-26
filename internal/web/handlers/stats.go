@@ -1,0 +1,52 @@
+package handlers
+
+import (
+	"html/template"
+	"net/http"
+	"path/filepath"
+
+	"repetidor/internal/logger"
+	"repetidor/internal/storage"
+)
+
+type StatsHandler struct {
+	templates    *template.Template
+	trainingRepo storage.TrainingRepository
+	logger       logger.Logger
+}
+
+func NewStatsHandler(trainingRepo storage.TrainingRepository, appLogger logger.Logger) (*StatsHandler, error) {
+	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "stats.html"))
+	if err != nil {
+		return nil, err
+	}
+	return &StatsHandler{templates: tmpl, trainingRepo: trainingRepo, logger: appLogger}, nil
+}
+
+func (h *StatsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	stats, err := h.trainingRepo.ListStats(r.Context())
+	if err != nil {
+		h.logger.Error("failed to load training stats", "error", err)
+		http.Error(w, "failed to load training stats", http.StatusInternalServerError)
+		return
+	}
+
+	totals := struct {
+		Words, Seen, Correct, Wrong, Accuracy int
+	}{Words: len(stats)}
+	for _, item := range stats {
+		totals.Seen += item.SeenCount
+		totals.Correct += item.CorrectCount
+		totals.Wrong += item.WrongCount
+	}
+	if totals.Seen > 0 {
+		totals.Accuracy = totals.Correct * 100 / totals.Seen
+	}
+
+	data := map[string]any{"Title": "Training statistics", "Stats": stats, "Totals": totals}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("failed to render training stats", "error", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
