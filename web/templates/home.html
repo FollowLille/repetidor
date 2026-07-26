@@ -11,6 +11,25 @@
 </section>
 
 <section class="card">
+    <h2>Progress</h2>
+    <p class="muted">See accuracy, streaks, and the words that need more practice.</p>
+    <div class="page_actions">
+        <a class="secondary_link" href="/stats">Open training statistics</a>
+    </div>
+    <form class="quick_session" method="get" action="/train/mixed">
+        <label>
+            Quick mixed session
+            <select name="session_size">
+                <option value="5">5 cards</option>
+                <option value="10" selected>10 cards</option>
+                <option value="20">20 cards</option>
+            </select>
+        </label>
+        <button class="secondary_link" type="submit">Start session</button>
+    </form>
+</section>
+
+<section class="card">
     <h2>Topics</h2>
     <p class="muted">Topics loaded from SQLite.</p>
 

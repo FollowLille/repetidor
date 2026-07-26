@@ -1,0 +1,38 @@
+{{ define "content" }}
+<link rel="stylesheet" href="/static/css/x.css">
+<section class="card">
+    <h2>Training statistics</h2>
+    <div class="stats_totals">
+        <div><span>Words</span><strong>{{ .Totals.Words }}</strong></div>
+        <div><span>Attempts</span><strong>{{ .Totals.Seen }}</strong></div>
+        <div><span>Correct</span><strong>{{ .Totals.Correct }}</strong></div>
+        <div><span>Accuracy</span><strong>{{ .Totals.Accuracy }}%</strong></div>
+    </div>
+    <div class="page_actions">
+        <a class="secondary_link" href="/train/mixed">Continue training</a>
+        <a class="secondary_link" href="/">Back to home</a>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Words</h2>
+    {{ if .Stats }}
+    <div class="stats_list">
+        {{ range .Stats }}
+        <article class="stats_row">
+            <div class="stats_word">
+                <span class="word_label">{{ .TopicName }}</span>
+                <strong>{{ .Spanish }} → {{ .Russian }}</strong>
+            </div>
+            <div><span>Seen</span><strong>{{ .SeenCount }}</strong></div>
+            <div><span>Accuracy</span><strong>{{ .Accuracy }}%</strong></div>
+            <div><span>Streak</span><strong>{{ .CorrectStreak }}</strong></div>
+            <div><span>Pain</span><strong>{{ .RecentPain }}</strong></div>
+        </article>
+        {{ end }}
+    </div>
+    {{ else }}
+    <p class="muted">No words yet. Add words to a topic to start tracking progress.</p>
+    {{ end }}
+</section>
+{{ end }}

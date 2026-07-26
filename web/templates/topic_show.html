@@ -49,6 +49,10 @@
                         <strong class="word_value">{{ .Russian }}</strong>
                     </div>
                     {{ if .Notes }}<div class="word_notes">{{ .Notes }}</div>{{ end }}
+                    <a class="secondary_link word_edit" href="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/edit">Edit</a>
+                    <form method="post" action="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/delete" onsubmit="return confirm('Delete this word?');">
+                        <button class="word_delete" type="submit" aria-label="Remove {{ .Spanish }} from topic">Remove from topic</button>
+                    </form>
                 </article>
             {{ end }}
         </div>

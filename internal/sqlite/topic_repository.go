@@ -58,6 +58,9 @@ func (r *TopicRepository) Create(ctx context.Context, topic domain.Topic) (domai
 		&created.UpdatedAt,
 	)
 	if err != nil {
+		if isUniqueConstraintError(err) {
+			return domain.Topic{}, fmt.Errorf("create topic: %w", storage.ErrTopicAlreadyExists)
+		}
 		return domain.Topic{}, fmt.Errorf("create topic: %w", err)
 	}
 	return created, nil
@@ -97,7 +100,52 @@ func (r *TopicRepository) Update(ctx context.Context, topic domain.Topic) (domai
 		return domain.Topic{}, storage.ErrTopicNotFound
 	}
 	if err != nil {
+		if isUniqueConstraintError(err) {
+			return domain.Topic{}, fmt.Errorf("update topic: %w", storage.ErrTopicAlreadyExists)
+		}
 		return domain.Topic{}, fmt.Errorf("update topic: %w", err)
 	}
 	return updated, nil
+}
+
+func (r *TopicRepository) Delete(ctx context.Context, id int64) error {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return fmt.Errorf("begin topic deletion: %w", err)
+	}
+	defer tx.Rollback()
+
+	_, err = tx.ExecContext(ctx, `
+		UPDATE words
+		SET topic_id = (
+			SELECT MIN(wt.topic_id)
+			FROM word_topics wt
+			WHERE wt.word_id = words.id AND wt.topic_id <> ?
+		)
+		WHERE topic_id = ?
+		  AND EXISTS (
+			SELECT 1 FROM word_topics wt
+			WHERE wt.word_id = words.id AND wt.topic_id <> ?
+		  )
+	`, id, id, id)
+	if err != nil {
+		return fmt.Errorf("move shared words before topic deletion: %w", err)
+	}
+
+	result, err := tx.ExecContext(ctx, `DELETE FROM topics WHERE id = ?`, id)
+	if err != nil {
+		return fmt.Errorf("delete topic: %w", err)
+	}
+
+	deleted, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("count deleted topics: %w", err)
+	}
+	if deleted == 0 {
+		return storage.ErrTopicNotFound
+	}
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("commit topic deletion: %w", err)
+	}
+	return nil
 }

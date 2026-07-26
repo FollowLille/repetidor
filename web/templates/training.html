@@ -5,9 +5,11 @@
         <div>
             <h2>{{ .PageTitle }}</h2>
             <p class="muted">Mode: {{ .TrainMode }}</p>
+            <p class="muted">Card {{ .Session.Current }} of {{ .Session.Size }}</p>
         </div>
         <div class="training_pill">{{ .AnswerMode }}</div>
     </div>
+    <progress class="session_progress" value="{{ .Session.Completed }}" max="{{ .Session.Size }}">{{ .Session.Completed }} / {{ .Session.Size }}</progress>
 
     {{ if .Result }}
         <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
@@ -21,9 +23,25 @@
         </div>
     {{ end }}
 
-    {{ if .NoWords }}
+    {{ if .SessionComplete }}
+        <section class="session_summary">
+            <h3>Session complete</h3>
+            <div class="stats_totals session_totals">
+                <div><span>Cards</span><strong>{{ .Session.Completed }}</strong></div>
+                <div><span>Correct</span><strong>{{ .Session.Correct }}</strong></div>
+                <div><span>Wrong</span><strong>{{ .Session.Wrong }}</strong></div>
+            </div>
+            <div class="page_actions training_actions">
+                {{ if .RepeatPath }}<a class="mode_button" href="{{ .RepeatPath }}">Repeat mistakes</a>{{ end }}
+                <a class="secondary_link" href="{{ .RestartPath }}">Start again</a>
+                <a class="secondary_link" href="/stats">View statistics</a>
+                <a class="secondary_link" href="/">Back to home</a>
+            </div>
+        </section>
+    {{ else if .NoWords }}
         <p class="muted">{{ .PageNotice }}</p>
         <div class="page_actions">
+            {{ if .FallbackPath }}<a class="mode_button" href="{{ .FallbackPath }}">Start mixed session</a>{{ end }}
             <a class="secondary_link" href="/topics">Open topics</a>
             <a class="secondary_link" href="/">Back to home</a>
         </div>
@@ -38,6 +56,11 @@
             <input type="hidden" name="direction" value="{{ .Direction }}">
             <input type="hidden" name="prompt" value="{{ .Prompt }}">
             <input type="hidden" name="target" value="{{ .Target }}">
+            <input type="hidden" name="session_size" value="{{ .SessionState.Size }}">
+            <input type="hidden" name="session_completed" value="{{ .SessionState.Completed }}">
+            <input type="hidden" name="session_correct" value="{{ .SessionState.Correct }}">
+            <input type="hidden" name="mistake_ids" value="{{ range $index, $id := .SessionState.MistakeIDs }}{{ if $index }},{{ end }}{{ $id }}{{ end }}">
+            <input type="hidden" name="only_word_ids" value="{{ range $index, $id := .SessionState.OnlyWordIDs }}{{ if $index }},{{ end }}{{ $id }}{{ end }}">
 
             {{ if eq .AnswerMode "build" }}
                 <input type="hidden" name="reply" data-build-reply>
@@ -60,7 +83,7 @@
 
             <div class="page_actions training_actions">
                 <button class="mode_button" type="submit">Check</button>
-                <a class="secondary_link" href="{{ .TrainPath }}">Skip</a>
+                <a class="secondary_link" href="{{ .SkipPath }}">Skip</a>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>
