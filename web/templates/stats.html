@@ -14,6 +14,34 @@
     </div>
 </section>
 
+{{ if .FrequentMistakes }}
+<section class="card">
+    <h2>Frequent mistakes</h2>
+    <p class="muted">Words that most often need another attempt.</p>
+    <div class="stats_list">
+        {{ range .FrequentMistakes }}
+        <article class="mistake_row"><strong>{{ .Spanish }} → {{ .Russian }}</strong><span><b>{{ .Count }}</b> misses</span><span>{{ .Typos }} close typos</span><span>{{ .Skips }} skips</span></article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
+
+<section class="card">
+    <h2>Recent sessions</h2>
+    {{ if .Sessions }}
+    <div class="stats_list">
+        {{ range .Sessions }}
+        <article class="stats_row">
+            <div class="stats_word"><span class="word_label">{{ .Mode }}</span><strong>{{ .Completed }} / {{ .Size }} cards</strong></div>
+            <div><span>Correct</span><strong>{{ .Correct }}</strong></div>
+            <div><span>Status</span><strong>{{ .Status }}</strong></div>
+            <div class="session_links"><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a>{{ if eq .Status "active" }}<a class="secondary_link" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a>{{ end }}</div>
+        </article>
+        {{ end }}
+    </div>
+    {{ else }}<p class="muted">No training sessions yet.</p>{{ end }}
+</section>
+
 <section class="card">
     <h2>Words</h2>
     {{ if .Stats }}

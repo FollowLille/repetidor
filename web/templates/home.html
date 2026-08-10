@@ -1,7 +1,33 @@
 {{ define "content" }}
+<link rel="stylesheet" href="/static/css/x.css">
 <section class="card">
     <h2>Start training</h2>
-    <p class="muted">Choose a mode and begin a short review session.</p>
+    <p class="muted">Configure a focused session or start with a preset.</p>
+
+    <form class="session_config" method="get" action="/train/mixed">
+        <label class="form_group">Cards
+            <select name="session_size">
+                <option value="5">5 cards</option><option value="10" selected>10 cards</option><option value="20">20 cards</option><option value="30">30 cards</option>
+            </select>
+        </label>
+        <label class="form_group">Direction
+            <select name="direction">
+                <option value="both" selected>Both directions</option><option value="spanish_to_russian">Spanish to Russian</option><option value="russian_to_spanish">Russian to Spanish</option>
+            </select>
+        </label>
+        <label class="form_group">Answer style
+            <select name="answer">
+                <option value="both" selected>Type and build</option><option value="type">Type only</option><option value="build">Build letters only</option>
+            </select>
+        </label>
+        <fieldset class="topic_picker">
+            <legend>Topics <span class="muted">(none means all)</span></legend>
+            <div class="topic_checks">
+                {{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"> {{ .Name }}</label>{{ else }}<span class="muted">No topics yet</span>{{ end }}
+            </div>
+        </fieldset>
+        <button class="mode_button" type="submit">Start configured session</button>
+    </form>
 
     <div class="mode_grid">
         {{ range .Modes }}
@@ -10,23 +36,27 @@
     </div>
 </section>
 
+{{ if .ActiveSessions }}
+<section class="card">
+    <h2>Continue training</h2>
+    <div class="active_sessions">
+        {{ range .ActiveSessions }}
+        <article class="active_session">
+            <div><span class="word_label">{{ .Mode }}</span><strong>Session #{{ .ID }}</strong><span class="muted">{{ .Completed }} of {{ .Size }} cards</span></div>
+            <progress value="{{ .Completed }}" max="{{ .Size }}">{{ .Completed }}/{{ .Size }}</progress>
+            <div class="session_links"><a class="mode_button" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a></div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
+
 <section class="card">
     <h2>Progress</h2>
     <p class="muted">See accuracy, streaks, and the words that need more practice.</p>
     <div class="page_actions">
         <a class="secondary_link" href="/stats">Open training statistics</a>
     </div>
-    <form class="quick_session" method="get" action="/train/mixed">
-        <label>
-            Quick mixed session
-            <select name="session_size">
-                <option value="5">5 cards</option>
-                <option value="10" selected>10 cards</option>
-                <option value="20">20 cards</option>
-            </select>
-        </label>
-        <button class="secondary_link" type="submit">Start session</button>
-    </form>
 </section>
 
 <section class="card">

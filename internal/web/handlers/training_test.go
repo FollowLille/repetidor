@@ -1,11 +1,20 @@
 package handlers
 
 import (
+	"net/http/httptest"
 	"testing"
 	"time"
 
 	"repetidor/internal/domain"
 )
+
+func TestTopicFiltersAcceptsMultipleUniqueTopics(t *testing.T) {
+	r := httptest.NewRequest("GET", "/train/mixed?topic_ids=7&topic_ids=3&topic_ids=7&topic_ids=bad", nil)
+	got := topicFilters(r)
+	if len(got) != 2 || got[0] != 7 || got[1] != 3 {
+		t.Fatalf("topicFilters() = %v", got)
+	}
+}
 
 func TestExcludeCard(t *testing.T) {
 	cards := []trainingCard{
@@ -53,19 +62,19 @@ func assertCardIDs(t *testing.T, cards []trainingCard, want []int64) {
 	}
 }
 
-func TestSessionPathPreservesTopicFilterAndProgress(t *testing.T) {
-	got := sessionPath("/train/mixed?topic_id=7", trainingSession{Size: 5, Completed: 2, Correct: 1}, 11)
-	want := "/train/mixed?session_completed=2&session_correct=1&session_size=5&skip_word_id=11&topic_id=7"
+func TestTrainingPathPreservesTopicFilter(t *testing.T) {
+	got := trainingPath("mixed", 7)
+	want := "/train/mixed?topic_id=7"
 	if got != want {
-		t.Fatalf("sessionPath() = %q, want %q", got, want)
+		t.Fatalf("trainingPath() = %q, want %q", got, want)
 	}
 }
 
-func TestRepeatMistakesPathUsesUniqueMistakes(t *testing.T) {
-	got := repeatMistakesPath("/train/type?topic_id=3", trainingSession{MistakeIDs: []int64{8, 13}})
-	want := "/train/type?only_word_ids=8%2C13&session_completed=0&session_correct=0&session_size=2&topic_id=3"
+func TestSessionURL(t *testing.T) {
+	got := sessionURL("type", 13)
+	want := "/train/type?session_id=13"
 	if got != want {
-		t.Fatalf("repeatMistakesPath() = %q, want %q", got, want)
+		t.Fatalf("sessionURL() = %q, want %q", got, want)
 	}
 }
 
@@ -79,4 +88,53 @@ func TestRestrictCards(t *testing.T) {
 	if len(filtered) != 2 || filtered[0].Word.ID != 1 || filtered[1].Word.ID != 3 {
 		t.Fatalf("restrictCards() = %#v", filtered)
 	}
+}
+
+func TestBuildSessionQueueBalancesTopicsWordsAndDirections(t *testing.T) {
+	cards := []trainingCard{
+		{Word: domain.Word{ID: 1}, Topic: domain.Topic{ID: 10}},
+		{Word: domain.Word{ID: 2}, Topic: domain.Topic{ID: 10}},
+		{Word: domain.Word{ID: 3}, Topic: domain.Topic{ID: 20}},
+		{Word: domain.Word{ID: 4}, Topic: domain.Topic{ID: 20}},
+	}
+	progress := map[string]map[int64]domain.TrainingProgress{"spanish_to_russian": {}, "russian_to_spanish": {}}
+	queue := buildSessionQueue("mixed", cards, progress, 8, "spanish_to_russian", "both", "both")
+	if len(queue) != 8 {
+		t.Fatalf("queue length = %d", len(queue))
+	}
+	topicCounts := map[int64]int{}
+	wordCounts := map[int64]int{}
+	for i, card := range queue {
+		topicCounts[card.TopicID]++
+		wordCounts[card.WordID]++
+		if i > 0 && card.WordID == queue[i-1].WordID {
+			t.Fatalf("adjacent duplicate at %d: %#v", i, queue)
+		}
+		wantDirection := "spanish_to_russian"
+		wantAnswerMode := "type"
+		if i%2 == 1 {
+			wantDirection = "russian_to_spanish"
+			wantAnswerMode = "build"
+		}
+		if card.Direction != wantDirection || card.AnswerMode != wantAnswerMode {
+			t.Fatalf("card %d = %#v", i, card)
+		}
+	}
+	if topicCounts[10] != 4 || topicCounts[20] != 4 {
+		t.Fatalf("topic counts = %v", topicCounts)
+	}
+	for id, count := range wordCounts {
+		if count != 2 {
+			t.Fatalf("word %d count = %d", id, count)
+		}
+	}
+}
+
+func TestFilterCardsForDirectionsIncludesPainFromEitherDirection(t *testing.T) {
+	cards := []trainingCard{{Word: domain.Word{ID: 1}}, {Word: domain.Word{ID: 2}}, {Word: domain.Word{ID: 3}}}
+	progress := map[string]map[int64]domain.TrainingProgress{
+		"spanish_to_russian": {1: {WordID: 1, RecentPain: 2}},
+		"russian_to_spanish": {2: {WordID: 2, RecentPain: 1}},
+	}
+	assertCardIDs(t, filterCardsForDirections("hard", cards, progress, time.Now()), []int64{1, 2})
 }

@@ -37,8 +37,41 @@
 .stats_list { display: grid; gap: 10px; margin-top: 16px; }
 .stats_row { display: grid; grid-template-columns: minmax(220px, 2fr) repeat(4, minmax(70px, 1fr)); gap: 14px; align-items: center; border: 1px solid var(--panel-border); border-radius: 12px; background: var(--topic-bg); padding: 14px; }
 .stats_word { display: grid; gap: 4px; }
+.session_links { display: flex !important; flex-wrap: wrap; gap: 6px !important; }
+.session_review { display: grid; gap: 10px; margin-top: 16px; }
+.session_review_card { display: grid; grid-template-columns: 52px 1fr auto; gap: 14px; align-items: center; border: 1px solid var(--panel-border); border-left-width: 4px; border-radius: 12px; background: var(--topic-bg); padding: 14px; }
+.review_correct { border-left-color: #4ade80; }
+.review_wrong { border-left-color: #fb7185; }
+.review_pending { border-left-color: #64748b; }
+.review_number { color: var(--muted); font-weight: 800; }
+.review_main { display: grid; gap: 5px; }
+.review_response { margin: 0; }
+.review_state { text-align: right; }
+.session_abandon { margin-top: 0; min-height: 36px; }
+.session_config { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 24px; border: 1px solid var(--panel-border); border-radius: 14px; background: var(--topic-bg); padding: 16px; }
+.session_config select { border: 1px solid var(--panel-border); border-radius: 9px; background: #0f1424; color: var(--text); padding: 10px; }
+.session_config .mode_button { align-self: end; }
+.topic_picker { grid-column: 1 / -1; border: 0; padding: 0; margin: 0; }
+.topic_picker legend { margin-bottom: 10px; font-weight: 700; }
+.topic_checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.topic_checks label { border: 1px solid var(--panel-border); border-radius: 999px; padding: 7px 11px; cursor: pointer; }
+.active_sessions { display: grid; gap: 10px; margin-top: 16px; }
+.active_session { display: grid; grid-template-columns: minmax(160px, 1fr) minmax(140px, 2fr) auto; align-items: center; gap: 16px; border: 1px solid var(--panel-border); border-radius: 12px; background: var(--topic-bg); padding: 14px; }
+.active_session > div:first-child { display: grid; gap: 4px; }
+.active_session progress { width: 100%; accent-color: var(--accent); }
+.answer_feedback { margin: 14px 0 8px; color: var(--muted); }
+.retry_form { display: flex; justify-content: center; }
+.mistake_row { display: grid; grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(90px, 1fr)); gap: 14px; align-items: center; border: 1px solid var(--panel-border); border-radius: 12px; background: var(--topic-bg); padding: 14px; }
+.mistake_row span { color: var(--muted); }
 @media (max-width: 640px) {
     .stats_totals { grid-template-columns: repeat(2, 1fr); }
     .stats_row { grid-template-columns: repeat(2, 1fr); }
     .stats_word { grid-column: 1 / -1; }
+    .session_review_card { grid-template-columns: 40px 1fr; }
+    .review_state { grid-column: 2; text-align: left; }
+    .session_config { grid-template-columns: 1fr; }
+    .topic_picker { grid-column: 1; }
+    .active_session { grid-template-columns: 1fr; }
+    .mistake_row { grid-template-columns: 1fr 1fr; }
+    .mistake_row strong { grid-column: 1 / -1; }
 }
