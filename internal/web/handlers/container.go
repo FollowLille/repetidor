@@ -13,15 +13,16 @@ type Container struct {
 	TopicEdit *TopicEditHandler
 	WordEdit  *WordEditHandler
 	Stats     *StatsHandler
+	Session   *SessionHandler
 }
 
-func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, appLogger logger.Logger) (*Container, error) {
-	homeHandler, err := NewHomeHandler(topicRepo)
+func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, appLogger logger.Logger) (*Container, error) {
+	homeHandler, err := NewHomeHandler(topicRepo, sessionRepo)
 	if err != nil {
 		return nil, err
 	}
 
-	trainingHandler, err := NewTrainingHandler(topicRepo, wordRepo, trainingRepo, appLogger)
+	trainingHandler, err := NewTrainingHandler(topicRepo, wordRepo, trainingRepo, sessionRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
@@ -44,10 +45,14 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
-	statsHandler, err := NewStatsHandler(trainingRepo, appLogger)
+	statsHandler, err := NewStatsHandler(trainingRepo, sessionRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
+	sessionHandler, err := NewSessionHandler(sessionRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler}, nil
+	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler}, nil
 }

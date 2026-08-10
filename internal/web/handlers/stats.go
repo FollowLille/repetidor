@@ -12,15 +12,16 @@ import (
 type StatsHandler struct {
 	templates    *template.Template
 	trainingRepo storage.TrainingRepository
+	sessionRepo  storage.SessionRepository
 	logger       logger.Logger
 }
 
-func NewStatsHandler(trainingRepo storage.TrainingRepository, appLogger logger.Logger) (*StatsHandler, error) {
+func NewStatsHandler(trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, appLogger logger.Logger) (*StatsHandler, error) {
 	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "stats.html"))
 	if err != nil {
 		return nil, err
 	}
-	return &StatsHandler{templates: tmpl, trainingRepo: trainingRepo, logger: appLogger}, nil
+	return &StatsHandler{templates: tmpl, trainingRepo: trainingRepo, sessionRepo: sessionRepo, logger: appLogger}, nil
 }
 
 func (h *StatsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -28,6 +29,18 @@ func (h *StatsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		h.logger.Error("failed to load training stats", "error", err)
 		http.Error(w, "failed to load training stats", http.StatusInternalServerError)
+		return
+	}
+	sessions, err := h.sessionRepo.ListRecent(r.Context(), 10)
+	if err != nil {
+		h.logger.Error("failed to load training sessions", "error", err)
+		http.Error(w, "failed to load training sessions", http.StatusInternalServerError)
+		return
+	}
+	mistakes, err := h.sessionRepo.ListFrequentMistakes(r.Context(), 8)
+	if err != nil {
+		h.logger.Error("failed to load frequent mistakes", "error", err)
+		http.Error(w, "failed to load frequent mistakes", http.StatusInternalServerError)
 		return
 	}
 
@@ -43,7 +56,7 @@ func (h *StatsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		totals.Accuracy = totals.Correct * 100 / totals.Seen
 	}
 
-	data := map[string]any{"Title": "Training statistics", "Stats": stats, "Totals": totals}
+	data := map[string]any{"Title": "Training statistics", "Stats": stats, "Totals": totals, "Sessions": sessions, "FrequentMistakes": mistakes}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render training stats", "error", err)

@@ -20,6 +20,14 @@
                 <div class="result_row"><span>Your reply</span><strong>{{ .Result.Reply }}</strong></div>
                 <div class="result_row"><span>Target</span><strong>{{ .Result.Target }}</strong></div>
             </div>
+            {{ if not .Result.Correct }}
+                <p class="answer_feedback">{{ .Result.Feedback }}{{ if eq .Result.Kind "typo" }} Difference: {{ .Result.Distance }} edit.{{ end }}</p>
+                <form method="post" action="{{ .TrainPath }}" class="retry_form">
+                    <input type="hidden" name="session_id" value="{{ .SessionID }}">
+                    <input type="hidden" name="position" value="{{ .Result.Position }}">
+                    <button class="secondary_link" type="submit" name="action" value="retry">Retry this card later</button>
+                </form>
+            {{ end }}
         </div>
     {{ end }}
 
@@ -52,15 +60,7 @@
         </div>
 
         <form class="topic_form training_form" method="post" action="{{ .TrainPath }}" data-answer-mode="{{ .AnswerMode }}">
-            <input type="hidden" name="word_id" value="{{ .Word.ID }}">
-            <input type="hidden" name="direction" value="{{ .Direction }}">
-            <input type="hidden" name="prompt" value="{{ .Prompt }}">
-            <input type="hidden" name="target" value="{{ .Target }}">
-            <input type="hidden" name="session_size" value="{{ .SessionState.Size }}">
-            <input type="hidden" name="session_completed" value="{{ .SessionState.Completed }}">
-            <input type="hidden" name="session_correct" value="{{ .SessionState.Correct }}">
-            <input type="hidden" name="mistake_ids" value="{{ range $index, $id := .SessionState.MistakeIDs }}{{ if $index }},{{ end }}{{ $id }}{{ end }}">
-            <input type="hidden" name="only_word_ids" value="{{ range $index, $id := .SessionState.OnlyWordIDs }}{{ if $index }},{{ end }}{{ $id }}{{ end }}">
+            <input type="hidden" name="session_id" value="{{ .SessionID }}">
 
             {{ if eq .AnswerMode "build" }}
                 <input type="hidden" name="reply" data-build-reply>
@@ -83,7 +83,7 @@
 
             <div class="page_actions training_actions">
                 <button class="mode_button" type="submit">Check</button>
-                <a class="secondary_link" href="{{ .SkipPath }}">Skip</a>
+                <button class="secondary_link" type="submit" name="action" value="skip">Skip</button>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>

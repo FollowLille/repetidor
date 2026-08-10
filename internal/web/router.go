@@ -18,6 +18,8 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 
 	r.Get("/", container.Home.ServeHTTP)
 	r.Get("/stats", container.Stats.ServeHTTP)
+	r.Get("/stats/sessions/{session_id}", container.Session.ServeHTTP)
+	r.Post("/stats/sessions/{session_id}/abandon", container.Session.ServeHTTP)
 	r.Method(http.MethodGet, "/train/{train_mode}", container.Training)
 	r.Method(http.MethodPost, "/train/{train_mode}", container.Training)
 	r.Method(http.MethodGet, "/topics", container.Topics)

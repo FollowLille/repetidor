@@ -1,0 +1,39 @@
+{{ define "content" }}
+<link rel="stylesheet" href="/static/css/x.css">
+<section class="card">
+    <div class="training_head">
+        <div>
+            <h2>Session #{{ .Session.ID }}</h2>
+            <p class="muted">{{ .Session.Mode }} · {{ .Session.Status }} · {{ .Session.Completed }} of {{ .Session.Size }} cards</p>
+        </div>
+        <div class="training_pill">{{ .Session.Correct }} correct</div>
+    </div>
+    <progress class="session_progress" value="{{ .Session.Completed }}" max="{{ .Session.Size }}">{{ .Session.Completed }} / {{ .Session.Size }}</progress>
+    <div class="page_actions">
+        {{ if .Active }}<a class="mode_button" href="{{ .ResumePath }}">Resume session</a>{{ end }}
+        <a class="secondary_link" href="/stats">Back to statistics</a>
+        {{ if .Active }}
+        <form method="post" action="/stats/sessions/{{ .Session.ID }}/abandon">
+            <button class="danger_button session_abandon" type="submit">Abandon session</button>
+        </form>
+        {{ end }}
+    </div>
+</section>
+
+<section class="card">
+    <h2>Card review</h2>
+    <div class="session_review">
+        {{ range .Cards }}
+        <article class="session_review_card {{ if .Answered }}{{ if .Correct }}review_correct{{ else }}review_wrong{{ end }}{{ else }}review_pending{{ end }}">
+            <div class="review_number">#{{ .Position }}</div>
+            <div class="review_main">
+                <span class="word_label">{{ .TopicName }} · {{ .Direction }}</span>
+                <strong>{{ .Prompt }} → {{ .Target }}</strong>
+                {{ if .Answered }}<span class="muted review_response">Reply: {{ .Response }}{{ if eq .ErrorKind "typo" }} · close typo ({{ .EditDistance }} edit){{ else if eq .ErrorKind "skipped" }} · skipped{{ end }}</span>{{ end }}
+            </div>
+            <strong class="review_state">{{ .State }}</strong>
+        </article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
