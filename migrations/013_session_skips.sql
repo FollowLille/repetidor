@@ -1,0 +1,1 @@
+ALTER TABLE training_sessions ADD COLUMN skipped INTEGER NOT NULL DEFAULT 0;

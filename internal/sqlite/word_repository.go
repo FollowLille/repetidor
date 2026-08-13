@@ -147,11 +147,10 @@ func (r *WordRepository) Update(ctx context.Context, word domain.Word) (domain.W
 	err := r.db.QueryRowContext(ctx, `
 		UPDATE words
 		SET spanish = ?, spanish_key = ?, russian = ?, russian_key = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
-		WHERE id = ? AND topic_id = ?
-		RETURNING id, topic_id, spanish, spanish_key, russian, russian_key, notes, created_at, updated_at
+		WHERE id = ? AND EXISTS (SELECT 1 FROM word_topics WHERE word_id = words.id AND topic_id = ?)
+		RETURNING id, spanish, spanish_key, russian, russian_key, notes, created_at, updated_at
 	`, word.Spanish, word.SpanishKey, word.Russian, word.RussianKey, word.Notes, word.ID, word.TopicID).Scan(
 		&updated.ID,
-		&updated.TopicID,
 		&updated.Spanish,
 		&updated.SpanishKey,
 		&updated.Russian,
@@ -160,6 +159,7 @@ func (r *WordRepository) Update(ctx context.Context, word domain.Word) (domain.W
 		&updated.CreatedAt,
 		&updated.UpdatedAt,
 	)
+	updated.TopicID = word.TopicID
 	if err == sql.ErrNoRows {
 		return domain.Word{}, storage.ErrWordNotFound
 	}

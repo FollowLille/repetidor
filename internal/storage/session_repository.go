@@ -19,7 +19,6 @@ type SessionRepository interface {
 	CurrentCard(ctx context.Context, sessionID int64) (domain.TrainingSessionCard, error)
 	GetCard(ctx context.Context, sessionID int64, position int) (domain.TrainingSessionCard, error)
 	ListCards(ctx context.Context, sessionID int64) ([]domain.TrainingSessionCard, error)
-	RecordAnswer(ctx context.Context, sessionID int64, position int, response string, evaluation domain.AnswerEvaluation) (domain.TrainingSession, error)
 	RequeueCard(ctx context.Context, sessionID int64, position int) error
 	Abandon(ctx context.Context, sessionID int64) error
 	ListRecent(ctx context.Context, limit int) ([]domain.TrainingSession, error)

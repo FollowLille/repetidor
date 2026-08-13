@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"repetidor/internal/domain"
+	"repetidor/internal/storage"
 )
 
 type TrainingRepository struct {
@@ -65,6 +66,59 @@ func (r *TrainingRepository) Save(ctx context.Context, wordID int64, direction s
 
 	if err := tx.Commit(); err != nil {
 		return fmt.Errorf("commit training save transaction: %w", err)
+	}
+	return nil
+}
+
+func (r *TrainingRepository) SaveSessionAnswer(ctx context.Context, sessionID int64, position int, card domain.TrainingSessionCard, question string, expected string, response string, evaluation domain.AnswerEvaluation) error {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return fmt.Errorf("begin session answer transaction: %w", err)
+	}
+	defer tx.Rollback()
+
+	result, err := tx.ExecContext(ctx, `UPDATE training_session_cards
+		SET answered=1, is_correct=?, response=?, error_kind=?, edit_distance=?, answered_at=CURRENT_TIMESTAMP
+		WHERE session_id=? AND position=? AND answered=0
+		AND position=(SELECT completed+1 FROM training_sessions WHERE id=? AND status='active')`, evaluation.Correct, response, evaluation.Kind, evaluation.Distance, sessionID, position, sessionID)
+	if err != nil {
+		return fmt.Errorf("record session card answer: %w", err)
+	}
+	affected, _ := result.RowsAffected()
+	if affected != 1 {
+		return storage.ErrSessionCardNotFound
+	}
+
+	if evaluation.Kind != domain.AnswerSkipped {
+		correct := 0
+		wrong := 1
+		if evaluation.Correct {
+			correct, wrong = 1, 0
+		}
+		if _, err := tx.ExecContext(ctx, `INSERT INTO training_attempts(word_id,direction,question,expected,response,is_correct) VALUES(?,?,?,?,?,?)`, card.WordID, card.Direction, question, expected, response, correct); err != nil {
+			return fmt.Errorf("save training attempt: %w", err)
+		}
+		if _, err := tx.ExecContext(ctx, `INSERT INTO training_progress(word_id,direction,seen_count,correct_count,wrong_count,correct_streak,recent_pain,last_seen_at,last_correct_at,updated_at)
+			VALUES(?,?,1,?,?,?, ?,CURRENT_TIMESTAMP,CASE WHEN ?=1 THEN CURRENT_TIMESTAMP ELSE NULL END,CURRENT_TIMESTAMP)
+			ON CONFLICT(word_id,direction) DO UPDATE SET seen_count=seen_count+1, correct_count=correct_count+excluded.correct_count,
+			wrong_count=wrong_count+excluded.wrong_count, correct_streak=CASE WHEN excluded.correct_count=1 THEN correct_streak+1 ELSE 0 END,
+			recent_pain=CASE WHEN excluded.correct_count=1 THEN max(recent_pain-1,0) ELSE min(recent_pain+2,10) END,
+			last_seen_at=CURRENT_TIMESTAMP,last_correct_at=CASE WHEN excluded.correct_count=1 THEN CURRENT_TIMESTAMP ELSE last_correct_at END,updated_at=CURRENT_TIMESTAMP`, card.WordID, card.Direction, correct, wrong, correct, wrong*2, correct); err != nil {
+			return fmt.Errorf("save training progress: %w", err)
+		}
+	}
+
+	skipped := 0
+	if evaluation.Kind == domain.AnswerSkipped {
+		skipped = 1
+	}
+	if _, err := tx.ExecContext(ctx, `UPDATE training_sessions SET completed=completed+1, correct=correct+?, skipped=skipped+?,
+		status=CASE WHEN completed+1>=size THEN 'completed' ELSE 'active' END,
+		completed_at=CASE WHEN completed+1>=size THEN CURRENT_TIMESTAMP ELSE NULL END, updated_at=CURRENT_TIMESTAMP WHERE id=?`, evaluation.Correct, skipped, sessionID); err != nil {
+		return fmt.Errorf("update training session: %w", err)
+	}
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("commit session answer transaction: %w", err)
 	}
 	return nil
 }

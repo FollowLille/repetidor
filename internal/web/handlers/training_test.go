@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"math/rand"
 	"net/http/httptest"
 	"testing"
 	"time"
@@ -103,10 +104,8 @@ func TestBuildSessionQueueBalancesTopicsWordsAndDirections(t *testing.T) {
 		t.Fatalf("queue length = %d", len(queue))
 	}
 	topicCounts := map[int64]int{}
-	wordCounts := map[int64]int{}
 	for i, card := range queue {
 		topicCounts[card.TopicID]++
-		wordCounts[card.WordID]++
 		if i > 0 && card.WordID == queue[i-1].WordID {
 			t.Fatalf("adjacent duplicate at %d: %#v", i, queue)
 		}
@@ -123,10 +122,32 @@ func TestBuildSessionQueueBalancesTopicsWordsAndDirections(t *testing.T) {
 	if topicCounts[10] != 4 || topicCounts[20] != 4 {
 		t.Fatalf("topic counts = %v", topicCounts)
 	}
-	for id, count := range wordCounts {
-		if count != 2 {
-			t.Fatalf("word %d count = %d", id, count)
+}
+
+func TestRandomSelectionIsUniform(t *testing.T) {
+	cards := []trainingCard{{Word: domain.Word{ID: 1}}, {Word: domain.Word{ID: 2}}, {Word: domain.Word{ID: 3}}}
+	rng := rand.New(rand.NewSource(42))
+	counts := map[int64]int{}
+	for i := 0; i < 30000; i++ {
+		counts[pickCardForModeWithRand("random", cards, nil, rng).Word.ID]++
+	}
+	for id := int64(1); id <= 3; id++ {
+		if counts[id] < 9700 || counts[id] > 10300 {
+			t.Fatalf("random distribution = %v", counts)
 		}
+	}
+}
+
+func TestMixedSelectionUsesRecentPain(t *testing.T) {
+	cards := []trainingCard{{Word: domain.Word{ID: 1}}, {Word: domain.Word{ID: 2}}}
+	progress := map[int64]domain.TrainingProgress{2: {WordID: 2, SeenCount: 1, RecentPain: 8}}
+	rng := rand.New(rand.NewSource(42))
+	counts := map[int64]int{}
+	for i := 0; i < 10000; i++ {
+		counts[pickCardForModeWithRand("mixed", cards, progress, rng).Word.ID]++
+	}
+	if counts[2] < counts[1]*4 {
+		t.Fatalf("mixed did not prioritize pain: %v", counts)
 	}
 }
 

@@ -3,10 +3,11 @@ package domain
 import "unicode/utf8"
 
 const (
-	AnswerExact   = "exact"
-	AnswerTypo    = "typo"
-	AnswerWrong   = "wrong"
-	AnswerSkipped = "skipped"
+	AnswerExact    = "exact"
+	AnswerTypo     = "typo"
+	AnswerWrong    = "wrong"
+	AnswerSkipped  = "skipped"
+	AnswerDontKnow = "dont_know"
 )
 
 type AnswerEvaluation struct {

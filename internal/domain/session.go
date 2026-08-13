@@ -17,6 +17,7 @@ type TrainingSession struct {
 	Size          int
 	Completed     int
 	Correct       int
+	Skipped       int
 	Status        string
 	CreatedAt     time.Time
 	UpdatedAt     time.Time

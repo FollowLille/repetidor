@@ -26,7 +26,7 @@
 .session_progress { width: 100%; height: 10px; margin: 10px 0 18px; accent-color: var(--accent); }
 .session_summary { margin-top: 18px; border: 1px solid var(--panel-border); border-radius: 14px; background: var(--topic-bg); padding: 18px; }
 .session_summary h3 { margin-top: 0; }
-.session_totals { grid-template-columns: repeat(3, 1fr); }
+.session_totals { grid-template-columns: repeat(4, 1fr); }
 .quick_session { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin-top: 18px; }
 .quick_session label { display: grid; gap: 7px; color: var(--muted); }
 .quick_session select { border: 1px solid var(--panel-border); border-radius: 9px; background: #0f1424; color: var(--text); padding: 9px 12px; }

@@ -1,5 +1,4 @@
 {{ define "content" }}
-<link rel="stylesheet" href="/static/css/x.css">
 <section class="card training_card">
     <div class="training_head">
         <div>
@@ -38,6 +37,7 @@
                 <div><span>Cards</span><strong>{{ .Session.Completed }}</strong></div>
                 <div><span>Correct</span><strong>{{ .Session.Correct }}</strong></div>
                 <div><span>Wrong</span><strong>{{ .Session.Wrong }}</strong></div>
+                <div><span>Skipped</span><strong>{{ .Session.Skipped }}</strong></div>
             </div>
             <div class="page_actions training_actions">
                 {{ if .RepeatPath }}<a class="mode_button" href="{{ .RepeatPath }}">Repeat mistakes</a>{{ end }}
@@ -84,6 +84,7 @@
             <div class="page_actions training_actions">
                 <button class="mode_button" type="submit">Check</button>
                 <button class="secondary_link" type="submit" name="action" value="skip">Skip</button>
+                <button class="secondary_link" type="submit" name="action" value="dont_know">Don't know</button>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
         </form>
