@@ -3,8 +3,7 @@
     <div class="training_head">
         <div>
             <h2>{{ .PageTitle }}</h2>
-            <p class="muted">Mode: {{ .TrainMode }}</p>
-            <p class="muted">Card {{ .Session.Current }} of {{ .Session.Size }}</p>
+            <div class="training_meta"><span class="training-meta-chip">{{ .TrainMode }}</span><span class="training-meta-chip">Card {{ .Session.Current }} of {{ .Session.Size }}</span></div>
         </div>
         <div class="training_pill">{{ .AnswerMode }}</div>
     </div>
@@ -55,7 +54,7 @@
         </div>
     {{ else }}
         <div class="training_prompt">
-            <p class="muted">{{ .DirectionLabel }} · topic: {{ .Topic.Name }}</p>
+            <div class="prompt_meta"><span>{{ .DirectionLabel }}</span><span>{{ .Topic.Name }}</span></div>
             <div class="training_prompt_text">{{ .Prompt }}</div>
         </div>
 
@@ -90,5 +89,5 @@
         </form>
     {{ end }}
 </section>
-<script src="/static/js/training.js"></script>
+<script src="/static/js/training.js?v=2"></script>
 {{ end }}
