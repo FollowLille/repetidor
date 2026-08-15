@@ -1,20 +1,20 @@
 {{ define "content" }}
 <section class="card">
-    <h2>Topic: {{ .Topic.Name }}</h2>
+    <h2>{{ tr .Locale "Topic" }}: {{ .Topic.Name }}</h2>
     <p class="muted">{{ .Topic.Description }}</p>
 
     <div class="page_actions">
-        <a class="secondary_link" href="/train/mixed?topic_id={{ .Topic.ID }}">Train this topic</a>
-        <a class="secondary_link" href="/train/mixed">Train all words</a>
-        <a class="secondary_link" href="/topics/{{ .Topic.Name }}/edit">Edit topic</a>
-        <a class="secondary_link" href="/topics">Back to topics</a>
-        <a class="secondary_link" href="/">Back to home</a>
+        <a class="secondary_link" href="/train/mixed?topic_id={{ .Topic.ID }}">{{ tr .Locale "Train this topic" }}</a>
+        <a class="secondary_link" href="/train/mixed">{{ tr .Locale "Train all words" }}</a>
+        <a class="secondary_link" href="/topics/{{ .Topic.Name }}/edit">{{ tr .Locale "Edit topic" }}</a>
+        <a class="secondary_link" href="/topics">{{ tr .Locale "Back to topics" }}</a>
+        <a class="secondary_link" href="/">{{ tr .Locale "Back to home" }}</a>
     </div>
 </section>
 
 <section class="card">
-    <h2>Add word</h2>
-    {{ if .Warning }}<p class="form_error">{{ .Warning }}</p>{{ end }}
+    <h2>{{ tr .Locale "Add word" }}</h2>
+    {{ if .Warning }}<p class="form_error">{{ tr .Locale .Warning }}</p>{{ end }}
     <form class="topic_form" method="post" action="/topics/{{ .Topic.Name }}/words">
         <label class="form_group">
             {{ .TargetLanguage.NativeName }}
@@ -25,15 +25,15 @@
             <input class="form_input" type="text" name="russian" value="{{ with .Form }}{{ index . "Russian" }}{{ end }}" placeholder="bread">
         </label>
         <label class="form_group">
-            Notes
+            {{ tr .Locale "Notes" }}
             <textarea class="form_textarea" name="notes" rows="3" placeholder="article, plural, example">{{ with .Form }}{{ index . "Notes" }}{{ end }}</textarea>
         </label>
-        <button class="mode_button" type="submit">Save word</button>
+        <button class="mode_button" type="submit">{{ tr .Locale "Save word" }}</button>
     </form>
 </section>
 
 <section class="card">
-    <h2>Saved words</h2>
+    <h2>{{ tr .Locale "Saved words" }}</h2>
     {{ if .Words }}
         <div class="word_cards">
             {{ range .Words }}
@@ -42,21 +42,21 @@
                         <span class="word_label">{{ $.TargetLanguage.NativeName }}</span>
                         <strong class="word_value">{{ .Spanish }}</strong>
                     </div>
-                    <div class="word_separator">to</div>
+                    <div class="word_separator">→</div>
                     <div class="word_column">
                         <span class="word_label">{{ $.ReferenceLanguage.NativeName }}</span>
                         <strong class="word_value">{{ .Russian }}</strong>
                     </div>
                     {{ if .Notes }}<div class="word_notes">{{ .Notes }}</div>{{ end }}
-                    <a class="secondary_link word_edit" href="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/edit">Edit</a>
-                    <form method="post" action="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/delete" onsubmit="return confirm('Delete this word?');">
-                        <button class="word_delete" type="submit" aria-label="Remove {{ .Spanish }} from topic">Remove from topic</button>
+                    <a class="secondary_link word_edit" href="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/edit">{{ tr $.Locale "Edit" }}</a>
+                    <form method="post" action="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/delete" onsubmit="return confirm('{{ tr $.Locale "Delete this word?" }}');">
+                        <button class="word_delete" type="submit" aria-label="{{ tr $.Locale "Remove from topic" }}">{{ tr $.Locale "Remove from topic" }}</button>
                     </form>
                 </article>
             {{ end }}
         </div>
     {{ else }}
-        <p class="muted">No words yet. Add the first one above.</p>
+        <p class="muted">{{ tr .Locale "No words yet. Add the first one above." }}</p>
     {{ end }}
 </section>
 {{ end }}

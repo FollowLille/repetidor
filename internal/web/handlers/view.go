@@ -59,6 +59,27 @@ func translate(lang, text string) string {
 	return text
 }
 
+func requiredMessage(r *http.Request, label string) string {
+	if locale(r) == "ru" {
+		return "Заполните поле «" + label + "»."
+	}
+	return label + " is required."
+}
+
+func topicExistsMessage(r *http.Request, name string) string {
+	if locale(r) == "ru" {
+		return "Тема «" + name + "» уже существует."
+	}
+	return "Topic \"" + name + "\" already exists."
+}
+
+func wordExistsMessage(r *http.Request, source, target string) string {
+	if locale(r) == "ru" {
+		return "Пара «" + source + " → " + target + "» уже есть в этой теме."
+	}
+	return "Word \"" + source + " → " + target + "\" already exists in this topic."
+}
+
 var russianUI = map[string]string{
 	"Learn": "Обучение", "Arena": "Арена", "Vocabulary": "Словарь", "Progress": "Прогресс", "Import": "Импорт", "Settings": "Настройки",
 	"Your daily Spanish practice": "Ежедневная языковая практика", "Turn vocabulary into": "Превращайте слова в", "instinct.": "интуицию.",
@@ -95,6 +116,10 @@ var russianUI = map[string]string{
 	"Training statistics": "Статистика тренировок", "Words": "Слова", "Attempts": "Попытки", "Correct": "Верно", "Accuracy": "Точность", "Frequent mistakes": "Частые ошибки", "Words that most often need another attempt.": "Слова, которым чаще всего нужна ещё одна попытка.", "misses": "ошибок", "close typos": "почти верных", "skips": "пропусков",
 	"Recent sessions": "Недавние сессии", "Status": "Статус", "active": "активна", "completed": "завершена", "abandoned": "прервана", "No training sessions yet.": "Тренировок пока нет.", "Seen": "Показов", "Streak": "Серия", "Pain": "Сложность", "No words yet. Add words to a topic to start tracking progress.": "Слов пока нет. Добавьте их в тему, чтобы начать отслеживать прогресс.",
 	"mixed": "смешанный", "random": "случайный", "type": "ввод", "build": "сборка", "choice": "быстрый выбор", "cloze": "пропуски", "anagram": "анаграмма", "match": "пары", "arcade": "своя арена", "due": "пора повторить", "hard": "сложные", "easy": "лёгкие",
+	"Train this topic": "Тренировать эту тему", "Train all words": "Тренировать все слова", "Edit topic": "Изменить тему", "Add word": "Добавить слово", "Notes": "Заметки", "Save word": "Сохранить слово", "Saved words": "Сохранённые слова", "Edit": "Изменить", "Delete this word?": "Удалить это слово?", "Remove from topic": "Убрать из темы", "No words yet. Add the first one above.": "Слов пока нет. Добавьте первое выше.",
+	"Save changes": "Сохранить изменения", "Delete this topic?": "Удалить эту тему?", "Delete topic": "Удалить тему", "Back to topic": "Назад к теме", "Edit word": "Изменить слово",
+	"Card": "Карточка", "Try again": "Попробуйте ещё раз", "Prompt": "Задание", "Your reply": "Ваш ответ", "Target": "Правильный ответ", "Edit distance": "Расстояние редактирования", "Retry this card later": "Повторить карточку позже", "Session complete": "Сессия завершена", "Wrong": "Ошибки", "Skipped": "Пропущено", "Repeat mistakes": "Повторить ошибки", "Start again": "Начать заново", "View statistics": "Посмотреть статистику", "Start mixed session": "Начать смешанную сессию", "Open topics": "Открыть темы", "Unscramble the translation using every letter.": "Соберите перевод, используя все буквы.", "Backspace": "Стереть букву", "Clear": "Очистить", "Check": "Проверить", "Skip": "Пропустить", "Don't know": "Не знаю", "Leave arena": "Покинуть арену",
+	"That answer does not match yet.": "Ответ пока не совпадает.", "Very close — this looks like a typo.": "Очень близко — похоже на опечатку.", "Skipped — progress was not changed.": "Пропущено — прогресс не изменён.", "Marked as unknown — this word will receive more practice.": "Отмечено как незнакомое — слово будет появляться чаще.", "No difficult words right now.": "Сейчас нет сложных слов.",
 }
 
 func safeNext(raw string) string {

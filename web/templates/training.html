@@ -3,7 +3,7 @@
     <div class="training_head">
         <div>
             <h2>{{ .PageTitle }}</h2>
-            <div class="training_meta"><span class="training-meta-chip">{{ .TrainMode }}</span><span class="training-meta-chip">Card {{ .Session.Current }} of {{ .Session.Size }}</span></div>
+            <div class="training_meta"><span class="training-meta-chip">{{ tr .Locale .TrainMode }}</span><span class="training-meta-chip">{{ tr .Locale "Card" }} {{ .Session.Current }} {{ tr .Locale "of" }} {{ .Session.Size }}</span></div>
         </div>
         <div class="training_pill">{{ .AnswerMode }}</div>
     </div>
@@ -11,19 +11,19 @@
 
     {{ if .Result }}
         <div class="training_result {{ if .Result.Correct }}is_correct{{ else }}is_wrong{{ end }}">
-            <strong>{{ if .Result.Correct }}Correct{{ else }}Try again{{ end }}</strong>
+            <strong>{{ if .Result.Correct }}{{ tr .Locale "Correct" }}{{ else }}{{ tr .Locale "Try again" }}{{ end }}</strong>
             <div class="result_rows">
-                <div class="result_row"><span>Direction</span><strong>{{ .Result.DirectionLabel }}</strong></div>
-                <div class="result_row"><span>Prompt</span><strong>{{ .Result.Prompt }}</strong></div>
-                <div class="result_row"><span>Your reply</span><strong>{{ .Result.Reply }}</strong></div>
-                <div class="result_row"><span>Target</span><strong>{{ .Result.Target }}</strong></div>
+                <div class="result_row"><span>{{ tr .Locale "Direction" }}</span><strong>{{ .Result.DirectionLabel }}</strong></div>
+                <div class="result_row"><span>{{ tr .Locale "Prompt" }}</span><strong>{{ .Result.Prompt }}</strong></div>
+                <div class="result_row"><span>{{ tr .Locale "Your reply" }}</span><strong>{{ .Result.Reply }}</strong></div>
+                <div class="result_row"><span>{{ tr .Locale "Target" }}</span><strong>{{ .Result.Target }}</strong></div>
             </div>
             {{ if not .Result.Correct }}
-                <p class="answer_feedback">{{ .Result.Feedback }}{{ if eq .Result.Kind "typo" }} Difference: {{ .Result.Distance }} edit.{{ end }}</p>
+                <p class="answer_feedback">{{ tr .Locale .Result.Feedback }}{{ if eq .Result.Kind "typo" }} {{ tr .Locale "Edit distance" }}: {{ .Result.Distance }}.{{ end }}</p>
                 <form method="post" action="{{ .TrainPath }}" class="retry_form">
                     <input type="hidden" name="session_id" value="{{ .SessionID }}">
                     <input type="hidden" name="position" value="{{ .Result.Position }}">
-                    <button class="secondary_link" type="submit" name="action" value="retry">Retry this card later</button>
+                    <button class="secondary_link" type="submit" name="action" value="retry">{{ tr .Locale "Retry this card later" }}</button>
                 </form>
             {{ end }}
         </div>
@@ -31,26 +31,26 @@
 
     {{ if .SessionComplete }}
         <section class="session_summary">
-            <h3>Session complete</h3>
+            <h3>{{ tr .Locale "Session complete" }}</h3>
             <div class="stats_totals session_totals">
-                <div><span>Cards</span><strong>{{ .Session.Completed }}</strong></div>
-                <div><span>Correct</span><strong>{{ .Session.Correct }}</strong></div>
-                <div><span>Wrong</span><strong>{{ .Session.Wrong }}</strong></div>
-                <div><span>Skipped</span><strong>{{ .Session.Skipped }}</strong></div>
+                <div><span>{{ tr .Locale "Cards" }}</span><strong>{{ .Session.Completed }}</strong></div>
+                <div><span>{{ tr .Locale "Correct" }}</span><strong>{{ .Session.Correct }}</strong></div>
+                <div><span>{{ tr .Locale "Wrong" }}</span><strong>{{ .Session.Wrong }}</strong></div>
+                <div><span>{{ tr .Locale "Skipped" }}</span><strong>{{ .Session.Skipped }}</strong></div>
             </div>
             <div class="page_actions training_actions">
-                {{ if .RepeatPath }}<a class="mode_button" href="{{ .RepeatPath }}">Repeat mistakes</a>{{ end }}
-                <a class="secondary_link" href="{{ .RestartPath }}">Start again</a>
-                <a class="secondary_link" href="/stats">View statistics</a>
-                <a class="secondary_link" href="/">Back to home</a>
+                {{ if .RepeatPath }}<a class="mode_button" href="{{ .RepeatPath }}">{{ tr .Locale "Repeat mistakes" }}</a>{{ end }}
+                <a class="secondary_link" href="{{ .RestartPath }}">{{ tr .Locale "Start again" }}</a>
+                <a class="secondary_link" href="/stats">{{ tr .Locale "View statistics" }}</a>
+                <a class="secondary_link" href="/">{{ tr .Locale "Back to home" }}</a>
             </div>
         </section>
     {{ else if .NoWords }}
-        <p class="muted">{{ .PageNotice }}</p>
+        <p class="muted">{{ tr .Locale .PageNotice }}</p>
         <div class="page_actions">
-            {{ if .FallbackPath }}<a class="mode_button" href="{{ .FallbackPath }}">Start mixed session</a>{{ end }}
-            <a class="secondary_link" href="/topics">Open topics</a>
-            <a class="secondary_link" href="/">Back to home</a>
+            {{ if .FallbackPath }}<a class="mode_button" href="{{ .FallbackPath }}">{{ tr .Locale "Start mixed session" }}</a>{{ end }}
+            <a class="secondary_link" href="/topics">{{ tr .Locale "Open topics" }}</a>
+            <a class="secondary_link" href="/">{{ tr .Locale "Back to home" }}</a>
         </div>
     {{ else }}
         <div class="training_prompt">
@@ -63,7 +63,7 @@
 
             {{ if or (eq .AnswerMode "build") (eq .AnswerMode "anagram") }}
                 <input type="hidden" name="reply" data-build-reply>
-                {{ if eq .AnswerMode "anagram" }}<p class="arena_instruction">Unscramble the translation using every letter.</p>{{ end }}
+                {{ if eq .AnswerMode "anagram" }}<p class="arena_instruction">{{ tr .Locale "Unscramble the translation using every letter." }}</p>{{ end }}
                 <div class="build_answer"></div>
                 <div class="letter_bank">
                     {{ range .Letters }}
@@ -71,8 +71,8 @@
                     {{ end }}
                 </div>
                 <div class="page_actions compact_actions">
-                    <button class="secondary_link" type="button" data-build-backspace>Backspace</button>
-                    <button class="secondary_link" type="button" data-build-clear>Clear</button>
+                    <button class="secondary_link" type="button" data-build-backspace>{{ tr .Locale "Backspace" }}</button>
+                    <button class="secondary_link" type="button" data-build-clear>{{ tr .Locale "Clear" }}</button>
                 </div>
             {{ else if or (eq .AnswerMode "choice") (eq .AnswerMode "match") }}
                 <div class="choice_grid {{ if eq .AnswerMode "match" }}match_grid{{ end }}">
@@ -80,7 +80,7 @@
                 </div>
             {{ else }}
                 <label class="form_group training_type_input">
-                    Your reply
+                    {{ tr .Locale "Your reply" }}
                     {{ if eq .AnswerMode "cloze" }}<span class="cloze_hint" aria-label="Missing letter hint">{{ .ClozeHint }}</span>{{ end }}
                     <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
                 </label>
@@ -88,13 +88,13 @@
 
             {{ if not (or (eq .AnswerMode "choice") (eq .AnswerMode "match")) }}
             <div class="page_actions training_actions">
-                <button class="mode_button" type="submit">Check</button>
-                <button class="secondary_link" type="submit" name="action" value="skip">Skip</button>
-                <button class="secondary_link" type="submit" name="action" value="dont_know">Don't know</button>
-                <a class="secondary_link" href="/">Back to home</a>
+                <button class="mode_button" type="submit">{{ tr .Locale "Check" }}</button>
+                <button class="secondary_link" type="submit" name="action" value="skip">{{ tr .Locale "Skip" }}</button>
+                <button class="secondary_link" type="submit" name="action" value="dont_know">{{ tr .Locale "Don't know" }}</button>
+                <a class="secondary_link" href="/">{{ tr .Locale "Back to home" }}</a>
             </div>
             {{ else }}
-            <div class="page_actions training_actions"><button class="secondary_link" type="submit" name="action" value="skip">Skip</button><button class="secondary_link" type="submit" name="action" value="dont_know">Don't know</button><a class="secondary_link" href="/arena">Leave arena</a></div>
+            <div class="page_actions training_actions"><button class="secondary_link" type="submit" name="action" value="skip">{{ tr .Locale "Skip" }}</button><button class="secondary_link" type="submit" name="action" value="dont_know">{{ tr .Locale "Don't know" }}</button><a class="secondary_link" href="/arena">{{ tr .Locale "Leave arena" }}</a></div>
             {{ end }}
         </form>
     {{ end }}

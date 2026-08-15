@@ -1,9 +1,9 @@
 {{ define "content" }}
 <section class="card">
-    <h2>Edit word</h2>
-    <p class="muted">Topic: {{ .Topic.Name }}</p>
+    <h2>{{ tr .Locale "Edit word" }}</h2>
+    <p class="muted">{{ tr .Locale "Topic" }}: {{ .Topic.Name }}</p>
 
-    {{ if .Error }}<p class="form_error">{{ .Error }}</p>{{ end }}
+    {{ if .Error }}<p class="form_error">{{ tr .Locale .Error }}</p>{{ end }}
 
     <form method="post" action="/topics/{{ .Topic.Name }}/words/{{ .Word.ID }}/edit" class="topic_form">
         <label class="form_group">
@@ -15,15 +15,15 @@
             <input class="form_input" type="text" name="russian" value="{{ .Word.Russian }}" required>
         </label>
         <label class="form_group">
-            Notes
+            {{ tr .Locale "Notes" }}
             <textarea class="form_textarea" name="notes" rows="4">{{ .Word.Notes }}</textarea>
         </label>
-        <button class="mode_button" type="submit">Save changes</button>
+        <button class="mode_button" type="submit">{{ tr .Locale "Save changes" }}</button>
     </form>
 
     <div class="page_actions">
-        <a class="secondary_link" href="/topics/{{ .Topic.Name }}">Back to topic</a>
-        <a class="secondary_link" href="/topics">Back to topics</a>
+        <a class="secondary_link" href="/topics/{{ .Topic.Name }}">{{ tr .Locale "Back to topic" }}</a>
+        <a class="secondary_link" href="/topics">{{ tr .Locale "Back to topics" }}</a>
     </div>
 </section>
 {{ end }}
