@@ -61,23 +61,22 @@ func (s *CoursePackageStore) Export(ctx context.Context, courseID int64) (course
 	}
 	rows.Close()
 	blockKeys := map[int64]string{}
-	rows, err = s.db.QueryContext(ctx, `SELECT id,kind,title,content,sort_order FROM theory_blocks WHERE course_id=? ORDER BY sort_order,id`, courseID)
+	rows, err = s.db.QueryContext(ctx, `SELECT b.id,COALESCE((SELECT MIN(content_key) FROM course_content_keys k WHERE k.entity_type='theory_block' AND k.entity_id=b.id),'block-'||b.id),b.kind,b.title,b.content,b.sort_order FROM theory_blocks b WHERE b.course_id=? ORDER BY b.sort_order,b.id`, courseID)
 	if err != nil {
 		return value, err
 	}
 	for rows.Next() {
 		var id int64
 		var block coursepack.Block
-		if err = rows.Scan(&id, &block.Kind, &block.Title, &block.Content, &block.SortOrder); err != nil {
+		if err = rows.Scan(&id, &block.Key, &block.Kind, &block.Title, &block.Content, &block.SortOrder); err != nil {
 			rows.Close()
 			return value, err
 		}
-		block.Key = fmt.Sprintf("block-%d", id)
 		blockKeys[id] = block.Key
 		value.Course.Blocks = append(value.Course.Blocks, block)
 	}
 	rows.Close()
-	rows, err = s.db.QueryContext(ctx, `SELECT id,theory_block_id,kind,prompt,options_json,correct_answer,accepted_answers_json,explanation,sort_order FROM theory_exercises WHERE course_id=? ORDER BY sort_order,id`, courseID)
+	rows, err = s.db.QueryContext(ctx, `SELECT e.id,COALESCE((SELECT MIN(content_key) FROM course_content_keys k WHERE k.entity_type='theory_exercise' AND k.entity_id=e.id),'exercise-'||e.id),e.theory_block_id,e.kind,e.prompt,e.options_json,e.correct_answer,e.accepted_answers_json,e.explanation,e.sort_order FROM theory_exercises e WHERE e.course_id=? ORDER BY e.sort_order,e.id`, courseID)
 	if err != nil {
 		return value, err
 	}
@@ -86,11 +85,10 @@ func (s *CoursePackageStore) Export(ctx context.Context, courseID int64) (course
 		var block sql.NullInt64
 		var options, accepted string
 		var exercise coursepack.Exercise
-		if err = rows.Scan(&id, &block, &exercise.Kind, &exercise.Prompt, &options, &exercise.CorrectAnswer, &accepted, &exercise.Explanation, &exercise.SortOrder); err != nil {
+		if err = rows.Scan(&id, &exercise.Key, &block, &exercise.Kind, &exercise.Prompt, &options, &exercise.CorrectAnswer, &accepted, &exercise.Explanation, &exercise.SortOrder); err != nil {
 			rows.Close()
 			return value, err
 		}
-		exercise.Key = fmt.Sprintf("exercise-%d", id)
 		if block.Valid {
 			exercise.BlockKey = blockKeys[block.Int64]
 		}
@@ -99,7 +97,7 @@ func (s *CoursePackageStore) Export(ctx context.Context, courseID int64) (course
 		value.Course.Exercises = append(value.Course.Exercises, exercise)
 	}
 	rows.Close()
-	rows, err = s.db.QueryContext(ctx, `SELECT t.id,COALESCE(k.content_key,'topic-'||t.id),t.name,t.description,ct.sort_order FROM course_topics ct JOIN topics t ON t.id=ct.topic_id LEFT JOIN course_content_keys k ON k.language_track_id=t.language_track_id AND k.entity_type='topic' AND k.entity_id=t.id WHERE ct.course_id=? ORDER BY ct.sort_order,t.id`, courseID)
+	rows, err = s.db.QueryContext(ctx, `SELECT t.id,COALESCE((SELECT MIN(content_key) FROM course_content_keys k WHERE k.language_track_id=t.language_track_id AND k.entity_type='topic' AND k.entity_id=t.id),'topic-'||t.id),t.name,t.description,ct.sort_order FROM course_topics ct JOIN topics t ON t.id=ct.topic_id WHERE ct.course_id=? ORDER BY ct.sort_order,t.id`, courseID)
 	if err != nil {
 		return value, err
 	}
@@ -110,14 +108,14 @@ func (s *CoursePackageStore) Export(ctx context.Context, courseID int64) (course
 			rows.Close()
 			return value, err
 		}
-		wordRows, wordErr := s.db.QueryContext(ctx, `SELECT w.spanish,w.russian,w.notes FROM words w JOIN word_topics wt ON wt.word_id=w.id WHERE wt.topic_id=? ORDER BY w.spanish_key,w.russian_key`, topicID)
+		wordRows, wordErr := s.db.QueryContext(ctx, `SELECT COALESCE((SELECT MIN(content_key) FROM course_content_keys k WHERE k.entity_type='vocabulary' AND k.entity_id=w.id),''),w.spanish,w.russian,w.notes FROM words w JOIN word_topics wt ON wt.word_id=w.id WHERE wt.topic_id=? ORDER BY w.spanish_key,w.russian_key`, topicID)
 		if wordErr != nil {
 			rows.Close()
 			return value, wordErr
 		}
 		for wordRows.Next() {
 			var word coursepack.Word
-			if wordErr = wordRows.Scan(&word.Target, &word.Reference, &word.Notes); wordErr != nil {
+			if wordErr = wordRows.Scan(&word.Key, &word.Target, &word.Reference, &word.Notes); wordErr != nil {
 				wordRows.Close()
 				rows.Close()
 				return value, wordErr
@@ -153,6 +151,26 @@ func (s *CoursePackageStore) Preview(ctx context.Context, trackID int64, value c
 		return CoursePackageSummary{}, err
 	}
 	result := summarize(value)
+	var target, reference, theory string
+	if err := s.db.QueryRowContext(ctx, `SELECT target_language,reference_language,theory_language FROM language_tracks WHERE id=?`, trackID).Scan(&target, &reference, &theory); err != nil {
+		return result, fmt.Errorf("language track not found: %w", err)
+	}
+	if target != value.Course.Target || reference != value.Course.Reference {
+		return result, fmt.Errorf("course languages %s/%s do not match the active track %s/%s", value.Course.Target, value.Course.Reference, target, reference)
+	}
+	if value.Course.Theory != "" && value.Course.Theory != theory {
+		return result, fmt.Errorf("course theory language %s does not match the active track %s", value.Course.Theory, theory)
+	}
+	for _, raw := range value.Course.Levels {
+		var exists int
+		err := s.db.QueryRowContext(ctx, `SELECT 1 FROM learning_levels WHERE track_id=? AND code=?`, trackID, strings.ToUpper(strings.TrimSpace(raw))).Scan(&exists)
+		if err == sql.ErrNoRows {
+			return result, fmt.Errorf("unknown learning level %q for active language track", raw)
+		}
+		if err != nil {
+			return result, err
+		}
+	}
 	fingerprint, err := packageFingerprint(value)
 	if err != nil {
 		return result, err
@@ -164,6 +182,33 @@ func (s *CoursePackageStore) Preview(ctx context.Context, trackID int64, value c
 	if result.DuplicateCourseID > 0 {
 		result.Duplicates = 1
 		return result, nil
+	}
+	for kind, key := range map[string]string{"course": value.Course.Key} {
+		var exists int
+		err = s.db.QueryRowContext(ctx, `SELECT 1 FROM course_content_keys WHERE language_track_id=? AND entity_type=? AND content_key=?`, trackID, kind, key).Scan(&exists)
+		if err == nil {
+			result.Duplicates++
+		} else if err != sql.ErrNoRows {
+			return result, err
+		}
+	}
+	for _, block := range value.Course.Blocks {
+		var exists int
+		err = s.db.QueryRowContext(ctx, `SELECT 1 FROM course_content_keys WHERE language_track_id=? AND entity_type='theory_block' AND content_key=?`, trackID, block.Key).Scan(&exists)
+		if err == nil {
+			result.Duplicates++
+		} else if err != sql.ErrNoRows {
+			return result, err
+		}
+	}
+	for _, exercise := range value.Course.Exercises {
+		var exists int
+		err = s.db.QueryRowContext(ctx, `SELECT 1 FROM course_content_keys WHERE language_track_id=? AND entity_type='theory_exercise' AND content_key=?`, trackID, exercise.Key).Scan(&exists)
+		if err == nil {
+			result.Duplicates++
+		} else if err != sql.ErrNoRows {
+			return result, err
+		}
 	}
 	for _, topic := range value.Course.Topics {
 		var exists int
@@ -199,24 +244,24 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 		return 0, result, err
 	}
 	defer tx.Rollback()
-	var target, reference string
-	if err = tx.QueryRowContext(ctx, `SELECT target_language,reference_language FROM language_tracks WHERE id=?`, trackID).Scan(&target, &reference); err != nil {
+	var target, reference, theory string
+	if err = tx.QueryRowContext(ctx, `SELECT target_language,reference_language,theory_language FROM language_tracks WHERE id=?`, trackID).Scan(&target, &reference, &theory); err != nil {
 		return 0, result, fmt.Errorf("language track not found: %w", err)
 	}
 	if target != value.Course.Target || reference != value.Course.Reference {
 		return 0, result, fmt.Errorf("course languages %s/%s do not match the active track %s/%s", value.Course.Target, value.Course.Reference, target, reference)
+	}
+	if value.Course.Theory != "" && value.Course.Theory != theory {
+		return 0, result, fmt.Errorf("course theory language %s does not match the active track %s", value.Course.Theory, theory)
+	}
+	if err = validatePackageLevels(ctx, tx, trackID, value.Course.Levels); err != nil {
+		return 0, result, err
 	}
 	var duplicateID int64
 	if err = tx.QueryRowContext(ctx, `SELECT course_id FROM course_imports WHERE language_track_id=? AND fingerprint=?`, trackID, fingerprint).Scan(&duplicateID); err == nil {
 		result.Duplicates = 1
 		result.DuplicateCourseID = duplicateID
 		return duplicateID, result, ErrCoursePackageDuplicate
-	} else if err != sql.ErrNoRows {
-		return 0, result, err
-	}
-	var existingKey int
-	if err = tx.QueryRowContext(ctx, `SELECT 1 FROM course_content_keys WHERE language_track_id=? AND entity_type='course' AND content_key=?`, trackID, value.Course.Key).Scan(&existingKey); err == nil {
-		return 0, result, fmt.Errorf("course key %q already exists", value.Course.Key)
 	} else if err != sql.ErrNoRows {
 		return 0, result, err
 	}
@@ -229,16 +274,32 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 		parent = sql.NullInt64{Int64: parentID, Valid: true}
 	}
 	var courseID int64
-	if err = tx.QueryRowContext(ctx, `INSERT INTO courses(language_track_id,parent_id,name,description,sort_order) VALUES(?,?,?,?,?) RETURNING id`, trackID, parent, value.Course.Name, value.Course.Description, value.Course.SortOrder).Scan(&courseID); err != nil {
-		return 0, result, friendlyImportError("create course", err)
+	courseID, err = findContentKey(ctx, tx, trackID, "course", value.Course.Key)
+	if err != nil {
+		return 0, result, err
 	}
-	if _, err = tx.ExecContext(ctx, `INSERT INTO course_content_keys(language_track_id,entity_type,entity_id,content_key) VALUES(?,'course',?,?)`, trackID, courseID, value.Course.Key); err != nil {
+	if courseID > 0 {
+		if _, err = tx.ExecContext(ctx, `UPDATE courses SET parent_id=?,name=?,description=?,sort_order=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND language_track_id=?`, parent, value.Course.Name, value.Course.Description, value.Course.SortOrder, courseID, trackID); err != nil {
+			return 0, result, friendlyImportError("update course", err)
+		}
+	} else {
+		if err = tx.QueryRowContext(ctx, `INSERT INTO courses(language_track_id,parent_id,name,description,sort_order) VALUES(?,?,?,?,?) RETURNING id`, trackID, parent, value.Course.Name, value.Course.Description, value.Course.SortOrder).Scan(&courseID); err != nil {
+			return 0, result, friendlyImportError("create course", err)
+		}
+		if _, err = tx.ExecContext(ctx, `INSERT INTO course_content_keys(language_track_id,entity_type,entity_id,content_key) VALUES(?,'course',?,?)`, trackID, courseID, value.Course.Key); err != nil {
+			return 0, result, err
+		}
+	}
+	if _, err = tx.ExecContext(ctx, `DELETE FROM learning_course_levels WHERE course_id=?`, courseID); err != nil {
 		return 0, result, err
 	}
 	for _, code := range value.Course.Levels {
 		if _, err = tx.ExecContext(ctx, `INSERT INTO learning_course_levels(course_id,level_id) SELECT ?,id FROM learning_levels WHERE track_id=? AND code=?`, courseID, trackID, strings.ToUpper(code)); err != nil {
 			return 0, result, err
 		}
+	}
+	if _, err = tx.ExecContext(ctx, `DELETE FROM course_relations WHERE course_id=? AND relation_type='prerequisite'`, courseID); err != nil {
+		return 0, result, err
 	}
 	for _, key := range value.Course.Prerequisites {
 		id, resolveErr := resolveContentKey(ctx, tx, trackID, "course", key)
@@ -253,9 +314,25 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 	}
 	blockIDs := map[string]int64{}
 	for _, block := range value.Course.Blocks {
-		var id int64
-		if err = tx.QueryRowContext(ctx, `INSERT INTO theory_blocks(course_id,kind,title,content,sort_order) VALUES(?,?,?,?,?) RETURNING id`, courseID, block.Kind, block.Title, block.Content, block.SortOrder).Scan(&id); err != nil {
-			return 0, result, friendlyImportError("create theory block", err)
+		id, findErr := findContentKey(ctx, tx, trackID, "theory_block", block.Key)
+		if findErr != nil {
+			return 0, result, findErr
+		}
+		if id > 0 {
+			res, updateErr := tx.ExecContext(ctx, `UPDATE theory_blocks SET kind=?,title=?,content=?,sort_order=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND course_id=?`, block.Kind, block.Title, block.Content, block.SortOrder, id, courseID)
+			if updateErr != nil {
+				return 0, result, friendlyImportError("update theory block", updateErr)
+			}
+			if affected, _ := res.RowsAffected(); affected == 0 {
+				return 0, result, fmt.Errorf("theory block key %q belongs to another course", block.Key)
+			}
+		} else {
+			if err = tx.QueryRowContext(ctx, `INSERT INTO theory_blocks(course_id,kind,title,content,sort_order) VALUES(?,?,?,?,?) RETURNING id`, courseID, block.Kind, block.Title, block.Content, block.SortOrder).Scan(&id); err != nil {
+				return 0, result, friendlyImportError("create theory block", err)
+			}
+			if err = registerContentKey(ctx, tx, trackID, "theory_block", id, block.Key); err != nil {
+				return 0, result, err
+			}
 		}
 		blockIDs[block.Key] = id
 	}
@@ -266,9 +343,29 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 		if id := blockIDs[exercise.BlockKey]; id > 0 {
 			block = sql.NullInt64{Int64: id, Valid: true}
 		}
-		if _, err = tx.ExecContext(ctx, `INSERT INTO theory_exercises(course_id,theory_block_id,kind,prompt,options_json,correct_answer,accepted_answers_json,explanation,sort_order) VALUES(?,?,?,?,?,?,?,?,?)`, courseID, block, exercise.Kind, exercise.Prompt, string(options), exercise.CorrectAnswer, string(accepted), exercise.Explanation, exercise.SortOrder); err != nil {
-			return 0, result, friendlyImportError("create theory exercise", err)
+		id, findErr := findContentKey(ctx, tx, trackID, "theory_exercise", exercise.Key)
+		if findErr != nil {
+			return 0, result, findErr
 		}
+		if id > 0 {
+			res, updateErr := tx.ExecContext(ctx, `UPDATE theory_exercises SET theory_block_id=?,kind=?,prompt=?,options_json=?,correct_answer=?,accepted_answers_json=?,explanation=?,sort_order=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND course_id=?`, block, exercise.Kind, exercise.Prompt, string(options), exercise.CorrectAnswer, string(accepted), exercise.Explanation, exercise.SortOrder, id, courseID)
+			if updateErr != nil {
+				return 0, result, friendlyImportError("update theory exercise", updateErr)
+			}
+			if affected, _ := res.RowsAffected(); affected == 0 {
+				return 0, result, fmt.Errorf("theory exercise key %q belongs to another course", exercise.Key)
+			}
+		} else {
+			if err = tx.QueryRowContext(ctx, `INSERT INTO theory_exercises(course_id,theory_block_id,kind,prompt,options_json,correct_answer,accepted_answers_json,explanation,sort_order) VALUES(?,?,?,?,?,?,?,?,?) RETURNING id`, courseID, block, exercise.Kind, exercise.Prompt, string(options), exercise.CorrectAnswer, string(accepted), exercise.Explanation, exercise.SortOrder).Scan(&id); err != nil {
+				return 0, result, friendlyImportError("create theory exercise", err)
+			}
+			if err = registerContentKey(ctx, tx, trackID, "theory_exercise", id, exercise.Key); err != nil {
+				return 0, result, err
+			}
+		}
+	}
+	if _, err = tx.ExecContext(ctx, `DELETE FROM course_topics WHERE course_id=?`, courseID); err != nil {
+		return 0, result, err
 	}
 	for order, topic := range value.Course.Topics {
 		topicID, created, topicErr := upsertPackageTopic(ctx, tx, trackID, topic)
@@ -278,11 +375,15 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 		if !created {
 			result.Duplicates++
 		}
-		if _, err = tx.ExecContext(ctx, `INSERT INTO course_topics(course_id,topic_id,sort_order) VALUES(?,?,?)`, courseID, topicID, order); err != nil {
+		topicOrder := topic.SortOrder
+		if topicOrder == 0 {
+			topicOrder = order
+		}
+		if _, err = tx.ExecContext(ctx, `INSERT INTO course_topics(course_id,topic_id,sort_order) VALUES(?,?,?)`, courseID, topicID, topicOrder); err != nil {
 			return 0, result, err
 		}
 		for _, word := range topic.Words {
-			wordID, wordCreated, wordErr := upsertPackageWord(ctx, tx, topicID, word)
+			wordID, wordCreated, wordErr := upsertPackageWord(ctx, tx, trackID, topicID, word)
 			if wordErr != nil {
 				return 0, result, wordErr
 			}
@@ -293,6 +394,9 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 				return 0, result, err
 			}
 		}
+	}
+	if _, err = tx.ExecContext(ctx, `DELETE FROM course_imports WHERE language_track_id=? AND course_id=?`, trackID, courseID); err != nil {
+		return 0, result, err
 	}
 	if _, err = tx.ExecContext(ctx, `INSERT INTO course_imports(language_track_id,fingerprint,course_id) VALUES(?,?,?)`, trackID, fingerprint, courseID); err != nil {
 		return 0, result, err
@@ -315,10 +419,40 @@ func resolveContentKey(ctx context.Context, tx *sql.Tx, trackID int64, kind, key
 	return id, err
 }
 
+func findContentKey(ctx context.Context, tx *sql.Tx, trackID int64, kind, key string) (int64, error) {
+	var id int64
+	err := tx.QueryRowContext(ctx, `SELECT entity_id FROM course_content_keys WHERE language_track_id=? AND entity_type=? AND content_key=?`, trackID, kind, key).Scan(&id)
+	if err == sql.ErrNoRows {
+		return 0, nil
+	}
+	return id, err
+}
+func registerContentKey(ctx context.Context, tx *sql.Tx, trackID int64, kind string, id int64, key string) error {
+	_, err := tx.ExecContext(ctx, `INSERT INTO course_content_keys(language_track_id,entity_type,entity_id,content_key) VALUES(?,?,?,?)`, trackID, kind, id, key)
+	return err
+}
+func validatePackageLevels(ctx context.Context, tx *sql.Tx, trackID int64, codes []string) error {
+	for _, raw := range codes {
+		code := strings.ToUpper(strings.TrimSpace(raw))
+		var exists int
+		err := tx.QueryRowContext(ctx, `SELECT 1 FROM learning_levels WHERE track_id=? AND code=?`, trackID, code).Scan(&exists)
+		if err == sql.ErrNoRows {
+			return fmt.Errorf("unknown learning level %q for active language track", raw)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func upsertPackageTopic(ctx context.Context, tx *sql.Tx, trackID int64, topic coursepack.Topic) (int64, bool, error) {
 	var id int64
 	err := tx.QueryRowContext(ctx, `SELECT entity_id FROM course_content_keys WHERE language_track_id=? AND entity_type='topic' AND content_key=?`, trackID, topic.Key).Scan(&id)
 	if err == nil {
+		if _, updateErr := tx.ExecContext(ctx, `UPDATE topics SET name=?,description=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND language_track_id=?`, topic.Name, topic.Description, id, trackID); updateErr != nil {
+			return 0, false, friendlyImportError("update topic", updateErr)
+		}
 		return id, false, nil
 	}
 	if err != sql.ErrNoRows {
@@ -329,34 +463,54 @@ func upsertPackageTopic(ctx context.Context, tx *sql.Tx, trackID int64, topic co
 	if err == sql.ErrNoRows {
 		err = tx.QueryRowContext(ctx, `INSERT INTO topics(language_track_id,name,description) VALUES(?,?,?) RETURNING id`, trackID, topic.Name, topic.Description).Scan(&id)
 		created = true
+	} else if err == nil {
+		_, err = tx.ExecContext(ctx, `UPDATE topics SET name=?,description=?,updated_at=CURRENT_TIMESTAMP WHERE id=?`, topic.Name, topic.Description, id)
 	}
 	if err != nil {
 		return 0, false, friendlyImportError("create topic", err)
-	}
-	var registeredKey string
-	keyErr := tx.QueryRowContext(ctx, `SELECT content_key FROM course_content_keys WHERE language_track_id=? AND entity_type='topic' AND entity_id=?`, trackID, id).Scan(&registeredKey)
-	if keyErr == nil {
-		return id, created, nil
-	}
-	if keyErr != sql.ErrNoRows {
-		return 0, false, keyErr
 	}
 	_, err = tx.ExecContext(ctx, `INSERT INTO course_content_keys(language_track_id,entity_type,entity_id,content_key) VALUES(?,'topic',?,?)`, trackID, id, topic.Key)
 	return id, created, err
 }
 
-func upsertPackageWord(ctx context.Context, tx *sql.Tx, topicID int64, word coursepack.Word) (int64, bool, error) {
+func upsertPackageWord(ctx context.Context, tx *sql.Tx, trackID, topicID int64, word coursepack.Word) (int64, bool, error) {
 	targetKey, referenceKey := normalizeWordKey(word.Target), normalizeWordKey(word.Reference)
 	var id int64
+	if word.Key != "" {
+		var keyErr error
+		id, keyErr = findContentKey(ctx, tx, trackID, "vocabulary", word.Key)
+		if keyErr != nil {
+			return 0, false, keyErr
+		}
+		if id > 0 {
+			if _, updateErr := tx.ExecContext(ctx, `UPDATE words SET spanish=?,spanish_key=?,russian=?,russian_key=?,notes=?,updated_at=CURRENT_TIMESTAMP WHERE id=?`, word.Target, targetKey, word.Reference, referenceKey, word.Notes, id); updateErr != nil {
+				return 0, false, friendlyImportError("update vocabulary", updateErr)
+			}
+			return id, false, nil
+		}
+	}
 	err := tx.QueryRowContext(ctx, `SELECT id FROM words WHERE spanish_key=? AND russian_key=? ORDER BY id LIMIT 1`, targetKey, referenceKey).Scan(&id)
 	if err == nil {
+		if word.Key != "" {
+			if keyErr := registerContentKey(ctx, tx, trackID, "vocabulary", id, word.Key); keyErr != nil {
+				return 0, false, keyErr
+			}
+		}
 		return id, false, nil
 	}
 	if err != sql.ErrNoRows {
 		return 0, false, err
 	}
 	err = tx.QueryRowContext(ctx, `INSERT INTO words(topic_id,spanish,spanish_key,russian,russian_key,notes) VALUES(?,?,?,?,?,?) RETURNING id`, topicID, word.Target, targetKey, word.Reference, referenceKey, word.Notes).Scan(&id)
-	return id, true, friendlyImportError("create vocabulary", err)
+	if err != nil {
+		return 0, false, friendlyImportError("create vocabulary", err)
+	}
+	if word.Key != "" {
+		if err = registerContentKey(ctx, tx, trackID, "vocabulary", id, word.Key); err != nil {
+			return 0, false, err
+		}
+	}
+	return id, true, nil
 }
 
 func friendlyImportError(action string, err error) error {

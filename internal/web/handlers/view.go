@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"html/template"
+	"math/rand"
 	"net/http"
 	"path/filepath"
 	"strconv"
@@ -12,7 +13,28 @@ import (
 )
 
 func parsePage(name string) (*template.Template, error) {
-	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "boardColors": boardColors, "textColors": textColors, "boardBackgrounds": boardBackgrounds, "boardColorLabel": boardColorLabel, "boardBackgroundLabel": boardBackgroundLabel}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "shuffleTokens": shuffleTokens, "boardColors": boardColors, "textColors": textColors, "boardBackgrounds": boardBackgrounds, "boardColorLabel": boardColorLabel, "boardBackgroundLabel": boardBackgroundLabel}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+}
+
+type sentenceToken struct {
+	ID    int
+	Value string
+}
+
+func shuffleTokens(values []string) []sentenceToken {
+	result := make([]sentenceToken, len(values))
+	for i, value := range values {
+		result[i] = sentenceToken{ID: i, Value: value}
+	}
+	rand.Shuffle(len(result), func(i, j int) { result[i], result[j] = result[j], result[i] })
+	same := len(result) > 1
+	for i := range result {
+		same = same && result[i].ID == i
+	}
+	if same {
+		result = append(result[1:], result[0])
+	}
+	return result
 }
 
 func boardColors() []string      { return []string{"violet", "amber", "mint", "rose", "slate"} }
@@ -82,7 +104,7 @@ func pageData(r *http.Request, values map[string]any) map[string]any {
 
 func authorMode(r *http.Request) bool {
 	cookie, err := r.Cookie("repetidor_workspace_mode")
-	return err != nil || cookie.Value != "learner"
+	return err == nil && cookie.Value == "author"
 }
 
 func translate(lang, text string) string {
@@ -128,6 +150,7 @@ var russianUI = map[string]string{
 	"Bring your vocabulary in seconds.": "Добавьте весь словарь за несколько секунд.", "Paste a list or upload a CSV file.": "Вставьте список или загрузите CSV-файл.", "Choose topic": "Выберите тему", "Invalid": "Ошибки",
 	"Keep interface language separate from the language you study and the language used for explanations.": "Язык приложения не зависит от изучаемого языка и языка объяснений.", "Active course": "Активный курс", "New learning space": "Новое пространство обучения", "Name": "Название",
 	"One pair per line. The third column becomes notes.": "Одна пара на строку. Третья колонка станет заметкой.", "CSV columns: source, translation, notes.": "Колонки CSV: слово, перевод, заметка.",
+	"Destination topic (legacy files only)": "Тема назначения (только для старых файлов)", "Neutral columns: topic, target, reference, notes. Legacy files use the destination topic.": "Нейтральные колонки: тема, изучаемое слово, перевод, заметка. Старые файлы используют выбранную тему.",
 	"Upload Excel": "Загрузить Excel", "XLSX columns: source, translation, notes.": "Колонки XLSX: слово, перевод, заметка.",
 	"Or create a new topic": "Или создайте новую тему",
 	"Courses":               "Курсы", "Course": "Курс", "Chapter": "Глава", "Language track": "Языковое направление", "Language tracks": "Языковые направления", "Active language track": "Активное языковое направление",
@@ -172,6 +195,7 @@ var russianUI = map[string]string{
 	"Workspace mode": "Режим работы", "Learner": "Ученик", "Author": "Автор",
 	"Back to theory": "Назад к теории", "Theory practice": "Практика по теории", "correct attempts": "верных попыток", "Your answer": "Ваш ответ", "input": "ввод ответа", "gap": "заполнить пропуск", "sentence_builder": "сборка предложения",
 	"text": "текст", "example": "пример", "note": "заметка", "table": "таблица", "Example": "Пример", "Table": "Таблица", "Multiple choice": "Выбрать вариант", "Fill the gap": "Заполнить пропуск",
+	"Return token": "Вернуть слово",
 }
 
 func safeNext(raw string) string {

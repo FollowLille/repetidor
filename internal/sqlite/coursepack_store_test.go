@@ -71,3 +71,84 @@ func TestCoursePackageFailedImportIsAtomic(t *testing.T) {
 		t.Fatalf("partial course remained: count=%d err=%v", count, scanErr)
 	}
 }
+
+func TestCoursePackageChangedImportUpdatesStableIDsAndKeepsAttempts(t *testing.T) {
+	db, err := Open(filepath.Join(t.TempDir(), "updates.sqlite3"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if err = Migrate(db, "../../migrations"); err != nil {
+		t.Fatal(err)
+	}
+	ctx := context.Background()
+	store := NewCoursePackageStore(db)
+	value := testCoursePackage()
+	value.Course.Topics[0].Words[0].Key = "bread"
+	courseID, _, err := store.Import(ctx, 1, value)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var blockID, exerciseID int64
+	if err = db.QueryRow(`SELECT id FROM theory_blocks WHERE course_id=?`, courseID).Scan(&blockID); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.QueryRow(`SELECT id FROM theory_exercises WHERE course_id=?`, courseID).Scan(&exerciseID); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = db.Exec(`INSERT INTO theory_attempts(exercise_id,answer,is_correct) VALUES(?,?,1)`, exerciseID, "soy"); err != nil {
+		t.Fatal(err)
+	}
+	updated := value
+	updated.Course.Description = "Updated"
+	updated.Course.Blocks[0].Content = "Updated rule"
+	updated.Course.Exercises[0].Prompt = "Yo ___ español"
+	updated.Course.Exercises = append(updated.Course.Exercises, coursepack.Exercise{Key: "ser-2", BlockKey: "ser", Kind: "input", Prompt: "Tú ___", CorrectAnswer: "eres", SortOrder: 2})
+	updatedID, _, err := store.Import(ctx, 1, updated)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if updatedID != courseID {
+		t.Fatalf("course ID changed: %d -> %d", courseID, updatedID)
+	}
+	var gotBlockID, gotExerciseID, exerciseCount, attemptCount int64
+	_ = db.QueryRow(`SELECT id FROM theory_blocks WHERE course_id=?`, courseID).Scan(&gotBlockID)
+	_ = db.QueryRow(`SELECT id FROM theory_exercises WHERE course_id=? AND prompt=?`, courseID, "Yo ___ español").Scan(&gotExerciseID)
+	_ = db.QueryRow(`SELECT COUNT(*) FROM theory_exercises WHERE course_id=?`, courseID).Scan(&exerciseCount)
+	_ = db.QueryRow(`SELECT COUNT(*) FROM theory_attempts WHERE exercise_id=?`, exerciseID).Scan(&attemptCount)
+	if gotBlockID != blockID || gotExerciseID != exerciseID || exerciseCount != 2 || attemptCount != 1 {
+		t.Fatalf("IDs/statistics changed: block=%d/%d exercise=%d/%d count=%d attempts=%d", blockID, gotBlockID, exerciseID, gotExerciseID, exerciseCount, attemptCount)
+	}
+	exported, err := store.Export(ctx, courseID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	wordKeyFound := false
+	for _, word := range exported.Course.Topics[0].Words {
+		wordKeyFound = wordKeyFound || word.Key == "bread"
+	}
+	if exported.Course.Blocks[0].Key != "ser" || exported.Course.Exercises[0].Key != "ser-1" || !wordKeyFound {
+		t.Fatalf("stable keys lost: %#v", exported)
+	}
+}
+
+func TestCoursePackagePreviewRejectsUnknownLevelAndExerciseKind(t *testing.T) {
+	db, err := Open(filepath.Join(t.TempDir(), "validation.sqlite3"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if err = Migrate(db, "../../migrations"); err != nil {
+		t.Fatal(err)
+	}
+	value := testCoursePackage()
+	value.Course.Levels = []string{"A3"}
+	if _, err = NewCoursePackageStore(db).Preview(context.Background(), 1, value); err == nil {
+		t.Fatal("preview accepted unknown level")
+	}
+	value = testCoursePackage()
+	value.Course.Exercises[0].Kind = "mystery"
+	if _, err = NewCoursePackageStore(db).Preview(context.Background(), 1, value); err == nil {
+		t.Fatal("preview accepted unknown exercise kind")
+	}
+}

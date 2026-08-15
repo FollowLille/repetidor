@@ -111,33 +111,6 @@ func (h *ImportHandler) process(w http.ResponseWriter, r *http.Request) {
 	topicID, _ := strconv.ParseInt(r.FormValue("topic_id"), 10, 64)
 	newTopic := strings.TrimSpace(r.FormValue("new_topic"))
 	course := activeCourse(h.courses, r)
-	topics, _ := h.topics.ListByCourse(r.Context(), course.ID)
-	valid := false
-	for _, topic := range topics {
-		if topic.ID == topicID {
-			valid = true
-			break
-		}
-	}
-	if !valid && newTopic != "" {
-		created, err := h.topics.Create(r.Context(), domain.Topic{CourseID: course.ID, Name: newTopic, Description: "Imported vocabulary"})
-		if errors.Is(err, storage.ErrTopicAlreadyExists) {
-			existing, getErr := h.topics.GetByName(r.Context(), newTopic)
-			if getErr == nil && existing.CourseID == course.ID {
-				topicID, valid = existing.ID, true
-			}
-		} else if err != nil {
-			h.logger.Error("create import topic", "error", err)
-			h.render(w, r, nil, "Could not create the destination topic.")
-			return
-		} else {
-			topicID, valid = created.ID, true
-		}
-	}
-	if !valid {
-		h.render(w, r, nil, "Choose or create a destination topic.")
-		return
-	}
 	rows := importx.ParseText(r.FormValue("words"))
 	if file, _, err := r.FormFile("csv_file"); err == nil {
 		defer file.Close()
@@ -161,9 +134,63 @@ func (h *ImportHandler) process(w http.ResponseWriter, r *http.Request) {
 		h.render(w, r, nil, "No valid word pairs found.")
 		return
 	}
+	topics, _ := h.topics.ListByCourse(r.Context(), course.ID)
+	topicByName := make(map[string]int64, len(topics))
+	validDestination := false
+	for _, topic := range topics {
+		topicByName[strings.ToLower(strings.TrimSpace(topic.Name))] = topic.ID
+		if topic.ID == topicID {
+			validDestination = true
+		}
+	}
+	neutral := false
+	for _, row := range rows {
+		neutral = neutral || strings.TrimSpace(row.Topic) != ""
+	}
+	if neutral {
+		for _, row := range rows {
+			if strings.TrimSpace(row.Topic) == "" {
+				h.render(w, r, nil, "Every row must have a topic when importing neutral vocabulary.")
+				return
+			}
+		}
+	} else {
+		if !validDestination && newTopic != "" {
+			created, err := h.topics.Create(r.Context(), domain.Topic{CourseID: course.ID, Name: newTopic, Description: "Imported vocabulary"})
+			if errors.Is(err, storage.ErrTopicAlreadyExists) {
+				topicID, validDestination = topicByName[strings.ToLower(newTopic)]
+			} else if err != nil {
+				h.logger.Error("create import topic", "error", err)
+				h.render(w, r, nil, "Could not create the destination topic.")
+				return
+			} else {
+				topicID, validDestination = created.ID, true
+			}
+		}
+		if !validDestination {
+			h.render(w, r, nil, "Choose or create a destination topic.")
+			return
+		}
+	}
 	report := &importReport{}
 	for _, row := range rows {
-		_, err := h.words.Create(r.Context(), domain.Word{TopicID: topicID, Spanish: strings.TrimSpace(row.Source), Russian: strings.TrimSpace(row.Target), Notes: strings.TrimSpace(row.Notes)})
+		rowTopicID := topicID
+		if neutral {
+			name := strings.TrimSpace(row.Topic)
+			var ok bool
+			rowTopicID, ok = topicByName[strings.ToLower(name)]
+			if !ok {
+				created, err := h.topics.Create(r.Context(), domain.Topic{CourseID: course.ID, Name: name, Description: "Imported vocabulary"})
+				if err != nil {
+					report.Invalid++
+					h.logger.Error("create import topic", "error", err, "topic", name)
+					continue
+				}
+				rowTopicID = created.ID
+				topicByName[strings.ToLower(name)] = rowTopicID
+			}
+		}
+		_, err := h.words.Create(r.Context(), domain.Word{TopicID: rowTopicID, Spanish: strings.TrimSpace(row.Source), Russian: strings.TrimSpace(row.Target), Notes: strings.TrimSpace(row.Notes)})
 		if errors.Is(err, storage.ErrWordAlreadyExists) {
 			report.Duplicates++
 			continue

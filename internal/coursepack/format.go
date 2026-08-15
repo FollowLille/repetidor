@@ -63,6 +63,7 @@ type Topic struct {
 }
 
 type Word struct {
+	Key       string `json:"key,omitempty"`
 	Target    string `json:"target"`
 	Reference string `json:"reference"`
 	Notes     string `json:"notes,omitempty"`
@@ -111,6 +112,9 @@ func (p Package) Validate() error {
 			return err
 		}
 		blocks[block.Key] = true
+		if block.Kind != "text" && block.Kind != "example" && block.Kind != "note" && block.Kind != "table" {
+			return fmt.Errorf("block %q has unsupported kind %q", block.Key, block.Kind)
+		}
 	}
 	for _, exercise := range p.Course.Exercises {
 		if err := add("exercise", exercise.Key); err != nil {
@@ -118,6 +122,9 @@ func (p Package) Validate() error {
 		}
 		if exercise.Prompt == "" || exercise.CorrectAnswer == "" {
 			return fmt.Errorf("exercise %q requires prompt and correct answer", exercise.Key)
+		}
+		if exercise.Kind != "choice" && exercise.Kind != "input" && exercise.Kind != "gap" && exercise.Kind != "sentence_builder" {
+			return fmt.Errorf("exercise %q has unsupported kind %q", exercise.Key, exercise.Kind)
 		}
 		if exercise.BlockKey != "" && !blocks[exercise.BlockKey] {
 			return fmt.Errorf("exercise %q references unknown block %q", exercise.Key, exercise.BlockKey)
@@ -130,6 +137,11 @@ func (p Package) Validate() error {
 		for _, word := range topic.Words {
 			if strings.TrimSpace(word.Target) == "" || strings.TrimSpace(word.Reference) == "" {
 				return fmt.Errorf("topic %q contains an incomplete word pair", topic.Key)
+			}
+			if word.Key != "" {
+				if err := add("vocabulary", word.Key); err != nil {
+					return err
+				}
 			}
 		}
 	}

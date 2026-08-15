@@ -267,7 +267,7 @@ func (h *TopicEditHandler) renderEdit(w http.ResponseWriter, r *http.Request, er
 		topic.Name = override["Name"]
 		topic.Description = override["Description"]
 	}
-	data := map[string]any{"Title": "Edit topic", "Topic": topic, "Error": errMsg, "OriginalName": topicName}
+	data := pageData(r, map[string]any{"Title": "Edit topic", "Topic": topic, "Error": errMsg, "OriginalName": topicName})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render topic edit page", "error", err, "topic_id", topic.ID)
