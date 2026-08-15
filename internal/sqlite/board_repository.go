@@ -34,13 +34,13 @@ func (r *BoardRepository) Get(ctx context.Context, id int64) (domain.Board, erro
 	if err != nil {
 		return b, fmt.Errorf("get board: %w", err)
 	}
-	rows, err := r.db.QueryContext(ctx, `SELECT id,board_id,kind,title,content,media_path,x,y,width,height,color,z_index,created_at,updated_at FROM board_nodes WHERE board_id=? ORDER BY z_index,id`, id)
+	rows, err := r.db.QueryContext(ctx, `SELECT id,board_id,kind,title,content,media_path,x,y,width,height,color,text_color,z_index,created_at,updated_at FROM board_nodes WHERE board_id=? ORDER BY z_index,id`, id)
 	if err != nil {
 		return b, err
 	}
 	for rows.Next() {
 		var n domain.BoardNode
-		if err := rows.Scan(&n.ID, &n.BoardID, &n.Kind, &n.Title, &n.Content, &n.MediaPath, &n.X, &n.Y, &n.Width, &n.Height, &n.Color, &n.ZIndex, &n.CreatedAt, &n.UpdatedAt); err != nil {
+		if err := rows.Scan(&n.ID, &n.BoardID, &n.Kind, &n.Title, &n.Content, &n.MediaPath, &n.X, &n.Y, &n.Width, &n.Height, &n.Color, &n.TextColor, &n.ZIndex, &n.CreatedAt, &n.UpdatedAt); err != nil {
 			rows.Close()
 			return b, err
 		}
@@ -85,7 +85,7 @@ func (r *BoardRepository) Create(ctx context.Context, b domain.Board) (domain.Bo
 	return b, nil
 }
 func (r *BoardRepository) CreateNode(ctx context.Context, n domain.BoardNode) (domain.BoardNode, error) {
-	err := r.db.QueryRowContext(ctx, `INSERT INTO board_nodes(board_id,kind,title,content,media_path,x,y,width,height,color,z_index) VALUES(?,?,?,?,?,?,?,?,?,?,?) RETURNING id,created_at,updated_at`, n.BoardID, n.Kind, n.Title, n.Content, n.MediaPath, n.X, n.Y, n.Width, n.Height, n.Color, n.ZIndex).Scan(&n.ID, &n.CreatedAt, &n.UpdatedAt)
+	err := r.db.QueryRowContext(ctx, `INSERT INTO board_nodes(board_id,kind,title,content,media_path,x,y,width,height,color,text_color,z_index) VALUES(?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id,created_at,updated_at`, n.BoardID, n.Kind, n.Title, n.Content, n.MediaPath, n.X, n.Y, n.Width, n.Height, n.Color, n.TextColor, n.ZIndex).Scan(&n.ID, &n.CreatedAt, &n.UpdatedAt)
 	if err != nil {
 		return n, fmt.Errorf("create board node: %w", err)
 	}
@@ -114,7 +114,7 @@ func (r *BoardRepository) ResizeNode(ctx context.Context, boardID, nodeID int64,
 	return nil
 }
 func (r *BoardRepository) UpdateNode(ctx context.Context, n domain.BoardNode) error {
-	result, err := r.db.ExecContext(ctx, `UPDATE board_nodes SET title=?,content=?,color=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND board_id=?`, n.Title, n.Content, n.Color, n.ID, n.BoardID)
+	result, err := r.db.ExecContext(ctx, `UPDATE board_nodes SET title=?,content=?,color=?,text_color=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND board_id=?`, n.Title, n.Content, n.Color, n.TextColor, n.ID, n.BoardID)
 	if err != nil {
 		return err
 	}

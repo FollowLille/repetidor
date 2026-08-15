@@ -23,7 +23,7 @@ type BoardNode struct {
 	ID, BoardID                     int64
 	Kind, Title, Content, MediaPath string
 	X, Y, Width, Height             float64
-	Color                           string
+	Color, TextColor                string
 	ZIndex                          int
 	CreatedAt, UpdatedAt            time.Time
 }

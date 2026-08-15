@@ -12,8 +12,11 @@ import (
 )
 
 func parsePage(name string) (*template.Template, error) {
-	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "boardColors": boardColors, "textColors": textColors}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
 }
+
+func boardColors() []string { return []string{"violet", "amber", "mint", "rose", "slate"} }
+func textColors() []string  { return []string{"white", "amber", "mint", "rose", "violet"} }
 
 func hasID(ids []int64, id int64) bool {
 	for _, value := range ids {
@@ -135,6 +138,7 @@ var russianUI = map[string]string{
 	"Boards and media": "Доски и медиа", "Map ideas visually": "Связывайте идеи визуально", "No boards yet.": "Досок пока нет.", "Board name": "Название доски", "Create board": "Создать доску", "Back to course": "Назад к курсу", "Learning board": "Учебная доска", "Center": "По центру", "Create": "Создать", "Media": "Медиа", "Connect cards": "Связать карточки", "Add card": "Добавить карточку", "Card type": "Тип карточки", "Text": "Текст", "Note": "Заметка", "Color": "Цвет", "Add to board": "Добавить на доску", "Short heading": "Короткий заголовок", "Write an idea, rule or example": "Напишите идею, правило или пример", "What is this?": "Что здесь изображено?", "Choose image or audio": "Выберите изображение или аудио", "Upload media": "Загрузить медиа", "Image or audio": "Изображение или аудио", "Upload": "Загрузить", "Board card": "Карточка доски", "Edit card": "Редактировать карточку", "Resize": "Изменить размер", "Close": "Закрыть", "Cancel": "Отмена", "Save": "Сохранить", "Drag empty space to pan. Drag cards to arrange ideas.": "Тяните пустое пространство для перемещения. Перетаскивайте карточки, чтобы выстроить идеи.", "Drop your first idea here.": "Добавьте сюда первую идею.",
 	"Vocabulary builder": "Конструктор словаря", "Save a translation pair and meet it in every matching course.": "Сохраните пару переводов — она появится во всех подходящих курсах.", "Vocabulary structure": "Структура словаря", "Group words by a situation, idea or learning goal.": "Объединяйте слова по ситуации, смыслу или учебной цели.", "Turn separate topics into a clear learning route.": "Соберите отдельные темы в понятный учебный маршрут.", "Choose the language you learn and the language that helps you.": "Выберите изучаемый язык и язык, который помогает вам учиться.",
 	"Board tools": "Инструменты доски", "Move": "Перемещение", "Draw": "Рисовать", "Arrow": "Стрелка", "Eraser": "Ластик", "Drawing color": "Цвет линии",
+	"Move canvas and cards": "Двигать холст и карточки", "Pen": "Карандаш", "Highlighter": "Маркер", "Draw arrow": "Нарисовать стрелку", "Erase drawing": "Стереть линию", "Undo drawing": "Отменить рисунок", "Redo drawing": "Вернуть рисунок", "Connect two cards": "Связать две карточки", "Zoom out": "Уменьшить масштаб", "Zoom in": "Увеличить масштаб", "Hide creation panel": "Скрыть панель создания", "Block": "Блок", "Sticker": "Стикер", "Free text": "Свободный текст", "Block color": "Цвет блока", "Text color": "Цвет текста",
 }
 
 func safeNext(raw string) string {

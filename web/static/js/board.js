@@ -8,15 +8,19 @@
   const dialog = shell.querySelector('[data-edit-dialog]');
   const editForm = shell.querySelector('[data-edit-form]');
   const drawings = shell.querySelector('[data-board-drawings]');
+  const undoButton = shell.querySelector('[data-undo-drawing]'), redoButton = shell.querySelector('[data-redo-drawing]');
   let scale = 1, panX = 0, panY = 0, active = null, connectMode = false, connectFrom = null, editingNode = null, boardMode = 'cursor', strokeColor = 'amber';
+  const undoStack = [], redoStack = [];
 
   const strokeHex = {amber: '#ffbd78', violet: '#9a7cff', mint: '#69d8c3', rose: '#f283aa', white: '#f4f0fa'};
   const svgElement = name => document.createElementNS('http://www.w3.org/2000/svg', name);
   const pointAt = e => { const rect = viewport.getBoundingClientRect(); return {x: (e.clientX - rect.left - panX) / scale, y: (e.clientY - rect.top - panY) / scale}; };
   const pathData = points => points.map((point, index) => `${index ? 'L' : 'M'}${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(' ');
   const renderStroke = (group, kind, points, color, width) => {
+    const marker = color.startsWith('marker_'), actualColor = marker ? color.slice(7) : color;
     const shape = svgElement(kind === 'arrow' ? 'line' : 'path');
-    shape.classList.add('board_stroke'); shape.setAttribute('stroke', strokeHex[color] || strokeHex.amber); shape.setAttribute('stroke-width', width); shape.setAttribute('fill', 'none'); shape.setAttribute('stroke-linecap', 'round'); shape.setAttribute('stroke-linejoin', 'round');
+    shape.classList.add('board_stroke'); if (marker) shape.classList.add('board_marker_stroke'); shape.setAttribute('stroke', strokeHex[actualColor] || strokeHex.amber); shape.setAttribute('stroke-width', width); shape.setAttribute('fill', 'none'); shape.setAttribute('stroke-linecap', 'round'); shape.setAttribute('stroke-linejoin', 'round');
+    if (marker) shape.setAttribute('stroke-opacity', '.32');
     if (kind === 'arrow') { const first = points[0], last = points[points.length - 1]; shape.setAttribute('x1', first.x); shape.setAttribute('y1', first.y); shape.setAttribute('x2', last.x); shape.setAttribute('y2', last.y); shape.setAttribute('marker-end', 'url(#board-arrow)'); }
     else shape.setAttribute('d', pathData(points));
     group.append(shape); return shape;
@@ -34,6 +38,15 @@
   const zoom = delta => { scale = Math.max(.35, Math.min(2, scale + delta)); render(); };
   const postJSON = (url, body) => fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
   const clearConnection = () => { connectFrom?.classList.remove('is_connect_source'); connectFrom = null; };
+  const updateHistory = () => { undoButton.disabled = !undoStack.length; redoButton.disabled = !redoStack.length; };
+  const saveStroke = async payload => {
+    const response = await postJSON(`${location.pathname}/strokes`, payload); if (!response.ok) return null;
+    const result = await response.json(), group = svgElement('g'); group.dataset.strokeId = result.id; group.dataset.strokeKind = payload.kind; group.dataset.strokePoints = JSON.stringify(payload.points); group.dataset.strokeColor = payload.color; group.dataset.strokeWidth = payload.width; drawings.append(group); renderStroke(group, payload.kind, payload.points, payload.color, payload.width); return {id: result.id, group, payload};
+  };
+
+  shell.querySelector('[data-collapse-creator]').addEventListener('click', () => shell.querySelector('[data-creator-panel]').classList.toggle('is_collapsed'));
+  undoButton.addEventListener('click', async () => { const item = undoStack.pop(); if (!item) return; const response = await postJSON(`${location.pathname}/strokes/${item.id}/delete`, {}); if (response.ok) { item.group.remove(); redoStack.push(item); } else undoStack.push(item); updateHistory(); });
+  redoButton.addEventListener('click', async () => { const previous = redoStack.pop(); if (!previous) return; const item = await saveStroke(previous.payload); if (item) undoStack.push(item); else redoStack.push(previous); updateHistory(); });
 
   shell.querySelectorAll('[data-board-mode]').forEach(button => button.addEventListener('click', () => {
     boardMode = button.dataset.boardMode; connectMode = false; clearConnection(); connectButton.classList.remove('is_active'); shell.classList.remove('is_connecting');
@@ -60,6 +73,7 @@
       editForm.elements.title.value = editingNode.dataset.nodeTitle;
       editForm.elements.content.value = editingNode.dataset.nodeContent;
       editForm.elements.color.value = editingNode.dataset.nodeColor;
+      editForm.elements.text_color.value = editingNode.dataset.nodeTextColor || 'white';
       dialog.showModal(); return;
     }
     if (boardMode === 'eraser') {
@@ -82,16 +96,17 @@
   editForm.addEventListener('submit', async e => {
     if (e.submitter?.value === 'cancel' || !editingNode) return;
     e.preventDefault();
-    const response = await postJSON(`${location.pathname}/nodes/${editingNode.dataset.nodeId}/edit`, {title: editForm.elements.title.value, content: editForm.elements.content.value, color: editForm.elements.color.value});
+    const response = await postJSON(`${location.pathname}/nodes/${editingNode.dataset.nodeId}/edit`, {title: editForm.elements.title.value, content: editForm.elements.content.value, color: editForm.elements.color.value, textColor: editForm.elements.text_color.value});
     if (response.ok) location.reload();
   });
 
   viewport.addEventListener('pointerdown', e => {
     if (connectMode || (e.target.closest('button,form,input,audio') && !e.target.closest('[data-resize-node]'))) return;
-    if (boardMode === 'pen' || boardMode === 'arrow') {
+    if (boardMode === 'pen' || boardMode === 'marker' || boardMode === 'arrow') {
       const point = pointAt(e), group = svgElement('g'); drawings.append(group);
-      const points = [point, point]; const shape = renderStroke(group, boardMode, points, strokeColor, boardMode === 'arrow' ? 3 : 3.5);
-      active = {kind: 'draw', drawKind: boardMode, group, shape, points, color: strokeColor, width: boardMode === 'arrow' ? 3 : 3.5};
+      const points = [point, point], storedKind = boardMode === 'marker' ? 'pen' : boardMode, storedColor = boardMode === 'marker' ? `marker_${strokeColor}` : strokeColor, width = boardMode === 'marker' ? 18 : boardMode === 'arrow' ? 3 : 3.5;
+      const shape = renderStroke(group, storedKind, points, storedColor, width);
+      active = {kind: 'draw', drawKind: storedKind, group, shape, points, color: storedColor, width};
       viewport.setPointerCapture(e.pointerId); return;
     }
     if (boardMode === 'eraser') return;
@@ -114,9 +129,11 @@
     if (!active) return;
     const item = active; active = null;
     if (item.kind === 'draw') {
-      const response = await postJSON(`${location.pathname}/strokes`, {kind: item.drawKind, points: item.points, color: item.color, width: item.width});
+      const payload = {kind: item.drawKind, points: item.points, color: item.color, width: item.width};
+      const response = await postJSON(`${location.pathname}/strokes`, payload);
       if (!response.ok) { item.group.remove(); return; }
-      const result = await response.json(); item.group.dataset.strokeId = result.id; item.group.dataset.strokeKind = item.drawKind;
+      const result = await response.json(); item.group.dataset.strokeId = result.id; item.group.dataset.strokeKind = item.drawKind; item.group.dataset.strokePoints = JSON.stringify(item.points); item.group.dataset.strokeColor = item.color; item.group.dataset.strokeWidth = item.width;
+      undoStack.push({id: result.id, group: item.group, payload}); redoStack.length = 0; updateHistory();
       return;
     }
     const id = item.node?.dataset.nodeId;

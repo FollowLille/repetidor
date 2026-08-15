@@ -26,7 +26,7 @@ func TestBoardPersistsNodesPositionsAndEdges(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	first, err := repo.CreateNode(ctx, domain.BoardNode{BoardID: board.ID, Kind: "text", Title: "Yo", Content: "first person", X: 100, Y: 120, Width: 260, Height: 160, Color: "violet"})
+	first, err := repo.CreateNode(ctx, domain.BoardNode{BoardID: board.ID, Kind: "text", Title: "Yo", Content: "first person", X: 100, Y: 120, Width: 260, Height: 160, Color: "violet", TextColor: "white"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -40,7 +40,7 @@ func TestBoardPersistsNodesPositionsAndEdges(t *testing.T) {
 	if err := repo.ResizeNode(ctx, board.ID, first.ID, 420, 240); err != nil {
 		t.Fatal(err)
 	}
-	first.Title, first.Content, first.Color = "Yo estoy", "first person estar", "mint"
+	first.Title, first.Content, first.Color, first.TextColor = "Yo estoy", "first person estar", "mint", "rose"
 	if err := repo.UpdateNode(ctx, first); err != nil {
 		t.Fatal(err)
 	}
@@ -52,7 +52,7 @@ func TestBoardPersistsNodesPositionsAndEdges(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(got.Nodes) != 2 || len(got.Edges) != 1 || got.Nodes[0].X != 222 || got.Nodes[0].Y != 333 || got.Nodes[0].Width != 420 || got.Nodes[0].Height != 240 || got.Nodes[0].Title != "Yo estoy" || got.Nodes[0].Color != "mint" {
+	if len(got.Nodes) != 2 || len(got.Edges) != 1 || got.Nodes[0].X != 222 || got.Nodes[0].Y != 333 || got.Nodes[0].Width != 420 || got.Nodes[0].Height != 240 || got.Nodes[0].Title != "Yo estoy" || got.Nodes[0].Color != "mint" || got.Nodes[0].TextColor != "rose" {
 		t.Fatalf("board = %#v", got)
 	}
 	if err := repo.DeleteEdge(ctx, board.ID, edge.ID); err != nil {

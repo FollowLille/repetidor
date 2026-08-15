@@ -86,9 +86,10 @@ func (h *BoardsHandler) CreateText(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	_ = r.ParseForm()
-	kind := r.FormValue("kind")
-	if kind != "note" {
-		kind = "text"
+	style := r.FormValue("style")
+	kind := "text"
+	if style == "note" {
+		kind = "note"
 	}
 	content := strings.TrimSpace(r.FormValue("content"))
 	if content == "" {
@@ -96,7 +97,11 @@ func (h *BoardsHandler) CreateText(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	x, y := nextBoardPosition(len(board.Nodes))
-	_, err := h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: content, X: x, Y: y, Width: 280, Height: 170, Color: cleanBoardColor(r.FormValue("color"))})
+	color, width, height := cleanBoardColor(r.FormValue("color")), 280.0, 170.0
+	if style == "label" {
+		kind, color, width, height = "text", "clear", 380, 110
+	}
+	_, err := h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: content, X: x, Y: y, Width: width, Height: height, Color: color, TextColor: cleanTextColor(r.FormValue("text_color"))})
 	if err != nil {
 		http.Error(w, "failed to create node", 500)
 		return
@@ -165,7 +170,7 @@ func (h *BoardsHandler) Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	x, y := nextBoardPosition(len(board.Nodes))
-	_, err = h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: header.Filename, MediaPath: "/uploads/" + name, X: x, Y: y, Width: kindWidth(kind), Height: 220, Color: "slate"})
+	_, err = h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: header.Filename, MediaPath: "/uploads/" + name, X: x, Y: y, Width: kindWidth(kind), Height: 220, Color: "slate", TextColor: "white"})
 	if err != nil {
 		_ = os.Remove(path)
 		http.Error(w, "failed to create media node", 500)
@@ -224,7 +229,7 @@ func (h *BoardsHandler) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id, _ := strconv.ParseInt(chi.URLParam(r, "node_id"), 10, 64)
-	var input struct{ Title, Content, Color string }
+	var input struct{ Title, Content, Color, TextColor string }
 	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 32<<10)).Decode(&input); err != nil {
 		http.Error(w, "invalid card", 400)
 		return
@@ -235,7 +240,7 @@ func (h *BoardsHandler) Edit(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "content required", 400)
 		return
 	}
-	if err := h.boards.UpdateNode(r.Context(), domain.BoardNode{ID: id, BoardID: board.ID, Title: input.Title, Content: input.Content, Color: cleanBoardColor(input.Color)}); err != nil {
+	if err := h.boards.UpdateNode(r.Context(), domain.BoardNode{ID: id, BoardID: board.ID, Title: input.Title, Content: input.Content, Color: cleanBoardColor(input.Color), TextColor: cleanTextColor(input.TextColor)}); err != nil {
 		http.Error(w, "failed to edit node", 400)
 		return
 	}
@@ -348,14 +353,21 @@ func boardURL(courseID, boardID int64) string {
 }
 func cleanBoardColor(value string) string {
 	switch value {
-	case "amber", "mint", "rose", "slate":
+	case "amber", "mint", "rose", "slate", "clear":
 		return value
 	}
 	return "violet"
 }
+func cleanTextColor(value string) string {
+	switch value {
+	case "white", "amber", "mint", "rose", "violet":
+		return value
+	}
+	return "white"
+}
 func cleanStrokeColor(value string) string {
 	switch value {
-	case "amber", "violet", "mint", "rose", "white":
+	case "amber", "violet", "mint", "rose", "white", "marker_amber", "marker_violet", "marker_mint", "marker_rose", "marker_white":
 		return value
 	}
 	return "amber"
