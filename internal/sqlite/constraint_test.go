@@ -20,7 +20,7 @@ func TestRepositoriesMapUniqueConstraintErrors(t *testing.T) {
 	_, err = db.Exec(`
 		CREATE TABLE topics (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			course_id INTEGER NOT NULL DEFAULT 1,
+			language_track_id INTEGER NOT NULL DEFAULT 1,
 			name TEXT NOT NULL UNIQUE,
 			description TEXT NOT NULL DEFAULT '',
 			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -135,7 +135,7 @@ func TestTopicRepositoryDeleteCascadesToWords(t *testing.T) {
 	_, err = db.Exec(`
 		CREATE TABLE topics (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			course_id INTEGER NOT NULL DEFAULT 1,
+			language_track_id INTEGER NOT NULL DEFAULT 1,
 			name TEXT NOT NULL UNIQUE,
 			description TEXT NOT NULL DEFAULT '',
 			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -257,7 +257,7 @@ func TestTrainingRepositoryListStatsIncludesSeenAndUnseenWords(t *testing.T) {
 	}
 	t.Cleanup(func() { _ = db.Close() })
 	_, err = db.Exec(`
-		CREATE TABLE topics (id INTEGER PRIMARY KEY, course_id INTEGER NOT NULL DEFAULT 1, name TEXT NOT NULL);
+		CREATE TABLE topics (id INTEGER PRIMARY KEY, language_track_id INTEGER NOT NULL DEFAULT 1, name TEXT NOT NULL);
 		CREATE TABLE words (
 			id INTEGER PRIMARY KEY,
 			topic_id INTEGER NOT NULL,
@@ -343,7 +343,7 @@ func TestWordCanBelongToMultipleTopics(t *testing.T) {
 	_, err = db.Exec(`
 		CREATE TABLE topics (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			course_id INTEGER NOT NULL DEFAULT 1,
+			language_track_id INTEGER NOT NULL DEFAULT 1,
 			name TEXT NOT NULL UNIQUE,
 			description TEXT NOT NULL DEFAULT '',
 			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -435,7 +435,7 @@ func TestWordTopicsMigrationMergesLegacyDuplicates(t *testing.T) {
 	}
 	t.Cleanup(func() { _ = db.Close() })
 	_, err = db.Exec(`
-		CREATE TABLE topics (id INTEGER PRIMARY KEY, course_id INTEGER NOT NULL DEFAULT 1, name TEXT NOT NULL);
+		CREATE TABLE topics (id INTEGER PRIMARY KEY, language_track_id INTEGER NOT NULL DEFAULT 1, name TEXT NOT NULL);
 		CREATE TABLE words (
 			id INTEGER PRIMARY KEY,
 			topic_id INTEGER NOT NULL,

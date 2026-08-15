@@ -17,9 +17,10 @@ type Container struct {
 	Arena     *ArenaHandler
 	Settings  *SettingsHandler
 	Import    *ImportHandler
+	Courses   *CoursesHandler
 }
 
-func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, courseRepo storage.CourseRepository, appLogger logger.Logger) (*Container, error) {
+func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, courseRepo storage.CourseRepository, learningCourseRepo storage.LearningCourseRepository, appLogger logger.Logger) (*Container, error) {
 	homeHandler, err := NewHomeHandler(topicRepo, sessionRepo, courseRepo)
 	if err != nil {
 		return nil, err
@@ -68,6 +69,10 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
+	coursesHandler, err := NewCoursesHandler(learningCourseRepo, topicRepo, courseRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
 
-	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler, Arena: arenaHandler, Settings: settingsHandler, Import: importHandler}, nil
+	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler, Arena: arenaHandler, Settings: settingsHandler, Import: importHandler, Courses: coursesHandler}, nil
 }

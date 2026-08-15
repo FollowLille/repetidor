@@ -69,7 +69,10 @@ func (h *SettingsHandler) SetLocale(w http.ResponseWriter, r *http.Request) {
 }
 func (h *SettingsHandler) SetCourse(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
-	id, _ := strconv.ParseInt(r.FormValue("course_id"), 10, 64)
+	id, _ := strconv.ParseInt(r.FormValue("track_id"), 10, 64)
+	if id == 0 {
+		id, _ = strconv.ParseInt(r.FormValue("course_id"), 10, 64)
+	}
 	if _, err := h.courses.Get(r.Context(), id); err != nil {
 		http.Error(w, "course not found", 404)
 		return
@@ -78,5 +81,5 @@ func (h *SettingsHandler) SetCourse(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, safeNext(r.FormValue("next")), http.StatusSeeOther)
 }
 func (h *SettingsHandler) setCourse(w http.ResponseWriter, id int64) {
-	http.SetCookie(w, &http.Cookie{Name: "repetidor_course", Value: strconv.FormatInt(id, 10), Path: "/", Expires: time.Now().AddDate(1, 0, 0), SameSite: http.SameSiteLaxMode})
+	http.SetCookie(w, &http.Cookie{Name: "repetidor_track", Value: strconv.FormatInt(id, 10), Path: "/", Expires: time.Now().AddDate(1, 0, 0), SameSite: http.SameSiteLaxMode})
 }

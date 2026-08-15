@@ -19,7 +19,7 @@ func NewTopicRepository(db *sql.DB) *TopicRepository {
 
 func (r *TopicRepository) List(ctx context.Context) ([]domain.Topic, error) {
 	rows, err := r.db.QueryContext(ctx, `
-		SELECT id, course_id, name, description, created_at, updated_at
+		SELECT id, language_track_id, name, description, created_at, updated_at
 		FROM topics
 		ORDER BY name ASC
 	`)
@@ -45,7 +45,7 @@ func (r *TopicRepository) List(ctx context.Context) ([]domain.Topic, error) {
 }
 
 func (r *TopicRepository) ListByCourse(ctx context.Context, courseID int64) ([]domain.Topic, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT id, course_id, name, description, created_at, updated_at FROM topics WHERE course_id=? ORDER BY name ASC`, courseID)
+	rows, err := r.db.QueryContext(ctx, `SELECT id, language_track_id, name, description, created_at, updated_at FROM topics WHERE language_track_id=? ORDER BY name ASC`, courseID)
 	if err != nil {
 		return nil, fmt.Errorf("list topics by course: %w", err)
 	}
@@ -64,9 +64,9 @@ func (r *TopicRepository) ListByCourse(ctx context.Context, courseID int64) ([]d
 func (r *TopicRepository) Create(ctx context.Context, topic domain.Topic) (domain.Topic, error) {
 	created := domain.Topic{}
 	err := r.db.QueryRowContext(ctx, `
-		INSERT INTO topics(course_id, name, description)
+		INSERT INTO topics(language_track_id, name, description)
 		VALUES(?, ?, ?)
-		RETURNING id, course_id, name, description, created_at, updated_at
+		RETURNING id, language_track_id, name, description, created_at, updated_at
 	`, topic.CourseID, topic.Name, topic.Description).Scan(
 		&created.ID,
 		&created.CourseID,
@@ -87,7 +87,7 @@ func (r *TopicRepository) Create(ctx context.Context, topic domain.Topic) (domai
 func (r *TopicRepository) GetByName(ctx context.Context, name string) (domain.Topic, error) {
 	var topic domain.Topic
 	err := r.db.QueryRowContext(ctx, `
-		SELECT id, course_id, name, description, created_at, updated_at
+		SELECT id, language_track_id, name, description, created_at, updated_at
 		FROM topics
 		WHERE name = ?
 	`, name).Scan(&topic.ID, &topic.CourseID, &topic.Name, &topic.Description, &topic.CreatedAt, &topic.UpdatedAt)
@@ -106,7 +106,7 @@ func (r *TopicRepository) Update(ctx context.Context, topic domain.Topic) (domai
 		UPDATE topics
 		SET name = ?, description = ?, updated_at = CURRENT_TIMESTAMP
 		WHERE id = ?
-		RETURNING id, course_id, name, description, created_at, updated_at
+		RETURNING id, language_track_id, name, description, created_at, updated_at
 	`, topic.Name, topic.Description, topic.ID).Scan(
 		&updated.ID,
 		&updated.CourseID,

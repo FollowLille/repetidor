@@ -23,7 +23,11 @@ func locale(r *http.Request) string {
 }
 
 func activeCourseID(r *http.Request) int64 {
-	if cookie, err := r.Cookie("repetidor_course"); err == nil {
+	cookie, err := r.Cookie("repetidor_track")
+	if err != nil {
+		cookie, err = r.Cookie("repetidor_course")
+	}
+	if err == nil {
 		if id, err := strconv.ParseInt(cookie.Value, 10, 64); err == nil && id > 0 {
 			return id
 		}
@@ -69,6 +73,10 @@ var russianUI = map[string]string{
 	"One pair per line. The third column becomes notes.": "Одна пара на строку. Третья колонка станет заметкой.", "CSV columns: source, translation, notes.": "Колонки CSV: слово, перевод, заметка.",
 	"Upload Excel": "Загрузить Excel", "XLSX columns: source, translation, notes.": "Колонки XLSX: слово, перевод, заметка.",
 	"Or create a new topic": "Или создайте новую тему",
+	"Courses":               "Курсы", "Course": "Курс", "Chapter": "Глава", "Language track": "Языковое направление", "Language tracks": "Языковые направления", "Active language track": "Активное языковое направление",
+	"Build a path, not a pile.": "Соберите маршрут, а не свалку.", "Arrange topics into ordered courses and smaller chapters.": "Объединяйте темы в упорядоченные курсы и небольшие главы.",
+	"Your first course starts here.": "Ваш первый курс начинается здесь.", "Combine existing topics into a route and add chapters when it grows.": "Соберите маршрут из существующих тем и разбивайте его на главы.",
+	"Course builder": "Конструктор курса", "Create a course or chapter": "Создать курс или главу", "Description": "Описание", "Position": "Позиция", "Parent course": "Родительский курс", "Topics in this course": "Темы курса", "Prerequisites": "Предварительные курсы", "Requires": "Нужно пройти", "Add to learning path": "Добавить в маршрут", "Create vocabulary topics first.": "Сначала создайте темы со словами.",
 }
 
 func safeNext(raw string) string {
