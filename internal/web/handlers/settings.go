@@ -67,6 +67,14 @@ func (h *SettingsHandler) SetLocale(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{Name: "repetidor_locale", Value: lang, Path: "/", Expires: time.Now().AddDate(1, 0, 0), SameSite: http.SameSiteLaxMode})
 	http.Redirect(w, r, safeNext(r.URL.Query().Get("next")), http.StatusSeeOther)
 }
+func (h *SettingsHandler) SetWorkspaceMode(w http.ResponseWriter, r *http.Request) {
+	mode := r.URL.Query().Get("mode")
+	if mode != "learner" {
+		mode = "author"
+	}
+	http.SetCookie(w, &http.Cookie{Name: "repetidor_workspace_mode", Value: mode, Path: "/", Expires: time.Now().AddDate(1, 0, 0), SameSite: http.SameSiteLaxMode})
+	http.Redirect(w, r, safeNext(r.URL.Query().Get("next")), http.StatusSeeOther)
+}
 func (h *SettingsHandler) SetCourse(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 	id, _ := strconv.ParseInt(r.FormValue("track_id"), 10, 64)

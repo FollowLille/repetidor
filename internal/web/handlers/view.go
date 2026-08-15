@@ -76,7 +76,13 @@ func activeCourse(repo storage.CourseRepository, r *http.Request) domain.Course 
 func pageData(r *http.Request, values map[string]any) map[string]any {
 	values["Locale"] = locale(r)
 	values["CurrentPath"] = r.URL.RequestURI()
+	values["AuthorMode"] = authorMode(r)
 	return values
+}
+
+func authorMode(r *http.Request) bool {
+	cookie, err := r.Cookie("repetidor_workspace_mode")
+	return err != nil || cookie.Value != "learner"
 }
 
 func translate(lang, text string) string {
@@ -163,6 +169,9 @@ var russianUI = map[string]string{
 	"correct": "верно", "Resume session": "Продолжить сессию", "Back to statistics": "Назад к статистике", "Abandon session": "Завершить сессию", "Card review": "Разбор карточек", "Pending": "Ожидает ответа", "Reply": "Ответ", "close typo": "почти верно", "edit": "правка", "skipped": "пропущено", "Session details": "Детали сессии",
 	"Portable courses": "Переносимые курсы", "Move a complete course in one file.": "Перенесите целый курс одним файлом.", "Preview blocks, exercises and vocabulary before anything is saved.": "Проверьте блоки, упражнения и словарь до сохранения.", "Theory blocks": "Блоки теории", "Duplicates": "Дубли", "Preview ready": "Предпросмотр готов", "Import everything atomically": "Импортировать всё атомарно", "If any item fails, nothing will be saved.": "Если возникнет ошибка, ничего не сохранится.", "Import course": "Импорт курса", "Upload course file": "Загрузить файл курса", "Versioned Repetidor course JSON, up to 10 MB.": "Версионированный JSON курса Repetidor, до 10 МБ.", "or": "или", "Paste course JSON": "Вставить JSON курса", "Preview import": "Проверить импорт", "Export course": "Экспортировать курс",
 	"Portable vocabulary": "Переносимый словарь", "Samples and exports": "Шаблоны и экспорт", "Use the same neutral columns in CSV and Excel.": "Используйте одинаковые нейтральные колонки в CSV и Excel.", "Download sample CSV": "Скачать пример CSV", "Export language track": "Экспортировать направление", "Export topic": "Экспортировать тему", "Choose course": "Выберите курс", "Export course vocabulary": "Экспортировать слова курса",
+	"Workspace mode": "Режим работы", "Learner": "Ученик", "Author": "Автор",
+	"Back to theory": "Назад к теории", "Theory practice": "Практика по теории", "correct attempts": "верных попыток", "Your answer": "Ваш ответ", "input": "ввод ответа", "gap": "заполнить пропуск", "sentence_builder": "сборка предложения",
+	"text": "текст", "example": "пример", "note": "заметка", "table": "таблица", "Example": "Пример", "Table": "Таблица", "Multiple choice": "Выбрать вариант", "Fill the gap": "Заполнить пропуск",
 }
 
 func safeNext(raw string) string {

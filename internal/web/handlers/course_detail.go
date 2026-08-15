@@ -313,13 +313,7 @@ func (h *CourseHandler) Practice(w http.ResponseWriter, r *http.Request) {
 			http.NotFound(w, r)
 			return
 		}
-		filtered := make([]domain.TheoryExercise, 0)
-		for _, exercise := range exercises {
-			if exercise.TheoryBlockID != nil && *exercise.TheoryBlockID == blockID {
-				filtered = append(filtered, exercise)
-			}
-		}
-		exercises = filtered
+		exercises = exercisesForBlock(exercises, blockID)
 		practiceAction = "/courses/" + strconv.FormatInt(course.ID, 10) + "/blocks/" + strconv.FormatInt(blockID, 10) + "/practice"
 	}
 	var result *domain.TheoryAnswerResult
@@ -354,4 +348,14 @@ func (h *CourseHandler) Practice(w http.ResponseWriter, r *http.Request) {
 	if err := h.practiceTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course practice", "error", err)
 	}
+}
+
+func exercisesForBlock(exercises []domain.TheoryExercise, blockID int64) []domain.TheoryExercise {
+	filtered := make([]domain.TheoryExercise, 0)
+	for _, exercise := range exercises {
+		if exercise.TheoryBlockID != nil && *exercise.TheoryBlockID == blockID {
+			filtered = append(filtered, exercise)
+		}
+	}
+	return filtered
 }

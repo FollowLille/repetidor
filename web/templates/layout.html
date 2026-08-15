@@ -1,26 +1,8 @@
 {{ define "layout" }}
-<!doctype html>
-<html lang="{{ .Locale }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ .Title }}</title>
-    <link rel="stylesheet" href="/static/css/app.css?v=5">
-    <link rel="stylesheet" href="/static/css/components.css?v=5">
-</head>
-<body>
-<div class="ambient ambient_one"></div><div class="ambient ambient_two"></div>
-<div class="page">
-    <header class="page_header">
-        <a class="brand" href="/" aria-label="Repetidor home"><span class="brand_mark">R</span><span><strong>Repetidor</strong><small>Languages, remembered.</small></span></a>
-        <nav class="main_nav" aria-label="Main navigation"><a href="/">{{ tr .Locale "Learn" }}</a><a href="/arena">{{ tr .Locale "Arena" }}</a><a href="/courses">{{ tr .Locale "Courses" }}</a><a href="/boards">{{ tr .Locale "Boards" }}</a><a href="/topics">{{ tr .Locale "Vocabulary" }}</a><a href="/import">{{ tr .Locale "Import" }}</a><a href="/stats">{{ tr .Locale "Progress" }}</a></nav>
-        <div class="header_tools">{{ with .Course }}<a class="course_switch" href="/settings"><small>{{ tr $.Locale "Language track" }}</small><strong>{{ .Name }}</strong></a>{{ end }}<div class="locale_switch"><a class="{{ if eq .Locale "ru" }}active{{ end }}" href="/locale?lang=ru&next={{ .CurrentPath }}">RU</a><a class="{{ if eq .Locale "en" }}active{{ end }}" href="/locale?lang=en&next={{ .CurrentPath }}">EN</a></div><a class="settings_link" href="/settings" aria-label="{{ tr .Locale "Settings" }}">⚙</a></div>
-    </header>
-
-    <main class="page_content">
-        {{ template "content" . }}
-    </main>
-</div>
-</body>
-</html>
+<!doctype html><html lang="{{ .Locale }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ .Title }}</title><link rel="stylesheet" href="/static/css/app.css?v=6"><link rel="stylesheet" href="/static/css/components.css?v=6"></head>
+<body data-workspace-mode="{{ if .AuthorMode }}author{{ else }}learner{{ end }}"><div class="ambient ambient_one"></div><div class="ambient ambient_two"></div><div class="page">
+<header class="page_header"><a class="brand" href="/" aria-label="Repetidor home"><span class="brand_mark">R</span><span><strong>Repetidor</strong><small>Languages, remembered.</small></span></a>
+<nav class="main_nav" aria-label="Main navigation"><a href="/">{{ tr .Locale "Learn" }}</a><a href="/arena">{{ tr .Locale "Arena" }}</a><a href="/courses">{{ tr .Locale "Courses" }}</a><a href="/boards">{{ tr .Locale "Boards" }}</a><a href="/topics">{{ tr .Locale "Vocabulary" }}</a><a href="/import">{{ tr .Locale "Import" }}</a><a href="/stats">{{ tr .Locale "Progress" }}</a></nav>
+<div class="header_tools">{{ with .Course }}<a class="course_switch" href="/settings"><small>{{ tr $.Locale "Language track" }}</small><strong>{{ .Name }}</strong></a>{{ end }}<div class="workspace_switch" aria-label="{{ tr .Locale "Workspace mode" }}"><a class="{{ if not .AuthorMode }}active{{ end }}" href="/workspace-mode?mode=learner&next={{ .CurrentPath }}">{{ tr .Locale "Learner" }}</a><a class="{{ if .AuthorMode }}active{{ end }}" href="/workspace-mode?mode=author&next={{ .CurrentPath }}">{{ tr .Locale "Author" }}</a></div><div class="locale_switch"><a class="{{ if eq .Locale "ru" }}active{{ end }}" href="/locale?lang=ru&next={{ .CurrentPath }}">RU</a><a class="{{ if eq .Locale "en" }}active{{ end }}" href="/locale?lang=en&next={{ .CurrentPath }}">EN</a></div><a class="settings_link" href="/settings" aria-label="{{ tr .Locale "Settings" }}">⚙</a></div></header>
+<main class="page_content">{{ template "content" . }}</main></div></body></html>
 {{ end }}

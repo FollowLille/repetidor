@@ -22,6 +22,7 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 	r.Method(http.MethodGet, "/settings", container.Settings)
 	r.Method(http.MethodPost, "/settings", container.Settings)
 	r.Get("/locale", container.Settings.SetLocale)
+	r.Get("/workspace-mode", container.Settings.SetWorkspaceMode)
 	r.Post("/course", container.Settings.SetCourse)
 	r.Post("/track", container.Settings.SetCourse)
 	r.Method(http.MethodGet, "/import", container.Import)
