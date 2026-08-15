@@ -1,0 +1,169 @@
+package handlers
+
+import (
+	"html/template"
+	"net/http"
+	"strconv"
+	"strings"
+
+	"repetidor/internal/domain"
+	"repetidor/internal/logger"
+	"repetidor/internal/storage"
+
+	"github.com/go-chi/chi/v5"
+)
+
+type CourseHandler struct {
+	pageTemplates     *template.Template
+	practiceTemplates *template.Template
+	courses           storage.LearningCourseRepository
+	theory            storage.TheoryRepository
+	tracks            storage.CourseRepository
+	logger            logger.Logger
+}
+
+func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, log logger.Logger) (*CourseHandler, error) {
+	page, err := parsePage("course_show.html")
+	if err != nil {
+		return nil, err
+	}
+	practice, err := parsePage("course_practice.html")
+	return &CourseHandler{pageTemplates: page, practiceTemplates: practice, courses: courses, theory: theory, tracks: tracks, logger: log}, err
+}
+
+func (h *CourseHandler) course(r *http.Request) (domain.LearningCourse, bool) {
+	id, _ := strconv.ParseInt(chi.URLParam(r, "course_id"), 10, 64)
+	course, err := h.courses.Get(r.Context(), id)
+	return course, err == nil && course.LanguageTrackID == activeCourse(h.tracks, r).ID
+}
+
+func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	blocks, err := h.theory.ListBlocks(r.Context(), course.ID)
+	if err != nil {
+		http.Error(w, "failed to load theory", 500)
+		return
+	}
+	exercises, err := h.theory.ListExercises(r.Context(), course.ID)
+	if err != nil {
+		http.Error(w, "failed to load exercises", 500)
+		return
+	}
+	progress, err := h.theory.Progress(r.Context(), course.ID)
+	if err != nil {
+		http.Error(w, "failed to load progress", 500)
+		return
+	}
+	data := pageData(r, map[string]any{"Title": course.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress})
+	if err := h.pageTemplates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("render course", "error", err)
+	}
+}
+
+func (h *CourseHandler) CreateBlock(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	_ = r.ParseForm()
+	kind := r.FormValue("kind")
+	if kind != "text" && kind != "example" && kind != "note" && kind != "table" {
+		kind = "text"
+	}
+	content := strings.TrimSpace(r.FormValue("content"))
+	if content == "" {
+		http.Error(w, "content is required", 400)
+		return
+	}
+	order, _ := strconv.Atoi(r.FormValue("sort_order"))
+	_, err := h.theory.CreateBlock(r.Context(), domain.TheoryBlock{CourseID: course.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: content, SortOrder: order})
+	if err != nil {
+		http.Error(w, "failed to create theory block", 500)
+		return
+	}
+	http.Redirect(w, r, "/courses/"+strconv.FormatInt(course.ID, 10), http.StatusSeeOther)
+}
+
+func (h *CourseHandler) CreateExercise(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	_ = r.ParseForm()
+	kind := r.FormValue("kind")
+	if kind != "choice" && kind != "input" && kind != "gap" {
+		kind = "input"
+	}
+	prompt := strings.TrimSpace(r.FormValue("prompt"))
+	answer := strings.TrimSpace(r.FormValue("correct_answer"))
+	if prompt == "" || answer == "" {
+		http.Error(w, "prompt and answer are required", 400)
+		return
+	}
+	order, _ := strconv.Atoi(r.FormValue("sort_order"))
+	var options []string
+	for _, option := range strings.Split(r.FormValue("options"), ",") {
+		if value := strings.TrimSpace(option); value != "" {
+			options = append(options, value)
+		}
+	}
+	_, err := h.theory.CreateExercise(r.Context(), domain.TheoryExercise{CourseID: course.ID, Kind: kind, Prompt: prompt, Options: options, CorrectAnswer: answer, Explanation: strings.TrimSpace(r.FormValue("explanation")), SortOrder: order})
+	if err != nil {
+		http.Error(w, "failed to create exercise", 500)
+		return
+	}
+	http.Redirect(w, r, "/courses/"+strconv.FormatInt(course.ID, 10), http.StatusSeeOther)
+}
+
+func (h *CourseHandler) MarkRead(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	if _, err := h.theory.MarkTheoryRead(r.Context(), course.ID); err != nil {
+		http.Error(w, "failed to save progress", 500)
+		return
+	}
+	http.Redirect(w, r, "/courses/"+strconv.FormatInt(course.ID, 10)+"/practice", http.StatusSeeOther)
+}
+
+func (h *CourseHandler) Practice(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	exercises, err := h.theory.ListExercises(r.Context(), course.ID)
+	if err != nil {
+		http.Error(w, "failed to load exercises", 500)
+		return
+	}
+	var result *domain.TheoryAnswerResult
+	var answeredID int64
+	if r.Method == http.MethodPost {
+		_ = r.ParseForm()
+		answeredID, _ = strconv.ParseInt(r.FormValue("exercise_id"), 10, 64)
+		value, submitErr := h.theory.SubmitAnswer(r.Context(), answeredID, r.FormValue("answer"))
+		if submitErr != nil {
+			http.Error(w, "failed to submit answer", 400)
+			return
+		}
+		result = &value
+	}
+	progress, err := h.theory.Progress(r.Context(), course.ID)
+	if err != nil {
+		http.Error(w, "failed to load progress", 500)
+		return
+	}
+	data := pageData(r, map[string]any{"Title": "Practice · " + course.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Exercises": exercises, "Progress": progress, "Result": result, "AnsweredID": answeredID})
+	if err := h.practiceTemplates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("render course practice", "error", err)
+	}
+}
