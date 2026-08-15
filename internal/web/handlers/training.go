@@ -109,6 +109,7 @@ func (h *TrainingHandler) check(w http.ResponseWriter, r *http.Request) {
 
 func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 	mode := cleanMode(chi.URLParam(r, "train_mode"))
+	course := activeCourse(h.courseRepo, r)
 	sessionID, _ := strconv.ParseInt(r.URL.Query().Get("session_id"), 10, 64)
 	if sessionID == 0 {
 		session, err := h.createSession(r, mode)
@@ -139,7 +140,7 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 	if position, _ := strconv.Atoi(r.URL.Query().Get("result_position")); position > 0 {
 		card, err := h.sessionRepo.GetCard(r.Context(), sessionID, position)
 		if err == nil && card.Answered {
-			data["Result"] = resultView(card)
+			data["Result"] = resultView(card, course)
 		}
 	}
 	if session.Status == domain.SessionCompleted {
@@ -163,7 +164,8 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 	data["Card"] = card
 	data["Topic"] = card.Topic
 	data["Prompt"] = prompt
-	data["DirectionLabel"] = labelDirection(card.Direction)
+	data["DirectionLabel"] = labelDirection(card.Direction, course)
+	data["Course"] = course
 	data["AnswerMode"] = card.AnswerMode
 	_, target := promptAndTarget(card.Word, card.Direction)
 	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
@@ -313,7 +315,7 @@ func (h *TrainingHandler) baseData(session domain.TrainingSession) map[string]an
 	return map[string]any{"Title": modeTitle(session.Mode), "PageTitle": modeTitle(session.Mode), "TrainMode": session.Mode, "SessionID": session.ID, "Session": trainingSessionView{Size: session.Size, Completed: session.Completed, Current: current, Correct: session.Correct, Wrong: session.Completed - session.Correct - session.Skipped, Skipped: session.Skipped}}
 }
 
-func resultView(card domain.TrainingSessionCard) map[string]any {
+func resultView(card domain.TrainingSessionCard, course domain.Course) map[string]any {
 	prompt, target := promptAndTarget(card.Word, card.Direction)
 	reply := card.Response
 	if reply == "" {
@@ -333,7 +335,7 @@ func resultView(card domain.TrainingSessionCard) map[string]any {
 	if card.ErrorKind == domain.AnswerDontKnow {
 		feedback = "Marked as unknown — this word will receive more practice."
 	}
-	return map[string]any{"Correct": card.Correct, "Kind": card.ErrorKind, "Feedback": feedback, "Distance": card.EditDistance, "Position": card.Position, "Prompt": prompt, "Target": target, "Reply": reply, "DirectionLabel": labelDirection(card.Direction)}
+	return map[string]any{"Correct": card.Correct, "Kind": card.ErrorKind, "Feedback": feedback, "Distance": card.EditDistance, "Position": card.Position, "Prompt": prompt, "Target": target, "Reply": reply, "DirectionLabel": labelDirection(card.Direction, course)}
 }
 
 func (h *TrainingHandler) sessionError(w http.ResponseWriter, err error) {
@@ -492,7 +494,13 @@ func cleanDirectionMode(raw, mode string) string {
 	if mode == "spanish-to-russian" {
 		return "spanish_to_russian"
 	}
+	if mode == "target-to-reference" {
+		return "spanish_to_russian"
+	}
 	if mode == "russian-to-spanish" || mode == "reverse" {
+		return "russian_to_spanish"
+	}
+	if mode == "reference-to-target" {
 		return "russian_to_spanish"
 	}
 	return "both"
@@ -536,7 +544,7 @@ func sessionURL(mode string, id int64) string {
 func cleanMode(mode string) string {
 	mode = strings.ToLower(strings.TrimSpace(mode))
 	switch mode {
-	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish", "choice", "cloze", "anagram", "match", "arcade":
+	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "spanish-to-russian", "russian-to-spanish", "target-to-reference", "reference-to-target", "choice", "cloze", "anagram", "match", "arcade":
 		return mode
 	}
 	return "mixed"
@@ -583,7 +591,7 @@ func trainingWeight(p domain.TrainingProgress) float64 {
 	return weight
 }
 func directionForMode(mode string) string {
-	if mode == "russian-to-spanish" || mode == "reverse" {
+	if mode == "russian-to-spanish" || mode == "reference-to-target" || mode == "reverse" {
 		return "russian_to_spanish"
 	}
 	if (mode == "random" || mode == "mixed") && time.Now().UnixNano()%2 == 0 {
@@ -641,11 +649,13 @@ func shuffledLetters(target string) []string {
 	rand.New(rand.NewSource(time.Now().UnixNano())).Shuffle(len(letters), func(i, j int) { letters[i], letters[j] = letters[j], letters[i] })
 	return letters
 }
-func labelDirection(direction string) string {
+func labelDirection(direction string, course domain.Course) string {
+	target := domain.LanguageByCode(course.TargetLanguage).NativeName
+	reference := domain.LanguageByCode(course.ReferenceLanguage).NativeName
 	if direction == "russian_to_spanish" {
-		return "Russian to Spanish"
+		return reference + " → " + target
 	}
-	return "Spanish to Russian"
+	return target + " → " + reference
 }
 func promptAndTarget(word domain.Word, direction string) (string, string) {
 	if direction == "russian_to_spanish" {

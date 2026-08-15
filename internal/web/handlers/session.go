@@ -15,6 +15,7 @@ import (
 type SessionHandler struct {
 	templates *template.Template
 	repo      storage.SessionRepository
+	courses   storage.CourseRepository
 	logger    logger.Logger
 }
 
@@ -25,12 +26,12 @@ type sessionCardView struct {
 	Answered, Correct                                                bool
 }
 
-func NewSessionHandler(repo storage.SessionRepository, appLogger logger.Logger) (*SessionHandler, error) {
+func NewSessionHandler(repo storage.SessionRepository, courses storage.CourseRepository, appLogger logger.Logger) (*SessionHandler, error) {
 	tmpl, err := parsePage("session.html")
 	if err != nil {
 		return nil, err
 	}
-	return &SessionHandler{templates: tmpl, repo: repo, logger: appLogger}, nil
+	return &SessionHandler{templates: tmpl, repo: repo, courses: courses, logger: appLogger}, nil
 }
 
 func (h *SessionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -60,6 +61,7 @@ func (h *SessionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	views := make([]sessionCardView, 0, len(cards))
+	course := activeCourse(h.courses, r)
 	for _, card := range cards {
 		prompt, target := promptAndTarget(card.Word, card.Direction)
 		state, response := "Pending", card.Response
@@ -80,9 +82,9 @@ func (h *SessionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-		views = append(views, sessionCardView{Position: card.Position, TopicName: card.Topic.Name, Direction: labelDirection(card.Direction), Prompt: prompt, Target: target, Response: response, State: state, ErrorKind: card.ErrorKind, EditDistance: card.EditDistance, Answered: card.Answered, Correct: card.Correct})
+		views = append(views, sessionCardView{Position: card.Position, TopicName: card.Topic.Name, Direction: labelDirection(card.Direction, course), Prompt: prompt, Target: target, Response: response, State: state, ErrorKind: card.ErrorKind, EditDistance: card.EditDistance, Answered: card.Answered, Correct: card.Correct})
 	}
-	data := pageData(r, map[string]any{"Title": "Session details", "Session": session, "Cards": views, "Active": session.Status == domain.SessionActive, "ResumePath": sessionURL(session.Mode, session.ID)})
+	data := pageData(r, map[string]any{"Title": "Session details", "Session": session, "Cards": views, "Active": session.Status == domain.SessionActive, "ResumePath": sessionURL(session.Mode, session.ID), "Course": course})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render session details", "error", err)

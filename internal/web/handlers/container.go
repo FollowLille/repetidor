@@ -54,7 +54,7 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
-	sessionHandler, err := NewSessionHandler(sessionRepo, appLogger)
+	sessionHandler, err := NewSessionHandler(sessionRepo, courseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}

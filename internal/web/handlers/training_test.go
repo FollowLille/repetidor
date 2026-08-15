@@ -197,3 +197,22 @@ func TestFilterCardsForDirectionsIncludesPainFromEitherDirection(t *testing.T) {
 	}
 	assertCardIDs(t, filterCardsForDirections("hard", cards, progress, time.Now()), []int64{1, 2})
 }
+
+func TestLanguageAgnosticDirectionModes(t *testing.T) {
+	if got := cleanMode("target-to-reference"); got != "target-to-reference" {
+		t.Fatalf("forward mode = %q", got)
+	}
+	if got := cleanDirectionMode("", "target-to-reference"); got != "spanish_to_russian" {
+		t.Fatalf("forward direction = %q", got)
+	}
+	if got := cleanDirectionMode("", "reference-to-target"); got != "russian_to_spanish" {
+		t.Fatalf("reverse direction = %q", got)
+	}
+	course := domain.Course{TargetLanguage: "en", ReferenceLanguage: "ru"}
+	if got := labelDirection("spanish_to_russian", course); got != "English → Русский" {
+		t.Fatalf("forward label = %q", got)
+	}
+	if got := labelDirection("russian_to_spanish", course); got != "Русский → English" {
+		t.Fatalf("reverse label = %q", got)
+	}
+}

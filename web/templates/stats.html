@@ -1,48 +1,48 @@
 {{ define "content" }}
 <section class="card">
-    <h2>Training statistics</h2>
+    <h2>{{ tr .Locale "Training statistics" }}</h2>
     <div class="stats_totals">
-        <div><span>Words</span><strong>{{ .Totals.Words }}</strong></div>
-        <div><span>Attempts</span><strong>{{ .Totals.Seen }}</strong></div>
-        <div><span>Correct</span><strong>{{ .Totals.Correct }}</strong></div>
-        <div><span>Accuracy</span><strong>{{ .Totals.Accuracy }}%</strong></div>
+        <div><span>{{ tr .Locale "Words" }}</span><strong>{{ .Totals.Words }}</strong></div>
+        <div><span>{{ tr .Locale "Attempts" }}</span><strong>{{ .Totals.Seen }}</strong></div>
+        <div><span>{{ tr .Locale "Correct" }}</span><strong>{{ .Totals.Correct }}</strong></div>
+        <div><span>{{ tr .Locale "Accuracy" }}</span><strong>{{ .Totals.Accuracy }}%</strong></div>
     </div>
     <div class="page_actions">
-        <a class="secondary_link" href="/train/mixed">Continue training</a>
-        <a class="secondary_link" href="/">Back to home</a>
+        <a class="secondary_link" href="/train/mixed">{{ tr .Locale "Continue training" }}</a>
+        <a class="secondary_link" href="/">{{ tr .Locale "Back to home" }}</a>
     </div>
 </section>
 
 {{ if .FrequentMistakes }}
 <section class="card">
-    <h2>Frequent mistakes</h2>
-    <p class="muted">Words that most often need another attempt.</p>
+    <h2>{{ tr .Locale "Frequent mistakes" }}</h2>
+    <p class="muted">{{ tr .Locale "Words that most often need another attempt." }}</p>
     <div class="stats_list">
         {{ range .FrequentMistakes }}
-        <article class="mistake_row"><strong>{{ .Spanish }} → {{ .Russian }}</strong><span><b>{{ .Count }}</b> misses</span><span>{{ .Typos }} close typos</span><span>{{ .Skips }} skips</span></article>
+        <article class="mistake_row"><strong>{{ .Spanish }} → {{ .Russian }}</strong><span><b>{{ .Count }}</b> {{ tr $.Locale "misses" }}</span><span>{{ .Typos }} {{ tr $.Locale "close typos" }}</span><span>{{ .Skips }} {{ tr $.Locale "skips" }}</span></article>
         {{ end }}
     </div>
 </section>
 {{ end }}
 
 <section class="card">
-    <h2>Recent sessions</h2>
+    <h2>{{ tr .Locale "Recent sessions" }}</h2>
     {{ if .Sessions }}
     <div class="stats_list">
         {{ range .Sessions }}
         <article class="stats_row">
-            <div class="stats_word"><span class="word_label">{{ .Mode }}</span><strong>{{ .Completed }} / {{ .Size }} cards</strong></div>
-            <div><span>Correct</span><strong>{{ .Correct }}</strong></div>
-            <div><span>Status</span><strong class="status_badge status_{{ .Status }}">{{ .Status }}</strong></div>
-            <div class="session_links"><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a>{{ if eq .Status "active" }}<a class="secondary_link" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a>{{ end }}</div>
+            <div class="stats_word"><span class="word_label">{{ tr $.Locale .Mode }}</span><strong>{{ .Completed }} / {{ .Size }} {{ tr $.Locale "cards" }}</strong></div>
+            <div><span>{{ tr $.Locale "Correct" }}</span><strong>{{ .Correct }}</strong></div>
+            <div><span>{{ tr $.Locale "Status" }}</span><strong class="status_badge status_{{ .Status }}">{{ tr $.Locale .Status }}</strong></div>
+            <div class="session_links"><a class="secondary_link" href="/stats/sessions/{{ .ID }}">{{ tr $.Locale "Details" }}</a>{{ if eq .Status "active" }}<a class="secondary_link" href="/train/{{ .Mode }}?session_id={{ .ID }}">{{ tr $.Locale "Resume" }}</a>{{ end }}</div>
         </article>
         {{ end }}
     </div>
-    {{ else }}<p class="muted">No training sessions yet.</p>{{ end }}
+    {{ else }}<p class="muted">{{ tr .Locale "No training sessions yet." }}</p>{{ end }}
 </section>
 
 <section class="card">
-    <h2>Words</h2>
+    <h2>{{ tr .Locale "Words" }}</h2>
     {{ if .Stats }}
     <div class="stats_list">
         {{ range .Stats }}
@@ -51,15 +51,15 @@
                 <span class="word_label">{{ .TopicName }}</span>
                 <strong>{{ .Spanish }} → {{ .Russian }}</strong>
             </div>
-            <div><span>Seen</span><strong>{{ .SeenCount }}</strong></div>
-            <div><span>Accuracy</span><strong>{{ .Accuracy }}%</strong></div>
-            <div><span>Streak</span><strong>{{ .CorrectStreak }}</strong></div>
-            <div><span>Pain</span><strong>{{ .RecentPain }}</strong></div>
+            <div><span>{{ tr $.Locale "Seen" }}</span><strong>{{ .SeenCount }}</strong></div>
+            <div><span>{{ tr $.Locale "Accuracy" }}</span><strong>{{ .Accuracy }}%</strong></div>
+            <div><span>{{ tr $.Locale "Streak" }}</span><strong>{{ .CorrectStreak }}</strong></div>
+            <div><span>{{ tr $.Locale "Pain" }}</span><strong>{{ .RecentPain }}</strong></div>
         </article>
         {{ end }}
     </div>
     {{ else }}
-    <p class="muted">No words yet. Add words to a topic to start tracking progress.</p>
+    <p class="muted">{{ tr .Locale "No words yet. Add words to a topic to start tracking progress." }}</p>
     {{ end }}
 </section>
 {{ end }}
