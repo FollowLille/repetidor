@@ -390,6 +390,17 @@ func TestWordCanBelongToMultipleTopics(t *testing.T) {
 	if shared.ID != first.ID {
 		t.Fatalf("shared word id = %d, want %d", shared.ID, first.ID)
 	}
+	updated, err := words.Update(ctx, domain.Word{ID: first.ID, TopicID: favorites.ID, Spanish: "viaje", Russian: "trip", Notes: "edited from favorites"})
+	if err != nil {
+		t.Fatalf("edit shared word from secondary topic: %v", err)
+	}
+	if updated.TopicID != favorites.ID || updated.Russian != "trip" {
+		t.Fatalf("updated shared word = %#v", updated)
+	}
+	fromOriginal, err := words.GetByID(ctx, travel.ID, first.ID)
+	if err != nil || fromOriginal.Russian != "trip" {
+		t.Fatalf("shared edit not visible in original topic: %#v, err=%v", fromOriginal, err)
+	}
 
 	if err := topics.Delete(ctx, travel.ID); err != nil {
 		t.Fatal(err)
@@ -398,7 +409,7 @@ func TestWordCanBelongToMultipleTopics(t *testing.T) {
 	if err != nil {
 		t.Fatalf("shared word did not survive topic deletion: %v", err)
 	}
-	if remaining.Notes != "shared" {
+	if remaining.Notes != "edited from favorites" {
 		t.Fatalf("shared word notes = %q", remaining.Notes)
 	}
 

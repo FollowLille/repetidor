@@ -68,9 +68,17 @@ func (h *SessionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			state = "Wrong"
 			if card.Correct {
 				state = "Correct"
+			} else if card.ErrorKind == domain.AnswerSkipped {
+				state = "Skipped"
+			} else if card.ErrorKind == domain.AnswerDontKnow {
+				state = "Don't know"
 			}
 			if response == "" {
-				response = "Skipped"
+				if card.ErrorKind == domain.AnswerDontKnow {
+					response = "Don't know"
+				} else {
+					response = "Skipped"
+				}
 			}
 		}
 		views = append(views, sessionCardView{Position: card.Position, TopicName: card.Topic.Name, Direction: labelDirection(card.Direction), Prompt: prompt, Target: target, Response: response, State: state, ErrorKind: card.ErrorKind, EditDistance: card.EditDistance, Answered: card.Answered, Correct: card.Correct})

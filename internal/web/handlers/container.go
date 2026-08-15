@@ -14,6 +14,7 @@ type Container struct {
 	WordEdit  *WordEditHandler
 	Stats     *StatsHandler
 	Session   *SessionHandler
+	Arena     *ArenaHandler
 }
 
 func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, appLogger logger.Logger) (*Container, error) {
@@ -53,6 +54,10 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
+	arenaHandler, err := NewArenaHandler(topicRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
 
-	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler}, nil
+	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler, Arena: arenaHandler}, nil
 }

@@ -115,30 +115,6 @@ func (r *SessionRepository) ListCards(ctx context.Context, sessionID int64) ([]d
 	return cards, rows.Err()
 }
 
-func (r *SessionRepository) RecordAnswer(ctx context.Context, sessionID int64, position int, response string, evaluation domain.AnswerEvaluation) (domain.TrainingSession, error) {
-	tx, err := r.db.BeginTx(ctx, nil)
-	if err != nil {
-		return domain.TrainingSession{}, err
-	}
-	defer tx.Rollback()
-	result, err := tx.ExecContext(ctx, `UPDATE training_session_cards SET answered = 1, is_correct = ?, response = ?, error_kind = ?, edit_distance = ?, answered_at = CURRENT_TIMESTAMP WHERE session_id = ? AND position = ? AND answered = 0 AND position = (SELECT completed + 1 FROM training_sessions WHERE id = ? AND status = 'active')`, evaluation.Correct, response, evaluation.Kind, evaluation.Distance, sessionID, position, sessionID)
-	if err != nil {
-		return domain.TrainingSession{}, err
-	}
-	affected, _ := result.RowsAffected()
-	if affected != 1 {
-		return domain.TrainingSession{}, storage.ErrSessionCardNotFound
-	}
-	_, err = tx.ExecContext(ctx, `UPDATE training_sessions SET completed = completed + 1, correct = correct + ?, status = CASE WHEN completed + 1 >= size THEN 'completed' ELSE 'active' END, completed_at = CASE WHEN completed + 1 >= size THEN CURRENT_TIMESTAMP ELSE NULL END, updated_at = CURRENT_TIMESTAMP WHERE id = ?`, evaluation.Correct, sessionID)
-	if err != nil {
-		return domain.TrainingSession{}, err
-	}
-	if err := tx.Commit(); err != nil {
-		return domain.TrainingSession{}, err
-	}
-	return r.Get(ctx, sessionID)
-}
-
 func (r *SessionRepository) RequeueCard(ctx context.Context, sessionID int64, position int) error {
 	tx, err := r.db.BeginTx(ctx, nil)
 	if err != nil {
@@ -205,7 +181,7 @@ func (r *SessionRepository) ListRecent(ctx context.Context, limit int) ([]domain
 }
 
 func (r *SessionRepository) MistakeWordIDs(ctx context.Context, sessionID int64) ([]int64, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT DISTINCT word_id FROM training_session_cards WHERE session_id = ? AND answered = 1 AND is_correct = 0 ORDER BY position`, sessionID)
+	rows, err := r.db.QueryContext(ctx, `SELECT DISTINCT word_id FROM training_session_cards WHERE session_id = ? AND answered = 1 AND is_correct = 0 AND error_kind <> 'skipped' ORDER BY position`, sessionID)
 	if err != nil {
 		return nil, err
 	}
@@ -225,9 +201,9 @@ func (r *SessionRepository) ListFrequentMistakes(ctx context.Context, limit int)
 	if limit < 1 || limit > 100 {
 		limit = 10
 	}
-	rows, err := r.db.QueryContext(ctx, `SELECT c.word_id, w.spanish, w.russian, COUNT(*), SUM(CASE WHEN c.error_kind='typo' THEN 1 ELSE 0 END), SUM(CASE WHEN c.error_kind='skipped' THEN 1 ELSE 0 END)
+	rows, err := r.db.QueryContext(ctx, `SELECT c.word_id, w.spanish, w.russian, SUM(CASE WHEN c.error_kind<>'skipped' THEN 1 ELSE 0 END), SUM(CASE WHEN c.error_kind='typo' THEN 1 ELSE 0 END), SUM(CASE WHEN c.error_kind='skipped' THEN 1 ELSE 0 END)
 		FROM training_session_cards c JOIN words w ON w.id=c.word_id
-		WHERE c.answered=1 AND c.is_correct=0 GROUP BY c.word_id, w.spanish, w.russian ORDER BY COUNT(*) DESC, c.word_id LIMIT ?`, limit)
+		WHERE c.answered=1 AND c.is_correct=0 GROUP BY c.word_id, w.spanish, w.russian ORDER BY SUM(CASE WHEN c.error_kind<>'skipped' THEN 1 ELSE 0 END) DESC, c.word_id LIMIT ?`, limit)
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +221,7 @@ func (r *SessionRepository) ListFrequentMistakes(ctx context.Context, limit int)
 
 type rowScanner interface{ Scan(...any) error }
 
-const sessionSelect = `SELECT id, mode, direction_mode, answer_mode, COALESCE(topic_id, 0), size, completed, correct,
+const sessionSelect = `SELECT id, mode, direction_mode, answer_mode, COALESCE(topic_id, 0), size, completed, correct, skipped,
 	CASE WHEN abandoned_at IS NOT NULL THEN 'abandoned' ELSE status END,
 	created_at, updated_at, completed_at, abandoned_at FROM training_sessions`
 
@@ -253,7 +229,7 @@ func scanSession(row rowScanner) (domain.TrainingSession, error) {
 	var item domain.TrainingSession
 	var completedAt sql.NullTime
 	var abandonedAt sql.NullTime
-	err := row.Scan(&item.ID, &item.Mode, &item.DirectionMode, &item.AnswerMode, &item.TopicID, &item.Size, &item.Completed, &item.Correct, &item.Status, &item.CreatedAt, &item.UpdatedAt, &completedAt, &abandonedAt)
+	err := row.Scan(&item.ID, &item.Mode, &item.DirectionMode, &item.AnswerMode, &item.TopicID, &item.Size, &item.Completed, &item.Correct, &item.Skipped, &item.Status, &item.CreatedAt, &item.UpdatedAt, &completedAt, &abandonedAt)
 	if errors.Is(err, sql.ErrNoRows) {
 		return item, storage.ErrSessionNotFound
 	}

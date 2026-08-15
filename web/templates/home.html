@@ -1,80 +1,31 @@
 {{ define "content" }}
-<link rel="stylesheet" href="/static/css/x.css">
-<section class="card">
-    <h2>Start training</h2>
-    <p class="muted">Configure a focused session or start with a preset.</p>
-
+<section class="hero card">
+    <div class="eyebrow">Your daily Spanish practice</div>
+    <h1>Turn vocabulary into <span>instinct.</span></h1>
+    <p>Build a focused session around the words, direction, and answer style you need today.</p>
     <form class="session_config" method="get" action="/train/mixed">
-        <label class="form_group">Cards
-            <select name="session_size">
-                <option value="5">5 cards</option><option value="10" selected>10 cards</option><option value="20">20 cards</option><option value="30">30 cards</option>
-            </select>
-        </label>
-        <label class="form_group">Direction
-            <select name="direction">
-                <option value="both" selected>Both directions</option><option value="spanish_to_russian">Spanish to Russian</option><option value="russian_to_spanish">Russian to Spanish</option>
-            </select>
-        </label>
-        <label class="form_group">Answer style
-            <select name="answer">
-                <option value="both" selected>Type and build</option><option value="type">Type only</option><option value="build">Build letters only</option>
-            </select>
-        </label>
-        <fieldset class="topic_picker">
-            <legend>Topics <span class="muted">(none means all)</span></legend>
-            <div class="topic_checks">
-                {{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"> {{ .Name }}</label>{{ else }}<span class="muted">No topics yet</span>{{ end }}
-            </div>
-        </fieldset>
-        <button class="mode_button" type="submit">Start configured session</button>
+        <label class="form_group">Cards<select name="session_size"><option value="5">5 cards</option><option value="10" selected>10 cards</option><option value="20">20 cards</option><option value="30">30 cards</option></select></label>
+        <label class="form_group">Direction<select name="direction"><option value="both" selected>Both directions</option><option value="spanish_to_russian">Spanish to Russian</option><option value="russian_to_spanish">Russian to Spanish</option></select></label>
+        <label class="form_group">Answer style<select name="answer"><option value="both" selected>Type and build</option><option value="type">Type only</option><option value="build">Build letters only</option></select></label>
+        <fieldset class="topic_picker"><legend>Topics <span class="muted">optional</span></legend><div class="topic_checks">{{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ else }}<span class="muted">No topics yet</span>{{ end }}</div></fieldset>
+        <button class="mode_button primary_action" type="submit">Start practice <span>→</span></button>
     </form>
-
-    <div class="mode_grid">
-        {{ range .Modes }}
-        <a class="mode_button" href="{{ .URL }}">{{ .Name }}</a>
-        {{ end }}
-    </div>
 </section>
 
-{{ if .ActiveSessions }}
-<section class="card">
-    <h2>Continue training</h2>
-    <div class="active_sessions">
-        {{ range .ActiveSessions }}
-        <article class="active_session">
-            <div><span class="word_label">{{ .Mode }}</span><strong>Session #{{ .ID }}</strong><span class="muted">{{ .Completed }} of {{ .Size }} cards</span></div>
-            <progress value="{{ .Completed }}" max="{{ .Size }}">{{ .Completed }}/{{ .Size }}</progress>
-            <div class="session_links"><a class="mode_button" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a></div>
-        </article>
-        {{ end }}
-    </div>
-</section>
-{{ end }}
-
-<section class="card">
-    <h2>Progress</h2>
-    <p class="muted">See accuracy, streaks, and the words that need more practice.</p>
-    <div class="page_actions">
-        <a class="secondary_link" href="/stats">Open training statistics</a>
-    </div>
+<section class="section_block">
+    <div class="section_heading"><div><span class="eyebrow">Quick start</span><h2>Choose your focus</h2></div><p>Every mode uses the same learning history, tuned for a different kind of session.</p></div>
+    <div class="mode_grid">{{ range .Modes }}<a class="mode_card" href="{{ .URL }}"><span class="mode_icon">{{ .Icon }}</span><span><strong>{{ .Name }}</strong><small>{{ .Description }}</small></span><b>→</b></a>{{ end }}</div>
 </section>
 
-<section class="card">
-    <h2>Topics</h2>
-    <p class="muted">Topics loaded from SQLite.</p>
+{{ if .ActiveSessions }}<section class="card resume_panel"><div class="section_heading compact"><div><span class="eyebrow">In progress</span><h2>Continue training</h2></div></div><div class="active_sessions">{{ range .ActiveSessions }}<article class="active_session"><div><span class="status_badge status_active">{{ .Mode }}</span><strong>Session #{{ .ID }}</strong><span class="muted">{{ .Completed }} of {{ .Size }} cards</span></div><progress value="{{ .Completed }}" max="{{ .Size }}">{{ .Completed }}/{{ .Size }}</progress><div class="session_links"><a class="mode_button" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a></div></article>{{ end }}</div></section>{{ end }}
 
-    <ul class="topic_list">
-        {{ range .Topics }}
-        <li>
-            <a class="topic_item" href="/topics/{{ .Name }}">{{ .Name }}</a>
-        </li>
-        {{ else }}
-        <li class="muted">No topics yet.</li>
-        {{ end }}
-    </ul>
-
-    <div class="page_actions">
-        <a class="secondary_link" href="/topics">Open topics page →</a>
-    </div>
+<section class="card arena_promo">
+    <div><span class="eyebrow">Practice arena</span><h2>Same vocabulary. Four new challenges.</h2><p class="muted">Choose answers, restore missing letters, unscramble words, or find a match. Every result stays part of your learning history.</p></div>
+    <a class="mode_button primary_action" href="/arena">Enter arena <span>→</span></a>
 </section>
+
+<div class="home_lower">
+    <section class="card callout_card"><span class="callout_icon">↗</span><div><span class="eyebrow">Learning signal</span><h2>See what is sticking</h2><p class="muted">Accuracy, streaks, difficult words, and every completed session.</p><a class="text_link" href="/stats">Explore progress →</a></div></section>
+    <section class="card topics_preview"><div class="section_heading compact"><div><span class="eyebrow">Collections</span><h2>Your topics</h2></div><a class="text_link" href="/topics">Manage →</a></div><ul class="topic_list">{{ range .Topics }}<li><a class="topic_item" href="/topics/{{ .Name }}"><span>{{ .Name }}</span><b>→</b></a></li>{{ else }}<li class="muted">No topics yet.</li>{{ end }}</ul></section>
+</div>
 {{ end }}

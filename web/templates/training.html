@@ -1,11 +1,9 @@
 {{ define "content" }}
-<link rel="stylesheet" href="/static/css/x.css">
 <section class="card training_card">
     <div class="training_head">
         <div>
             <h2>{{ .PageTitle }}</h2>
-            <p class="muted">Mode: {{ .TrainMode }}</p>
-            <p class="muted">Card {{ .Session.Current }} of {{ .Session.Size }}</p>
+            <div class="training_meta"><span class="training-meta-chip">{{ .TrainMode }}</span><span class="training-meta-chip">Card {{ .Session.Current }} of {{ .Session.Size }}</span></div>
         </div>
         <div class="training_pill">{{ .AnswerMode }}</div>
     </div>
@@ -38,6 +36,7 @@
                 <div><span>Cards</span><strong>{{ .Session.Completed }}</strong></div>
                 <div><span>Correct</span><strong>{{ .Session.Correct }}</strong></div>
                 <div><span>Wrong</span><strong>{{ .Session.Wrong }}</strong></div>
+                <div><span>Skipped</span><strong>{{ .Session.Skipped }}</strong></div>
             </div>
             <div class="page_actions training_actions">
                 {{ if .RepeatPath }}<a class="mode_button" href="{{ .RepeatPath }}">Repeat mistakes</a>{{ end }}
@@ -55,15 +54,16 @@
         </div>
     {{ else }}
         <div class="training_prompt">
-            <p class="muted">{{ .DirectionLabel }} · topic: {{ .Topic.Name }}</p>
+            <div class="prompt_meta"><span>{{ .DirectionLabel }}</span><span>{{ .Topic.Name }}</span></div>
             <div class="training_prompt_text">{{ .Prompt }}</div>
         </div>
 
         <form class="topic_form training_form" method="post" action="{{ .TrainPath }}" data-answer-mode="{{ .AnswerMode }}">
             <input type="hidden" name="session_id" value="{{ .SessionID }}">
 
-            {{ if eq .AnswerMode "build" }}
+            {{ if or (eq .AnswerMode "build") (eq .AnswerMode "anagram") }}
                 <input type="hidden" name="reply" data-build-reply>
+                {{ if eq .AnswerMode "anagram" }}<p class="arena_instruction">Unscramble the translation using every letter.</p>{{ end }}
                 <div class="build_answer"></div>
                 <div class="letter_bank">
                     {{ range .Letters }}
@@ -74,20 +74,30 @@
                     <button class="secondary_link" type="button" data-build-backspace>Backspace</button>
                     <button class="secondary_link" type="button" data-build-clear>Clear</button>
                 </div>
+            {{ else if or (eq .AnswerMode "choice") (eq .AnswerMode "match") }}
+                <div class="choice_grid {{ if eq .AnswerMode "match" }}match_grid{{ end }}">
+                    {{ range .Choices }}<button class="choice_button" type="submit" name="reply" value="{{ . }}">{{ . }}</button>{{ end }}
+                </div>
             {{ else }}
                 <label class="form_group training_type_input">
                     Your reply
+                    {{ if eq .AnswerMode "cloze" }}<span class="cloze_hint" aria-label="Missing letter hint">{{ .ClozeHint }}</span>{{ end }}
                     <input class="form_input" type="text" name="reply" autocomplete="off" autofocus>
                 </label>
             {{ end }}
 
+            {{ if not (or (eq .AnswerMode "choice") (eq .AnswerMode "match")) }}
             <div class="page_actions training_actions">
                 <button class="mode_button" type="submit">Check</button>
                 <button class="secondary_link" type="submit" name="action" value="skip">Skip</button>
+                <button class="secondary_link" type="submit" name="action" value="dont_know">Don't know</button>
                 <a class="secondary_link" href="/">Back to home</a>
             </div>
+            {{ else }}
+            <div class="page_actions training_actions"><button class="secondary_link" type="submit" name="action" value="skip">Skip</button><button class="secondary_link" type="submit" name="action" value="dont_know">Don't know</button><a class="secondary_link" href="/arena">Leave arena</a></div>
+            {{ end }}
         </form>
     {{ end }}
 </section>
-<script src="/static/js/training.js"></script>
+<script src="/static/js/training.js?v=3"></script>
 {{ end }}

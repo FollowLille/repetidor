@@ -1,5 +1,4 @@
 {{ define "content" }}
-<link rel="stylesheet" href="/static/css/x.css">
 <section class="card">
     <h2>Training statistics</h2>
     <div class="stats_totals">
@@ -34,7 +33,7 @@
         <article class="stats_row">
             <div class="stats_word"><span class="word_label">{{ .Mode }}</span><strong>{{ .Completed }} / {{ .Size }} cards</strong></div>
             <div><span>Correct</span><strong>{{ .Correct }}</strong></div>
-            <div><span>Status</span><strong>{{ .Status }}</strong></div>
+            <div><span>Status</span><strong class="status_badge status_{{ .Status }}">{{ .Status }}</strong></div>
             <div class="session_links"><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a>{{ if eq .Status "active" }}<a class="secondary_link" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a>{{ end }}</div>
         </article>
         {{ end }}

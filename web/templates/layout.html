@@ -5,17 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ .Title }}</title>
-    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="stylesheet" href="/static/css/app.css?v=4">
+    <link rel="stylesheet" href="/static/css/components.css?v=4">
 </head>
 <body>
+<div class="ambient ambient_one"></div><div class="ambient ambient_two"></div>
 <div class="page">
     <header class="page_header">
-        <div>
-            <h1 class="page_title">Repetidor</h1>
-            <p class="page_subtitle">
-                Personal Spanish learning app focused on vocabulary review, topics, and interactive practice.
-            </p>
-        </div>
+        <a class="brand" href="/" aria-label="Repetidor home"><span class="brand_mark">R</span><span><strong>Repetidor</strong><small>Spanish, remembered.</small></span></a>
+        <nav class="main_nav" aria-label="Main navigation"><a href="/">Learn</a><a href="/arena">Arena</a><a href="/topics">Vocabulary</a><a href="/stats">Progress</a></nav>
     </header>
 
     <main class="page_content">

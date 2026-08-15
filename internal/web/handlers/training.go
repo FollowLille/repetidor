@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"repetidor/internal/domain"
+	"repetidor/internal/game"
 	"repetidor/internal/logger"
 	"repetidor/internal/storage"
 
@@ -31,7 +32,7 @@ type trainingCard struct {
 	Word  domain.Word
 	Topic domain.Topic
 }
-type trainingSessionView struct{ Size, Completed, Current, Correct, Wrong int }
+type trainingSessionView struct{ Size, Completed, Current, Correct, Wrong, Skipped int }
 
 func NewTrainingHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, appLogger logger.Logger) (*TrainingHandler, error) {
 	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "training.html"))
@@ -87,17 +88,16 @@ func (h *TrainingHandler) check(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	reply := strings.TrimSpace(r.FormValue("reply"))
-	if r.FormValue("action") == "skip" {
+	action := r.FormValue("action")
+	if action == "skip" || action == "dont_know" {
 		reply = ""
 	}
 	prompt, target := promptAndTarget(card.Word, card.Direction)
 	evaluation := domain.EvaluateAnswer(reply, target)
-	if err := h.trainingRepo.Save(r.Context(), card.WordID, card.Direction, prompt, target, reply, evaluation.Correct); err != nil {
-		h.logger.Error("failed to save training attempt", "error", err, "word_id", card.WordID)
-		http.Error(w, "failed to save training attempt", http.StatusInternalServerError)
-		return
+	if action == "dont_know" {
+		evaluation.Kind = domain.AnswerDontKnow
 	}
-	if _, err := h.sessionRepo.RecordAnswer(r.Context(), sessionID, card.Position, reply, evaluation); err != nil {
+	if err := h.trainingRepo.SaveSessionAnswer(r.Context(), sessionID, card.Position, card, prompt, target, reply, evaluation); err != nil {
 		h.logger.Error("failed to update training session", "error", err, "session_id", sessionID)
 		h.sessionError(w, err)
 		return
@@ -166,7 +166,22 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 	data["DirectionLabel"] = labelDirection(card.Direction)
 	data["AnswerMode"] = card.AnswerMode
 	_, target := promptAndTarget(card.Word, card.Direction)
-	data["Letters"] = shuffledLetters(target)
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	data["Letters"] = game.ShuffledLetters(target, rng)
+	data["ClozeHint"] = game.MaskWord(target)
+	if card.AnswerMode == "choice" || card.AnswerMode == "match" {
+		allCards, loadErr := h.cards(r, nil)
+		if loadErr != nil {
+			h.logger.Error("failed to load arena choices", "error", loadErr)
+		} else {
+			candidates := make([]string, 0, len(allCards))
+			for _, candidate := range allCards {
+				_, answer := promptAndTarget(candidate.Word, card.Direction)
+				candidates = append(candidates, answer)
+			}
+			data["Choices"] = game.Choices(target, candidates, game.ChoiceCount(card.AnswerMode), rng)
+		}
+	}
 	h.renderTemplate(w, data)
 }
 
@@ -191,6 +206,9 @@ func (h *TrainingHandler) createSession(r *http.Request, mode string) (domain.Tr
 	}
 	directionMode := cleanDirectionMode(r.URL.Query().Get("direction"), mode)
 	answerMode := cleanAnswerMode(r.URL.Query().Get("answer"), mode)
+	if mode == "arcade" {
+		answerMode = strings.Join(arenaGameModes(r.URL.Query()["games"]), ",")
+	}
 	direction := initialDirection(directionMode, mode)
 	spanishProgress, err := h.trainingRepo.ListProgress(r.Context(), "spanish_to_russian")
 	if err != nil {
@@ -211,6 +229,7 @@ func (h *TrainingHandler) createSession(r *http.Request, mode string) (domain.Tr
 }
 
 func buildSessionQueue(mode string, cards []trainingCard, progressByDirection map[string]map[int64]domain.TrainingProgress, size int, firstDirection, directionMode, configuredAnswerMode string) []domain.TrainingSessionCard {
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
 	topicOrder := make([]int64, 0)
 	byTopic := make(map[int64][]trainingCard)
 	for _, card := range cards {
@@ -219,25 +238,25 @@ func buildSessionQueue(mode string, cards []trainingCard, progressByDirection ma
 		}
 		byTopic[card.Topic.ID] = append(byTopic[card.Topic.ID], card)
 	}
-	wordUses := make(map[int64]int)
 	queue := make([]domain.TrainingSessionCard, 0, size)
 	previousID := int64(0)
 	for position := 0; position < size; position++ {
 		topicID := topicOrder[position%len(topicOrder)]
 		candidates := byTopic[topicID]
+		if len(candidates) > 1 {
+			candidates = excludeCard(candidates, previousID)
+		}
 		direction := firstDirection
 		if directionMode == "both" && position%2 == 1 {
 			direction = oppositeDirection(firstDirection)
 		}
 		progress := progressByDirection[direction]
-		chosen := candidates[0]
-		for _, candidate := range candidates {
-			chosenUses, candidateUses := wordUses[chosen.Word.ID], wordUses[candidate.Word.ID]
-			if chosen.Word.ID == previousID && candidate.Word.ID != previousID || candidateUses < chosenUses || candidateUses == chosenUses && trainingWeight(progress[candidate.Word.ID]) > trainingWeight(progress[chosen.Word.ID]) {
-				chosen = candidate
-			}
-		}
+		chosen := pickCardForModeWithRand(mode, candidates, progress, rng)
 		answerMode := configuredAnswerMode
+		if strings.Contains(configuredAnswerMode, ",") {
+			playlist := strings.Split(configuredAnswerMode, ",")
+			answerMode = playlist[position%len(playlist)]
+		}
 		if answerMode == "both" {
 			if position%2 == 0 {
 				answerMode = "type"
@@ -246,7 +265,6 @@ func buildSessionQueue(mode string, cards []trainingCard, progressByDirection ma
 			}
 		}
 		queue = append(queue, domain.TrainingSessionCard{WordID: chosen.Word.ID, TopicID: chosen.Topic.ID, Direction: direction, AnswerMode: answerMode})
-		wordUses[chosen.Word.ID]++
 		previousID = chosen.Word.ID
 	}
 	return queue
@@ -292,21 +310,28 @@ func (h *TrainingHandler) baseData(session domain.TrainingSession) map[string]an
 	if current > session.Size {
 		current = session.Size
 	}
-	return map[string]any{"Title": "Training", "PageTitle": "Training", "TrainMode": session.Mode, "SessionID": session.ID, "Session": trainingSessionView{Size: session.Size, Completed: session.Completed, Current: current, Correct: session.Correct, Wrong: session.Completed - session.Correct}}
+	return map[string]any{"Title": modeTitle(session.Mode), "PageTitle": modeTitle(session.Mode), "TrainMode": session.Mode, "SessionID": session.ID, "Session": trainingSessionView{Size: session.Size, Completed: session.Completed, Current: current, Correct: session.Correct, Wrong: session.Completed - session.Correct - session.Skipped, Skipped: session.Skipped}}
 }
 
 func resultView(card domain.TrainingSessionCard) map[string]any {
 	prompt, target := promptAndTarget(card.Word, card.Direction)
 	reply := card.Response
 	if reply == "" {
-		reply = "Skipped"
+		if card.ErrorKind == domain.AnswerDontKnow {
+			reply = "Don't know"
+		} else {
+			reply = "Skipped"
+		}
 	}
 	feedback := "That answer does not match yet."
 	if card.ErrorKind == domain.AnswerTypo {
 		feedback = "Very close — this looks like a typo."
 	}
 	if card.ErrorKind == domain.AnswerSkipped {
-		feedback = "Skipped — add it to the retry queue when you are ready."
+		feedback = "Skipped — progress was not changed."
+	}
+	if card.ErrorKind == domain.AnswerDontKnow {
+		feedback = "Marked as unknown — this word will receive more practice."
 	}
 	return map[string]any{"Correct": card.Correct, "Kind": card.ErrorKind, "Feedback": feedback, "Distance": card.EditDistance, "Position": card.Position, "Prompt": prompt, "Target": target, "Reply": reply, "DirectionLabel": labelDirection(card.Direction)}
 }
@@ -481,8 +506,14 @@ func initialDirection(directionMode, mode string) string {
 }
 func cleanAnswerMode(raw, mode string) string {
 	switch raw {
-	case "type", "build", "both":
+	case "type", "build", "both", "choice", "cloze", "anagram", "match":
 		return raw
+	}
+	if mode == "choice" || mode == "match" || mode == "cloze" || mode == "anagram" {
+		return mode
+	}
+	if mode == "arcade" {
+		return strings.Join(arenaGameModes(nil), ",")
 	}
 	if mode == "type" {
 		return "type"
@@ -505,13 +536,15 @@ func sessionURL(mode string, id int64) string {
 func cleanMode(mode string) string {
 	mode = strings.ToLower(strings.TrimSpace(mode))
 	switch mode {
-	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish":
+	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish", "choice", "cloze", "anagram", "match", "arcade":
 		return mode
 	}
 	return "mixed"
 }
 func pickCard(cards []trainingCard, progress map[int64]domain.TrainingProgress) trainingCard {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return pickAdaptiveCard(cards, progress, rand.New(rand.NewSource(time.Now().UnixNano())))
+}
+func pickAdaptiveCard(cards []trainingCard, progress map[int64]domain.TrainingProgress, r *rand.Rand) trainingCard {
 	total := 0.0
 	weights := make([]float64, len(cards))
 	for i, c := range cards {
@@ -528,10 +561,13 @@ func pickCard(cards []trainingCard, progress map[int64]domain.TrainingProgress) 
 	return cards[len(cards)-1]
 }
 func pickCardForMode(mode string, cards []trainingCard, progress map[int64]domain.TrainingProgress) trainingCard {
+	return pickCardForModeWithRand(mode, cards, progress, rand.New(rand.NewSource(time.Now().UnixNano())))
+}
+func pickCardForModeWithRand(mode string, cards []trainingCard, progress map[int64]domain.TrainingProgress, r *rand.Rand) trainingCard {
 	if mode == "random" {
-		return cards[rand.New(rand.NewSource(time.Now().UnixNano())).Intn(len(cards))]
+		return cards[r.Intn(len(cards))]
 	}
-	return pickCard(cards, progress)
+	return pickAdaptiveCard(cards, progress, r)
 }
 func trainingWeight(p domain.TrainingProgress) float64 {
 	weight := 1 + float64(p.RecentPain)*2.5
@@ -556,6 +592,9 @@ func directionForMode(mode string) string {
 	return "spanish_to_russian"
 }
 func answerModeForMode(mode string) string {
+	if mode == "choice" || mode == "match" || mode == "cloze" || mode == "anagram" {
+		return mode
+	}
 	if mode == "build" || mode == "crossword" {
 		return "build"
 	}
@@ -566,6 +605,33 @@ func answerModeForMode(mode string) string {
 		return "build"
 	}
 	return "type"
+}
+
+func modeTitle(mode string) string {
+	if mode == "arcade" {
+		return "Custom arena"
+	}
+	if item, ok := game.FindMode(mode); ok {
+		return item.Name
+	}
+	return "Training"
+}
+
+func arenaGameModes(values []string) []string {
+	allowed := map[string]bool{"choice": true, "cloze": true, "anagram": true, "match": true}
+	seen := map[string]bool{}
+	modes := make([]string, 0, len(values))
+	for _, value := range values {
+		value = strings.ToLower(strings.TrimSpace(value))
+		if allowed[value] && !seen[value] {
+			modes = append(modes, value)
+			seen[value] = true
+		}
+	}
+	if len(modes) == 0 {
+		return []string{"choice", "cloze", "anagram", "match"}
+	}
+	return modes
 }
 func shuffledLetters(target string) []string {
 	var letters []string
