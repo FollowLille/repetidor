@@ -186,6 +186,7 @@
 @media(max-width:900px){.lesson_layout{grid-template-columns:1fr}.author_panel{position:static}.lesson_hero,.practice_header,.practice_invite,.completion_banner{align-items:flex-start;flex-direction:column}.lesson_progress{text-align:left;width:100%}.answer_input{flex-direction:column}}
 .course_progress_line { height:.28rem; margin:.9rem 0 .35rem; border-radius:999px; background:rgba(255,255,255,.07); overflow:hidden; }
 .course_progress_line span { display:block; height:100%; background:linear-gradient(90deg,#ffb86b,#8b6cf2); border-radius:inherit; }
+.level_filter{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.2rem}.level_filter>div:first-child{display:grid;gap:.2rem}.level_badges{display:flex;gap:.35rem;margin:.65rem 0}.level_badges span{padding:.25rem .48rem;border:1px solid rgba(255,189,120,.25);border-radius:.55rem;color:#ffd09c;background:rgba(255,189,120,.07);font-size:.68rem;font-weight:850}
 .inline_delete { position:absolute; right:1rem; top:1rem; }.inline_delete button,.exercise_preview_row button { border:0;background:transparent;color:#958aa9;cursor:pointer; }.inline_delete button:hover,.exercise_preview_row button:hover { color:#ff8ca5; }
 .exercise_preview { display:grid; gap:.55rem; }.exercise_preview_row { display:flex;justify-content:space-between;gap:1rem;padding:.65rem .75rem;border-radius:.75rem;background:rgba(255,255,255,.04); }
 .danger_zone { border-top:1px solid rgba(255,255,255,.09); margin-top:1.2rem; padding-top:1.2rem; }

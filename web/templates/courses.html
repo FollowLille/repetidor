@@ -3,13 +3,14 @@
   <div><span class="eyebrow">{{ tr .Locale "Courses" }}</span><h1>{{ tr .Locale "Build a path, not a pile." }}</h1><p class="muted">{{ tr .Locale "Arrange topics into ordered courses and smaller chapters." }}</p></div>
   <div class="language_pair"><span>{{ (language .Course.TargetLanguage).NativeName }}</span><b>→</b><span>{{ (language .Course.ReferenceLanguage).NativeName }}</span></div>
 </section>
+<form class="card level_filter" method="get" action="/courses"><div><span class="eyebrow">{{ tr .Locale "Learning levels" }}</span><strong>{{ tr .Locale "Filter learning path" }}</strong></div><div class="check_grid"><label><input type="checkbox" {{ if not .SelectedLevelIDs }}checked{{ end }} onchange="location.href='/courses'"><span>{{ tr .Locale "All levels" }}</span></label>{{ range .Levels }}<label><input type="checkbox" name="level_ids" value="{{ .ID }}" {{ if hasID $.SelectedLevelIDs .ID }}checked{{ end }} onchange="this.form.submit()"><span>{{ .Code }}</span></label>{{ end }}</div></form>
 <div class="course_workspace">
   <section class="course_tree">
     {{ if .Courses }}
       {{ range .Courses }}<article class="card course_node" style="--depth: {{ .Depth }}">
         <div class="course_node_number">{{ if .ParentID }}↳{{ else }}{{ .SortOrder }}{{ end }}</div>
         <div><span class="eyebrow">{{ if .ParentID }}{{ tr $.Locale "Chapter" }}{{ else }}{{ tr $.Locale "Course" }}{{ end }}</span><h2><a class="course_title_link" href="/courses/{{ .ID }}">{{ .Name }}</a></h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}<div class="course_progress_line"><span style="width:{{ .Progress.Percent }}%"></span></div><small class="muted">{{ .Progress.Percent }}% {{ tr $.Locale "completed" }}</small>
-          {{ if .Topics }}<div class="course_chips">{{ range .Topics }}<a href="/topics/{{ .Name }}">{{ .Name }}</a>{{ end }}</div>{{ end }}
+          {{ if .Levels }}<div class="level_badges">{{ range .Levels }}<span>{{ .Code }}</span>{{ end }}</div>{{ end }}{{ if .Topics }}<div class="course_chips">{{ range .Topics }}<a href="/topics/{{ .Name }}">{{ .Name }}</a>{{ end }}</div>{{ end }}
           {{ if .Prerequisites }}<p class="course_requirement">{{ tr $.Locale "Requires" }}: {{ range $i, $item := .Prerequisites }}{{ if $i }}, {{ end }}{{ $item.Name }}{{ end }}</p>{{ end }}
         </div>
       </article>{{ end }}
@@ -21,6 +22,7 @@
       <label>{{ tr .Locale "Description" }}<textarea name="description" rows="3" placeholder="What will I learn?"></textarea></label>
       <div class="form_pair"><label>{{ tr .Locale "Position" }}<input type="number" name="sort_order" value="1" min="0"></label><label>{{ tr .Locale "Parent course" }}<select name="parent_id"><option value="">—</option>{{ range .CourseOptions }}<option value="{{ .ID }}">{{ .Name }}</option>{{ end }}</select></label></div>
       <fieldset><legend>{{ tr .Locale "Topics in this course" }}</legend><div class="check_grid">{{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ else }}<small class="muted">{{ tr $.Locale "Create vocabulary topics first." }}</small>{{ end }}</div></fieldset>
+      <fieldset><legend>{{ tr .Locale "Learning levels" }}</legend><div class="check_grid">{{ range .Levels }}<label><input type="checkbox" name="level_ids" value="{{ .ID }}"><span>{{ .Code }}</span></label>{{ end }}</div></fieldset>
       {{ if .CourseOptions }}<fieldset><legend>{{ tr .Locale "Prerequisites" }}</legend><div class="check_grid">{{ range .CourseOptions }}<label><input type="checkbox" name="prerequisite_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ end }}</div></fieldset>{{ end }}
       <button class="primary_button creator_submit" type="submit"><span>+</span>{{ tr .Locale "Add to learning path" }}</button>
     </form>

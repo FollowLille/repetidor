@@ -63,6 +63,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	track := activeCourse(h.tracks, r)
 	courseOptions, _ := h.courses.ListByTrack(r.Context(), track.ID)
+	levels, _ := h.courses.ListLevels(r.Context(), track.ID)
 	topics, _ := h.topics.ListByCourse(r.Context(), track.ID)
 	boards, _ := h.boards.ListByCourse(r.Context(), course.ID)
 	query := url.Values{}
@@ -73,7 +74,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if encoded := query.Encode(); encoded != "" {
 		practiceURL += "?" + encoded
 	}
-	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards})
+	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards, "Levels": levels})
 	if err := h.pageTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course", "error", err)
 	}
@@ -100,6 +101,7 @@ func (h *CourseHandler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 	course.TopicIDs = formIDs(r.Form["topic_ids"])
 	course.PrerequisiteIDs = formIDs(r.Form["prerequisite_ids"])
+	course.LevelIDs = formIDs(r.Form["level_ids"])
 	if _, err := h.courses.Update(r.Context(), course); err != nil {
 		h.logger.Error("update course", "error", err)
 		http.Error(w, "failed to update course", 400)

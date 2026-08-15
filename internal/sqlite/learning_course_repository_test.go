@@ -28,7 +28,11 @@ func TestLearningCoursesFormTreeAndShareTopics(t *testing.T) {
 		t.Fatal(err)
 	}
 	courses := NewLearningCourseRepository(db)
-	basics, err := courses.Create(ctx, domain.LearningCourse{LanguageTrackID: 1, Name: "Foundations", SortOrder: 1, TopicIDs: []int64{verbs.ID}})
+	levels, err := courses.ListLevels(ctx, 1)
+	if err != nil || len(levels) != 6 || levels[0].Code != "A1" || levels[5].Code != "C2" {
+		t.Fatalf("levels = %#v, err = %v", levels, err)
+	}
+	basics, err := courses.Create(ctx, domain.LearningCourse{LanguageTrackID: 1, Name: "Foundations", SortOrder: 1, TopicIDs: []int64{verbs.ID}, LevelIDs: []int64{levels[0].ID, levels[1].ID}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -53,12 +57,16 @@ func TestLearningCoursesFormTreeAndShareTopics(t *testing.T) {
 	if len(got[1].PrerequisiteIDs) != 1 || got[1].PrerequisiteIDs[0] != basics.ID {
 		t.Fatalf("prerequisites = %#v", got[1].PrerequisiteIDs)
 	}
+	if len(got[0].LevelIDs) != 2 || got[0].LevelIDs[0] != levels[0].ID {
+		t.Fatalf("course levels = %#v", got[0].LevelIDs)
+	}
 	if restaurant.LanguageTrackID != 1 {
 		t.Fatalf("track = %d", restaurant.LanguageTrackID)
 	}
 	restaurant.Name = "Restaurant practice"
 	restaurant.TopicIDs = []int64{comida.ID}
 	restaurant.PrerequisiteIDs = nil
+	restaurant.LevelIDs = []int64{levels[1].ID}
 	if _, err := courses.Update(ctx, restaurant); err != nil {
 		t.Fatal(err)
 	}
@@ -66,7 +74,7 @@ func TestLearningCoursesFormTreeAndShareTopics(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if updated.Name != "Restaurant practice" || len(updated.TopicIDs) != 1 || updated.TopicIDs[0] != comida.ID || len(updated.PrerequisiteIDs) != 0 {
+	if updated.Name != "Restaurant practice" || len(updated.TopicIDs) != 1 || updated.TopicIDs[0] != comida.ID || len(updated.PrerequisiteIDs) != 0 || len(updated.LevelIDs) != 1 || updated.LevelIDs[0] != levels[1].ID {
 		t.Fatalf("updated course = %#v", updated)
 	}
 }

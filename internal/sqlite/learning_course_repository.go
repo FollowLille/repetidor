@@ -29,6 +29,9 @@ func (r *LearningCourseRepository) Get(ctx context.Context, id int64) (domain.Le
 		return course, err
 	}
 	course.PrerequisiteIDs, err = r.ids(ctx, `SELECT related_course_id FROM course_relations WHERE course_id=? AND relation_type='prerequisite' ORDER BY related_course_id`, id)
+	if err == nil {
+		course.LevelIDs, err = r.ids(ctx, `SELECT level_id FROM learning_course_levels WHERE course_id=? ORDER BY level_id`, id)
+	}
 	return course, err
 }
 
@@ -59,6 +62,10 @@ func (r *LearningCourseRepository) ListByTrack(ctx context.Context, trackID int6
 			return nil, err
 		}
 		courses[i].PrerequisiteIDs, err = r.ids(ctx, `SELECT related_course_id FROM course_relations WHERE course_id=? AND relation_type='prerequisite' ORDER BY related_course_id`, courses[i].ID)
+		if err != nil {
+			return nil, err
+		}
+		courses[i].LevelIDs, err = r.ids(ctx, `SELECT level_id FROM learning_course_levels WHERE course_id=? ORDER BY level_id`, courses[i].ID)
 		if err != nil {
 			return nil, err
 		}
@@ -107,6 +114,9 @@ func (r *LearningCourseRepository) Create(ctx context.Context, course domain.Lea
 			return domain.LearningCourse{}, fmt.Errorf("link course prerequisite: %w", err)
 		}
 	}
+	if err := r.replaceLevels(ctx, tx, course); err != nil {
+		return domain.LearningCourse{}, err
+	}
 	if err := tx.Commit(); err != nil {
 		return domain.LearningCourse{}, fmt.Errorf("commit learning course creation: %w", err)
 	}
@@ -146,10 +156,42 @@ func (r *LearningCourseRepository) Update(ctx context.Context, course domain.Lea
 			return domain.LearningCourse{}, fmt.Errorf("link updated prerequisite: %w", err)
 		}
 	}
+	if err := r.replaceLevels(ctx, tx, course); err != nil {
+		return domain.LearningCourse{}, err
+	}
 	if err := tx.Commit(); err != nil {
 		return domain.LearningCourse{}, fmt.Errorf("commit learning course update: %w", err)
 	}
 	return course, nil
+}
+
+func (r *LearningCourseRepository) replaceLevels(ctx context.Context, tx *sql.Tx, course domain.LearningCourse) error {
+	if _, err := tx.ExecContext(ctx, `DELETE FROM learning_course_levels WHERE course_id=?`, course.ID); err != nil {
+		return fmt.Errorf("replace course levels: %w", err)
+	}
+	for _, levelID := range course.LevelIDs {
+		if _, err := tx.ExecContext(ctx, `INSERT INTO learning_course_levels(course_id,level_id) SELECT ?,? WHERE EXISTS(SELECT 1 FROM learning_levels WHERE id=? AND track_id=?)`, course.ID, levelID, levelID, course.LanguageTrackID); err != nil {
+			return fmt.Errorf("link course level: %w", err)
+		}
+	}
+	return nil
+}
+
+func (r *LearningCourseRepository) ListLevels(ctx context.Context, trackID int64) ([]domain.LearningLevel, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT id,track_id,code,name,description,sort_order FROM learning_levels WHERE track_id=? ORDER BY sort_order,id`, trackID)
+	if err != nil {
+		return nil, fmt.Errorf("list learning levels: %w", err)
+	}
+	defer rows.Close()
+	var levels []domain.LearningLevel
+	for rows.Next() {
+		var level domain.LearningLevel
+		if err := rows.Scan(&level.ID, &level.TrackID, &level.Code, &level.Name, &level.Description, &level.SortOrder); err != nil {
+			return nil, err
+		}
+		levels = append(levels, level)
+	}
+	return levels, rows.Err()
 }
 
 func (r *LearningCourseRepository) Delete(ctx context.Context, id int64) error {
