@@ -8,7 +8,15 @@ type Board struct {
 	Name, Description    string
 	Nodes                []BoardNode
 	Edges                []BoardEdge
+	Strokes              []BoardStroke
 	CreatedAt, UpdatedAt time.Time
+}
+
+type BoardStroke struct {
+	ID, BoardID         int64
+	Kind, Points, Color string
+	Width               float64
+	CreatedAt           time.Time
 }
 
 type BoardNode struct {

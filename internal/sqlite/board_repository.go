@@ -59,7 +59,22 @@ func (r *BoardRepository) Get(ctx context.Context, id int64) (domain.Board, erro
 		}
 		b.Edges = append(b.Edges, e)
 	}
-	return b, edges.Err()
+	if err := edges.Err(); err != nil {
+		return b, err
+	}
+	strokes, err := r.db.QueryContext(ctx, `SELECT id,board_id,kind,points,color,width,created_at FROM board_strokes WHERE board_id=? ORDER BY id`, id)
+	if err != nil {
+		return b, err
+	}
+	defer strokes.Close()
+	for strokes.Next() {
+		var s domain.BoardStroke
+		if err := strokes.Scan(&s.ID, &s.BoardID, &s.Kind, &s.Points, &s.Color, &s.Width, &s.CreatedAt); err != nil {
+			return b, err
+		}
+		b.Strokes = append(b.Strokes, s)
+	}
+	return b, strokes.Err()
 }
 
 func (r *BoardRepository) Create(ctx context.Context, b domain.Board) (domain.Board, error) {
@@ -122,5 +137,18 @@ func (r *BoardRepository) CreateEdge(ctx context.Context, e domain.BoardEdge) (d
 }
 func (r *BoardRepository) DeleteEdge(ctx context.Context, boardID, edgeID int64) error {
 	_, err := r.db.ExecContext(ctx, `DELETE FROM board_edges WHERE id=? AND board_id=?`, edgeID, boardID)
+	return err
+}
+
+func (r *BoardRepository) CreateStroke(ctx context.Context, s domain.BoardStroke) (domain.BoardStroke, error) {
+	err := r.db.QueryRowContext(ctx, `INSERT INTO board_strokes(board_id,kind,points,color,width) VALUES(?,?,?,?,?) RETURNING id,created_at`, s.BoardID, s.Kind, s.Points, s.Color, s.Width).Scan(&s.ID, &s.CreatedAt)
+	if err != nil {
+		return s, fmt.Errorf("create board stroke: %w", err)
+	}
+	return s, nil
+}
+
+func (r *BoardRepository) DeleteStroke(ctx context.Context, boardID, strokeID int64) error {
+	_, err := r.db.ExecContext(ctx, `DELETE FROM board_strokes WHERE id=? AND board_id=?`, strokeID, boardID)
 	return err
 }

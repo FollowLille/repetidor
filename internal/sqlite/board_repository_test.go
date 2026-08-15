@@ -58,4 +58,15 @@ func TestBoardPersistsNodesPositionsAndEdges(t *testing.T) {
 	if err := repo.DeleteEdge(ctx, board.ID, edge.ID); err != nil {
 		t.Fatal(err)
 	}
+	stroke, err := repo.CreateStroke(ctx, domain.BoardStroke{BoardID: board.ID, Kind: "pen", Points: `[{"x":10,"y":20},{"x":30,"y":40}]`, Color: "amber", Width: 3})
+	if err != nil {
+		t.Fatal(err)
+	}
+	withStroke, err := repo.Get(ctx, board.ID)
+	if err != nil || len(withStroke.Strokes) != 1 || withStroke.Strokes[0].Points == "" {
+		t.Fatalf("strokes = %#v, err = %v", withStroke.Strokes, err)
+	}
+	if err := repo.DeleteStroke(ctx, board.ID, stroke.ID); err != nil {
+		t.Fatal(err)
+	}
 }

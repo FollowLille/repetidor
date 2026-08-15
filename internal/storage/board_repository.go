@@ -16,4 +16,6 @@ type BoardRepository interface {
 	DeleteNode(ctx context.Context, boardID, nodeID int64) error
 	CreateEdge(ctx context.Context, edge domain.BoardEdge) (domain.BoardEdge, error)
 	DeleteEdge(ctx context.Context, boardID, edgeID int64) error
+	CreateStroke(ctx context.Context, stroke domain.BoardStroke) (domain.BoardStroke, error)
+	DeleteStroke(ctx context.Context, boardID, strokeID int64) error
 }

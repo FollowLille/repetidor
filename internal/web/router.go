@@ -45,6 +45,8 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 	r.Post("/courses/{course_id}/boards/{board_id}/nodes/{node_id}/delete", container.Boards.DeleteNode)
 	r.Post("/courses/{course_id}/boards/{board_id}/edges", container.Boards.CreateEdge)
 	r.Post("/courses/{course_id}/boards/{board_id}/edges/{edge_id}/delete", container.Boards.DeleteEdge)
+	r.Post("/courses/{course_id}/boards/{board_id}/strokes", container.Boards.CreateStroke)
+	r.Post("/courses/{course_id}/boards/{board_id}/strokes/{stroke_id}/delete", container.Boards.DeleteStroke)
 	r.Post("/courses/{course_id}/read", container.Course.MarkRead)
 	r.Get("/courses/{course_id}/practice", container.Course.Practice)
 	r.Post("/courses/{course_id}/practice", container.Course.Practice)

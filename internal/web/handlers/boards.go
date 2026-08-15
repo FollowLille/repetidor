@@ -290,6 +290,59 @@ func (h *BoardsHandler) DeleteEdge(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, boardURL(course.ID, board.ID), http.StatusSeeOther)
 }
 
+func (h *BoardsHandler) CreateStroke(w http.ResponseWriter, r *http.Request) {
+	board, _, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	var input struct {
+		Kind   string  `json:"kind"`
+		Color  string  `json:"color"`
+		Width  float64 `json:"width"`
+		Points []struct {
+			X float64 `json:"x"`
+			Y float64 `json:"y"`
+		} `json:"points"`
+	}
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 128<<10)).Decode(&input); err != nil {
+		http.Error(w, "invalid drawing", 400)
+		return
+	}
+	if input.Kind != "pen" && input.Kind != "arrow" || len(input.Points) < 2 || len(input.Points) > 2000 || input.Width < 1 || input.Width > 16 {
+		http.Error(w, "invalid drawing", 400)
+		return
+	}
+	for _, point := range input.Points {
+		if point.X < -4000 || point.X > 12000 || point.Y < -4000 || point.Y > 12000 {
+			http.Error(w, "drawing outside board", 400)
+			return
+		}
+	}
+	points, _ := json.Marshal(input.Points)
+	stroke, err := h.boards.CreateStroke(r.Context(), domain.BoardStroke{BoardID: board.ID, Kind: input.Kind, Points: string(points), Color: cleanStrokeColor(input.Color), Width: input.Width})
+	if err != nil {
+		http.Error(w, "failed to save drawing", 500)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	_ = json.NewEncoder(w).Encode(map[string]any{"ok": true, "id": stroke.ID})
+}
+
+func (h *BoardsHandler) DeleteStroke(w http.ResponseWriter, r *http.Request) {
+	board, _, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.ParseInt(chi.URLParam(r, "stroke_id"), 10, 64)
+	if err := h.boards.DeleteStroke(r.Context(), board.ID, id); err != nil {
+		http.Error(w, "failed to erase drawing", 500)
+		return
+	}
+	writeBoardOK(w)
+}
+
 func boardURL(courseID, boardID int64) string {
 	return "/courses/" + strconv.FormatInt(courseID, 10) + "/boards/" + strconv.FormatInt(boardID, 10)
 }
@@ -299,6 +352,13 @@ func cleanBoardColor(value string) string {
 		return value
 	}
 	return "violet"
+}
+func cleanStrokeColor(value string) string {
+	switch value {
+	case "amber", "violet", "mint", "rose", "white":
+		return value
+	}
+	return "amber"
 }
 func randomFileName() string {
 	value := make([]byte, 16)
