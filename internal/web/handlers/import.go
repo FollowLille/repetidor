@@ -48,11 +48,12 @@ func (h *ImportHandler) render(w http.ResponseWriter, r *http.Request, report *i
 }
 
 func (h *ImportHandler) process(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseMultipartForm(6 << 20); err != nil {
+	if err := r.ParseMultipartForm(25 << 20); err != nil {
 		h.render(w, r, nil, "The upload is too large or invalid.")
 		return
 	}
 	topicID, _ := strconv.ParseInt(r.FormValue("topic_id"), 10, 64)
+	newTopic := strings.TrimSpace(r.FormValue("new_topic"))
 	course := activeCourse(h.courses, r)
 	topics, _ := h.topics.ListByCourse(r.Context(), course.ID)
 	valid := false
@@ -62,8 +63,23 @@ func (h *ImportHandler) process(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+	if !valid && newTopic != "" {
+		created, err := h.topics.Create(r.Context(), domain.Topic{CourseID: course.ID, Name: newTopic, Description: "Imported vocabulary"})
+		if errors.Is(err, storage.ErrTopicAlreadyExists) {
+			existing, getErr := h.topics.GetByName(r.Context(), newTopic)
+			if getErr == nil && existing.CourseID == course.ID {
+				topicID, valid = existing.ID, true
+			}
+		} else if err != nil {
+			h.logger.Error("create import topic", "error", err)
+			h.render(w, r, nil, "Could not create the destination topic.")
+			return
+		} else {
+			topicID, valid = created.ID, true
+		}
+	}
 	if !valid {
-		h.render(w, r, nil, "Choose a destination topic.")
+		h.render(w, r, nil, "Choose or create a destination topic.")
 		return
 	}
 	rows := importx.ParseText(r.FormValue("words"))
@@ -75,6 +91,15 @@ func (h *ImportHandler) process(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		rows = append(rows, csvRows...)
+	}
+	if file, _, err := r.FormFile("excel_file"); err == nil {
+		defer file.Close()
+		excelRows, parseErr := importx.ParseExcel(file)
+		if parseErr != nil {
+			h.render(w, r, nil, "Could not read the Excel file.")
+			return
+		}
+		rows = append(rows, excelRows...)
 	}
 	if len(rows) == 0 {
 		h.render(w, r, nil, "No valid word pairs found.")

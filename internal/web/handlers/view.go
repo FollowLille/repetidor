@@ -67,6 +67,8 @@ var russianUI = map[string]string{
 	"Bring your vocabulary in seconds.": "Добавьте весь словарь за несколько секунд.", "Paste a list or upload a CSV file.": "Вставьте список или загрузите CSV-файл.", "Choose topic": "Выберите тему", "Invalid": "Ошибки",
 	"Keep interface language separate from the language you study and the language used for explanations.": "Язык приложения не зависит от изучаемого языка и языка объяснений.", "Active course": "Активный курс", "New learning space": "Новое пространство обучения", "Name": "Название",
 	"One pair per line. The third column becomes notes.": "Одна пара на строку. Третья колонка станет заметкой.", "CSV columns: source, translation, notes.": "Колонки CSV: слово, перевод, заметка.",
+	"Upload Excel": "Загрузить Excel", "XLSX columns: source, translation, notes.": "Колонки XLSX: слово, перевод, заметка.",
+	"Or create a new topic": "Или создайте новую тему",
 }
 
 func safeNext(raw string) string {
