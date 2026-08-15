@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"path/filepath"
 	"repetidor/internal/domain"
 	"repetidor/internal/logger"
 	"repetidor/internal/storage"
@@ -16,16 +15,18 @@ import (
 )
 
 type TopicsHandler struct {
-	templates *template.Template
-	topicRepo storage.TopicRepository
-	logger    logger.Logger
+	templates  *template.Template
+	topicRepo  storage.TopicRepository
+	courseRepo storage.CourseRepository
+	logger     logger.Logger
 }
 
 type TopicHandler struct {
-	templates *template.Template
-	topicRepo storage.TopicRepository
-	wordRepo  storage.WordRepository
-	logger    logger.Logger
+	templates  *template.Template
+	topicRepo  storage.TopicRepository
+	wordRepo   storage.WordRepository
+	courseRepo storage.CourseRepository
+	logger     logger.Logger
 }
 
 type TopicEditHandler struct {
@@ -35,42 +36,43 @@ type TopicEditHandler struct {
 }
 
 type WordEditHandler struct {
-	templates *template.Template
-	topicRepo storage.TopicRepository
-	wordRepo  storage.WordRepository
-	logger    logger.Logger
+	templates  *template.Template
+	topicRepo  storage.TopicRepository
+	wordRepo   storage.WordRepository
+	courseRepo storage.CourseRepository
+	logger     logger.Logger
 }
 
-func NewTopicsHandler(topicRepo storage.TopicRepository, appLogger logger.Logger) (*TopicsHandler, error) {
-	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topics.html"))
+func NewTopicsHandler(topicRepo storage.TopicRepository, courseRepo storage.CourseRepository, appLogger logger.Logger) (*TopicsHandler, error) {
+	tmpl, err := parsePage("topics.html")
 	if err != nil {
 		return nil, err
 	}
-	return &TopicsHandler{templates: tmpl, topicRepo: topicRepo, logger: appLogger}, nil
+	return &TopicsHandler{templates: tmpl, topicRepo: topicRepo, courseRepo: courseRepo, logger: appLogger}, nil
 }
 
-func NewTopicHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, appLogger logger.Logger) (*TopicHandler, error) {
-	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topic_show.html"))
+func NewTopicHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, courseRepo storage.CourseRepository, appLogger logger.Logger) (*TopicHandler, error) {
+	tmpl, err := parsePage("topic_show.html")
 	if err != nil {
 		return nil, err
 	}
-	return &TopicHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, logger: appLogger}, nil
+	return &TopicHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, courseRepo: courseRepo, logger: appLogger}, nil
 }
 
 func NewTopicEditHandler(topicRepo storage.TopicRepository, appLogger logger.Logger) (*TopicEditHandler, error) {
-	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "topic_edit.html"))
+	tmpl, err := parsePage("topic_edit.html")
 	if err != nil {
 		return nil, err
 	}
 	return &TopicEditHandler{templates: tmpl, topicRepo: topicRepo, logger: appLogger}, nil
 }
 
-func NewWordEditHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, appLogger logger.Logger) (*WordEditHandler, error) {
-	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "word_edit.html"))
+func NewWordEditHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, courseRepo storage.CourseRepository, appLogger logger.Logger) (*WordEditHandler, error) {
+	tmpl, err := parsePage("word_edit.html")
 	if err != nil {
 		return nil, err
 	}
-	return &WordEditHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, logger: appLogger}, nil
+	return &WordEditHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, courseRepo: courseRepo, logger: appLogger}, nil
 }
 
 func (h *TopicsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -85,13 +87,13 @@ func (h *TopicsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TopicsHandler) renderList(w http.ResponseWriter, r *http.Request, warning string, form map[string]string) {
-	topics, err := h.topicRepo.List(r.Context())
+	topics, err := h.topicRepo.ListByCourse(r.Context(), activeCourse(h.courseRepo, r).ID)
 	if err != nil {
 		h.logger.Error("failed to load topics", "error", err)
 		http.Error(w, "failed to load topics", http.StatusInternalServerError)
 		return
 	}
-	data := map[string]any{"Title": "Topics", "Topics": topics, "Warning": warning, "Form": form}
+	data := pageData(r, map[string]any{"Title": "Topics", "Topics": topics, "Warning": warning, "Form": form, "Course": activeCourse(h.courseRepo, r)})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render topics page", "error", err)
@@ -110,7 +112,7 @@ func (h *TopicsHandler) create(w http.ResponseWriter, r *http.Request) {
 		h.renderList(w, r, "Topic name is required.", map[string]string{"Name": name, "Description": description})
 		return
 	}
-	_, err := h.topicRepo.Create(r.Context(), domain.Topic{Name: name, Description: description})
+	_, err := h.topicRepo.Create(r.Context(), domain.Topic{CourseID: activeCourse(h.courseRepo, r).ID, Name: name, Description: description})
 	if err != nil {
 		if errors.Is(err, storage.ErrTopicAlreadyExists) {
 			h.renderList(w, r, fmt.Sprintf("Topic %q already exists.", name), map[string]string{"Name": name, "Description": description})
@@ -151,7 +153,8 @@ func (h *TopicHandler) renderShow(w http.ResponseWriter, r *http.Request, warnin
 		return
 	}
 
-	data := map[string]any{"Title": "Topic", "Topic": topic, "Words": words, "Warning": warning, "Form": form}
+	course, _ := h.courseRepo.Get(r.Context(), topic.CourseID)
+	data := pageData(r, map[string]any{"Title": "Topic", "Topic": topic, "Words": words, "Warning": warning, "Form": form, "Course": course, "TargetLanguage": domain.LanguageByCode(course.TargetLanguage), "ReferenceLanguage": domain.LanguageByCode(course.ReferenceLanguage)})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render topic page", "error", err, "topic_id", topic.ID)
@@ -385,7 +388,8 @@ func (h *WordEditHandler) render(w http.ResponseWriter, r *http.Request, errMsg 
 		word.Russian = override["Russian"]
 		word.Notes = override["Notes"]
 	}
-	data := map[string]any{"Title": "Edit word", "Topic": topic, "Word": word, "Error": errMsg}
+	course, _ := h.courseRepo.Get(r.Context(), topic.CourseID)
+	data := pageData(r, map[string]any{"Title": "Edit word", "Topic": topic, "Word": word, "Error": errMsg, "Course": course, "TargetLanguage": domain.LanguageByCode(course.TargetLanguage), "ReferenceLanguage": domain.LanguageByCode(course.ReferenceLanguage)})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render word edit page", "error", err, "word_id", word.ID)

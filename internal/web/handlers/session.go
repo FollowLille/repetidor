@@ -3,7 +3,6 @@ package handlers
 import (
 	"html/template"
 	"net/http"
-	"path/filepath"
 	"strconv"
 
 	"repetidor/internal/domain"
@@ -27,7 +26,7 @@ type sessionCardView struct {
 }
 
 func NewSessionHandler(repo storage.SessionRepository, appLogger logger.Logger) (*SessionHandler, error) {
-	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "session.html"))
+	tmpl, err := parsePage("session.html")
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +82,7 @@ func (h *SessionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		views = append(views, sessionCardView{Position: card.Position, TopicName: card.Topic.Name, Direction: labelDirection(card.Direction), Prompt: prompt, Target: target, Response: response, State: state, ErrorKind: card.ErrorKind, EditDistance: card.EditDistance, Answered: card.Answered, Correct: card.Correct})
 	}
-	data := map[string]any{"Title": "Session details", "Session": session, "Cards": views, "Active": session.Status == domain.SessionActive, "ResumePath": sessionURL(session.Mode, session.ID)}
+	data := pageData(r, map[string]any{"Title": "Session details", "Session": session, "Cards": views, "Active": session.Status == domain.SessionActive, "ResumePath": sessionURL(session.Mode, session.ID)})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("failed to render session details", "error", err)

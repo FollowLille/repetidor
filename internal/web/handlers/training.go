@@ -6,7 +6,6 @@ import (
 	"math/rand"
 	"net/http"
 	"net/url"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -25,6 +24,7 @@ type TrainingHandler struct {
 	wordRepo     storage.WordRepository
 	trainingRepo storage.TrainingRepository
 	sessionRepo  storage.SessionRepository
+	courseRepo   storage.CourseRepository
 	logger       logger.Logger
 }
 
@@ -34,12 +34,12 @@ type trainingCard struct {
 }
 type trainingSessionView struct{ Size, Completed, Current, Correct, Wrong, Skipped int }
 
-func NewTrainingHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, appLogger logger.Logger) (*TrainingHandler, error) {
-	tmpl, err := template.ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", "training.html"))
+func NewTrainingHandler(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, courseRepo storage.CourseRepository, appLogger logger.Logger) (*TrainingHandler, error) {
+	tmpl, err := parsePage("training.html")
 	if err != nil {
 		return nil, err
 	}
-	return &TrainingHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, trainingRepo: trainingRepo, sessionRepo: sessionRepo, logger: appLogger}, nil
+	return &TrainingHandler{templates: tmpl, topicRepo: topicRepo, wordRepo: wordRepo, trainingRepo: trainingRepo, sessionRepo: sessionRepo, courseRepo: courseRepo, logger: appLogger}, nil
 }
 
 func (h *TrainingHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -151,7 +151,7 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 		if len(mistakes) > 0 {
 			data["RepeatPath"] = "/train/" + url.PathEscape(mode) + "?repeat_session_id=" + strconv.FormatInt(session.ID, 10)
 		}
-		h.renderTemplate(w, data)
+		h.renderTemplate(w, r, data)
 		return
 	}
 	card, err := h.sessionRepo.CurrentCard(r.Context(), sessionID)
@@ -182,7 +182,7 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 			data["Choices"] = game.Choices(target, candidates, game.ChoiceCount(card.AnswerMode), rng)
 		}
 	}
-	h.renderTemplate(w, data)
+	h.renderTemplate(w, r, data)
 }
 
 var errNoTrainingCards = errors.New("no training cards")
@@ -302,7 +302,7 @@ func oppositeDirection(direction string) string {
 func (h *TrainingHandler) renderEmpty(w http.ResponseWriter, r *http.Request, mode string) {
 	size := boundedInt(r.URL.Query().Get("session_size"), 10, 1, 50)
 	data := map[string]any{"Title": "Training", "PageTitle": "Training", "TrainMode": mode, "NoWords": true, "PageNotice": emptyModeNotice(mode), "Session": trainingSessionView{Size: size, Current: 1}, "FallbackPath": trainingPath("mixed", topicFilter(r))}
-	h.renderTemplate(w, data)
+	h.renderTemplate(w, r, data)
 }
 
 func (h *TrainingHandler) baseData(session domain.TrainingSession) map[string]any {
@@ -349,15 +349,15 @@ func (h *TrainingHandler) sessionError(w http.ResponseWriter, err error) {
 	http.Error(w, "training session error", http.StatusInternalServerError)
 }
 
-func (h *TrainingHandler) renderTemplate(w http.ResponseWriter, data map[string]any) {
+func (h *TrainingHandler) renderTemplate(w http.ResponseWriter, r *http.Request, data map[string]any) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
+	if err := h.templates.ExecuteTemplate(w, "layout", pageData(r, data)); err != nil {
 		h.logger.Error("failed to render training page", "error", err)
 	}
 }
 
 func (h *TrainingHandler) cards(r *http.Request, topicIDs []int64) ([]trainingCard, error) {
-	topics, err := h.topicRepo.List(r.Context())
+	topics, err := h.topicRepo.ListByCourse(r.Context(), activeCourse(h.courseRepo, r).ID)
 	if err != nil {
 		return nil, err
 	}

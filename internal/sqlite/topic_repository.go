@@ -19,7 +19,7 @@ func NewTopicRepository(db *sql.DB) *TopicRepository {
 
 func (r *TopicRepository) List(ctx context.Context) ([]domain.Topic, error) {
 	rows, err := r.db.QueryContext(ctx, `
-		SELECT id, name, description, created_at, updated_at
+		SELECT id, course_id, name, description, created_at, updated_at
 		FROM topics
 		ORDER BY name ASC
 	`)
@@ -31,7 +31,7 @@ func (r *TopicRepository) List(ctx context.Context) ([]domain.Topic, error) {
 	topics := make([]domain.Topic, 0)
 	for rows.Next() {
 		var topic domain.Topic
-		if err := rows.Scan(&topic.ID, &topic.Name, &topic.Description, &topic.CreatedAt, &topic.UpdatedAt); err != nil {
+		if err := rows.Scan(&topic.ID, &topic.CourseID, &topic.Name, &topic.Description, &topic.CreatedAt, &topic.UpdatedAt); err != nil {
 			return nil, fmt.Errorf("scan topic: %w", err)
 		}
 		topics = append(topics, topic)
@@ -44,14 +44,32 @@ func (r *TopicRepository) List(ctx context.Context) ([]domain.Topic, error) {
 	return topics, nil
 }
 
+func (r *TopicRepository) ListByCourse(ctx context.Context, courseID int64) ([]domain.Topic, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT id, course_id, name, description, created_at, updated_at FROM topics WHERE course_id=? ORDER BY name ASC`, courseID)
+	if err != nil {
+		return nil, fmt.Errorf("list topics by course: %w", err)
+	}
+	defer rows.Close()
+	var topics []domain.Topic
+	for rows.Next() {
+		var topic domain.Topic
+		if err := rows.Scan(&topic.ID, &topic.CourseID, &topic.Name, &topic.Description, &topic.CreatedAt, &topic.UpdatedAt); err != nil {
+			return nil, fmt.Errorf("scan topic: %w", err)
+		}
+		topics = append(topics, topic)
+	}
+	return topics, rows.Err()
+}
+
 func (r *TopicRepository) Create(ctx context.Context, topic domain.Topic) (domain.Topic, error) {
 	created := domain.Topic{}
 	err := r.db.QueryRowContext(ctx, `
-		INSERT INTO topics(name, description)
-		VALUES(?, ?)
-		RETURNING id, name, description, created_at, updated_at
-	`, topic.Name, topic.Description).Scan(
+		INSERT INTO topics(course_id, name, description)
+		VALUES(?, ?, ?)
+		RETURNING id, course_id, name, description, created_at, updated_at
+	`, topic.CourseID, topic.Name, topic.Description).Scan(
 		&created.ID,
+		&created.CourseID,
 		&created.Name,
 		&created.Description,
 		&created.CreatedAt,
@@ -69,10 +87,10 @@ func (r *TopicRepository) Create(ctx context.Context, topic domain.Topic) (domai
 func (r *TopicRepository) GetByName(ctx context.Context, name string) (domain.Topic, error) {
 	var topic domain.Topic
 	err := r.db.QueryRowContext(ctx, `
-		SELECT id, name, description, created_at, updated_at
+		SELECT id, course_id, name, description, created_at, updated_at
 		FROM topics
 		WHERE name = ?
-	`, name).Scan(&topic.ID, &topic.Name, &topic.Description, &topic.CreatedAt, &topic.UpdatedAt)
+	`, name).Scan(&topic.ID, &topic.CourseID, &topic.Name, &topic.Description, &topic.CreatedAt, &topic.UpdatedAt)
 	if errors.Is(err, sql.ErrNoRows) {
 		return domain.Topic{}, storage.ErrTopicNotFound
 	}
@@ -88,9 +106,10 @@ func (r *TopicRepository) Update(ctx context.Context, topic domain.Topic) (domai
 		UPDATE topics
 		SET name = ?, description = ?, updated_at = CURRENT_TIMESTAMP
 		WHERE id = ?
-		RETURNING id, name, description, created_at, updated_at
+		RETURNING id, course_id, name, description, created_at, updated_at
 	`, topic.Name, topic.Description, topic.ID).Scan(
 		&updated.ID,
+		&updated.CourseID,
 		&updated.Name,
 		&updated.Description,
 		&updated.CreatedAt,

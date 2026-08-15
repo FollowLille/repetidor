@@ -17,11 +17,11 @@
     {{ if .Warning }}<p class="form_error">{{ .Warning }}</p>{{ end }}
     <form class="topic_form" method="post" action="/topics/{{ .Topic.Name }}/words">
         <label class="form_group">
-            Spanish
+            {{ .TargetLanguage.NativeName }}
             <input class="form_input" type="text" name="spanish" value="{{ with .Form }}{{ index . "Spanish" }}{{ end }}" placeholder="pan">
         </label>
         <label class="form_group">
-            Russian
+            {{ .ReferenceLanguage.NativeName }}
             <input class="form_input" type="text" name="russian" value="{{ with .Form }}{{ index . "Russian" }}{{ end }}" placeholder="bread">
         </label>
         <label class="form_group">
@@ -39,12 +39,12 @@
             {{ range .Words }}
                 <article class="word_card">
                     <div class="word_column">
-                        <span class="word_label">Spanish</span>
+                        <span class="word_label">{{ $.TargetLanguage.NativeName }}</span>
                         <strong class="word_value">{{ .Spanish }}</strong>
                     </div>
                     <div class="word_separator">to</div>
                     <div class="word_column">
-                        <span class="word_label">Russian</span>
+                        <span class="word_label">{{ $.ReferenceLanguage.NativeName }}</span>
                         <strong class="word_value">{{ .Russian }}</strong>
                     </div>
                     {{ if .Notes }}<div class="word_notes">{{ .Notes }}</div>{{ end }}
