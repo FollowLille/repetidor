@@ -334,6 +334,34 @@ func (h *BoardsHandler) CreateStroke(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(map[string]any{"ok": true, "id": stroke.ID})
 }
 
+func (h *BoardsHandler) CreateLabel(w http.ResponseWriter, r *http.Request) {
+	board, _, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	var input struct {
+		Content, TextColor string
+		X, Y               float64
+	}
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 32<<10)).Decode(&input); err != nil {
+		http.Error(w, "invalid text", 400)
+		return
+	}
+	input.Content = strings.TrimSpace(input.Content)
+	if input.Content == "" || input.X < -4000 || input.X > 12000 || input.Y < -4000 || input.Y > 12000 {
+		http.Error(w, "invalid text", 400)
+		return
+	}
+	node, err := h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: "text", Content: input.Content, X: input.X, Y: input.Y, Width: 380, Height: 110, Color: "clear", TextColor: cleanTextColor(input.TextColor)})
+	if err != nil {
+		http.Error(w, "failed to create text", 500)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	_ = json.NewEncoder(w).Encode(map[string]any{"ok": true, "id": node.ID})
+}
+
 func (h *BoardsHandler) DeleteStroke(w http.ResponseWriter, r *http.Request) {
 	board, _, ok := h.board(r)
 	if !ok {

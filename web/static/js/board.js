@@ -7,9 +7,10 @@
   const connectButton = shell.querySelector('[data-connect-toggle]');
   const dialog = shell.querySelector('[data-edit-dialog]');
   const editForm = shell.querySelector('[data-edit-form]');
+  const quickTextDialog = shell.querySelector('[data-quick-text-dialog]'), quickTextForm = shell.querySelector('[data-quick-text-form]');
   const drawings = shell.querySelector('[data-board-drawings]');
   const undoButton = shell.querySelector('[data-undo-drawing]'), redoButton = shell.querySelector('[data-redo-drawing]');
-  let scale = 1, panX = 0, panY = 0, active = null, connectMode = false, connectFrom = null, editingNode = null, boardMode = 'cursor', strokeColor = 'amber';
+  let scale = 1, panX = 0, panY = 0, active = null, connectMode = false, connectFrom = null, editingNode = null, quickTextPoint = null, boardMode = 'cursor', strokeColor = 'amber';
   const undoStack = [], redoStack = [];
 
   const strokeHex = {amber: '#ffbd78', violet: '#9a7cff', mint: '#69d8c3', rose: '#f283aa', white: '#f4f0fa'};
@@ -44,7 +45,11 @@
     const result = await response.json(), group = svgElement('g'); group.dataset.strokeId = result.id; group.dataset.strokeKind = payload.kind; group.dataset.strokePoints = JSON.stringify(payload.points); group.dataset.strokeColor = payload.color; group.dataset.strokeWidth = payload.width; drawings.append(group); renderStroke(group, payload.kind, payload.points, payload.color, payload.width); return {id: result.id, group, payload};
   };
 
-  shell.querySelector('[data-collapse-creator]').addEventListener('click', () => shell.querySelector('[data-creator-panel]').classList.toggle('is_collapsed'));
+  shell.querySelector('[data-collapse-creator]').addEventListener('click', event => {
+    const panel = shell.querySelector('[data-creator-panel]'), collapsed = panel.classList.toggle('is_collapsed');
+    event.currentTarget.textContent = collapsed ? '›' : '‹';
+    event.currentTarget.dataset.tooltip = collapsed ? event.currentTarget.dataset.showLabel : event.currentTarget.dataset.hideLabel;
+  });
   undoButton.addEventListener('click', async () => { const item = undoStack.pop(); if (!item) return; const response = await postJSON(`${location.pathname}/strokes/${item.id}/delete`, {}); if (response.ok) { item.group.remove(); redoStack.push(item); } else undoStack.push(item); updateHistory(); });
   redoButton.addEventListener('click', async () => { const previous = redoStack.pop(); if (!previous) return; const item = await saveStroke(previous.payload); if (item) undoStack.push(item); else redoStack.push(previous); updateHistory(); });
 
@@ -99,9 +104,19 @@
     const response = await postJSON(`${location.pathname}/nodes/${editingNode.dataset.nodeId}/edit`, {title: editForm.elements.title.value, content: editForm.elements.content.value, color: editForm.elements.color.value, textColor: editForm.elements.text_color.value});
     if (response.ok) location.reload();
   });
+  quickTextForm.addEventListener('submit', async e => {
+    if (e.submitter?.value === 'cancel' || !quickTextPoint) return;
+    e.preventDefault();
+    const response = await postJSON(`${location.pathname}/labels`, {content: quickTextForm.elements.content.value, textColor: quickTextForm.elements.text_color.value, x: quickTextPoint.x, y: quickTextPoint.y});
+    if (response.ok) location.reload();
+  });
 
   viewport.addEventListener('pointerdown', e => {
     if (connectMode || (e.target.closest('button,form,input,audio') && !e.target.closest('[data-resize-node]'))) return;
+    if (boardMode === 'text') {
+      quickTextPoint = pointAt(e); quickTextForm.reset(); quickTextDialog.showModal();
+      requestAnimationFrame(() => quickTextForm.elements.content.focus()); return;
+    }
     if (boardMode === 'pen' || boardMode === 'marker' || boardMode === 'arrow') {
       const point = pointAt(e), group = svgElement('g'); drawings.append(group);
       const points = [point, point], storedKind = boardMode === 'marker' ? 'pen' : boardMode, storedColor = boardMode === 'marker' ? `marker_${strokeColor}` : strokeColor, width = boardMode === 'marker' ? 18 : boardMode === 'arrow' ? 3 : 3.5;
