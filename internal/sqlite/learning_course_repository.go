@@ -114,13 +114,40 @@ func (r *LearningCourseRepository) Create(ctx context.Context, course domain.Lea
 }
 
 func (r *LearningCourseRepository) Update(ctx context.Context, course domain.LearningCourse) (domain.LearningCourse, error) {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return domain.LearningCourse{}, fmt.Errorf("begin learning course update: %w", err)
+	}
+	defer tx.Rollback()
 	var parent sql.NullInt64
 	if course.ParentID != nil {
 		parent = sql.NullInt64{Int64: *course.ParentID, Valid: true}
 	}
-	err := r.db.QueryRowContext(ctx, `UPDATE courses SET parent_id=?,name=?,description=?,sort_order=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND language_track_id=? RETURNING created_at,updated_at`, parent, course.Name, course.Description, course.SortOrder, course.ID, course.LanguageTrackID).Scan(&course.CreatedAt, &course.UpdatedAt)
+	err = tx.QueryRowContext(ctx, `UPDATE courses SET parent_id=?,name=?,description=?,sort_order=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND language_track_id=? RETURNING created_at,updated_at`, parent, course.Name, course.Description, course.SortOrder, course.ID, course.LanguageTrackID).Scan(&course.CreatedAt, &course.UpdatedAt)
 	if err != nil {
 		return domain.LearningCourse{}, fmt.Errorf("update learning course: %w", err)
+	}
+	if _, err := tx.ExecContext(ctx, `DELETE FROM course_topics WHERE course_id=?`, course.ID); err != nil {
+		return domain.LearningCourse{}, fmt.Errorf("replace course topics: %w", err)
+	}
+	for order, topicID := range course.TopicIDs {
+		if _, err := tx.ExecContext(ctx, `INSERT INTO course_topics(course_id,topic_id,sort_order) SELECT ?,?,? WHERE EXISTS(SELECT 1 FROM topics WHERE id=? AND language_track_id=?)`, course.ID, topicID, order, topicID, course.LanguageTrackID); err != nil {
+			return domain.LearningCourse{}, fmt.Errorf("link updated course topic: %w", err)
+		}
+	}
+	if _, err := tx.ExecContext(ctx, `DELETE FROM course_relations WHERE course_id=? AND relation_type='prerequisite'`, course.ID); err != nil {
+		return domain.LearningCourse{}, fmt.Errorf("replace prerequisites: %w", err)
+	}
+	for _, prerequisiteID := range course.PrerequisiteIDs {
+		if prerequisiteID == course.ID {
+			continue
+		}
+		if _, err := tx.ExecContext(ctx, `INSERT INTO course_relations(course_id,related_course_id,relation_type) SELECT ?,?,'prerequisite' WHERE EXISTS(SELECT 1 FROM courses WHERE id=? AND language_track_id=?)`, course.ID, prerequisiteID, prerequisiteID, course.LanguageTrackID); err != nil {
+			return domain.LearningCourse{}, fmt.Errorf("link updated prerequisite: %w", err)
+		}
+	}
+	if err := tx.Commit(); err != nil {
+		return domain.LearningCourse{}, fmt.Errorf("commit learning course update: %w", err)
 	}
 	return course, nil
 }

@@ -8,7 +8,7 @@
     {{ if .Courses }}
       {{ range .Courses }}<article class="card course_node" style="--depth: {{ .Depth }}">
         <div class="course_node_number">{{ if .ParentID }}↳{{ else }}{{ .SortOrder }}{{ end }}</div>
-        <div><span class="eyebrow">{{ if .ParentID }}{{ tr $.Locale "Chapter" }}{{ else }}{{ tr $.Locale "Course" }}{{ end }}</span><h2><a class="course_title_link" href="/courses/{{ .ID }}">{{ .Name }}</a></h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}
+        <div><span class="eyebrow">{{ if .ParentID }}{{ tr $.Locale "Chapter" }}{{ else }}{{ tr $.Locale "Course" }}{{ end }}</span><h2><a class="course_title_link" href="/courses/{{ .ID }}">{{ .Name }}</a></h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}<div class="course_progress_line"><span style="width:{{ .Progress.Percent }}%"></span></div><small class="muted">{{ .Progress.Percent }}% {{ tr $.Locale "completed" }}</small>
           {{ if .Topics }}<div class="course_chips">{{ range .Topics }}<a href="/topics/{{ .Name }}">{{ .Name }}</a>{{ end }}</div>{{ end }}
           {{ if .Prerequisites }}<p class="course_requirement">{{ tr $.Locale "Requires" }}: {{ range $i, $item := .Prerequisites }}{{ if $i }}, {{ end }}{{ $item.Name }}{{ end }}</p>{{ end }}
         </div>

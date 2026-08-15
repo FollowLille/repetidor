@@ -12,8 +12,18 @@ import (
 )
 
 func parsePage(name string) (*template.Template, error) {
-	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
 }
+
+func hasID(ids []int64, id int64) bool {
+	for _, value := range ids {
+		if value == id {
+			return true
+		}
+	}
+	return false
+}
+func sameID(value *int64, id int64) bool { return value != nil && *value == id }
 
 func locale(r *http.Request) string {
 	if cookie, err := r.Cookie("repetidor_locale"); err == nil && cookie.Value == "ru" {
@@ -120,6 +130,8 @@ var russianUI = map[string]string{
 	"Save changes": "Сохранить изменения", "Delete this topic?": "Удалить эту тему?", "Delete topic": "Удалить тему", "Back to topic": "Назад к теме", "Edit word": "Изменить слово",
 	"Card": "Карточка", "Try again": "Попробуйте ещё раз", "Prompt": "Задание", "Your reply": "Ваш ответ", "Target": "Правильный ответ", "Edit distance": "Расстояние редактирования", "Retry this card later": "Повторить карточку позже", "Session complete": "Сессия завершена", "Wrong": "Ошибки", "Skipped": "Пропущено", "Repeat mistakes": "Повторить ошибки", "Start again": "Начать заново", "View statistics": "Посмотреть статистику", "Start mixed session": "Начать смешанную сессию", "Open topics": "Открыть темы", "Unscramble the translation using every letter.": "Соберите перевод, используя все буквы.", "Backspace": "Стереть букву", "Clear": "Очистить", "Check": "Проверить", "Skip": "Пропустить", "Don't know": "Не знаю", "Leave arena": "Покинуть арену",
 	"That answer does not match yet.": "Ответ пока не совпадает.", "Very close — this looks like a typo.": "Очень близко — похоже на опечатку.", "Skipped — progress was not changed.": "Пропущено — прогресс не изменён.", "Marked as unknown — this word will receive more practice.": "Отмечено как незнакомое — слово будет появляться чаще.", "No difficult words right now.": "Сейчас нет сложных слов.",
+	"All courses": "Все курсы", "Theory starts with one clear idea.": "Теория начинается с одной ясной идеи.", "Add a text, example, note, or table block.": "Добавьте текст, пример, заметку или таблицу.", "I have read the theory": "Я прочитал теорию", "Exercises": "Упражнения", "Delete": "Удалить", "Delete block": "Удалить блок", "exercises are ready": "упражнений готово", "Check the rule while it is still fresh.": "Проверьте правило, пока оно ещё свежо.", "Start theory practice": "Начать практику по теории",
+	"Vocabulary practice": "Практика слов", "Practice words from this course": "Потренировать слова этого курса", "Start course practice": "Начать практику курса", "Author tools": "Инструменты автора", "Course settings": "Настройки курса", "Add theory block": "Добавить блок теории", "Block type": "Тип блока", "Title": "Заголовок", "Content": "Содержание", "Add block": "Добавить блок", "Add exercise": "Добавить упражнение", "Exercise type": "Тип упражнения", "Question": "Вопрос", "Answer options": "Варианты ответа", "Correct answer": "Правильный ответ", "Explanation after answer": "Объяснение после ответа", "Delete this course?": "Удалить этот курс?", "Delete course": "Удалить курс",
 }
 
 func safeNext(raw string) string {

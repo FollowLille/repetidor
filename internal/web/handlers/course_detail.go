@@ -3,6 +3,7 @@ package handlers
 import (
 	"html/template"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 
@@ -19,16 +20,17 @@ type CourseHandler struct {
 	courses           storage.LearningCourseRepository
 	theory            storage.TheoryRepository
 	tracks            storage.CourseRepository
+	topics            storage.TopicRepository
 	logger            logger.Logger
 }
 
-func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, log logger.Logger) (*CourseHandler, error) {
+func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, topics storage.TopicRepository, log logger.Logger) (*CourseHandler, error) {
 	page, err := parsePage("course_show.html")
 	if err != nil {
 		return nil, err
 	}
 	practice, err := parsePage("course_practice.html")
-	return &CourseHandler{pageTemplates: page, practiceTemplates: practice, courses: courses, theory: theory, tracks: tracks, logger: log}, err
+	return &CourseHandler{pageTemplates: page, practiceTemplates: practice, courses: courses, theory: theory, tracks: tracks, topics: topics, logger: log}, err
 }
 
 func (h *CourseHandler) course(r *http.Request) (domain.LearningCourse, bool) {
@@ -58,10 +60,115 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to load progress", 500)
 		return
 	}
-	data := pageData(r, map[string]any{"Title": course.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress})
+	track := activeCourse(h.tracks, r)
+	courseOptions, _ := h.courses.ListByTrack(r.Context(), track.ID)
+	topics, _ := h.topics.ListByCourse(r.Context(), track.ID)
+	query := url.Values{}
+	for _, id := range course.TopicIDs {
+		query.Add("topic_ids", strconv.FormatInt(id, 10))
+	}
+	practiceURL := "/train/mixed"
+	if encoded := query.Encode(); encoded != "" {
+		practiceURL += "?" + encoded
+	}
+	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL})
 	if err := h.pageTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course", "error", err)
 	}
+}
+
+func (h *CourseHandler) Update(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	_ = r.ParseForm()
+	name := strings.TrimSpace(r.FormValue("name"))
+	if name == "" {
+		http.Error(w, "course name is required", 400)
+		return
+	}
+	course.Name = name
+	course.Description = strings.TrimSpace(r.FormValue("description"))
+	course.SortOrder, _ = strconv.Atoi(r.FormValue("sort_order"))
+	course.ParentID = nil
+	if id, _ := strconv.ParseInt(r.FormValue("parent_id"), 10, 64); id > 0 && id != course.ID {
+		course.ParentID = &id
+	}
+	course.TopicIDs = formIDs(r.Form["topic_ids"])
+	course.PrerequisiteIDs = formIDs(r.Form["prerequisite_ids"])
+	if _, err := h.courses.Update(r.Context(), course); err != nil {
+		h.logger.Error("update course", "error", err)
+		http.Error(w, "failed to update course", 400)
+		return
+	}
+	http.Redirect(w, r, "/courses/"+strconv.FormatInt(course.ID, 10), http.StatusSeeOther)
+}
+
+func (h *CourseHandler) Delete(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	if err := h.courses.Delete(r.Context(), course.ID); err != nil {
+		http.Error(w, "failed to delete course", 500)
+		return
+	}
+	http.Redirect(w, r, "/courses", http.StatusSeeOther)
+}
+
+func (h *CourseHandler) DeleteBlock(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.ParseInt(chi.URLParam(r, "block_id"), 10, 64)
+	blocks, _ := h.theory.ListBlocks(r.Context(), course.ID)
+	found := false
+	for _, block := range blocks {
+		if block.ID == id {
+			found = true
+			break
+		}
+	}
+	if !found {
+		http.NotFound(w, r)
+		return
+	}
+	if err := h.theory.DeleteBlock(r.Context(), id); err != nil {
+		http.Error(w, "failed to delete block", 500)
+		return
+	}
+	http.Redirect(w, r, "/courses/"+strconv.FormatInt(course.ID, 10), http.StatusSeeOther)
+}
+
+func (h *CourseHandler) DeleteExercise(w http.ResponseWriter, r *http.Request) {
+	course, ok := h.course(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.ParseInt(chi.URLParam(r, "exercise_id"), 10, 64)
+	items, _ := h.theory.ListExercises(r.Context(), course.ID)
+	found := false
+	for _, item := range items {
+		if item.ID == id {
+			found = true
+			break
+		}
+	}
+	if !found {
+		http.NotFound(w, r)
+		return
+	}
+	if err := h.theory.DeleteExercise(r.Context(), id); err != nil {
+		http.Error(w, "failed to delete exercise", 500)
+		return
+	}
+	http.Redirect(w, r, "/courses/"+strconv.FormatInt(course.ID, 10), http.StatusSeeOther)
 }
 
 func (h *CourseHandler) CreateBlock(w http.ResponseWriter, r *http.Request) {

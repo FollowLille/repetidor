@@ -70,11 +70,11 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
-	coursesHandler, err := NewCoursesHandler(learningCourseRepo, topicRepo, courseRepo, appLogger)
+	coursesHandler, err := NewCoursesHandler(learningCourseRepo, topicRepo, courseRepo, theoryRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
-	courseHandler, err := NewCourseHandler(learningCourseRepo, theoryRepo, courseRepo, appLogger)
+	courseHandler, err := NewCourseHandler(learningCourseRepo, theoryRepo, courseRepo, topicRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
