@@ -13,6 +13,7 @@ var (
 
 type TopicRepository interface {
 	List(ctx context.Context) ([]domain.Topic, error)
+	ListByCourse(ctx context.Context, courseID int64) ([]domain.Topic, error)
 	Create(ctx context.Context, topic domain.Topic) (domain.Topic, error)
 	GetByName(ctx context.Context, name string) (domain.Topic, error)
 	Update(ctx context.Context, topic domain.Topic) (domain.Topic, error)

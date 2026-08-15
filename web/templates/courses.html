@@ -1,0 +1,29 @@
+{{ define "content" }}
+<section class="card course_hero">
+  <div><span class="eyebrow">{{ tr .Locale "Courses" }}</span><h1>{{ tr .Locale "Build a path, not a pile." }}</h1><p class="muted">{{ tr .Locale "Arrange topics into ordered courses and smaller chapters." }}</p></div>
+  <div class="language_pair"><span>{{ (language .Course.TargetLanguage).NativeName }}</span><b>→</b><span>{{ (language .Course.ReferenceLanguage).NativeName }}</span></div>
+</section>
+<div class="course_workspace">
+  <section class="course_tree">
+    {{ if .Courses }}
+      {{ range .Courses }}<article class="card course_node" style="--depth: {{ .Depth }}">
+        <div class="course_node_number">{{ if .ParentID }}↳{{ else }}{{ .SortOrder }}{{ end }}</div>
+        <div><span class="eyebrow">{{ if .ParentID }}{{ tr $.Locale "Chapter" }}{{ else }}{{ tr $.Locale "Course" }}{{ end }}</span><h2>{{ .Name }}</h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}
+          {{ if .Topics }}<div class="course_chips">{{ range .Topics }}<a href="/topics/{{ .Name }}">{{ .Name }}</a>{{ end }}</div>{{ end }}
+          {{ if .Prerequisites }}<p class="course_requirement">{{ tr $.Locale "Requires" }}: {{ range $i, $item := .Prerequisites }}{{ if $i }}, {{ end }}{{ $item.Name }}{{ end }}</p>{{ end }}
+        </div>
+      </article>{{ end }}
+    {{ else }}<div class="card empty_course"><span>✦</span><h2>{{ tr .Locale "Your first course starts here." }}</h2><p class="muted">{{ tr .Locale "Combine existing topics into a route and add chapters when it grows." }}</p></div>{{ end }}
+  </section>
+  <aside class="card course_builder"><span class="eyebrow">{{ tr .Locale "Course builder" }}</span><h2>{{ tr .Locale "Create a course or chapter" }}</h2>
+    <form method="post" action="/courses" class="stacked_form">
+      <label>{{ tr .Locale "Name" }}<input name="name" required maxlength="120" placeholder="Spanish foundations"></label>
+      <label>{{ tr .Locale "Description" }}<textarea name="description" rows="3" placeholder="What will I learn?"></textarea></label>
+      <div class="form_pair"><label>{{ tr .Locale "Position" }}<input type="number" name="sort_order" value="1" min="0"></label><label>{{ tr .Locale "Parent course" }}<select name="parent_id"><option value="">—</option>{{ range .CourseOptions }}<option value="{{ .ID }}">{{ .Name }}</option>{{ end }}</select></label></div>
+      <fieldset><legend>{{ tr .Locale "Topics in this course" }}</legend><div class="check_grid">{{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ else }}<small class="muted">{{ tr $.Locale "Create vocabulary topics first." }}</small>{{ end }}</div></fieldset>
+      {{ if .CourseOptions }}<fieldset><legend>{{ tr .Locale "Prerequisites" }}</legend><div class="check_grid">{{ range .CourseOptions }}<label><input type="checkbox" name="prerequisite_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ end }}</div></fieldset>{{ end }}
+      <button class="primary_button" type="submit">{{ tr .Locale "Add to learning path" }}</button>
+    </form>
+  </aside>
+</div>
+{{ end }}

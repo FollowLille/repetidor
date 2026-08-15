@@ -7,11 +7,11 @@
 
     <form method="post" action="/topics/{{ .Topic.Name }}/words/{{ .Word.ID }}/edit" class="topic_form">
         <label class="form_group">
-            Spanish
+            {{ .TargetLanguage.NativeName }}
             <input class="form_input" type="text" name="spanish" value="{{ .Word.Spanish }}" required>
         </label>
         <label class="form_group">
-            Russian
+            {{ .ReferenceLanguage.NativeName }}
             <input class="form_input" type="text" name="russian" value="{{ .Word.Russian }}" required>
         </label>
         <label class="form_group">

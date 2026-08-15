@@ -15,25 +15,28 @@ type Container struct {
 	Stats     *StatsHandler
 	Session   *SessionHandler
 	Arena     *ArenaHandler
+	Settings  *SettingsHandler
+	Import    *ImportHandler
+	Courses   *CoursesHandler
 }
 
-func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, appLogger logger.Logger) (*Container, error) {
-	homeHandler, err := NewHomeHandler(topicRepo, sessionRepo)
+func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordRepository, trainingRepo storage.TrainingRepository, sessionRepo storage.SessionRepository, courseRepo storage.CourseRepository, learningCourseRepo storage.LearningCourseRepository, appLogger logger.Logger) (*Container, error) {
+	homeHandler, err := NewHomeHandler(topicRepo, sessionRepo, courseRepo)
 	if err != nil {
 		return nil, err
 	}
 
-	trainingHandler, err := NewTrainingHandler(topicRepo, wordRepo, trainingRepo, sessionRepo, appLogger)
+	trainingHandler, err := NewTrainingHandler(topicRepo, wordRepo, trainingRepo, sessionRepo, courseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
 
-	topicsHandler, err := NewTopicsHandler(topicRepo, appLogger)
+	topicsHandler, err := NewTopicsHandler(topicRepo, courseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
 
-	topicHandler, err := NewTopicHandler(topicRepo, wordRepo, appLogger)
+	topicHandler, err := NewTopicHandler(topicRepo, wordRepo, courseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +45,7 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
-	wordEditHandler, err := NewWordEditHandler(topicRepo, wordRepo, appLogger)
+	wordEditHandler, err := NewWordEditHandler(topicRepo, wordRepo, courseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
@@ -54,10 +57,22 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
-	arenaHandler, err := NewArenaHandler(topicRepo, appLogger)
+	arenaHandler, err := NewArenaHandler(topicRepo, courseRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
+	settingsHandler, err := NewSettingsHandler(courseRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
+	importHandler, err := NewImportHandler(topicRepo, wordRepo, courseRepo, appLogger)
+	if err != nil {
+		return nil, err
+	}
+	coursesHandler, err := NewCoursesHandler(learningCourseRepo, topicRepo, courseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler, Arena: arenaHandler}, nil
+	return &Container{Home: homeHandler, Training: trainingHandler, Topics: topicsHandler, Topic: topicHandler, TopicEdit: topicEditHandler, WordEdit: wordEditHandler, Stats: statsHandler, Session: sessionHandler, Arena: arenaHandler, Settings: settingsHandler, Import: importHandler, Courses: coursesHandler}, nil
 }
