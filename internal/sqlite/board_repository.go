@@ -87,6 +87,28 @@ func (r *BoardRepository) MoveNode(ctx context.Context, boardID, nodeID int64, x
 	}
 	return nil
 }
+func (r *BoardRepository) ResizeNode(ctx context.Context, boardID, nodeID int64, width, height float64) error {
+	result, err := r.db.ExecContext(ctx, `UPDATE board_nodes SET width=?,height=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND board_id=?`, width, height, nodeID, boardID)
+	if err != nil {
+		return err
+	}
+	affected, _ := result.RowsAffected()
+	if affected == 0 {
+		return sql.ErrNoRows
+	}
+	return nil
+}
+func (r *BoardRepository) UpdateNode(ctx context.Context, n domain.BoardNode) error {
+	result, err := r.db.ExecContext(ctx, `UPDATE board_nodes SET title=?,content=?,color=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND board_id=?`, n.Title, n.Content, n.Color, n.ID, n.BoardID)
+	if err != nil {
+		return err
+	}
+	affected, _ := result.RowsAffected()
+	if affected == 0 {
+		return sql.ErrNoRows
+	}
+	return nil
+}
 func (r *BoardRepository) DeleteNode(ctx context.Context, boardID, nodeID int64) error {
 	_, err := r.db.ExecContext(ctx, `DELETE FROM board_nodes WHERE id=? AND board_id=?`, nodeID, boardID)
 	return err
@@ -97,4 +119,8 @@ func (r *BoardRepository) CreateEdge(ctx context.Context, e domain.BoardEdge) (d
 		return e, fmt.Errorf("create board edge: %w", err)
 	}
 	return e, nil
+}
+func (r *BoardRepository) DeleteEdge(ctx context.Context, boardID, edgeID int64) error {
+	_, err := r.db.ExecContext(ctx, `DELETE FROM board_edges WHERE id=? AND board_id=?`, edgeID, boardID)
+	return err
 }

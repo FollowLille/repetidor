@@ -11,6 +11,9 @@ type BoardRepository interface {
 	Create(ctx context.Context, board domain.Board) (domain.Board, error)
 	CreateNode(ctx context.Context, node domain.BoardNode) (domain.BoardNode, error)
 	MoveNode(ctx context.Context, boardID, nodeID int64, x, y float64) error
+	ResizeNode(ctx context.Context, boardID, nodeID int64, width, height float64) error
+	UpdateNode(ctx context.Context, node domain.BoardNode) error
 	DeleteNode(ctx context.Context, boardID, nodeID int64) error
 	CreateEdge(ctx context.Context, edge domain.BoardEdge) (domain.BoardEdge, error)
+	DeleteEdge(ctx context.Context, boardID, edgeID int64) error
 }

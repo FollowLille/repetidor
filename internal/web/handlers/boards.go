@@ -95,7 +95,8 @@ func (h *BoardsHandler) CreateText(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "content required", 400)
 		return
 	}
-	_, err := h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: content, X: 100, Y: 100, Width: 280, Height: 170, Color: cleanBoardColor(r.FormValue("color"))})
+	x, y := nextBoardPosition(len(board.Nodes))
+	_, err := h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: content, X: x, Y: y, Width: 280, Height: 170, Color: cleanBoardColor(r.FormValue("color"))})
 	if err != nil {
 		http.Error(w, "failed to create node", 500)
 		return
@@ -163,7 +164,8 @@ func (h *BoardsHandler) Upload(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to store media", 500)
 		return
 	}
-	_, err = h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: header.Filename, MediaPath: "/uploads/" + name, X: 140, Y: 140, Width: kindWidth(kind), Height: 220, Color: "slate"})
+	x, y := nextBoardPosition(len(board.Nodes))
+	_, err = h.boards.CreateNode(r.Context(), domain.BoardNode{BoardID: board.ID, Kind: kind, Title: strings.TrimSpace(r.FormValue("title")), Content: header.Filename, MediaPath: "/uploads/" + name, X: x, Y: y, Width: kindWidth(kind), Height: 220, Color: "slate"})
 	if err != nil {
 		_ = os.Remove(path)
 		http.Error(w, "failed to create media node", 500)
@@ -194,6 +196,50 @@ func (h *BoardsHandler) Move(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	_, _ = w.Write([]byte(`{"ok":true}`))
+}
+
+func (h *BoardsHandler) Resize(w http.ResponseWriter, r *http.Request) {
+	board, _, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.ParseInt(chi.URLParam(r, "node_id"), 10, 64)
+	var input struct{ Width, Height float64 }
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 4096)).Decode(&input); err != nil || input.Width < 180 || input.Width > 800 || input.Height < 100 || input.Height > 700 {
+		http.Error(w, "invalid card size", 400)
+		return
+	}
+	if err := h.boards.ResizeNode(r.Context(), board.ID, id, input.Width, input.Height); err != nil {
+		http.Error(w, "failed to resize node", 400)
+		return
+	}
+	writeBoardOK(w)
+}
+
+func (h *BoardsHandler) Edit(w http.ResponseWriter, r *http.Request) {
+	board, _, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.ParseInt(chi.URLParam(r, "node_id"), 10, 64)
+	var input struct{ Title, Content, Color string }
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 32<<10)).Decode(&input); err != nil {
+		http.Error(w, "invalid card", 400)
+		return
+	}
+	input.Title = strings.TrimSpace(input.Title)
+	input.Content = strings.TrimSpace(input.Content)
+	if input.Content == "" {
+		http.Error(w, "content required", 400)
+		return
+	}
+	if err := h.boards.UpdateNode(r.Context(), domain.BoardNode{ID: id, BoardID: board.ID, Title: input.Title, Content: input.Content, Color: cleanBoardColor(input.Color)}); err != nil {
+		http.Error(w, "failed to edit node", 400)
+		return
+	}
+	writeBoardOK(w)
 }
 
 func (h *BoardsHandler) DeleteNode(w http.ResponseWriter, r *http.Request) {
@@ -230,6 +276,20 @@ func (h *BoardsHandler) CreateEdge(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, boardURL(course.ID, board.ID), http.StatusSeeOther)
 }
 
+func (h *BoardsHandler) DeleteEdge(w http.ResponseWriter, r *http.Request) {
+	board, course, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.ParseInt(chi.URLParam(r, "edge_id"), 10, 64)
+	if err := h.boards.DeleteEdge(r.Context(), board.ID, id); err != nil {
+		http.Error(w, "failed to delete connection", 500)
+		return
+	}
+	http.Redirect(w, r, boardURL(course.ID, board.ID), http.StatusSeeOther)
+}
+
 func boardURL(courseID, boardID int64) string {
 	return "/courses/" + strconv.FormatInt(courseID, 10) + "/boards/" + strconv.FormatInt(boardID, 10)
 }
@@ -250,4 +310,11 @@ func kindWidth(kind string) float64 {
 		return 360
 	}
 	return 320
+}
+func nextBoardPosition(count int) (float64, float64) {
+	return 360 + float64(count%3)*320, 120 + float64(count/3)*220
+}
+func writeBoardOK(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+	_, _ = w.Write([]byte(`{"ok":true}`))
 }
