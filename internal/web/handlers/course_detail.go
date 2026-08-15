@@ -229,7 +229,7 @@ func (h *CourseHandler) CreateExercise(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = r.ParseForm()
 	kind := r.FormValue("kind")
-	if kind != "choice" && kind != "input" && kind != "gap" {
+	if kind != "choice" && kind != "input" && kind != "gap" && kind != "sentence_builder" {
 		kind = "input"
 	}
 	prompt := strings.TrimSpace(r.FormValue("prompt"))

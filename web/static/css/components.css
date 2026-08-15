@@ -181,6 +181,7 @@
 .answer_choices { display:flex; flex-wrap:wrap; gap:.55rem; margin-bottom:.7rem; }
 .answer_choices input { position:absolute; opacity:0; }.answer_choices span { display:block;padding:.65rem .85rem;border:1px solid rgba(255,255,255,.11);border-radius:.8rem;cursor:pointer; }
 .answer_choices input:checked + span { background:#ffbd78;color:#25172d;border-color:#ffbd78; }
+.sentence_builder{display:grid;gap:.85rem}.sentence_result{min-height:3.25rem;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.11);border-radius:.9rem;background:rgba(255,255,255,.035);font-size:1.08rem}.sentence_tokens,.sentence_actions{display:flex;gap:.6rem;flex-wrap:wrap}.sentence_tokens button{border:1px solid rgba(255,189,120,.3);border-radius:.8rem;background:rgba(255,189,120,.09);color:var(--text);padding:.65rem .85rem;cursor:pointer}.sentence_tokens button:disabled{opacity:.3;transform:scale(.96)}
 .answer_feedback { margin-top:.85rem;padding:.85rem 1rem;border-radius:.85rem; }.answer_feedback.correct { background:rgba(77,202,159,.13);color:#91e3c5; }.answer_feedback.wrong { background:rgba(238,102,132,.13);color:#ff9caf; }
 .answer_feedback p { margin:.35rem 0 0;color:inherit; }.completion_banner>span { font-size:2rem;color:#7fe0bd; }
 @media(max-width:900px){.lesson_layout{grid-template-columns:1fr}.author_panel{position:static}.lesson_hero,.practice_header,.practice_invite,.completion_banner{align-items:flex-start;flex-direction:column}.lesson_progress{text-align:left;width:100%}.answer_input{flex-direction:column}}
