@@ -41,3 +41,25 @@
 .board_shell[data-mode="text"] .board_viewport {
   cursor: text;
 }
+
+.color_clear {
+  border: 1px dashed rgba(255, 255, 255, .12) !important;
+  border-radius: .7rem;
+}
+
+.color_clear:hover,
+.color_clear:focus-within {
+  border-color: rgba(255, 189, 120, .55) !important;
+  background: rgba(255, 255, 255, .025) !important;
+}
+
+.board_background_grid .board_viewport {
+  background-image: linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size: 32px 32px;
+}
+.board_background_paper .board_viewport { background-color:#e8e1d4;background-image:linear-gradient(rgba(66,67,74,.1) 1px,transparent 1px);background-size:100% 28px; }
+.board_background_midnight .board_viewport { background-color:#080b16;background-image:radial-gradient(rgba(111,133,255,.19) 1px,transparent 1px); }
+.board_background_sand .board_viewport { background-color:#2a2219;background-image:radial-gradient(rgba(255,207,145,.15) 1px,transparent 1px); }
+.board_background_picker select { max-width:7rem;padding:.52rem .65rem;border:1px solid rgba(255,255,255,.1);border-radius:.7rem;background:#171722;color:#ddd7ea; }
+.global_board_card { display:block;min-height:9rem;color:inherit;text-decoration:none;overflow:hidden;position:relative; }
+.global_board_card small { color:#ffbd78; }

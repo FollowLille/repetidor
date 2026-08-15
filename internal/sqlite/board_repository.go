@@ -12,7 +12,7 @@ type BoardRepository struct{ db *sql.DB }
 func NewBoardRepository(db *sql.DB) *BoardRepository { return &BoardRepository{db: db} }
 
 func (r *BoardRepository) ListByCourse(ctx context.Context, courseID int64) ([]domain.Board, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT id,course_id,name,description,created_at,updated_at FROM boards WHERE course_id=? ORDER BY id`, courseID)
+	rows, err := r.db.QueryContext(ctx, `SELECT id,COALESCE(course_id,0),name,description,background,created_at,updated_at FROM boards WHERE course_id=? ORDER BY id`, courseID)
 	if err != nil {
 		return nil, fmt.Errorf("list boards: %w", err)
 	}
@@ -20,7 +20,24 @@ func (r *BoardRepository) ListByCourse(ctx context.Context, courseID int64) ([]d
 	var out []domain.Board
 	for rows.Next() {
 		var b domain.Board
-		if err := rows.Scan(&b.ID, &b.CourseID, &b.Name, &b.Description, &b.CreatedAt, &b.UpdatedAt); err != nil {
+		if err := rows.Scan(&b.ID, &b.CourseID, &b.Name, &b.Description, &b.Background, &b.CreatedAt, &b.UpdatedAt); err != nil {
+			return nil, err
+		}
+		out = append(out, b)
+	}
+	return out, rows.Err()
+}
+
+func (r *BoardRepository) ListGlobal(ctx context.Context) ([]domain.Board, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT id,0,name,description,background,created_at,updated_at FROM boards WHERE course_id IS NULL ORDER BY id`)
+	if err != nil {
+		return nil, fmt.Errorf("list global boards: %w", err)
+	}
+	defer rows.Close()
+	var out []domain.Board
+	for rows.Next() {
+		var b domain.Board
+		if err := rows.Scan(&b.ID, &b.CourseID, &b.Name, &b.Description, &b.Background, &b.CreatedAt, &b.UpdatedAt); err != nil {
 			return nil, err
 		}
 		out = append(out, b)
@@ -30,7 +47,7 @@ func (r *BoardRepository) ListByCourse(ctx context.Context, courseID int64) ([]d
 
 func (r *BoardRepository) Get(ctx context.Context, id int64) (domain.Board, error) {
 	var b domain.Board
-	err := r.db.QueryRowContext(ctx, `SELECT id,course_id,name,description,created_at,updated_at FROM boards WHERE id=?`, id).Scan(&b.ID, &b.CourseID, &b.Name, &b.Description, &b.CreatedAt, &b.UpdatedAt)
+	err := r.db.QueryRowContext(ctx, `SELECT id,COALESCE(course_id,0),name,description,background,created_at,updated_at FROM boards WHERE id=?`, id).Scan(&b.ID, &b.CourseID, &b.Name, &b.Description, &b.Background, &b.CreatedAt, &b.UpdatedAt)
 	if err != nil {
 		return b, fmt.Errorf("get board: %w", err)
 	}
@@ -78,11 +95,22 @@ func (r *BoardRepository) Get(ctx context.Context, id int64) (domain.Board, erro
 }
 
 func (r *BoardRepository) Create(ctx context.Context, b domain.Board) (domain.Board, error) {
-	err := r.db.QueryRowContext(ctx, `INSERT INTO boards(course_id,name,description) VALUES(?,?,?) RETURNING id,created_at,updated_at`, b.CourseID, b.Name, b.Description).Scan(&b.ID, &b.CreatedAt, &b.UpdatedAt)
+	var courseID any = b.CourseID
+	if b.CourseID == 0 {
+		courseID = nil
+	}
+	if b.Background == "" {
+		b.Background = "dots"
+	}
+	err := r.db.QueryRowContext(ctx, `INSERT INTO boards(course_id,name,description,background) VALUES(?,?,?,?) RETURNING id,created_at,updated_at`, courseID, b.Name, b.Description, b.Background).Scan(&b.ID, &b.CreatedAt, &b.UpdatedAt)
 	if err != nil {
 		return b, fmt.Errorf("create board: %w", err)
 	}
 	return b, nil
+}
+func (r *BoardRepository) UpdateBackground(ctx context.Context, boardID int64, background string) error {
+	_, err := r.db.ExecContext(ctx, `UPDATE boards SET background=?,updated_at=CURRENT_TIMESTAMP WHERE id=?`, background, boardID)
+	return err
 }
 func (r *BoardRepository) CreateNode(ctx context.Context, n domain.BoardNode) (domain.BoardNode, error) {
 	err := r.db.QueryRowContext(ctx, `INSERT INTO board_nodes(board_id,kind,title,content,media_path,x,y,width,height,color,text_color,z_index) VALUES(?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id,created_at,updated_at`, n.BoardID, n.Kind, n.Title, n.Content, n.MediaPath, n.X, n.Y, n.Width, n.Height, n.Color, n.TextColor, n.ZIndex).Scan(&n.ID, &n.CreatedAt, &n.UpdatedAt)

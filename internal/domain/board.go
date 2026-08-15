@@ -3,13 +3,13 @@ package domain
 import "time"
 
 type Board struct {
-	ID                   int64
-	CourseID             int64
-	Name, Description    string
-	Nodes                []BoardNode
-	Edges                []BoardEdge
-	Strokes              []BoardStroke
-	CreatedAt, UpdatedAt time.Time
+	ID                            int64
+	CourseID                      int64
+	Name, Description, Background string
+	Nodes                         []BoardNode
+	Edges                         []BoardEdge
+	Strokes                       []BoardStroke
+	CreatedAt, UpdatedAt          time.Time
 }
 
 type BoardStroke struct {

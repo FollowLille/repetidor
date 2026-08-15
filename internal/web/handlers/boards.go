@@ -20,17 +20,22 @@ import (
 )
 
 type BoardsHandler struct {
-	templates *template.Template
-	boards    storage.BoardRepository
-	courses   storage.LearningCourseRepository
-	tracks    storage.CourseRepository
-	logger    logger.Logger
-	uploadDir string
+	templates     *template.Template
+	listTemplates *template.Template
+	boards        storage.BoardRepository
+	courses       storage.LearningCourseRepository
+	tracks        storage.CourseRepository
+	logger        logger.Logger
+	uploadDir     string
 }
 
 func NewBoardsHandler(boards storage.BoardRepository, courses storage.LearningCourseRepository, tracks storage.CourseRepository, log logger.Logger) (*BoardsHandler, error) {
 	tmpl, err := parsePage("board.html")
-	return &BoardsHandler{templates: tmpl, boards: boards, courses: courses, tracks: tracks, logger: log, uploadDir: filepath.Join("data", "uploads")}, err
+	if err != nil {
+		return nil, err
+	}
+	listTmpl, err := parsePage("boards.html")
+	return &BoardsHandler{templates: tmpl, listTemplates: listTmpl, boards: boards, courses: courses, tracks: tracks, logger: log, uploadDir: filepath.Join("data", "uploads")}, err
 }
 
 func (h *BoardsHandler) course(r *http.Request) (domain.LearningCourse, bool) {
@@ -39,13 +44,43 @@ func (h *BoardsHandler) course(r *http.Request) (domain.LearningCourse, bool) {
 	return course, err == nil && course.LanguageTrackID == activeCourse(h.tracks, r).ID
 }
 func (h *BoardsHandler) board(r *http.Request) (domain.Board, domain.LearningCourse, bool) {
+	id, _ := strconv.ParseInt(chi.URLParam(r, "board_id"), 10, 64)
+	if chi.URLParam(r, "course_id") == "" {
+		board, err := h.boards.Get(r.Context(), id)
+		return board, domain.LearningCourse{}, err == nil && board.CourseID == 0
+	}
 	course, ok := h.course(r)
 	if !ok {
 		return domain.Board{}, course, false
 	}
-	id, _ := strconv.ParseInt(chi.URLParam(r, "board_id"), 10, 64)
 	board, err := h.boards.Get(r.Context(), id)
 	return board, course, err == nil && board.CourseID == course.ID
+}
+
+func (h *BoardsHandler) GlobalIndex(w http.ResponseWriter, r *http.Request) {
+	boards, err := h.boards.ListGlobal(r.Context())
+	if err != nil {
+		http.Error(w, "failed to load boards", 500)
+		return
+	}
+	data := pageData(r, map[string]any{"Title": translate(locale(r), "Boards"), "Course": activeCourse(h.tracks, r), "Boards": boards})
+	if err := h.listTemplates.ExecuteTemplate(w, "layout", data); err != nil {
+		h.logger.Error("render boards", "error", err)
+	}
+}
+
+func (h *BoardsHandler) CreateGlobal(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+	name := strings.TrimSpace(r.FormValue("name"))
+	if name == "" {
+		name = "Untitled board"
+	}
+	board, err := h.boards.Create(r.Context(), domain.Board{Name: name, Description: strings.TrimSpace(r.FormValue("description")), Background: cleanBoardBackground(r.FormValue("background"))})
+	if err != nil {
+		http.Error(w, "failed to create board", 500)
+		return
+	}
+	http.Redirect(w, r, boardURL(0, board.ID), http.StatusSeeOther)
 }
 
 func (h *BoardsHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -73,10 +108,24 @@ func (h *BoardsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	data := pageData(r, map[string]any{"Title": board.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Board": board})
+	data := pageData(r, map[string]any{"Title": board.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Board": board, "BoardBase": boardURL(board.CourseID, board.ID)})
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render board", "error", err)
 	}
+}
+
+func (h *BoardsHandler) Background(w http.ResponseWriter, r *http.Request) {
+	board, _, ok := h.board(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	_ = r.ParseForm()
+	if err := h.boards.UpdateBackground(r.Context(), board.ID, cleanBoardBackground(r.FormValue("background"))); err != nil {
+		http.Error(w, "failed to change background", 500)
+		return
+	}
+	http.Redirect(w, r, boardURL(board.CourseID, board.ID), http.StatusSeeOther)
 }
 
 func (h *BoardsHandler) CreateText(w http.ResponseWriter, r *http.Request) {
@@ -377,7 +426,17 @@ func (h *BoardsHandler) DeleteStroke(w http.ResponseWriter, r *http.Request) {
 }
 
 func boardURL(courseID, boardID int64) string {
+	if courseID == 0 {
+		return "/boards/" + strconv.FormatInt(boardID, 10)
+	}
 	return "/courses/" + strconv.FormatInt(courseID, 10) + "/boards/" + strconv.FormatInt(boardID, 10)
+}
+func cleanBoardBackground(value string) string {
+	switch value {
+	case "dots", "grid", "paper", "midnight", "sand":
+		return value
+	}
+	return "dots"
 }
 func cleanBoardColor(value string) string {
 	switch value {

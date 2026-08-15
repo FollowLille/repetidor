@@ -7,8 +7,10 @@ import (
 
 type BoardRepository interface {
 	ListByCourse(ctx context.Context, courseID int64) ([]domain.Board, error)
+	ListGlobal(ctx context.Context) ([]domain.Board, error)
 	Get(ctx context.Context, id int64) (domain.Board, error)
 	Create(ctx context.Context, board domain.Board) (domain.Board, error)
+	UpdateBackground(ctx context.Context, boardID int64, background string) error
 	CreateNode(ctx context.Context, node domain.BoardNode) (domain.BoardNode, error)
 	MoveNode(ctx context.Context, boardID, nodeID int64, x, y float64) error
 	ResizeNode(ctx context.Context, boardID, nodeID int64, width, height float64) error

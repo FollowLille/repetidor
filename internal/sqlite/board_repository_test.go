@@ -22,6 +22,17 @@ func TestBoardPersistsNodesPositionsAndEdges(t *testing.T) {
 		t.Fatal(err)
 	}
 	repo := NewBoardRepository(db)
+	global, err := repo.Create(ctx, domain.Board{Name: "Language map", Background: "grid"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	globals, err := repo.ListGlobal(ctx)
+	if err != nil || len(globals) != 1 || globals[0].ID != global.ID || globals[0].Background != "grid" {
+		t.Fatalf("global boards = %#v, err = %v", globals, err)
+	}
+	if err := repo.UpdateBackground(ctx, global.ID, "paper"); err != nil {
+		t.Fatal(err)
+	}
 	board, err := repo.Create(ctx, domain.Board{CourseID: course.ID, Name: "Pronouns"})
 	if err != nil {
 		t.Fatal(err)
