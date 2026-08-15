@@ -45,7 +45,7 @@ func (r *TheoryRepository) DeleteBlock(ctx context.Context, id int64) error {
 }
 
 func (r *TheoryRepository) ListExercises(ctx context.Context, courseID int64) ([]domain.TheoryExercise, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT id,course_id,theory_block_id,kind,prompt,options_json,correct_answer,explanation,sort_order,created_at,updated_at FROM theory_exercises WHERE course_id=? ORDER BY sort_order,id`, courseID)
+	rows, err := r.db.QueryContext(ctx, `SELECT id,course_id,theory_block_id,kind,prompt,options_json,correct_answer,accepted_answers_json,explanation,sort_order,created_at,updated_at FROM theory_exercises WHERE course_id=? ORDER BY sort_order,id`, courseID)
 	if err != nil {
 		return nil, fmt.Errorf("list theory exercises: %w", err)
 	}
@@ -54,14 +54,15 @@ func (r *TheoryRepository) ListExercises(ctx context.Context, courseID int64) ([
 	for rows.Next() {
 		var e domain.TheoryExercise
 		var block sql.NullInt64
-		var options string
-		if err := rows.Scan(&e.ID, &e.CourseID, &block, &e.Kind, &e.Prompt, &options, &e.CorrectAnswer, &e.Explanation, &e.SortOrder, &e.CreatedAt, &e.UpdatedAt); err != nil {
+		var options, accepted string
+		if err := rows.Scan(&e.ID, &e.CourseID, &block, &e.Kind, &e.Prompt, &options, &e.CorrectAnswer, &accepted, &e.Explanation, &e.SortOrder, &e.CreatedAt, &e.UpdatedAt); err != nil {
 			return nil, fmt.Errorf("scan theory exercise: %w", err)
 		}
 		if block.Valid {
 			e.TheoryBlockID = &block.Int64
 		}
 		_ = json.Unmarshal([]byte(options), &e.Options)
+		_ = json.Unmarshal([]byte(accepted), &e.AcceptedAnswers)
 		exercises = append(exercises, e)
 	}
 	return exercises, rows.Err()
@@ -69,11 +70,12 @@ func (r *TheoryRepository) ListExercises(ctx context.Context, courseID int64) ([
 
 func (r *TheoryRepository) CreateExercise(ctx context.Context, e domain.TheoryExercise) (domain.TheoryExercise, error) {
 	options, _ := json.Marshal(e.Options)
+	accepted, _ := json.Marshal(e.AcceptedAnswers)
 	var block sql.NullInt64
 	if e.TheoryBlockID != nil {
 		block = sql.NullInt64{Int64: *e.TheoryBlockID, Valid: true}
 	}
-	err := r.db.QueryRowContext(ctx, `INSERT INTO theory_exercises(course_id,theory_block_id,kind,prompt,options_json,correct_answer,explanation,sort_order) VALUES(?,?,?,?,?,?,?,?) RETURNING id,created_at,updated_at`, e.CourseID, block, e.Kind, e.Prompt, string(options), e.CorrectAnswer, e.Explanation, e.SortOrder).Scan(&e.ID, &e.CreatedAt, &e.UpdatedAt)
+	err := r.db.QueryRowContext(ctx, `INSERT INTO theory_exercises(course_id,theory_block_id,kind,prompt,options_json,correct_answer,accepted_answers_json,explanation,sort_order) VALUES(?,?,?,?,?,?,?,?,?) RETURNING id,created_at,updated_at`, e.CourseID, block, e.Kind, e.Prompt, string(options), e.CorrectAnswer, string(accepted), e.Explanation, e.SortOrder).Scan(&e.ID, &e.CreatedAt, &e.UpdatedAt)
 	if err != nil {
 		return domain.TheoryExercise{}, fmt.Errorf("create theory exercise: %w", err)
 	}
@@ -123,11 +125,14 @@ func (r *TheoryRepository) SubmitAnswer(ctx context.Context, exerciseID int64, a
 	}
 	defer tx.Rollback()
 	var courseID int64
-	var expected, explanation string
-	if err := tx.QueryRowContext(ctx, `SELECT course_id,correct_answer,explanation FROM theory_exercises WHERE id=?`, exerciseID).Scan(&courseID, &expected, &explanation); err != nil {
+	var expected, acceptedJSON, explanation, language string
+	if err := tx.QueryRowContext(ctx, `SELECT e.course_id,e.correct_answer,e.accepted_answers_json,e.explanation,lt.target_language FROM theory_exercises e JOIN courses c ON c.id=e.course_id JOIN language_tracks lt ON lt.id=c.language_track_id WHERE e.id=?`, exerciseID).Scan(&courseID, &expected, &acceptedJSON, &explanation, &language); err != nil {
 		return domain.TheoryAnswerResult{}, fmt.Errorf("get theory exercise: %w", err)
 	}
-	correct := strings.EqualFold(strings.TrimSpace(answer), strings.TrimSpace(expected))
+	var alternatives []string
+	_ = json.Unmarshal([]byte(acceptedJSON), &alternatives)
+	status := domain.CheckLanguageAnswer(language, answer, append([]string{expected}, alternatives...))
+	correct := status != domain.TheoryAnswerWrong
 	correctInt := 0
 	if correct {
 		correctInt = 1
@@ -151,5 +156,5 @@ func (r *TheoryRepository) SubmitAnswer(ctx context.Context, exerciseID int64, a
 		return domain.TheoryAnswerResult{}, err
 	}
 	progress, err := r.Progress(ctx, courseID)
-	return domain.TheoryAnswerResult{Correct: correct, Expected: expected, Explanation: explanation, Progress: progress}, err
+	return domain.TheoryAnswerResult{Correct: correct, Status: status, Expected: expected, Explanation: explanation, Progress: progress}, err
 }

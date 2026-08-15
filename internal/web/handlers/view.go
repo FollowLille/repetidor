@@ -159,6 +159,7 @@ var russianUI = map[string]string{
 	"Show creation panel": "Показать панель создания", "Place free text": "Добавить свободный текст", "Canvas text": "Текст на холсте", "Add free text": "Добавить свободный текст", "Type and place it on the board": "Введите текст и разместите его на доске", "Place on board": "Разместить на доске",
 	"Boards": "Доски", "All boards": "Все доски", "Board background": "Фон доски", "Visual workspace": "Визуальное пространство", "Boards beyond courses": "Доски вне курсов", "Collect ideas, grammar maps and study plans without attaching them to one course.": "Собирайте идеи, грамматические карты и учебные планы без привязки к одному курсу.", "Board": "Доска", "Open canvas": "Открыть холст", "No global boards yet.": "Общих досок пока нет.", "Create a canvas for ideas that belong everywhere.": "Создайте холст для идей, которые относятся сразу ко всему.", "New canvas": "Новый холст", "Create global board": "Создать общую доску",
 	"Learning levels": "Уровни обучения", "Filter learning path": "Фильтр учебного маршрута", "All levels": "Все уровни",
+	"Practice this section": "Практиковать этот раздел", "Course exercises": "Упражнения курса", "Mixed practice across the whole course.": "Смешанная практика по всему курсу.", "Theory section": "Раздел теории", "Whole course": "Весь курс", "Untitled block": "Блок без названия", "Accepted answers": "Допустимые ответы", "Separate with commas": "Разделяйте запятыми", "Accepted, check spelling": "Ответ принят, проверьте написание",
 }
 
 func safeNext(raw string) string {

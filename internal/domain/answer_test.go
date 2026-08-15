@@ -2,24 +2,28 @@ package domain
 
 import "testing"
 
-func TestEvaluateAnswer(t *testing.T) {
+func TestCheckLanguageAnswerSpanishDiacritics(t *testing.T) {
 	tests := []struct {
-		name, reply, target, kind string
-		correct                   bool
-		distance                  int
+		answer, expected string
+		status           AnswerStatus
 	}{
-		{"exact normalized", "  HOLA ", "hola", AnswerExact, true, 0},
-		{"short typo", "hol", "hola", AnswerTypo, false, 1},
-		{"long typo", "restaurate", "restaurante", AnswerTypo, false, 1},
-		{"wrong", "adios", "hola", AnswerWrong, false, 5},
-		{"skip", "", "hola", AnswerSkipped, false, 0},
+		{" NIÑO ", "niño", TheoryAnswerCorrect},
+		{"nino", "niño", TheoryAnswerAcceptedWithWarning},
+		{"gracías", "gracias", TheoryAnswerWrong},
+		{"gracias", "gracias", TheoryAnswerCorrect},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := EvaluateAnswer(tt.reply, tt.target)
-			if got.Kind != tt.kind || got.Correct != tt.correct || got.Distance != tt.distance {
-				t.Fatalf("EvaluateAnswer() = %#v", got)
-			}
-		})
+		if got := CheckLanguageAnswer("es", tt.answer, []string{tt.expected}); got != tt.status {
+			t.Errorf("answer %q = %q, want %q", tt.answer, got, tt.status)
+		}
+	}
+}
+
+func TestCheckLanguageAnswerAlternativesAndGenericPolicy(t *testing.T) {
+	if got := CheckLanguageAnswer("en", " automobile ", []string{"car", "automobile"}); got != TheoryAnswerCorrect {
+		t.Fatalf("alternative = %q, want correct", got)
+	}
+	if got := CheckLanguageAnswer("en", "cafe", []string{"café"}); got != TheoryAnswerWrong {
+		t.Fatalf("generic accent omission = %q, want wrong", got)
 	}
 }

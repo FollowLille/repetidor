@@ -67,6 +67,8 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 	r.Post("/courses/{course_id}/read", container.Course.MarkRead)
 	r.Get("/courses/{course_id}/practice", container.Course.Practice)
 	r.Post("/courses/{course_id}/practice", container.Course.Practice)
+	r.Get("/courses/{course_id}/blocks/{block_id}/practice", container.Course.Practice)
+	r.Post("/courses/{course_id}/blocks/{block_id}/practice", container.Course.Practice)
 	r.Get("/stats", container.Stats.ServeHTTP)
 	r.Get("/stats/sessions/{session_id}", container.Session.ServeHTTP)
 	r.Post("/stats/sessions/{session_id}/abandon", container.Session.ServeHTTP)

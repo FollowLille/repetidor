@@ -25,6 +25,11 @@ type CourseHandler struct {
 	logger            logger.Logger
 }
 
+type theorySection struct {
+	Block     domain.TheoryBlock
+	Exercises []domain.TheoryExercise
+}
+
 func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, topics storage.TopicRepository, boards storage.BoardRepository, log logger.Logger) (*CourseHandler, error) {
 	page, err := parsePage("course_show.html")
 	if err != nil {
@@ -56,6 +61,22 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to load exercises", 500)
 		return
 	}
+	sections := make([]theorySection, 0, len(blocks))
+	for _, block := range blocks {
+		section := theorySection{Block: block}
+		for _, exercise := range exercises {
+			if exercise.TheoryBlockID != nil && *exercise.TheoryBlockID == block.ID {
+				section.Exercises = append(section.Exercises, exercise)
+			}
+		}
+		sections = append(sections, section)
+	}
+	var courseExercises []domain.TheoryExercise
+	for _, exercise := range exercises {
+		if exercise.TheoryBlockID == nil {
+			courseExercises = append(courseExercises, exercise)
+		}
+	}
 	progress, err := h.theory.Progress(r.Context(), course.ID)
 	if err != nil {
 		http.Error(w, "failed to load progress", 500)
@@ -74,7 +95,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if encoded := query.Encode(); encoded != "" {
 		practiceURL += "?" + encoded
 	}
-	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards, "Levels": levels})
+	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "BlockSections": sections, "Exercises": exercises, "CourseExercises": courseExercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards, "Levels": levels})
 	if err := h.pageTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course", "error", err)
 	}
@@ -218,13 +239,34 @@ func (h *CourseHandler) CreateExercise(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	order, _ := strconv.Atoi(r.FormValue("sort_order"))
+	var blockID *int64
+	if id, _ := strconv.ParseInt(r.FormValue("theory_block_id"), 10, 64); id > 0 {
+		blocks, _ := h.theory.ListBlocks(r.Context(), course.ID)
+		for _, block := range blocks {
+			if block.ID == id {
+				value := id
+				blockID = &value
+				break
+			}
+		}
+		if blockID == nil {
+			http.Error(w, "theory block does not belong to course", 400)
+			return
+		}
+	}
 	var options []string
 	for _, option := range strings.Split(r.FormValue("options"), ",") {
 		if value := strings.TrimSpace(option); value != "" {
 			options = append(options, value)
 		}
 	}
-	_, err := h.theory.CreateExercise(r.Context(), domain.TheoryExercise{CourseID: course.ID, Kind: kind, Prompt: prompt, Options: options, CorrectAnswer: answer, Explanation: strings.TrimSpace(r.FormValue("explanation")), SortOrder: order})
+	var acceptedAnswers []string
+	for _, accepted := range strings.Split(r.FormValue("accepted_answers"), ",") {
+		if value := strings.TrimSpace(accepted); value != "" {
+			acceptedAnswers = append(acceptedAnswers, value)
+		}
+	}
+	_, err := h.theory.CreateExercise(r.Context(), domain.TheoryExercise{CourseID: course.ID, TheoryBlockID: blockID, Kind: kind, Prompt: prompt, Options: options, CorrectAnswer: answer, AcceptedAnswers: acceptedAnswers, Explanation: strings.TrimSpace(r.FormValue("explanation")), SortOrder: order})
 	if err != nil {
 		http.Error(w, "failed to create exercise", 500)
 		return
@@ -256,11 +298,46 @@ func (h *CourseHandler) Practice(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to load exercises", 500)
 		return
 	}
+	practiceAction := "/courses/" + strconv.FormatInt(course.ID, 10) + "/practice"
+	if rawBlockID := chi.URLParam(r, "block_id"); rawBlockID != "" {
+		blockID, _ := strconv.ParseInt(rawBlockID, 10, 64)
+		blocks, _ := h.theory.ListBlocks(r.Context(), course.ID)
+		found := false
+		for _, block := range blocks {
+			if block.ID == blockID {
+				found = true
+				break
+			}
+		}
+		if !found {
+			http.NotFound(w, r)
+			return
+		}
+		filtered := make([]domain.TheoryExercise, 0)
+		for _, exercise := range exercises {
+			if exercise.TheoryBlockID != nil && *exercise.TheoryBlockID == blockID {
+				filtered = append(filtered, exercise)
+			}
+		}
+		exercises = filtered
+		practiceAction = "/courses/" + strconv.FormatInt(course.ID, 10) + "/blocks/" + strconv.FormatInt(blockID, 10) + "/practice"
+	}
 	var result *domain.TheoryAnswerResult
 	var answeredID int64
 	if r.Method == http.MethodPost {
 		_ = r.ParseForm()
 		answeredID, _ = strconv.ParseInt(r.FormValue("exercise_id"), 10, 64)
+		allowed := false
+		for _, exercise := range exercises {
+			if exercise.ID == answeredID {
+				allowed = true
+				break
+			}
+		}
+		if !allowed {
+			http.Error(w, "exercise does not belong to this practice", 400)
+			return
+		}
 		value, submitErr := h.theory.SubmitAnswer(r.Context(), answeredID, r.FormValue("answer"))
 		if submitErr != nil {
 			http.Error(w, "failed to submit answer", 400)
@@ -273,7 +350,7 @@ func (h *CourseHandler) Practice(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to load progress", 500)
 		return
 	}
-	data := pageData(r, map[string]any{"Title": "Practice · " + course.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Exercises": exercises, "Progress": progress, "Result": result, "AnsweredID": answeredID})
+	data := pageData(r, map[string]any{"Title": "Practice · " + course.Name, "Course": activeCourse(h.tracks, r), "LearningCourse": course, "Exercises": exercises, "Progress": progress, "Result": result, "AnsweredID": answeredID, "PracticeAction": practiceAction})
 	if err := h.practiceTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course practice", "error", err)
 	}
