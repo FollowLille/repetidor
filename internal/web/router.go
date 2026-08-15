@@ -17,6 +17,7 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))
 
 	r.Get("/", container.Home.ServeHTTP)
+	r.Get("/arena", container.Arena.ServeHTTP)
 	r.Get("/stats", container.Stats.ServeHTTP)
 	r.Get("/stats/sessions/{session_id}", container.Session.ServeHTTP)
 	r.Post("/stats/sessions/{session_id}/abandon", container.Session.ServeHTTP)

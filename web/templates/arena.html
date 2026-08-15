@@ -1,0 +1,29 @@
+{{ define "content" }}
+<section class="arena_hero card">
+    <div class="arena_hero_copy">
+        <span class="eyebrow">Practice arena</span>
+        <h1>Train the same words.<br><span>Change the challenge.</span></h1>
+        <p>Short game sessions use your real vocabulary and feed every result back into your learning progress.</p>
+    </div>
+    <div class="arena_scorecard"><span>Four ways to play</span><strong>Fast, focused, useful.</strong><small>Every round is saved to your session history.</small></div>
+</section>
+
+<section class="section_block">
+    <div class="section_heading"><div><span class="eyebrow">Game modes</span><h2>Pick a challenge</h2></div><p>Choose a topic and session size inside any game.</p></div>
+    <div class="arena_grid">
+        {{ range .Modes }}
+        <article class="arena_mode card">
+            <div class="arena_mode_icon">{{ .Icon }}</div>
+            <div><h3>{{ .Name }}</h3><p>{{ .Description }}</p></div>
+            <form method="get" action="/train/{{ .Slug }}" class="arena_config">
+                <label>Topic<select name="topic_id"><option value="">All vocabulary</option>{{ range $.Topics }}<option value="{{ .ID }}">{{ .Name }}</option>{{ end }}</select></label>
+                <label>Rounds<select name="session_size"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></label>
+                <button class="mode_button" type="submit">Play <span>→</span></button>
+            </form>
+        </article>
+        {{ end }}
+    </div>
+</section>
+
+<section class="card arena_note"><span class="callout_icon">✦</span><div><span class="eyebrow">One learning history</span><h2>Games are practice, not a separate score.</h2><p class="muted">Correct answers strengthen a word. Mistakes make it more likely to return in Mixed and Hard sessions. You can resume every unfinished game from the home page.</p></div></section>
+{{ end }}

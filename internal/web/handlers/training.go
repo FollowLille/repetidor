@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"repetidor/internal/domain"
+	"repetidor/internal/game"
 	"repetidor/internal/logger"
 	"repetidor/internal/storage"
 
@@ -165,7 +166,22 @@ func (h *TrainingHandler) render(w http.ResponseWriter, r *http.Request) {
 	data["DirectionLabel"] = labelDirection(card.Direction)
 	data["AnswerMode"] = card.AnswerMode
 	_, target := promptAndTarget(card.Word, card.Direction)
-	data["Letters"] = shuffledLetters(target)
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	data["Letters"] = game.ShuffledLetters(target, rng)
+	data["ClozeHint"] = game.MaskWord(target)
+	if card.AnswerMode == "choice" || card.AnswerMode == "match" {
+		allCards, loadErr := h.cards(r, nil)
+		if loadErr != nil {
+			h.logger.Error("failed to load arena choices", "error", loadErr)
+		} else {
+			candidates := make([]string, 0, len(allCards))
+			for _, candidate := range allCards {
+				_, answer := promptAndTarget(candidate.Word, card.Direction)
+				candidates = append(candidates, answer)
+			}
+			data["Choices"] = game.Choices(target, candidates, game.ChoiceCount(card.AnswerMode), rng)
+		}
+	}
 	h.renderTemplate(w, data)
 }
 
@@ -287,7 +303,7 @@ func (h *TrainingHandler) baseData(session domain.TrainingSession) map[string]an
 	if current > session.Size {
 		current = session.Size
 	}
-	return map[string]any{"Title": "Training", "PageTitle": "Training", "TrainMode": session.Mode, "SessionID": session.ID, "Session": trainingSessionView{Size: session.Size, Completed: session.Completed, Current: current, Correct: session.Correct, Wrong: session.Completed - session.Correct - session.Skipped, Skipped: session.Skipped}}
+	return map[string]any{"Title": modeTitle(session.Mode), "PageTitle": modeTitle(session.Mode), "TrainMode": session.Mode, "SessionID": session.ID, "Session": trainingSessionView{Size: session.Size, Completed: session.Completed, Current: current, Correct: session.Correct, Wrong: session.Completed - session.Correct - session.Skipped, Skipped: session.Skipped}}
 }
 
 func resultView(card domain.TrainingSessionCard) map[string]any {
@@ -483,8 +499,11 @@ func initialDirection(directionMode, mode string) string {
 }
 func cleanAnswerMode(raw, mode string) string {
 	switch raw {
-	case "type", "build", "both":
+	case "type", "build", "both", "choice", "cloze", "anagram", "match":
 		return raw
+	}
+	if mode == "choice" || mode == "match" || mode == "cloze" || mode == "anagram" {
+		return mode
 	}
 	if mode == "type" {
 		return "type"
@@ -507,7 +526,7 @@ func sessionURL(mode string, id int64) string {
 func cleanMode(mode string) string {
 	mode = strings.ToLower(strings.TrimSpace(mode))
 	switch mode {
-	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish":
+	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish", "choice", "cloze", "anagram", "match":
 		return mode
 	}
 	return "mixed"
@@ -563,6 +582,9 @@ func directionForMode(mode string) string {
 	return "spanish_to_russian"
 }
 func answerModeForMode(mode string) string {
+	if mode == "choice" || mode == "match" || mode == "cloze" || mode == "anagram" {
+		return mode
+	}
 	if mode == "build" || mode == "crossword" {
 		return "build"
 	}
@@ -573,6 +595,13 @@ func answerModeForMode(mode string) string {
 		return "build"
 	}
 	return "type"
+}
+
+func modeTitle(mode string) string {
+	if item, ok := game.FindMode(mode); ok {
+		return item.Name
+	}
+	return "Training"
 }
 func shuffledLetters(target string) []string {
 	var letters []string

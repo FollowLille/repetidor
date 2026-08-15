@@ -79,6 +79,17 @@ func TestSessionURL(t *testing.T) {
 	}
 }
 
+func TestArenaModesKeepTheirAnswerStyle(t *testing.T) {
+	for _, mode := range []string{"choice", "cloze", "anagram", "match"} {
+		if got := cleanMode(mode); got != mode {
+			t.Errorf("cleanMode(%q) = %q", mode, got)
+		}
+		if got := cleanAnswerMode("", mode); got != mode {
+			t.Errorf("cleanAnswerMode('', %q) = %q", mode, got)
+		}
+	}
+}
+
 func TestRestrictCards(t *testing.T) {
 	cards := []trainingCard{
 		{Word: domain.Word{ID: 1}},

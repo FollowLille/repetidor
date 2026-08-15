@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const form = document.querySelector('[data-answer-mode="build"]');
+  const form = document.querySelector('[data-answer-mode="build"], [data-answer-mode="anagram"]');
   if (!form) return;
 
   const output = form.querySelector('[data-build-reply]');

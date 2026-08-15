@@ -19,6 +19,11 @@
 
 {{ if .ActiveSessions }}<section class="card resume_panel"><div class="section_heading compact"><div><span class="eyebrow">In progress</span><h2>Continue training</h2></div></div><div class="active_sessions">{{ range .ActiveSessions }}<article class="active_session"><div><span class="status_badge status_active">{{ .Mode }}</span><strong>Session #{{ .ID }}</strong><span class="muted">{{ .Completed }} of {{ .Size }} cards</span></div><progress value="{{ .Completed }}" max="{{ .Size }}">{{ .Completed }}/{{ .Size }}</progress><div class="session_links"><a class="mode_button" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a></div></article>{{ end }}</div></section>{{ end }}
 
+<section class="card arena_promo">
+    <div><span class="eyebrow">Practice arena</span><h2>Same vocabulary. Four new challenges.</h2><p class="muted">Choose answers, restore missing letters, unscramble words, or find a match. Every result stays part of your learning history.</p></div>
+    <a class="mode_button primary_action" href="/arena">Enter arena <span>→</span></a>
+</section>
+
 <div class="home_lower">
     <section class="card callout_card"><span class="callout_icon">↗</span><div><span class="eyebrow">Learning signal</span><h2>See what is sticking</h2><p class="muted">Accuracy, streaks, difficult words, and every completed session.</p><a class="text_link" href="/stats">Explore progress →</a></div></section>
     <section class="card topics_preview"><div class="section_heading compact"><div><span class="eyebrow">Collections</span><h2>Your topics</h2></div><a class="text_link" href="/topics">Manage →</a></div><ul class="topic_list">{{ range .Topics }}<li><a class="topic_item" href="/topics/{{ .Name }}"><span>{{ .Name }}</span><b>→</b></a></li>{{ else }}<li class="muted">No topics yet.</li>{{ end }}</ul></section>
