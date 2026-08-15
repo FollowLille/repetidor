@@ -206,6 +206,9 @@ func (h *TrainingHandler) createSession(r *http.Request, mode string) (domain.Tr
 	}
 	directionMode := cleanDirectionMode(r.URL.Query().Get("direction"), mode)
 	answerMode := cleanAnswerMode(r.URL.Query().Get("answer"), mode)
+	if mode == "arcade" {
+		answerMode = strings.Join(arenaGameModes(r.URL.Query()["games"]), ",")
+	}
 	direction := initialDirection(directionMode, mode)
 	spanishProgress, err := h.trainingRepo.ListProgress(r.Context(), "spanish_to_russian")
 	if err != nil {
@@ -250,6 +253,10 @@ func buildSessionQueue(mode string, cards []trainingCard, progressByDirection ma
 		progress := progressByDirection[direction]
 		chosen := pickCardForModeWithRand(mode, candidates, progress, rng)
 		answerMode := configuredAnswerMode
+		if strings.Contains(configuredAnswerMode, ",") {
+			playlist := strings.Split(configuredAnswerMode, ",")
+			answerMode = playlist[position%len(playlist)]
+		}
 		if answerMode == "both" {
 			if position%2 == 0 {
 				answerMode = "type"
@@ -505,6 +512,9 @@ func cleanAnswerMode(raw, mode string) string {
 	if mode == "choice" || mode == "match" || mode == "cloze" || mode == "anagram" {
 		return mode
 	}
+	if mode == "arcade" {
+		return strings.Join(arenaGameModes(nil), ",")
+	}
 	if mode == "type" {
 		return "type"
 	}
@@ -526,7 +536,7 @@ func sessionURL(mode string, id int64) string {
 func cleanMode(mode string) string {
 	mode = strings.ToLower(strings.TrimSpace(mode))
 	switch mode {
-	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish", "choice", "cloze", "anagram", "match":
+	case "mixed", "random", "type", "build", "crossword", "due", "hard", "easy", "reverse", "russian-to-spanish", "choice", "cloze", "anagram", "match", "arcade":
 		return mode
 	}
 	return "mixed"
@@ -598,10 +608,30 @@ func answerModeForMode(mode string) string {
 }
 
 func modeTitle(mode string) string {
+	if mode == "arcade" {
+		return "Custom arena"
+	}
 	if item, ok := game.FindMode(mode); ok {
 		return item.Name
 	}
 	return "Training"
+}
+
+func arenaGameModes(values []string) []string {
+	allowed := map[string]bool{"choice": true, "cloze": true, "anagram": true, "match": true}
+	seen := map[string]bool{}
+	modes := make([]string, 0, len(values))
+	for _, value := range values {
+		value = strings.ToLower(strings.TrimSpace(value))
+		if allowed[value] && !seen[value] {
+			modes = append(modes, value)
+			seen[value] = true
+		}
+	}
+	if len(modes) == 0 {
+		return []string{"choice", "cloze", "anagram", "match"}
+	}
+	return modes
 }
 func shuffledLetters(target string) []string {
 	var letters []string

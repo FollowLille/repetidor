@@ -3,6 +3,7 @@ package handlers
 import (
 	"math/rand"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 	"time"
 
@@ -86,6 +87,32 @@ func TestArenaModesKeepTheirAnswerStyle(t *testing.T) {
 		}
 		if got := cleanAnswerMode("", mode); got != mode {
 			t.Errorf("cleanAnswerMode('', %q) = %q", mode, got)
+		}
+	}
+}
+
+func TestArenaGameModesAreCleanAndStable(t *testing.T) {
+	got := arenaGameModes([]string{"cloze", "choice", "cloze", "bad", "match"})
+	want := []string{"cloze", "choice", "match"}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("arenaGameModes() = %v, want %v", got, want)
+	}
+	if got := arenaGameModes(nil); !reflect.DeepEqual(got, []string{"choice", "cloze", "anagram", "match"}) {
+		t.Fatalf("default arenaGameModes() = %v", got)
+	}
+}
+
+func TestCustomArenaCyclesSelectedGames(t *testing.T) {
+	cards := []trainingCard{
+		{Word: domain.Word{ID: 1}, Topic: domain.Topic{ID: 1}},
+		{Word: domain.Word{ID: 2}, Topic: domain.Topic{ID: 1}},
+	}
+	progress := map[string]map[int64]domain.TrainingProgress{"spanish_to_russian": {}, "russian_to_spanish": {}}
+	queue := buildSessionQueue("arcade", cards, progress, 5, "spanish_to_russian", "both", "choice,anagram,cloze")
+	want := []string{"choice", "anagram", "cloze", "choice", "anagram"}
+	for i, card := range queue {
+		if card.AnswerMode != want[i] {
+			t.Fatalf("queue[%d].AnswerMode = %q, want %q", i, card.AnswerMode, want[i])
 		}
 	}
 }

@@ -8,6 +8,18 @@
     <div class="arena_scorecard"><span>Four ways to play</span><strong>Fast, focused, useful.</strong><small>Every round is saved to your session history.</small></div>
 </section>
 
+<section class="custom_arena card">
+    <div class="custom_arena_head"><div><span class="eyebrow">Build your own</span><h2>Create a mixed game session</h2><p>Choose several challenges and let them rotate through one vocabulary list.</p></div><span class="custom_badge">Playlist</span></div>
+    <form method="get" action="/train/arcade" class="custom_arena_form">
+        <fieldset class="game_picker"><legend>Games</legend><div class="game_checks">
+            {{ range .Modes }}<label><input type="checkbox" name="games" value="{{ .Slug }}" checked><span class="game_check_icon">{{ .Icon }}</span><span><strong>{{ .Name }}</strong><small>{{ .Description }}</small></span><b>✓</b></label>{{ end }}
+        </div></fieldset>
+        <fieldset class="arena_topic_picker"><legend>Vocabulary topics <small>Leave empty to use everything</small></legend><div class="topic_checks">{{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ else }}<span class="muted">Add vocabulary topics first.</span>{{ end }}</div></fieldset>
+        <label class="exact_rounds">Number of cards<input type="number" name="session_size" value="12" min="1" max="50" inputmode="numeric"><small>From 1 to 50 cards</small></label>
+        <button class="mode_button custom_start" type="submit">Start custom session <span>→</span></button>
+    </form>
+</section>
+
 <section class="section_block">
     <div class="section_heading"><div><span class="eyebrow">Game modes</span><h2>Pick a challenge</h2></div><p>Choose a topic and session size inside any game.</p></div>
     <div class="arena_grid">
@@ -16,8 +28,8 @@
             <div class="arena_mode_icon">{{ .Icon }}</div>
             <div><h3>{{ .Name }}</h3><p>{{ .Description }}</p></div>
             <form method="get" action="/train/{{ .Slug }}" class="arena_config">
-                <label>Topic<select name="topic_id"><option value="">All vocabulary</option>{{ range $.Topics }}<option value="{{ .ID }}">{{ .Name }}</option>{{ end }}</select></label>
-                <label>Rounds<select name="session_size"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></label>
+                <label>Topic<span class="select_shell"><select name="topic_id"><option value="">All vocabulary</option>{{ range $.Topics }}<option value="{{ .ID }}">{{ .Name }}</option>{{ end }}</select></span></label>
+                <label>Rounds<input type="number" name="session_size" value="10" min="1" max="50" inputmode="numeric"></label>
                 <button class="mode_button" type="submit">Play <span>→</span></button>
             </form>
         </article>
