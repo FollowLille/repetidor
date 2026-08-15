@@ -12,11 +12,28 @@ import (
 )
 
 func parsePage(name string) (*template.Template, error) {
-	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "boardColors": boardColors, "textColors": textColors}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "boardColors": boardColors, "textColors": textColors, "boardBackgrounds": boardBackgrounds, "boardColorLabel": boardColorLabel, "boardBackgroundLabel": boardBackgroundLabel}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
 }
 
-func boardColors() []string { return []string{"violet", "amber", "mint", "rose", "slate"} }
-func textColors() []string  { return []string{"white", "amber", "mint", "rose", "violet"} }
+func boardColors() []string      { return []string{"violet", "amber", "mint", "rose", "slate"} }
+func textColors() []string       { return []string{"white", "amber", "mint", "rose", "violet"} }
+func boardBackgrounds() []string { return []string{"dots", "grid", "paper", "midnight", "sand"} }
+func boardColorLabel(locale, value string) string {
+	labels := map[string][2]string{"white": {"White", "Белый"}, "amber": {"Amber", "Янтарный"}, "mint": {"Mint", "Мятный"}, "rose": {"Rose", "Розовый"}, "violet": {"Violet", "Фиолетовый"}, "slate": {"Slate", "Графитовый"}}
+	label := labels[value]
+	if locale == "ru" {
+		return label[1]
+	}
+	return label[0]
+}
+func boardBackgroundLabel(locale, value string) string {
+	labels := map[string][2]string{"dots": {"Dots", "Точки"}, "grid": {"Grid", "Сетка"}, "paper": {"Paper", "Бумага"}, "midnight": {"Midnight", "Полночь"}, "sand": {"Sand", "Песок"}}
+	label := labels[value]
+	if locale == "ru" {
+		return label[1]
+	}
+	return label[0]
+}
 
 func hasID(ids []int64, id int64) bool {
 	for _, value := range ids {
