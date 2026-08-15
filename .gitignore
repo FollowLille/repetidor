@@ -42,3 +42,6 @@ temp/
 dist/
 build/
 bin/
+
+# User-uploaded board media
+data/uploads/

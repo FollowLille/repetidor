@@ -1,6 +1,6 @@
 {{ define "content" }}
-<section class="card">
-    <h2>{{ tr .Locale "Topics" }}</h2>
+<section class="card creator_panel creator_topic">
+    <div class="creator_heading"><div><span class="eyebrow">{{ tr .Locale "Vocabulary structure" }}</span><h2>{{ tr .Locale "Create topic" }}</h2><p class="muted">{{ tr .Locale "Group words by a situation, idea or learning goal." }}</p></div><span class="creator_icon">#</span></div>
 
     {{ if .Warning }}
     <div class="warning_block">
@@ -27,7 +27,7 @@
             <textarea id="topic_description" class="form_textarea" name="description" rows="4">{{ .Form.Description }}</textarea>
         </div>
 
-        <button class="mode_button" type="submit">{{ tr .Locale "Create topic" }}</button>
+        <button class="mode_button creator_submit" type="submit"><span>+</span>{{ tr .Locale "Create topic" }}</button>
     </form>
 
     <div class="page_actions">

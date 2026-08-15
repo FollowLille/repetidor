@@ -21,16 +21,17 @@ type CourseHandler struct {
 	theory            storage.TheoryRepository
 	tracks            storage.CourseRepository
 	topics            storage.TopicRepository
+	boards            storage.BoardRepository
 	logger            logger.Logger
 }
 
-func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, topics storage.TopicRepository, log logger.Logger) (*CourseHandler, error) {
+func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, topics storage.TopicRepository, boards storage.BoardRepository, log logger.Logger) (*CourseHandler, error) {
 	page, err := parsePage("course_show.html")
 	if err != nil {
 		return nil, err
 	}
 	practice, err := parsePage("course_practice.html")
-	return &CourseHandler{pageTemplates: page, practiceTemplates: practice, courses: courses, theory: theory, tracks: tracks, topics: topics, logger: log}, err
+	return &CourseHandler{pageTemplates: page, practiceTemplates: practice, courses: courses, theory: theory, tracks: tracks, topics: topics, boards: boards, logger: log}, err
 }
 
 func (h *CourseHandler) course(r *http.Request) (domain.LearningCourse, bool) {
@@ -63,6 +64,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	track := activeCourse(h.tracks, r)
 	courseOptions, _ := h.courses.ListByTrack(r.Context(), track.ID)
 	topics, _ := h.topics.ListByCourse(r.Context(), track.ID)
+	boards, _ := h.boards.ListByCourse(r.Context(), course.ID)
 	query := url.Values{}
 	for _, id := range course.TopicIDs {
 		query.Add("topic_ids", strconv.FormatInt(id, 10))
@@ -71,7 +73,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if encoded := query.Encode(); encoded != "" {
 		practiceURL += "?" + encoded
 	}
-	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL})
+	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "Exercises": exercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards})
 	if err := h.pageTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course", "error", err)
 	}

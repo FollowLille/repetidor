@@ -12,8 +12,8 @@
     </div>
 </section>
 
-<section class="card">
-    <h2>{{ tr .Locale "Add word" }}</h2>
+<section class="card creator_panel creator_word">
+    <div class="creator_heading"><div><span class="eyebrow">{{ tr .Locale "Vocabulary builder" }}</span><h2>{{ tr .Locale "Add word" }}</h2><p class="muted">{{ tr .Locale "Save a translation pair and meet it in every matching course." }}</p></div><span class="creator_icon">Aa</span></div>
     {{ if .Warning }}<p class="form_error">{{ tr .Locale .Warning }}</p>{{ end }}
     <form class="topic_form" method="post" action="/topics/{{ .Topic.Name }}/words">
         <label class="form_group">
@@ -28,7 +28,7 @@
             {{ tr .Locale "Notes" }}
             <textarea class="form_textarea" name="notes" rows="3" placeholder="article, plural, example">{{ with .Form }}{{ index . "Notes" }}{{ end }}</textarea>
         </label>
-        <button class="mode_button" type="submit">{{ tr .Locale "Save word" }}</button>
+        <button class="mode_button creator_submit" type="submit"><span>+</span>{{ tr .Locale "Save word" }}</button>
     </form>
 </section>
 
