@@ -1,6 +1,6 @@
 {{ define "content" }}
 <section class="card course_hero">
-  <div><span class="eyebrow">{{ tr .Locale "Courses" }}</span><h1>{{ tr .Locale "Build a path, not a pile." }}</h1><p class="muted">{{ tr .Locale "Arrange topics into ordered courses and smaller chapters." }}</p></div>
+  <div><span class="eyebrow">{{ tr .Locale "Courses" }}</span><h1>{{ tr .Locale "Build a path, not a pile." }}</h1><p class="muted">{{ tr .Locale "Arrange topics into ordered courses and smaller chapters." }}</p><a class="secondary_button course_import_link" href="/course-import">{{ tr .Locale "Import course" }}</a></div>
   <div class="language_pair"><span>{{ (language .Course.TargetLanguage).NativeName }}</span><b>→</b><span>{{ (language .Course.ReferenceLanguage).NativeName }}</span></div>
 </section>
 <form class="card level_filter" method="get" action="/courses"><div><span class="eyebrow">{{ tr .Locale "Learning levels" }}</span><strong>{{ tr .Locale "Filter learning path" }}</strong></div><div class="check_grid"><label><input type="checkbox" {{ if not .SelectedLevelIDs }}checked{{ end }} onchange="location.href='/courses'"><span>{{ tr .Locale "All levels" }}</span></label>{{ range .Levels }}<label><input type="checkbox" name="level_ids" value="{{ .ID }}" {{ if hasID $.SelectedLevelIDs .ID }}checked{{ end }} onchange="this.form.submit()"><span>{{ .Code }}</span></label>{{ end }}</div></form>
