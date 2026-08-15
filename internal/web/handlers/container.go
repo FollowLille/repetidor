@@ -68,7 +68,7 @@ func NewContainer(topicRepo storage.TopicRepository, wordRepo storage.WordReposi
 	if err != nil {
 		return nil, err
 	}
-	importHandler, err := NewImportHandler(topicRepo, wordRepo, courseRepo, appLogger)
+	importHandler, err := NewImportHandler(topicRepo, wordRepo, courseRepo, learningCourseRepo, appLogger)
 	if err != nil {
 		return nil, err
 	}

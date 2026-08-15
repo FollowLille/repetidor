@@ -26,6 +26,8 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 	r.Post("/track", container.Settings.SetCourse)
 	r.Method(http.MethodGet, "/import", container.Import)
 	r.Method(http.MethodPost, "/import", container.Import)
+	r.Get("/vocabulary/sample.csv", container.Import.Sample)
+	r.Get("/vocabulary/export.csv", container.Import.Export)
 	r.Method(http.MethodGet, "/courses", container.Courses)
 	r.Method(http.MethodPost, "/courses", container.Courses)
 	r.Method(http.MethodGet, "/course-import", container.CoursePackages)

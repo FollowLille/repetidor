@@ -26,6 +26,7 @@ func ParseCSV(reader io.Reader) ([]Row, error) {
 	parser.TrimLeadingSpace = true
 	var rows []Row
 	line := 0
+	neutral := false
 	for {
 		record, err := parser.Read()
 		if err == io.EOF {
@@ -38,18 +39,39 @@ func ParseCSV(reader io.Reader) ([]Row, error) {
 		if len(record) < 2 {
 			continue
 		}
-		if line == 1 && isHeader(record) {
-			continue
+		if line == 1 {
+			neutral = isNeutralHeader(record)
+			if neutral || isHeader(record) {
+				continue
+			}
 		}
-		row := Row{Source: strings.TrimSpace(record[0]), Target: strings.TrimSpace(record[1]), Line: line}
-		if len(record) > 2 {
-			row.Notes = strings.TrimSpace(record[2])
+		row := Row{Line: line}
+		if neutral {
+			if len(record) < 3 {
+				continue
+			}
+			row.Topic = strings.TrimSpace(record[0])
+			row.Source = strings.TrimSpace(record[1])
+			row.Target = strings.TrimSpace(record[2])
+			if len(record) > 3 {
+				row.Notes = strings.TrimSpace(record[3])
+			}
+		} else {
+			row.Source = strings.TrimSpace(record[0])
+			row.Target = strings.TrimSpace(record[1])
+			if len(record) > 2 {
+				row.Notes = strings.TrimSpace(record[2])
+			}
 		}
 		if row.Source != "" && row.Target != "" {
 			rows = append(rows, row)
 		}
 	}
 	return rows, nil
+}
+
+func isNeutralHeader(record []string) bool {
+	return len(record) >= 3 && strings.EqualFold(strings.TrimSpace(record[0]), "topic") && strings.EqualFold(strings.TrimSpace(record[1]), "target") && strings.EqualFold(strings.TrimSpace(record[2]), "reference")
 }
 
 func isHeader(record []string) bool {

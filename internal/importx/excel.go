@@ -38,6 +38,7 @@ func parseExcelRows(rows *excelize.Rows) ([]Row, error) {
 	var result []Row
 	line := 0
 	firstContentRow := true
+	neutral := false
 	for rows.Next() {
 		line++
 		columns, err := rows.Columns()
@@ -52,11 +53,25 @@ func parseExcelRows(rows *excelize.Rows) ([]Row, error) {
 		}
 		if firstContentRow {
 			firstContentRow = false
-			if isHeader(columns) {
+			neutral = isNeutralHeader(columns)
+			if neutral || isHeader(columns) {
 				continue
 			}
 		}
-		row := Row{Source: strings.TrimSpace(columns[0]), Target: strings.TrimSpace(columns[1]), Notes: strings.TrimSpace(columns[2]), Line: line}
+		row := Row{Line: line}
+		if neutral {
+			for len(columns) < 4 {
+				columns = append(columns, "")
+			}
+			row.Topic = strings.TrimSpace(columns[0])
+			row.Source = strings.TrimSpace(columns[1])
+			row.Target = strings.TrimSpace(columns[2])
+			row.Notes = strings.TrimSpace(columns[3])
+		} else {
+			row.Source = strings.TrimSpace(columns[0])
+			row.Target = strings.TrimSpace(columns[1])
+			row.Notes = strings.TrimSpace(columns[2])
+		}
 		if row.Source != "" && row.Target != "" {
 			result = append(result, row)
 		}

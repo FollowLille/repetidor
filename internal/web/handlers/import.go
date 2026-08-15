@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/csv"
 	"errors"
 	"html/template"
 	"net/http"
@@ -14,17 +15,71 @@ import (
 )
 
 type ImportHandler struct {
-	templates *template.Template
-	topics    storage.TopicRepository
-	words     storage.WordRepository
-	courses   storage.CourseRepository
-	logger    logger.Logger
+	templates       *template.Template
+	topics          storage.TopicRepository
+	words           storage.WordRepository
+	courses         storage.CourseRepository
+	logger          logger.Logger
+	learningCourses storage.LearningCourseRepository
 }
 type importReport struct{ Imported, Duplicates, Invalid int }
 
-func NewImportHandler(topics storage.TopicRepository, words storage.WordRepository, courses storage.CourseRepository, log logger.Logger) (*ImportHandler, error) {
+func NewImportHandler(topics storage.TopicRepository, words storage.WordRepository, courses storage.CourseRepository, learningCourses storage.LearningCourseRepository, log logger.Logger) (*ImportHandler, error) {
 	tmpl, err := parsePage("import.html")
-	return &ImportHandler{templates: tmpl, topics: topics, words: words, courses: courses, logger: log}, err
+	return &ImportHandler{templates: tmpl, topics: topics, words: words, courses: courses, learningCourses: learningCourses, logger: log}, err
+}
+
+func (h *ImportHandler) Sample(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+	w.Header().Set("Content-Disposition", `attachment; filename="repetidor-vocabulary-sample.csv"`)
+	writer := csv.NewWriter(w)
+	_ = writer.Write([]string{"topic", "target", "reference", "notes"})
+	_ = writer.Write([]string{"Food", "carne", "мясо", ""})
+	_ = writer.Write([]string{"Food", "pan", "хлеб", ""})
+	_ = writer.Write([]string{"Kitchen", "cuchara", "ложка", "feminine"})
+	writer.Flush()
+}
+
+func (h *ImportHandler) Export(w http.ResponseWriter, r *http.Request) {
+	track := activeCourse(h.courses, r)
+	topics, err := h.topics.ListByCourse(r.Context(), track.ID)
+	if err != nil {
+		http.Error(w, "Could not export vocabulary.", 500)
+		return
+	}
+	scope := r.URL.Query().Get("scope")
+	allowed := map[int64]bool{}
+	if scope == "topic" {
+		id, _ := strconv.ParseInt(r.URL.Query().Get("topic_id"), 10, 64)
+		allowed[id] = true
+	} else if scope == "course" {
+		id, _ := strconv.ParseInt(r.URL.Query().Get("course_id"), 10, 64)
+		course, getErr := h.learningCourses.Get(r.Context(), id)
+		if getErr != nil || course.LanguageTrackID != track.ID {
+			http.Error(w, "Course not found.", 404)
+			return
+		}
+		for _, topicID := range course.TopicIDs {
+			allowed[topicID] = true
+		}
+	}
+	w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+	w.Header().Set("Content-Disposition", `attachment; filename="repetidor-vocabulary.csv"`)
+	writer := csv.NewWriter(w)
+	_ = writer.Write([]string{"topic", "target", "reference", "notes"})
+	for _, topic := range topics {
+		if len(allowed) > 0 && !allowed[topic.ID] {
+			continue
+		}
+		words, listErr := h.words.ListByTopicID(r.Context(), topic.ID)
+		if listErr != nil {
+			continue
+		}
+		for _, word := range words {
+			_ = writer.Write([]string{topic.Name, word.Spanish, word.Russian, word.Notes})
+		}
+	}
+	writer.Flush()
 }
 
 func (h *ImportHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +96,8 @@ func (h *ImportHandler) render(w http.ResponseWriter, r *http.Request, report *i
 		http.Error(w, "failed to load topics", 500)
 		return
 	}
-	data := pageData(r, map[string]any{"Title": "Import words", "Course": course, "Topics": topics, "Report": report, "Error": errMsg, "TargetLanguage": domain.LanguageByCode(course.TargetLanguage), "ReferenceLanguage": domain.LanguageByCode(course.ReferenceLanguage)})
+	learningCourses, _ := h.learningCourses.ListByTrack(r.Context(), course.ID)
+	data := pageData(r, map[string]any{"Title": "Import words", "Course": course, "Topics": topics, "LearningCourses": learningCourses, "Report": report, "Error": errMsg, "TargetLanguage": domain.LanguageByCode(course.TargetLanguage), "ReferenceLanguage": domain.LanguageByCode(course.ReferenceLanguage)})
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render import", "error", err)
 	}

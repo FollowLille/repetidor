@@ -62,6 +62,16 @@ func TestParseCSVSkipsHeaderAndReadsNotes(t *testing.T) {
 	}
 }
 
+func TestParseCSVReadsLanguageNeutralVocabularySample(t *testing.T) {
+	rows, err := ParseCSV(strings.NewReader("topic,target,reference,notes\nFood,carne,мясо,\nKitchen,cuchara,ложка,feminine\n"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 2 || rows[0].Topic != "Food" || rows[0].Source != "carne" || rows[0].Target != "мясо" || rows[1].Notes != "feminine" {
+		t.Fatalf("ParseCSV() = %#v", rows)
+	}
+}
+
 func TestParseSemicolonCSV(t *testing.T) {
 	rows, err := ParseCSV(strings.NewReader("spanish;russian;notes\nhola;привет;basic"))
 	if err != nil {
