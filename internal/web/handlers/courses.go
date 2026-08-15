@@ -17,6 +17,7 @@ type courseView struct {
 	Depth         int
 	Topics        []domain.Topic
 	Prerequisites []domain.LearningCourse
+	Progress      domain.CourseProgress
 }
 
 type CoursesHandler struct {
@@ -24,12 +25,13 @@ type CoursesHandler struct {
 	courses   storage.LearningCourseRepository
 	topics    storage.TopicRepository
 	tracks    storage.CourseRepository
+	theory    storage.TheoryRepository
 	logger    logger.Logger
 }
 
-func NewCoursesHandler(courses storage.LearningCourseRepository, topics storage.TopicRepository, tracks storage.CourseRepository, log logger.Logger) (*CoursesHandler, error) {
+func NewCoursesHandler(courses storage.LearningCourseRepository, topics storage.TopicRepository, tracks storage.CourseRepository, theory storage.TheoryRepository, log logger.Logger) (*CoursesHandler, error) {
 	tmpl, err := parsePage("courses.html")
-	return &CoursesHandler{templates: tmpl, courses: courses, topics: topics, tracks: tracks, logger: log}, err
+	return &CoursesHandler{templates: tmpl, courses: courses, topics: topics, tracks: tracks, theory: theory, logger: log}, err
 }
 
 func (h *CoursesHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -49,6 +51,9 @@ func (h *CoursesHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	views := buildCourseViews(courses, topics)
+	for i := range views {
+		views[i].Progress, _ = h.theory.Progress(r.Context(), views[i].ID)
+	}
 	data := pageData(r, map[string]any{"Title": "Courses", "Course": track, "Courses": views, "CourseOptions": courses, "Topics": topics})
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render courses", "error", err)

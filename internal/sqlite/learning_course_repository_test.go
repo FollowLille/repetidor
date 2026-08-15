@@ -56,4 +56,17 @@ func TestLearningCoursesFormTreeAndShareTopics(t *testing.T) {
 	if restaurant.LanguageTrackID != 1 {
 		t.Fatalf("track = %d", restaurant.LanguageTrackID)
 	}
+	restaurant.Name = "Restaurant practice"
+	restaurant.TopicIDs = []int64{comida.ID}
+	restaurant.PrerequisiteIDs = nil
+	if _, err := courses.Update(ctx, restaurant); err != nil {
+		t.Fatal(err)
+	}
+	updated, err := courses.Get(ctx, restaurant.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if updated.Name != "Restaurant practice" || len(updated.TopicIDs) != 1 || updated.TopicIDs[0] != comida.ID || len(updated.PrerequisiteIDs) != 0 {
+		t.Fatalf("updated course = %#v", updated)
+	}
 }

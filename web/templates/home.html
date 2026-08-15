@@ -1,31 +1,31 @@
 {{ define "content" }}
 <section class="hero card">
-    <div class="eyebrow">Your daily Spanish practice</div>
-    <h1>Turn vocabulary into <span>instinct.</span></h1>
-    <p>Build a focused session around the words, direction, and answer style you need today.</p>
+    <div class="eyebrow">{{ tr .Locale "Your daily language practice" }}</div>
+    <h1>{{ tr .Locale "Turn vocabulary into" }} <span>{{ tr .Locale "instinct." }}</span></h1>
+    <p>{{ tr .Locale "Build a focused session around the words, direction, and answer style you need today." }}</p>
     <form class="session_config" method="get" action="/train/mixed">
-        <label class="form_group">Cards<select name="session_size"><option value="5">5 cards</option><option value="10" selected>10 cards</option><option value="20">20 cards</option><option value="30">30 cards</option></select></label>
-        <label class="form_group">Direction<select name="direction"><option value="both" selected>Both directions</option><option value="spanish_to_russian">Spanish to Russian</option><option value="russian_to_spanish">Russian to Spanish</option></select></label>
-        <label class="form_group">Answer style<select name="answer"><option value="both" selected>Type and build</option><option value="type">Type only</option><option value="build">Build letters only</option></select></label>
-        <fieldset class="topic_picker"><legend>Topics <span class="muted">optional</span></legend><div class="topic_checks">{{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ else }}<span class="muted">No topics yet</span>{{ end }}</div></fieldset>
-        <button class="mode_button primary_action" type="submit">Start practice <span>→</span></button>
+        <label class="form_group">{{ tr .Locale "Cards" }}<select name="session_size"><option value="5">5 {{ tr .Locale "cards" }}</option><option value="10" selected>10 {{ tr .Locale "cards" }}</option><option value="20">20 {{ tr .Locale "cards" }}</option><option value="30">30 {{ tr .Locale "cards" }}</option></select></label>
+        <label class="form_group">{{ tr .Locale "Direction" }}<select name="direction"><option value="both" selected>{{ tr .Locale "Both directions" }}</option><option value="spanish_to_russian">{{ .TargetLanguage.NativeName }} → {{ .ReferenceLanguage.NativeName }}</option><option value="russian_to_spanish">{{ .ReferenceLanguage.NativeName }} → {{ .TargetLanguage.NativeName }}</option></select></label>
+        <label class="form_group">{{ tr .Locale "Answer style" }}<select name="answer"><option value="both" selected>{{ tr .Locale "Type and build" }}</option><option value="type">{{ tr .Locale "Type only" }}</option><option value="build">{{ tr .Locale "Build letters only" }}</option></select></label>
+        <fieldset class="topic_picker"><legend>{{ tr .Locale "Topics" }} <span class="muted">{{ tr .Locale "optional" }}</span></legend><div class="topic_checks">{{ range .Topics }}<label><input type="checkbox" name="topic_ids" value="{{ .ID }}"><span>{{ .Name }}</span></label>{{ else }}<span class="muted">{{ tr $.Locale "No topics yet" }}</span>{{ end }}</div></fieldset>
+        <button class="mode_button primary_action" type="submit">{{ tr .Locale "Start practice" }} <span>→</span></button>
     </form>
 </section>
 
 <section class="section_block">
-    <div class="section_heading"><div><span class="eyebrow">Quick start</span><h2>Choose your focus</h2></div><p>Every mode uses the same learning history, tuned for a different kind of session.</p></div>
-    <div class="mode_grid">{{ range .Modes }}<a class="mode_card" href="{{ .URL }}"><span class="mode_icon">{{ .Icon }}</span><span><strong>{{ .Name }}</strong><small>{{ .Description }}</small></span><b>→</b></a>{{ end }}</div>
+    <div class="section_heading"><div><span class="eyebrow">{{ tr .Locale "Quick start" }}</span><h2>{{ tr .Locale "Choose your focus" }}</h2></div><p>{{ tr .Locale "Every mode uses the same learning history, tuned for a different kind of session." }}</p></div>
+    <div class="mode_grid">{{ range .Modes }}<a class="mode_card" href="{{ .URL }}"><span class="mode_icon">{{ .Icon }}</span><span><strong>{{ tr $.Locale .Name }}</strong><small>{{ tr $.Locale .Description }}</small></span><b>→</b></a>{{ end }}</div>
 </section>
 
-{{ if .ActiveSessions }}<section class="card resume_panel"><div class="section_heading compact"><div><span class="eyebrow">In progress</span><h2>Continue training</h2></div></div><div class="active_sessions">{{ range .ActiveSessions }}<article class="active_session"><div><span class="status_badge status_active">{{ .Mode }}</span><strong>Session #{{ .ID }}</strong><span class="muted">{{ .Completed }} of {{ .Size }} cards</span></div><progress value="{{ .Completed }}" max="{{ .Size }}">{{ .Completed }}/{{ .Size }}</progress><div class="session_links"><a class="mode_button" href="/train/{{ .Mode }}?session_id={{ .ID }}">Resume</a><a class="secondary_link" href="/stats/sessions/{{ .ID }}">Details</a></div></article>{{ end }}</div></section>{{ end }}
+{{ if .ActiveSessions }}<section class="card resume_panel"><div class="section_heading compact"><div><span class="eyebrow">{{ tr .Locale "In progress" }}</span><h2>{{ tr .Locale "Continue training" }}</h2></div></div><div class="active_sessions">{{ range .ActiveSessions }}<article class="active_session"><div><span class="status_badge status_active">{{ .Mode }}</span><strong>{{ tr $.Locale "Session" }} #{{ .ID }}</strong><span class="muted">{{ .Completed }} {{ tr $.Locale "of" }} {{ .Size }} {{ tr $.Locale "cards" }}</span></div><progress value="{{ .Completed }}" max="{{ .Size }}">{{ .Completed }}/{{ .Size }}</progress><div class="session_links"><a class="mode_button" href="/train/{{ .Mode }}?session_id={{ .ID }}">{{ tr $.Locale "Resume" }}</a><a class="secondary_link" href="/stats/sessions/{{ .ID }}">{{ tr $.Locale "Details" }}</a></div></article>{{ end }}</div></section>{{ end }}
 
 <section class="card arena_promo">
-    <div><span class="eyebrow">Practice arena</span><h2>Same vocabulary. Four new challenges.</h2><p class="muted">Choose answers, restore missing letters, unscramble words, or find a match. Every result stays part of your learning history.</p></div>
-    <a class="mode_button primary_action" href="/arena">Enter arena <span>→</span></a>
+    <div><span class="eyebrow">{{ tr .Locale "Practice arena" }}</span><h2>{{ tr .Locale "Same vocabulary. Four new challenges." }}</h2><p class="muted">{{ tr .Locale "Choose answers, restore missing letters, unscramble words, or find a match. Every result stays part of your learning history." }}</p></div>
+    <a class="mode_button primary_action" href="/arena">{{ tr .Locale "Enter arena" }} <span>→</span></a>
 </section>
 
 <div class="home_lower">
-    <section class="card callout_card"><span class="callout_icon">↗</span><div><span class="eyebrow">Learning signal</span><h2>See what is sticking</h2><p class="muted">Accuracy, streaks, difficult words, and every completed session.</p><a class="text_link" href="/stats">Explore progress →</a></div></section>
-    <section class="card topics_preview"><div class="section_heading compact"><div><span class="eyebrow">Collections</span><h2>Your topics</h2></div><a class="text_link" href="/topics">Manage →</a></div><ul class="topic_list">{{ range .Topics }}<li><a class="topic_item" href="/topics/{{ .Name }}"><span>{{ .Name }}</span><b>→</b></a></li>{{ else }}<li class="muted">No topics yet.</li>{{ end }}</ul></section>
+    <section class="card callout_card"><span class="callout_icon">↗</span><div><span class="eyebrow">{{ tr .Locale "Learning signal" }}</span><h2>{{ tr .Locale "See what is sticking" }}</h2><p class="muted">{{ tr .Locale "Accuracy, streaks, difficult words, and every completed session." }}</p><a class="text_link" href="/stats">{{ tr .Locale "Explore progress" }} →</a></div></section>
+    <section class="card topics_preview"><div class="section_heading compact"><div><span class="eyebrow">{{ tr .Locale "Collections" }}</span><h2>{{ tr .Locale "Your topics" }}</h2></div><a class="text_link" href="/topics">{{ tr .Locale "Manage" }} →</a></div><ul class="topic_list">{{ range .Topics }}<li><a class="topic_item" href="/topics/{{ .Name }}"><span>{{ .Name }}</span><b>→</b></a></li>{{ else }}<li class="muted">{{ tr $.Locale "No topics yet." }}</li>{{ end }}</ul></section>
 </div>
 {{ end }}

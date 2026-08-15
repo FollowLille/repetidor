@@ -44,9 +44,10 @@ func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	target, reference := domain.LanguageByCode(course.TargetLanguage), domain.LanguageByCode(course.ReferenceLanguage)
+	uiLocale := locale(r)
 	data := pageData(r, map[string]any{"Title": "Repetidor", "Course": course, "TargetLanguage": target, "ReferenceLanguage": reference, "Modes": []ModeLink{
 		{Name: "Mixed", URL: "/train/mixed", Icon: "✦", Description: "Adaptive practice based on your progress"}, {Name: "Due", URL: "/train/due", Icon: "◷", Description: "Words ready for their next review"}, {Name: "Hard", URL: "/train/hard", Icon: "↗", Description: "Focus on words with recent mistakes"}, {Name: "Easy", URL: "/train/easy", Icon: "✓", Description: "Reinforce words you already know"},
-		{Name: target.NativeName + " → " + reference.NativeName, URL: "/train/spanish-to-russian", Icon: strings.ToUpper(target.Code), Description: "Translate into " + reference.NativeName}, {Name: reference.NativeName + " → " + target.NativeName, URL: "/train/russian-to-spanish", Icon: strings.ToUpper(reference.Code), Description: "Recall the " + target.NativeName + " word"},
+		{Name: target.NativeName + " → " + reference.NativeName, URL: "/train/target-to-reference", Icon: strings.ToUpper(target.Code), Description: translate(uiLocale, "Translate into") + " " + reference.NativeName}, {Name: reference.NativeName + " → " + target.NativeName, URL: "/train/reference-to-target", Icon: strings.ToUpper(reference.Code), Description: translate(uiLocale, "Recall the word in") + " " + target.NativeName},
 		{Name: "Random", URL: "/train/random", Icon: "⤨", Description: "Uniform shuffle across vocabulary"}, {Name: "Build letters", URL: "/train/build", Icon: "Aa", Description: "Assemble answers letter by letter"}, {Name: "Type answer", URL: "/train/type", Icon: "⌨", Description: "Practice free recall by typing"}}, "Topics": topics, "ActiveSessions": active})
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {

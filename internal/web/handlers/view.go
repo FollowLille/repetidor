@@ -12,8 +12,18 @@ import (
 )
 
 func parsePage(name string) (*template.Template, error) {
-	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
 }
+
+func hasID(ids []int64, id int64) bool {
+	for _, value := range ids {
+		if value == id {
+			return true
+		}
+	}
+	return false
+}
+func sameID(value *int64, id int64) bool { return value != nil && *value == id }
 
 func locale(r *http.Request) string {
 	if cookie, err := r.Cookie("repetidor_locale"); err == nil && cookie.Value == "ru" {
@@ -59,6 +69,27 @@ func translate(lang, text string) string {
 	return text
 }
 
+func requiredMessage(r *http.Request, label string) string {
+	if locale(r) == "ru" {
+		return "Заполните поле «" + label + "»."
+	}
+	return label + " is required."
+}
+
+func topicExistsMessage(r *http.Request, name string) string {
+	if locale(r) == "ru" {
+		return "Тема «" + name + "» уже существует."
+	}
+	return "Topic \"" + name + "\" already exists."
+}
+
+func wordExistsMessage(r *http.Request, source, target string) string {
+	if locale(r) == "ru" {
+		return "Пара «" + source + " → " + target + "» уже есть в этой теме."
+	}
+	return "Word \"" + source + " → " + target + "\" already exists in this topic."
+}
+
 var russianUI = map[string]string{
 	"Learn": "Обучение", "Arena": "Арена", "Vocabulary": "Словарь", "Progress": "Прогресс", "Import": "Импорт", "Settings": "Настройки",
 	"Your daily Spanish practice": "Ежедневная языковая практика", "Turn vocabulary into": "Превращайте слова в", "instinct.": "интуицию.",
@@ -77,6 +108,30 @@ var russianUI = map[string]string{
 	"Build a path, not a pile.": "Соберите маршрут, а не свалку.", "Arrange topics into ordered courses and smaller chapters.": "Объединяйте темы в упорядоченные курсы и небольшие главы.",
 	"Your first course starts here.": "Ваш первый курс начинается здесь.", "Combine existing topics into a route and add chapters when it grows.": "Соберите маршрут из существующих тем и разбивайте его на главы.",
 	"Course builder": "Конструктор курса", "Create a course or chapter": "Создать курс или главу", "Description": "Описание", "Position": "Позиция", "Parent course": "Родительский курс", "Topics in this course": "Темы курса", "Prerequisites": "Предварительные курсы", "Requires": "Нужно пройти", "Add to learning path": "Добавить в маршрут", "Create vocabulary topics first.": "Сначала создайте темы со словами.",
+	"Your daily language practice": "Ежедневная языковая практика", "Build a focused session around the words, direction, and answer style you need today.": "Соберите тренировку из нужных слов, направления перевода и способа ответа.",
+	"cards": "карточек", "Both directions": "Оба направления", "Type and build": "Ввод и сборка", "Type only": "Только ввод", "Build letters only": "Только сборка букв", "optional": "необязательно", "No topics yet": "Тем пока нет",
+	"Quick start": "Быстрый старт", "Choose your focus": "Выберите цель", "Every mode uses the same learning history, tuned for a different kind of session.": "Все режимы используют общую историю обучения, но подходят для разных типов тренировок.",
+	"Mixed": "Смешанный", "Due": "Пора повторить", "Hard": "Сложные", "Easy": "Лёгкие", "Random": "Случайный", "Build letters": "Собрать слово", "Type answer": "Ввести ответ",
+	"Adaptive practice based on your progress": "Адаптивная практика на основе вашего прогресса", "Words ready for their next review": "Слова, которые пора повторить", "Focus on words with recent mistakes": "Слова с недавними ошибками", "Reinforce words you already know": "Закрепление уже знакомых слов", "Uniform shuffle across vocabulary": "Равномерная случайная выборка из словаря", "Assemble answers letter by letter": "Собирайте ответы по одной букве", "Practice free recall by typing": "Вспоминайте и вводите ответ самостоятельно",
+	"In progress": "В процессе", "Continue training": "Продолжить тренировку", "Session": "Сессия", "of": "из", "Resume": "Продолжить", "Details": "Подробнее",
+	"Same vocabulary. Four new challenges.": "Тот же словарь. Четыре новых испытания.", "Choose answers, restore missing letters, unscramble words, or find a match. Every result stays part of your learning history.": "Выбирайте ответы, восстанавливайте буквы, собирайте слова и находите пары. Каждый результат сохраняется в истории обучения.", "Enter arena": "Перейти на арену",
+	"Learning signal": "Сигнал обучения", "See what is sticking": "Посмотрите, что запоминается", "Accuracy, streaks, difficult words, and every completed session.": "Точность, серии, сложные слова и все завершённые сессии.", "Explore progress": "Посмотреть прогресс", "Collections": "Коллекции", "Your topics": "Ваши темы", "Manage": "Управлять", "No topics yet.": "Тем пока нет.",
+	"Translate into": "Переведите на", "Recall the word in": "Вспомните слово на",
+	"Train the same words.": "Тренируйте те же слова.", "Change the challenge.": "Меняйте испытание.", "Short game sessions use your real vocabulary and feed every result back into your learning progress.": "Короткие игровые сессии используют ваш словарь, а каждый результат влияет на прогресс обучения.",
+	"Four ways to play": "Четыре способа играть", "Fast, focused, useful.": "Быстро, сфокусированно, полезно.", "Every round is saved to your session history.": "Каждый раунд сохраняется в истории сессий.", "Choose several challenges and let them rotate through one vocabulary list.": "Выберите несколько испытаний — они будут чередоваться на одном списке слов.", "Playlist": "Плейлист",
+	"Vocabulary topics": "Темы словаря", "Leave empty to use everything": "Оставьте пустым, чтобы использовать всё", "Add vocabulary topics first.": "Сначала добавьте темы словаря.", "From 1 to 50 cards": "От 1 до 50 карточек", "Game modes": "Игровые режимы", "Choose a topic and session size inside any game.": "В каждой игре можно выбрать тему и размер сессии.", "Topic": "Тема",
+	"One learning history": "Одна история обучения", "Games are practice, not a separate score.": "Игры — это практика, а не отдельный счёт.", "Correct answers strengthen a word. Mistakes make it more likely to return in Mixed and Hard sessions. You can resume every unfinished game from the home page.": "Верные ответы закрепляют слово. После ошибок оно чаще возвращается в смешанных и сложных сессиях. Незавершённую игру можно продолжить с главной страницы.",
+	"Pick the translation from four answers.": "Выберите перевод из четырёх вариантов.", "Restore a word from its outline and meaning.": "Восстановите слово по его форме и значению.", "Put shuffled letters back into the right word.": "Соберите правильное слово из перемешанных букв.", "Find the matching word among a wider field.": "Найдите подходящее слово среди нескольких вариантов.",
+	"Open existing topic": "Открыть существующую тему", "Edit existing topic": "Изменить существующую тему", "Back to topics": "Назад к темам", "Back to home": "На главную", "Create topic": "Создать тему", "Existing topics": "Существующие темы",
+	"Training statistics": "Статистика тренировок", "Words": "Слова", "Attempts": "Попытки", "Correct": "Верно", "Accuracy": "Точность", "Frequent mistakes": "Частые ошибки", "Words that most often need another attempt.": "Слова, которым чаще всего нужна ещё одна попытка.", "misses": "ошибок", "close typos": "почти верных", "skips": "пропусков",
+	"Recent sessions": "Недавние сессии", "Status": "Статус", "active": "активна", "completed": "завершена", "abandoned": "прервана", "No training sessions yet.": "Тренировок пока нет.", "Seen": "Показов", "Streak": "Серия", "Pain": "Сложность", "No words yet. Add words to a topic to start tracking progress.": "Слов пока нет. Добавьте их в тему, чтобы начать отслеживать прогресс.",
+	"mixed": "смешанный", "random": "случайный", "type": "ввод", "build": "сборка", "choice": "быстрый выбор", "cloze": "пропуски", "anagram": "анаграмма", "match": "пары", "arcade": "своя арена", "due": "пора повторить", "hard": "сложные", "easy": "лёгкие",
+	"Train this topic": "Тренировать эту тему", "Train all words": "Тренировать все слова", "Edit topic": "Изменить тему", "Add word": "Добавить слово", "Notes": "Заметки", "Save word": "Сохранить слово", "Saved words": "Сохранённые слова", "Edit": "Изменить", "Delete this word?": "Удалить это слово?", "Remove from topic": "Убрать из темы", "No words yet. Add the first one above.": "Слов пока нет. Добавьте первое выше.",
+	"Save changes": "Сохранить изменения", "Delete this topic?": "Удалить эту тему?", "Delete topic": "Удалить тему", "Back to topic": "Назад к теме", "Edit word": "Изменить слово",
+	"Card": "Карточка", "Try again": "Попробуйте ещё раз", "Prompt": "Задание", "Your reply": "Ваш ответ", "Target": "Правильный ответ", "Edit distance": "Расстояние редактирования", "Retry this card later": "Повторить карточку позже", "Session complete": "Сессия завершена", "Wrong": "Ошибки", "Skipped": "Пропущено", "Repeat mistakes": "Повторить ошибки", "Start again": "Начать заново", "View statistics": "Посмотреть статистику", "Start mixed session": "Начать смешанную сессию", "Open topics": "Открыть темы", "Unscramble the translation using every letter.": "Соберите перевод, используя все буквы.", "Backspace": "Стереть букву", "Clear": "Очистить", "Check": "Проверить", "Skip": "Пропустить", "Don't know": "Не знаю", "Leave arena": "Покинуть арену",
+	"That answer does not match yet.": "Ответ пока не совпадает.", "Very close — this looks like a typo.": "Очень близко — похоже на опечатку.", "Skipped — progress was not changed.": "Пропущено — прогресс не изменён.", "Marked as unknown — this word will receive more practice.": "Отмечено как незнакомое — слово будет появляться чаще.", "No difficult words right now.": "Сейчас нет сложных слов.",
+	"All courses": "Все курсы", "Theory starts with one clear idea.": "Теория начинается с одной ясной идеи.", "Add a text, example, note, or table block.": "Добавьте текст, пример, заметку или таблицу.", "I have read the theory": "Я прочитал теорию", "Exercises": "Упражнения", "Delete": "Удалить", "Delete block": "Удалить блок", "exercises are ready": "упражнений готово", "Check the rule while it is still fresh.": "Проверьте правило, пока оно ещё свежо.", "Start theory practice": "Начать практику по теории",
+	"Vocabulary practice": "Практика слов", "Practice words from this course": "Потренировать слова этого курса", "Start course practice": "Начать практику курса", "Author tools": "Инструменты автора", "Course settings": "Настройки курса", "Add theory block": "Добавить блок теории", "Block type": "Тип блока", "Title": "Заголовок", "Content": "Содержание", "Add block": "Добавить блок", "Add exercise": "Добавить упражнение", "Exercise type": "Тип упражнения", "Question": "Вопрос", "Answer options": "Варианты ответа", "Correct answer": "Правильный ответ", "Explanation after answer": "Объяснение после ответа", "Delete this course?": "Удалить этот курс?", "Delete course": "Удалить курс",
 }
 
 func safeNext(raw string) string {

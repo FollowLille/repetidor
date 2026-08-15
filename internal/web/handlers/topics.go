@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"errors"
-	"fmt"
 	"html/template"
 	"net/http"
 	"repetidor/internal/domain"
@@ -109,13 +108,13 @@ func (h *TopicsHandler) create(w http.ResponseWriter, r *http.Request) {
 	name := strings.TrimSpace(r.FormValue("name"))
 	description := strings.TrimSpace(r.FormValue("description"))
 	if name == "" {
-		h.renderList(w, r, "Topic name is required.", map[string]string{"Name": name, "Description": description})
+		h.renderList(w, r, requiredMessage(r, translate(locale(r), "Name")), map[string]string{"Name": name, "Description": description})
 		return
 	}
 	_, err := h.topicRepo.Create(r.Context(), domain.Topic{CourseID: activeCourse(h.courseRepo, r).ID, Name: name, Description: description})
 	if err != nil {
 		if errors.Is(err, storage.ErrTopicAlreadyExists) {
-			h.renderList(w, r, fmt.Sprintf("Topic %q already exists.", name), map[string]string{"Name": name, "Description": description})
+			h.renderList(w, r, topicExistsMessage(r, name), map[string]string{"Name": name, "Description": description})
 			return
 		}
 		h.logger.Error("failed to create topic", "error", err, "topic_name", name)
@@ -174,11 +173,11 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 	form := map[string]string{"Spanish": spanish, "Russian": russian, "Notes": notes}
 
 	if spanish == "" {
-		h.renderShow(w, r, "Spanish is required.", form)
+		h.renderShow(w, r, requiredMessage(r, domain.LanguageByCode(activeCourse(h.courseRepo, r).TargetLanguage).NativeName), form)
 		return
 	}
 	if russian == "" {
-		h.renderShow(w, r, "Russian is required.", form)
+		h.renderShow(w, r, requiredMessage(r, domain.LanguageByCode(activeCourse(h.courseRepo, r).ReferenceLanguage).NativeName), form)
 		return
 	}
 
@@ -197,7 +196,7 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 	_, err = h.wordRepo.Create(r.Context(), domain.Word{TopicID: topic.ID, Spanish: spanish, Russian: russian, Notes: notes})
 	if err != nil {
 		if errors.Is(err, storage.ErrWordAlreadyExists) {
-			h.renderShow(w, r, fmt.Sprintf("Word %q -> %q already exists in this topic.", spanish, russian), form)
+			h.renderShow(w, r, wordExistsMessage(r, spanish, russian), form)
 			return
 		}
 		h.logger.Error("failed to create word", "error", err, "topic_id", topic.ID)
@@ -295,13 +294,13 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 	newName := strings.TrimSpace(r.FormValue("name"))
 	newDescription := strings.TrimSpace(r.FormValue("description"))
 	if newName == "" {
-		h.renderEdit(w, r, "Topic name is required.", map[string]string{"Name": newName, "Description": newDescription})
+		h.renderEdit(w, r, requiredMessage(r, translate(locale(r), "Name")), map[string]string{"Name": newName, "Description": newDescription})
 		return
 	}
 	_, err = h.topicRepo.Update(r.Context(), domain.Topic{ID: current.ID, Name: newName, Description: newDescription})
 	if err != nil {
 		if errors.Is(err, storage.ErrTopicAlreadyExists) {
-			h.renderEdit(w, r, fmt.Sprintf("Topic %q already exists.", newName), map[string]string{"Name": newName, "Description": newDescription})
+			h.renderEdit(w, r, topicExistsMessage(r, newName), map[string]string{"Name": newName, "Description": newDescription})
 			return
 		}
 		h.logger.Error("failed to update topic", "error", err, "topic_id", current.ID, "new_name", newName)
@@ -411,18 +410,18 @@ func (h *WordEditHandler) update(w http.ResponseWriter, r *http.Request) {
 	notes := strings.TrimSpace(r.FormValue("notes"))
 	form := map[string]string{"Spanish": spanish, "Russian": russian, "Notes": notes}
 	if spanish == "" {
-		h.render(w, r, "Spanish is required.", form)
+		h.render(w, r, requiredMessage(r, domain.LanguageByCode(activeCourse(h.courseRepo, r).TargetLanguage).NativeName), form)
 		return
 	}
 	if russian == "" {
-		h.render(w, r, "Russian is required.", form)
+		h.render(w, r, requiredMessage(r, domain.LanguageByCode(activeCourse(h.courseRepo, r).ReferenceLanguage).NativeName), form)
 		return
 	}
 	word.Spanish = spanish
 	word.Russian = russian
 	word.Notes = notes
 	if _, err := h.wordRepo.Update(r.Context(), word); errors.Is(err, storage.ErrWordAlreadyExists) {
-		h.render(w, r, fmt.Sprintf("Word %q -> %q already exists in this topic.", spanish, russian), form)
+		h.render(w, r, wordExistsMessage(r, spanish, russian), form)
 		return
 	} else if errors.Is(err, storage.ErrWordNotFound) {
 		http.NotFound(w, r)
