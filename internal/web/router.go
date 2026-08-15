@@ -15,6 +15,7 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 
 	fileServer := http.FileServer(http.Dir("./web/static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))
+	r.Handle("/uploads/*", http.StripPrefix("/uploads/", http.FileServer(http.Dir("./data/uploads"))))
 
 	r.Get("/", container.Home.ServeHTTP)
 	r.Get("/arena", container.Arena.ServeHTTP)
@@ -34,6 +35,13 @@ func NewRouter(container *handlers.Container, appLogger logger.Logger) http.Hand
 	r.Post("/courses/{course_id}/blocks/{block_id}/delete", container.Course.DeleteBlock)
 	r.Post("/courses/{course_id}/exercises", container.Course.CreateExercise)
 	r.Post("/courses/{course_id}/exercises/{exercise_id}/delete", container.Course.DeleteExercise)
+	r.Post("/courses/{course_id}/boards", container.Boards.Create)
+	r.Get("/courses/{course_id}/boards/{board_id}", container.Boards.ServeHTTP)
+	r.Post("/courses/{course_id}/boards/{board_id}/nodes", container.Boards.CreateText)
+	r.Post("/courses/{course_id}/boards/{board_id}/media", container.Boards.Upload)
+	r.Post("/courses/{course_id}/boards/{board_id}/nodes/{node_id}/move", container.Boards.Move)
+	r.Post("/courses/{course_id}/boards/{board_id}/nodes/{node_id}/delete", container.Boards.DeleteNode)
+	r.Post("/courses/{course_id}/boards/{board_id}/edges", container.Boards.CreateEdge)
 	r.Post("/courses/{course_id}/read", container.Course.MarkRead)
 	r.Get("/courses/{course_id}/practice", container.Course.Practice)
 	r.Post("/courses/{course_id}/practice", container.Course.Practice)
