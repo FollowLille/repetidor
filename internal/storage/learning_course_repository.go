@@ -15,4 +15,5 @@ type LearningCourseRepository interface {
 	Create(ctx context.Context, course domain.LearningCourse) (domain.LearningCourse, error)
 	Update(ctx context.Context, course domain.LearningCourse) (domain.LearningCourse, error)
 	Delete(ctx context.Context, id int64) error
+	ListLevels(ctx context.Context, trackID int64) ([]domain.LearningLevel, error)
 }

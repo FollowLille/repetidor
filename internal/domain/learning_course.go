@@ -11,6 +11,13 @@ type LearningCourse struct {
 	SortOrder       int
 	TopicIDs        []int64
 	PrerequisiteIDs []int64
+	LevelIDs        []int64
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
+}
+
+type LearningLevel struct {
+	ID, TrackID             int64
+	Code, Name, Description string
+	SortOrder               int
 }

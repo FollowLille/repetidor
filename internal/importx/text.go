@@ -6,8 +6,8 @@ import (
 )
 
 type Row struct {
-	Source, Target, Notes string
-	Line                  int
+	Topic, Source, Target, Notes string
+	Line                         int
 }
 
 func ParseText(input string) []Row {

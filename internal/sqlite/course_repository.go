@@ -43,9 +43,26 @@ func (r *CourseRepository) Get(ctx context.Context, id int64) (domain.Course, er
 }
 
 func (r *CourseRepository) Create(ctx context.Context, course domain.Course) (domain.Course, error) {
-	err := r.db.QueryRowContext(ctx, `INSERT INTO language_tracks(name,target_language,reference_language,theory_language) VALUES(?,?,?,?) RETURNING id,name,target_language,reference_language,theory_language,created_at,updated_at`, course.Name, course.TargetLanguage, course.ReferenceLanguage, course.TheoryLanguage).Scan(&course.ID, &course.Name, &course.TargetLanguage, &course.ReferenceLanguage, &course.TheoryLanguage, &course.CreatedAt, &course.UpdatedAt)
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return domain.Course{}, fmt.Errorf("begin course creation: %w", err)
+	}
+	defer tx.Rollback()
+	err = tx.QueryRowContext(ctx, `INSERT INTO language_tracks(name,target_language,reference_language,theory_language) VALUES(?,?,?,?) RETURNING id,name,target_language,reference_language,theory_language,created_at,updated_at`, course.Name, course.TargetLanguage, course.ReferenceLanguage, course.TheoryLanguage).Scan(&course.ID, &course.Name, &course.TargetLanguage, &course.ReferenceLanguage, &course.TheoryLanguage, &course.CreatedAt, &course.UpdatedAt)
 	if err != nil {
 		return domain.Course{}, fmt.Errorf("create course: %w", err)
+	}
+	levels := []struct {
+		code, name string
+		order      int
+	}{{"A1", "Beginner", 1}, {"A2", "Elementary", 2}, {"B1", "Intermediate", 3}, {"B2", "Upper intermediate", 4}, {"C1", "Advanced", 5}, {"C2", "Proficient", 6}}
+	for _, level := range levels {
+		if _, err = tx.ExecContext(ctx, `INSERT INTO learning_levels(track_id,code,name,sort_order) VALUES(?,?,?,?)`, course.ID, level.code, level.name, level.order); err != nil {
+			return domain.Course{}, fmt.Errorf("create standard learning levels: %w", err)
+		}
+	}
+	if err = tx.Commit(); err != nil {
+		return domain.Course{}, fmt.Errorf("commit course creation: %w", err)
 	}
 	return course, nil
 }

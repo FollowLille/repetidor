@@ -18,6 +18,7 @@ type courseView struct {
 	Topics        []domain.Topic
 	Prerequisites []domain.LearningCourse
 	Progress      domain.CourseProgress
+	Levels        []domain.LearningLevel
 }
 
 type CoursesHandler struct {
@@ -50,11 +51,26 @@ func (h *CoursesHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "failed to load topics", 500)
 		return
 	}
-	views := buildCourseViews(courses, topics)
+	levels, err := h.courses.ListLevels(r.Context(), track.ID)
+	if err != nil {
+		http.Error(w, "failed to load levels", 500)
+		return
+	}
+	selectedLevels := formIDs(r.URL.Query()["level_ids"])
+	views := buildCourseViews(courses, topics, levels)
+	if len(selectedLevels) > 0 {
+		filtered := views[:0]
+		for _, view := range views {
+			if intersects(view.LevelIDs, selectedLevels) {
+				filtered = append(filtered, view)
+			}
+		}
+		views = filtered
+	}
 	for i := range views {
 		views[i].Progress, _ = h.theory.Progress(r.Context(), views[i].ID)
 	}
-	data := pageData(r, map[string]any{"Title": "Courses", "Course": track, "Courses": views, "CourseOptions": courses, "Topics": topics})
+	data := pageData(r, map[string]any{"Title": "Courses", "Course": track, "Courses": views, "CourseOptions": courses, "Topics": topics, "Levels": levels, "SelectedLevelIDs": selectedLevels})
 	if err := h.templates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render courses", "error", err)
 	}
@@ -75,6 +91,7 @@ func (h *CoursesHandler) create(w http.ResponseWriter, r *http.Request) {
 	}
 	course.TopicIDs = formIDs(r.Form["topic_ids"])
 	course.PrerequisiteIDs = formIDs(r.Form["prerequisite_ids"])
+	course.LevelIDs = formIDs(r.Form["level_ids"])
 	if _, err := h.courses.Create(r.Context(), course); err != nil {
 		h.logger.Error("create learning course", "error", err)
 		http.Error(w, "failed to create course", 400)
@@ -93,9 +110,10 @@ func formIDs(values []string) []int64 {
 	return ids
 }
 
-func buildCourseViews(courses []domain.LearningCourse, topics []domain.Topic) []courseView {
+func buildCourseViews(courses []domain.LearningCourse, topics []domain.Topic, levels []domain.LearningLevel) []courseView {
 	byID := make(map[int64]domain.LearningCourse, len(courses))
 	topicByID := make(map[int64]domain.Topic, len(topics))
+	levelByID := make(map[int64]domain.LearningLevel, len(levels))
 	children := make(map[int64][]domain.LearningCourse)
 	for _, course := range courses {
 		byID[course.ID] = course
@@ -107,6 +125,9 @@ func buildCourseViews(courses []domain.LearningCourse, topics []domain.Topic) []
 	}
 	for _, topic := range topics {
 		topicByID[topic.ID] = topic
+	}
+	for _, level := range levels {
+		levelByID[level.ID] = level
 	}
 	for parent := range children {
 		sort.SliceStable(children[parent], func(i, j int) bool {
@@ -121,6 +142,11 @@ func buildCourseViews(courses []domain.LearningCourse, topics []domain.Topic) []
 	walk = func(parent int64, depth int) {
 		for _, course := range children[parent] {
 			view := courseView{LearningCourse: course, Depth: depth}
+			for _, id := range course.LevelIDs {
+				if level, ok := levelByID[id]; ok {
+					view.Levels = append(view.Levels, level)
+				}
+			}
 			for _, id := range course.TopicIDs {
 				if topic, ok := topicByID[id]; ok {
 					view.Topics = append(view.Topics, topic)
@@ -137,4 +163,15 @@ func buildCourseViews(courses []domain.LearningCourse, topics []domain.Topic) []
 	}
 	walk(0, 0)
 	return views
+}
+
+func intersects(left, right []int64) bool {
+	for _, a := range left {
+		for _, b := range right {
+			if a == b {
+				return true
+			}
+		}
+	}
+	return false
 }

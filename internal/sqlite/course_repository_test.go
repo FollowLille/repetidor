@@ -31,6 +31,10 @@ func TestCoursesAndTopicsAreSeparated(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	var levelCount int
+	if err := db.QueryRow(`SELECT COUNT(*) FROM learning_levels WHERE track_id=?`, english.ID).Scan(&levelCount); err != nil || levelCount != 6 {
+		t.Fatalf("new track levels = %d, err=%v", levelCount, err)
+	}
 	if _, err := topics.Create(ctx, domain.Topic{CourseID: 1, Name: "Comida"}); err != nil {
 		t.Fatal(err)
 	}

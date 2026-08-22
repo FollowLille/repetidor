@@ -14,17 +14,18 @@ type TheoryBlock struct {
 }
 
 type TheoryExercise struct {
-	ID            int64
-	CourseID      int64
-	TheoryBlockID *int64
-	Kind          string
-	Prompt        string
-	Options       []string
-	CorrectAnswer string
-	Explanation   string
-	SortOrder     int
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+	ID              int64
+	CourseID        int64
+	TheoryBlockID   *int64
+	Kind            string
+	Prompt          string
+	Options         []string
+	CorrectAnswer   string
+	AcceptedAnswers []string
+	Explanation     string
+	SortOrder       int
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
 }
 
 type CourseProgress struct {
@@ -53,7 +54,16 @@ func (p CourseProgress) Percent() int {
 
 type TheoryAnswerResult struct {
 	Correct     bool
+	Status      AnswerStatus
 	Expected    string
 	Explanation string
 	Progress    CourseProgress
 }
+
+type AnswerStatus string
+
+const (
+	TheoryAnswerCorrect             AnswerStatus = "correct"
+	TheoryAnswerAcceptedWithWarning AnswerStatus = "accepted_with_warning"
+	TheoryAnswerWrong               AnswerStatus = "wrong"
+)

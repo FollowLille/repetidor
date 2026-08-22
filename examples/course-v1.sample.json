@@ -1,0 +1,52 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "sample-spanish-basics",
+    "name": "Sample Spanish basics",
+    "description": "A small portable course used to verify the import and seed workflow.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "levels": ["A1"],
+    "theory_blocks": [
+      {
+        "key": "greetings-rule",
+        "kind": "example",
+        "title": "Приветствия",
+        "content": "Hola — привет\nBuenos días — доброе утро",
+        "sort_order": 1
+      }
+    ],
+    "theory_exercises": [
+      {
+        "key": "greetings-answer",
+        "theory_block_key": "greetings-rule",
+        "kind": "input",
+        "prompt": "Как сказать «привет»?",
+        "correct_answer": "hola",
+        "accepted_answers": ["¡hola!"],
+        "sort_order": 1
+      },
+      {
+        "key": "greetings-build",
+        "theory_block_key": "greetings-rule",
+        "kind": "sentence_builder",
+        "prompt": "Соберите «доброе утро»",
+        "options": ["buenos", "días"],
+        "correct_answer": "buenos días",
+        "sort_order": 2
+      }
+    ],
+    "topics": [
+      {
+        "key": "sample-greetings",
+        "name": "Saludos",
+        "vocabulary": [
+          {"target": "hola", "reference": "привет"},
+          {"target": "buenos días", "reference": "доброе утро"}
+        ]
+      }
+    ]
+  }
+}

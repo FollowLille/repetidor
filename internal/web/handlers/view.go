@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"html/template"
+	"math/rand"
 	"net/http"
 	"path/filepath"
 	"strconv"
@@ -12,7 +13,28 @@ import (
 )
 
 func parsePage(name string) (*template.Template, error) {
-	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "boardColors": boardColors, "textColors": textColors, "boardBackgrounds": boardBackgrounds, "boardColorLabel": boardColorLabel, "boardBackgroundLabel": boardBackgroundLabel}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+	return template.New("layout").Funcs(template.FuncMap{"tr": translate, "language": domain.LanguageByCode, "hasID": hasID, "sameID": sameID, "shuffleTokens": shuffleTokens, "boardColors": boardColors, "textColors": textColors, "boardBackgrounds": boardBackgrounds, "boardColorLabel": boardColorLabel, "boardBackgroundLabel": boardBackgroundLabel}).ParseFiles(filepath.Join("web", "templates", "layout.html"), filepath.Join("web", "templates", name))
+}
+
+type sentenceToken struct {
+	ID    int
+	Value string
+}
+
+func shuffleTokens(values []string) []sentenceToken {
+	result := make([]sentenceToken, len(values))
+	for i, value := range values {
+		result[i] = sentenceToken{ID: i, Value: value}
+	}
+	rand.Shuffle(len(result), func(i, j int) { result[i], result[j] = result[j], result[i] })
+	same := len(result) > 1
+	for i := range result {
+		same = same && result[i].ID == i
+	}
+	if same {
+		result = append(result[1:], result[0])
+	}
+	return result
 }
 
 func boardColors() []string      { return []string{"violet", "amber", "mint", "rose", "slate"} }
@@ -76,7 +98,13 @@ func activeCourse(repo storage.CourseRepository, r *http.Request) domain.Course 
 func pageData(r *http.Request, values map[string]any) map[string]any {
 	values["Locale"] = locale(r)
 	values["CurrentPath"] = r.URL.RequestURI()
+	values["AuthorMode"] = authorMode(r)
 	return values
+}
+
+func authorMode(r *http.Request) bool {
+	cookie, err := r.Cookie("repetidor_workspace_mode")
+	return err == nil && cookie.Value == "author"
 }
 
 func translate(lang, text string) string {
@@ -122,6 +150,7 @@ var russianUI = map[string]string{
 	"Bring your vocabulary in seconds.": "Добавьте весь словарь за несколько секунд.", "Paste a list or upload a CSV file.": "Вставьте список или загрузите CSV-файл.", "Choose topic": "Выберите тему", "Invalid": "Ошибки",
 	"Keep interface language separate from the language you study and the language used for explanations.": "Язык приложения не зависит от изучаемого языка и языка объяснений.", "Active course": "Активный курс", "New learning space": "Новое пространство обучения", "Name": "Название",
 	"One pair per line. The third column becomes notes.": "Одна пара на строку. Третья колонка станет заметкой.", "CSV columns: source, translation, notes.": "Колонки CSV: слово, перевод, заметка.",
+	"Destination topic (legacy files only)": "Тема назначения (только для старых файлов)", "Neutral columns: topic, target, reference, notes. Legacy files use the destination topic.": "Нейтральные колонки: тема, изучаемое слово, перевод, заметка. Старые файлы используют выбранную тему.",
 	"Upload Excel": "Загрузить Excel", "XLSX columns: source, translation, notes.": "Колонки XLSX: слово, перевод, заметка.",
 	"Or create a new topic": "Или создайте новую тему",
 	"Courses":               "Курсы", "Course": "Курс", "Chapter": "Глава", "Language track": "Языковое направление", "Language tracks": "Языковые направления", "Active language track": "Активное языковое направление",
@@ -158,6 +187,15 @@ var russianUI = map[string]string{
 	"Move canvas and cards": "Двигать холст и карточки", "Pen": "Карандаш", "Highlighter": "Маркер", "Draw arrow": "Нарисовать стрелку", "Erase drawing": "Стереть линию", "Undo drawing": "Отменить рисунок", "Redo drawing": "Вернуть рисунок", "Connect two cards": "Связать две карточки", "Zoom out": "Уменьшить масштаб", "Zoom in": "Увеличить масштаб", "Hide creation panel": "Скрыть панель создания", "Block": "Блок", "Sticker": "Стикер", "Free text": "Свободный текст", "Block color": "Цвет блока", "Text color": "Цвет текста",
 	"Show creation panel": "Показать панель создания", "Place free text": "Добавить свободный текст", "Canvas text": "Текст на холсте", "Add free text": "Добавить свободный текст", "Type and place it on the board": "Введите текст и разместите его на доске", "Place on board": "Разместить на доске",
 	"Boards": "Доски", "All boards": "Все доски", "Board background": "Фон доски", "Visual workspace": "Визуальное пространство", "Boards beyond courses": "Доски вне курсов", "Collect ideas, grammar maps and study plans without attaching them to one course.": "Собирайте идеи, грамматические карты и учебные планы без привязки к одному курсу.", "Board": "Доска", "Open canvas": "Открыть холст", "No global boards yet.": "Общих досок пока нет.", "Create a canvas for ideas that belong everywhere.": "Создайте холст для идей, которые относятся сразу ко всему.", "New canvas": "Новый холст", "Create global board": "Создать общую доску",
+	"Learning levels": "Уровни обучения", "Filter learning path": "Фильтр учебного маршрута", "All levels": "Все уровни",
+	"Practice this section": "Практиковать этот раздел", "Course exercises": "Упражнения курса", "Mixed practice across the whole course.": "Смешанная практика по всему курсу.", "Theory section": "Раздел теории", "Whole course": "Весь курс", "Untitled block": "Блок без названия", "Accepted answers": "Допустимые ответы", "Separate with commas": "Разделяйте запятыми", "Accepted, check spelling": "Ответ принят, проверьте написание", "Build a sentence": "Собрать предложение", "Words or phrases, separated by commas": "Слова или фразы через запятую", "Clear sentence": "Очистить предложение",
+	"correct": "верно", "Resume session": "Продолжить сессию", "Back to statistics": "Назад к статистике", "Abandon session": "Завершить сессию", "Card review": "Разбор карточек", "Pending": "Ожидает ответа", "Reply": "Ответ", "close typo": "почти верно", "edit": "правка", "skipped": "пропущено", "Session details": "Детали сессии",
+	"Portable courses": "Переносимые курсы", "Move a complete course in one file.": "Перенесите целый курс одним файлом.", "Preview blocks, exercises and vocabulary before anything is saved.": "Проверьте блоки, упражнения и словарь до сохранения.", "Theory blocks": "Блоки теории", "Duplicates": "Дубли", "Preview ready": "Предпросмотр готов", "Import everything atomically": "Импортировать всё атомарно", "If any item fails, nothing will be saved.": "Если возникнет ошибка, ничего не сохранится.", "Import course": "Импорт курса", "Upload course file": "Загрузить файл курса", "Versioned Repetidor course JSON, up to 10 MB.": "Версионированный JSON курса Repetidor, до 10 МБ.", "or": "или", "Paste course JSON": "Вставить JSON курса", "Preview import": "Проверить импорт", "Export course": "Экспортировать курс",
+	"Portable vocabulary": "Переносимый словарь", "Samples and exports": "Шаблоны и экспорт", "Use the same neutral columns in CSV and Excel.": "Используйте одинаковые нейтральные колонки в CSV и Excel.", "Download sample CSV": "Скачать пример CSV", "Export language track": "Экспортировать направление", "Export topic": "Экспортировать тему", "Choose course": "Выберите курс", "Export course vocabulary": "Экспортировать слова курса",
+	"Workspace mode": "Режим работы", "Learner": "Ученик", "Author": "Автор",
+	"Back to theory": "Назад к теории", "Theory practice": "Практика по теории", "correct attempts": "верных попыток", "Your answer": "Ваш ответ", "input": "ввод ответа", "gap": "заполнить пропуск", "sentence_builder": "сборка предложения",
+	"text": "текст", "example": "пример", "note": "заметка", "table": "таблица", "Example": "Пример", "Table": "Таблица", "Multiple choice": "Выбрать вариант", "Fill the gap": "Заполнить пропуск",
+	"Return token": "Вернуть слово",
 }
 
 func safeNext(raw string) string {
