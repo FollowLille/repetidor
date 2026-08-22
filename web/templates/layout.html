@@ -1,5 +1,5 @@
 {{ define "layout" }}
-<!doctype html><html lang="{{ .Locale }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ .Title }}</title><link rel="stylesheet" href="/static/css/app.css?v=6"><link rel="stylesheet" href="/static/css/components.css?v=6"></head>
+<!doctype html><html lang="{{ .Locale }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ .Title }}</title><link rel="stylesheet" href="/static/css/app.css?v=7"><link rel="stylesheet" href="/static/css/components.css?v=7"></head>
 <body data-workspace-mode="{{ if .AuthorMode }}author{{ else }}learner{{ end }}"><div class="ambient ambient_one"></div><div class="ambient ambient_two"></div><div class="page">
 <header class="page_header"><a class="brand" href="/" aria-label="Repetidor home"><span class="brand_mark">R</span><span><strong>Repetidor</strong><small>Languages, remembered.</small></span></a>
 <nav class="main_nav" aria-label="Main navigation"><a href="/">{{ tr .Locale "Learn" }}</a><a href="/arena">{{ tr .Locale "Arena" }}</a><a href="/courses">{{ tr .Locale "Courses" }}</a><a href="/boards">{{ tr .Locale "Boards" }}</a><a href="/topics">{{ tr .Locale "Vocabulary" }}</a><a href="/import">{{ tr .Locale "Import" }}</a><a href="/stats">{{ tr .Locale "Progress" }}</a></nav>

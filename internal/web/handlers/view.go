@@ -195,7 +195,8 @@ var russianUI = map[string]string{
 	"Workspace mode": "Режим работы", "Learner": "Ученик", "Author": "Автор",
 	"Back to theory": "Назад к теории", "Theory practice": "Практика по теории", "correct attempts": "верных попыток", "Your answer": "Ваш ответ", "input": "ввод ответа", "gap": "заполнить пропуск", "sentence_builder": "сборка предложения",
 	"text": "текст", "example": "пример", "note": "заметка", "table": "таблица", "Example": "Пример", "Table": "Таблица", "Multiple choice": "Выбрать вариант", "Fill the gap": "Заполнить пропуск",
-	"Return token": "Вернуть слово",
+	"Return token":    "Вернуть слово",
+	"Course chapters": "Главы курса", "Continue the learning path": "Продолжить учебный маршрут",
 }
 
 func safeNext(raw string) string {

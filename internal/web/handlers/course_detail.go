@@ -30,6 +30,16 @@ type theorySection struct {
 	Exercises []domain.TheoryExercise
 }
 
+func childCourses(courses []domain.LearningCourse, parentID int64) []domain.LearningCourse {
+	children := make([]domain.LearningCourse, 0)
+	for _, course := range courses {
+		if course.ParentID != nil && *course.ParentID == parentID {
+			children = append(children, course)
+		}
+	}
+	return children
+}
+
 func NewCourseHandler(courses storage.LearningCourseRepository, theory storage.TheoryRepository, tracks storage.CourseRepository, topics storage.TopicRepository, boards storage.BoardRepository, log logger.Logger) (*CourseHandler, error) {
 	page, err := parsePage("course_show.html")
 	if err != nil {
@@ -84,6 +94,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	track := activeCourse(h.tracks, r)
 	courseOptions, _ := h.courses.ListByTrack(r.Context(), track.ID)
+	children := childCourses(courseOptions, course.ID)
 	levels, _ := h.courses.ListLevels(r.Context(), track.ID)
 	topics, _ := h.topics.ListByCourse(r.Context(), track.ID)
 	boards, _ := h.boards.ListByCourse(r.Context(), course.ID)
@@ -95,7 +106,7 @@ func (h *CourseHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if encoded := query.Encode(); encoded != "" {
 		practiceURL += "?" + encoded
 	}
-	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Blocks": blocks, "BlockSections": sections, "Exercises": exercises, "CourseExercises": courseExercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards, "Levels": levels})
+	data := pageData(r, map[string]any{"Title": course.Name, "Course": track, "LearningCourse": course, "Children": children, "Blocks": blocks, "BlockSections": sections, "Exercises": exercises, "CourseExercises": courseExercises, "Progress": progress, "CourseOptions": courseOptions, "Topics": topics, "PracticeURL": practiceURL, "Boards": boards, "Levels": levels})
 	if err := h.pageTemplates.ExecuteTemplate(w, "layout", data); err != nil {
 		h.logger.Error("render course", "error", err)
 	}

@@ -169,6 +169,7 @@
 .lesson_progress strong,.practice_score strong { font-size:2rem; color:#ffc98f; }
 .lesson_progress progress { width:100%; accent-color:#ffb86b; }
 .lesson_layout { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(19rem,.7fr); gap:1.25rem; align-items:start; }
+.course_chapters{display:grid;gap:1rem}.course_chapters h2{margin:0}.chapter_links{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.75rem}.chapter_links a{display:grid;gap:.35rem;padding:1rem;border:1px solid var(--panel-border);border-radius:14px;background:rgba(255,255,255,.025);color:var(--text);text-decoration:none}.chapter_links a:hover{border-color:rgba(255,202,99,.45);transform:translateY(-1px)}.chapter_links span{color:var(--accent);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.chapter_links small{color:var(--muted);line-height:1.45}
 .theory_reader,.exercise_stack { display:grid; gap:.9rem; }
 .theory_block { position:relative; overflow:hidden; }
 .theory_block::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:#7657e8; }

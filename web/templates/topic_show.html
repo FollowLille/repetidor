@@ -6,7 +6,7 @@
     <div class="page_actions">
         <a class="secondary_link" href="/train/mixed?topic_id={{ .Topic.ID }}">{{ tr .Locale "Train this topic" }}</a>
         <a class="secondary_link" href="/train/mixed">{{ tr .Locale "Train all words" }}</a>
-        <a class="secondary_link" href="/topics/{{ .Topic.Name }}/edit">{{ tr .Locale "Edit topic" }}</a>
+        <a class="secondary_link author_only" href="/topics/{{ .Topic.Name }}/edit">{{ tr .Locale "Edit topic" }}</a>
         <a class="secondary_link" href="/topics">{{ tr .Locale "Back to topics" }}</a>
         <a class="secondary_link" href="/">{{ tr .Locale "Back to home" }}</a>
     </div>
@@ -48,8 +48,8 @@
                         <strong class="word_value">{{ .Russian }}</strong>
                     </div>
                     {{ if .Notes }}<div class="word_notes">{{ .Notes }}</div>{{ end }}
-                    <a class="secondary_link word_edit" href="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/edit">{{ tr $.Locale "Edit" }}</a>
-                    <form method="post" action="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/delete" onsubmit="return confirm('{{ tr $.Locale "Delete this word?" }}');">
+                    <a class="secondary_link word_edit author_only" href="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/edit">{{ tr $.Locale "Edit" }}</a>
+                    <form class="author_only" method="post" action="/topics/{{ $.Topic.Name }}/words/{{ .ID }}/delete" onsubmit="return confirm('{{ tr $.Locale "Delete this word?" }}');">
                         <button class="word_delete" type="submit" aria-label="{{ tr $.Locale "Remove from topic" }}">{{ tr $.Locale "Remove from topic" }}</button>
                     </form>
                 </article>

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"html/template"
 	"net/http"
+	"net/url"
 	"repetidor/internal/domain"
 	"repetidor/internal/logger"
 	"repetidor/internal/storage"
@@ -12,6 +13,14 @@ import (
 
 	"github.com/go-chi/chi/v5"
 )
+
+func topicNameParam(r *http.Request) string {
+	raw := chi.URLParam(r, "topic_name")
+	if decoded, err := url.PathUnescape(raw); err == nil {
+		raw = decoded
+	}
+	return strings.TrimSpace(raw)
+}
 
 type TopicsHandler struct {
 	templates  *template.Template
@@ -129,7 +138,7 @@ func (h *TopicHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TopicHandler) renderShow(w http.ResponseWriter, r *http.Request, warning string, form map[string]string) {
-	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topicName := topicNameParam(r)
 	if topicName == "" {
 		http.NotFound(w, r)
 		return
@@ -181,7 +190,7 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topicName := topicNameParam(r)
 	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
 	if errors.Is(err, storage.ErrTopicNotFound) {
 		http.NotFound(w, r)
@@ -208,7 +217,7 @@ func (h *TopicHandler) CreateWord(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TopicHandler) DeleteWord(w http.ResponseWriter, r *http.Request) {
-	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topicName := topicNameParam(r)
 	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
 	if errors.Is(err, storage.ErrTopicNotFound) {
 		http.NotFound(w, r)
@@ -252,7 +261,7 @@ func (h *TopicEditHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TopicEditHandler) renderEdit(w http.ResponseWriter, r *http.Request, errMsg string, override map[string]string) {
-	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topicName := topicNameParam(r)
 	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
 	if errors.Is(err, storage.ErrTopicNotFound) {
 		http.NotFound(w, r)
@@ -276,7 +285,7 @@ func (h *TopicEditHandler) renderEdit(w http.ResponseWriter, r *http.Request, er
 }
 
 func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
-	originalName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	originalName := topicNameParam(r)
 	current, err := h.topicRepo.GetByName(r.Context(), originalName)
 	if errors.Is(err, storage.ErrTopicNotFound) {
 		http.NotFound(w, r)
@@ -311,7 +320,7 @@ func (h *TopicEditHandler) update(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TopicEditHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topicName := topicNameParam(r)
 	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
 	if errors.Is(err, storage.ErrTopicNotFound) {
 		http.NotFound(w, r)
@@ -347,7 +356,7 @@ func (h *WordEditHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *WordEditHandler) load(w http.ResponseWriter, r *http.Request) (domain.Topic, domain.Word, bool) {
-	topicName := strings.TrimSpace(chi.URLParam(r, "topic_name"))
+	topicName := topicNameParam(r)
 	topic, err := h.topicRepo.GetByName(r.Context(), topicName)
 	if errors.Is(err, storage.ErrTopicNotFound) {
 		http.NotFound(w, r)
