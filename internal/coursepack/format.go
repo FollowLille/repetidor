@@ -107,6 +107,7 @@ func (p Package) Validate() error {
 		return nil
 	}
 	blocks := map[string]bool{}
+	vocabulary := map[string]Word{}
 	for _, block := range p.Course.Blocks {
 		if err := add("block", block.Key); err != nil {
 			return err
@@ -139,9 +140,17 @@ func (p Package) Validate() error {
 				return fmt.Errorf("topic %q contains an incomplete word pair", topic.Key)
 			}
 			if word.Key != "" {
+				canonical := Word{Target: strings.TrimSpace(word.Target), Reference: strings.TrimSpace(word.Reference), Notes: strings.TrimSpace(word.Notes)}
+				if previous, exists := vocabulary[word.Key]; exists {
+					if previous != canonical {
+						return fmt.Errorf("vocabulary key %q has conflicting content", word.Key)
+					}
+					continue
+				}
 				if err := add("vocabulary", word.Key); err != nil {
 					return err
 				}
+				vocabulary[word.Key] = canonical
 			}
 		}
 	}

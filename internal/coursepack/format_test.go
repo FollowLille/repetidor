@@ -26,3 +26,15 @@ func TestFormatRejectsBrokenBlockReference(t *testing.T) {
 		t.Fatal("expected broken reference error")
 	}
 }
+
+func TestFormatAllowsSharedVocabularyKeyWithMatchingContent(t *testing.T) {
+	word := Word{Key: "run", Target: "correr", Reference: "бегать", Notes: "verb"}
+	value := Package{Format: Format, Version: Version, Course: Course{Key: "x", Name: "X", Target: "es", Reference: "ru", Topics: []Topic{{Key: "sport", Name: "Sport", Words: []Word{word}}, {Key: "actions", Name: "Actions", Words: []Word{word}}}}}
+	if err := value.Validate(); err != nil {
+		t.Fatalf("shared vocabulary rejected: %v", err)
+	}
+	value.Course.Topics[1].Words[0].Notes = "noun"
+	if err := value.Validate(); err == nil {
+		t.Fatal("conflicting shared vocabulary was accepted")
+	}
+}

@@ -163,7 +163,7 @@ func (s *CoursePackageStore) Preview(ctx context.Context, trackID int64, value c
 	}
 	for _, raw := range value.Course.Levels {
 		var exists int
-		err := s.db.QueryRowContext(ctx, `SELECT 1 FROM learning_levels WHERE track_id=? AND code=?`, trackID, strings.ToUpper(strings.TrimSpace(raw))).Scan(&exists)
+		err := s.db.QueryRowContext(ctx, `SELECT 1 FROM learning_levels WHERE track_id=? AND code=?`, trackID, normalizeLevelCode(raw)).Scan(&exists)
 		if err == sql.ErrNoRows {
 			return result, fmt.Errorf("unknown learning level %q for active language track", raw)
 		}
@@ -294,7 +294,7 @@ func (s *CoursePackageStore) Import(ctx context.Context, trackID int64, value co
 		return 0, result, err
 	}
 	for _, code := range value.Course.Levels {
-		if _, err = tx.ExecContext(ctx, `INSERT INTO learning_course_levels(course_id,level_id) SELECT ?,id FROM learning_levels WHERE track_id=? AND code=?`, courseID, trackID, strings.ToUpper(code)); err != nil {
+		if _, err = tx.ExecContext(ctx, `INSERT INTO learning_course_levels(course_id,level_id) SELECT ?,id FROM learning_levels WHERE track_id=? AND code=?`, courseID, trackID, normalizeLevelCode(code)); err != nil {
 			return 0, result, err
 		}
 	}
@@ -433,7 +433,7 @@ func registerContentKey(ctx context.Context, tx *sql.Tx, trackID int64, kind str
 }
 func validatePackageLevels(ctx context.Context, tx *sql.Tx, trackID int64, codes []string) error {
 	for _, raw := range codes {
-		code := strings.ToUpper(strings.TrimSpace(raw))
+		code := normalizeLevelCode(raw)
 		var exists int
 		err := tx.QueryRowContext(ctx, `SELECT 1 FROM learning_levels WHERE track_id=? AND code=?`, trackID, code).Scan(&exists)
 		if err == sql.ErrNoRows {
@@ -444,6 +444,10 @@ func validatePackageLevels(ctx context.Context, tx *sql.Tx, trackID int64, codes
 		}
 	}
 	return nil
+}
+
+func normalizeLevelCode(code string) string {
+	return strings.ToUpper(strings.TrimSpace(code))
 }
 
 func upsertPackageTopic(ctx context.Context, tx *sql.Tx, trackID int64, topic coursepack.Topic) (int64, bool, error) {

@@ -152,3 +152,79 @@ func TestCoursePackagePreviewRejectsUnknownLevelAndExerciseKind(t *testing.T) {
 		t.Fatal("preview accepted unknown exercise kind")
 	}
 }
+
+func TestCoursePackageSharedVocabularyRoundTrip(t *testing.T) {
+	ctx := context.Background()
+	sourceDB, err := Open(filepath.Join(t.TempDir(), "shared-source.sqlite3"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer sourceDB.Close()
+	if err = Migrate(sourceDB, "../../migrations"); err != nil {
+		t.Fatal(err)
+	}
+	value := testCoursePackage()
+	shared := coursepack.Word{Key: "run", Target: "correr", Reference: "бегать", Notes: "verb"}
+	value.Course.Topics = []coursepack.Topic{
+		{Key: "sport", Name: "Sport", Words: []coursepack.Word{shared}},
+		{Key: "common-actions", Name: "Common actions", Words: []coursepack.Word{shared}},
+	}
+	sourceStore := NewCoursePackageStore(sourceDB)
+	courseID, _, err := sourceStore.Import(ctx, 1, value)
+	if err != nil {
+		t.Fatal(err)
+	}
+	exported, err := sourceStore.Export(ctx, courseID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = exported.Validate(); err != nil {
+		t.Fatalf("exported shared vocabulary is invalid: %v", err)
+	}
+
+	targetDB, err := Open(filepath.Join(t.TempDir(), "shared-target.sqlite3"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer targetDB.Close()
+	if err = Migrate(targetDB, "../../migrations"); err != nil {
+		t.Fatal(err)
+	}
+	if _, _, err = NewCoursePackageStore(targetDB).Import(ctx, 1, exported); err != nil {
+		t.Fatal(err)
+	}
+	var words, links int
+	if err = targetDB.QueryRow(`SELECT COUNT(*) FROM words WHERE spanish='correr' AND russian='бегать'`).Scan(&words); err != nil {
+		t.Fatal(err)
+	}
+	if err = targetDB.QueryRow(`SELECT COUNT(*) FROM word_topics wt JOIN words w ON w.id=wt.word_id WHERE w.spanish='correr' AND w.russian='бегать'`).Scan(&links); err != nil {
+		t.Fatal(err)
+	}
+	if words != 1 || links != 2 {
+		t.Fatalf("shared vocabulary roundtrip: words=%d links=%d", words, links)
+	}
+}
+
+func TestCoursePackageNormalizesLevelCodesWhenLinking(t *testing.T) {
+	db, err := Open(filepath.Join(t.TempDir(), "level-normalization.sqlite3"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if err = Migrate(db, "../../migrations"); err != nil {
+		t.Fatal(err)
+	}
+	value := testCoursePackage()
+	value.Course.Levels = []string{" a1 "}
+	courseID, _, err := NewCoursePackageStore(db).Import(context.Background(), 1, value)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var code string
+	if err = db.QueryRow(`SELECT l.code FROM learning_levels l JOIN learning_course_levels cl ON cl.level_id=l.id WHERE cl.course_id=?`, courseID).Scan(&code); err != nil {
+		t.Fatal(err)
+	}
+	if code != "A1" {
+		t.Fatalf("linked level = %q", code)
+	}
+}
