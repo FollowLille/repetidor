@@ -1,0 +1,1278 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.indefinido",
+    "name": "7. Pretérito Indefinido",
+    "description": "Pretérito Indefinido, частые неправильные формы и выбор между Perfecto и Indefinido.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 70,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A2"
+    ],
+    "prerequisite_keys": [
+      "es.first-steps.perfecto"
+    ],
+    "theory_blocks": [
+      {
+        "key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "text",
+        "title": "Pretérito Indefinido: правильные формы",
+        "content": "Indefinido описывает завершённое событие в законченном прошлом: ayer, anoche, el año pasado, en 2024, hace dos días.\n\n-AR: hablé, hablaste, habló, hablamos, hablasteis, hablaron.\n-ER/-IR: comí, comiste, comió, comimos, comisteis, comieron.\n\nУ llegar в форме yo: llegué. У empezar: empecé.",
+        "sort_order": 200
+      },
+      {
+        "key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "text",
+        "title": "Indefinido: частые неправильные формы",
+        "content": "Ключевые формы: fui, estuve, tuve, hice, pude, vine, dije, vi, di, traje, puse, supe, quise.\n\nУ многих неправильных глаголов основа меняется целиком: tener → tuv-, estar → estuv-, poder → pud-, poner → pus-, saber → sup-, venir → vin-. Окончания: -e, -iste, -o, -imos, -isteis, -ieron.\n\nDecir и traer в 3-м лице множественного имеют -eron: dijeron, trajeron. Hacer: hice, hiciste, hizo.",
+        "sort_order": 210
+      },
+      {
+        "key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "text",
+        "title": "Perfecto или Indefinido",
+        "content": "Главная подсказка — временная рамка.\n\nТекущий незаконченный период часто тянет Perfecto: hoy, esta semana, este mes, este año. Законченное время обычно тянет Indefinido: ayer, la semana pasada, el año pasado, en 2024.\n\nСравните: «Hoy he trabajado mucho» и «Ayer trabajé mucho». В реальной речи выбор зависит и от региона, но для базовой системы это надёжная опора.",
+        "sort_order": 220
+      }
+    ],
+    "theory_exercises": [
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.001",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (hablar, Indefinido)",
+        "correct_answer": "hablé",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.002",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (hablar, Indefinido)",
+        "correct_answer": "hablaste",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.003",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (hablar, Indefinido)",
+        "correct_answer": "hablamos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.004",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (hablar, Indefinido)",
+        "correct_answer": "hablaron",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.005",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (trabajar, Indefinido)",
+        "correct_answer": "trabajé",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.006",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (trabajar, Indefinido)",
+        "correct_answer": "trabajaste",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.007",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (trabajar, Indefinido)",
+        "correct_answer": "trabajamos",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.008",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (trabajar, Indefinido)",
+        "correct_answer": "trabajaron",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.009",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (estudiar, Indefinido)",
+        "correct_answer": "estudié",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.010",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (estudiar, Indefinido)",
+        "correct_answer": "estudiaste",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.011",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (estudiar, Indefinido)",
+        "correct_answer": "estudiamos",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.012",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (estudiar, Indefinido)",
+        "correct_answer": "estudiaron",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.013",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (comer, Indefinido)",
+        "correct_answer": "comí",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.014",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (comer, Indefinido)",
+        "correct_answer": "comiste",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.015",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (comer, Indefinido)",
+        "correct_answer": "comimos",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.016",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (comer, Indefinido)",
+        "correct_answer": "comieron",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.017",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (beber, Indefinido)",
+        "correct_answer": "bebí",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.018",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (beber, Indefinido)",
+        "correct_answer": "bebiste",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.019",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (beber, Indefinido)",
+        "correct_answer": "bebimos",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.020",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (beber, Indefinido)",
+        "correct_answer": "bebieron",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.021",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (vivir, Indefinido)",
+        "correct_answer": "viví",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.022",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (vivir, Indefinido)",
+        "correct_answer": "viviste",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.023",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (vivir, Indefinido)",
+        "correct_answer": "vivimos",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.024",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (vivir, Indefinido)",
+        "correct_answer": "vivieron",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.025",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (salir, Indefinido)",
+        "correct_answer": "salí",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.026",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (salir, Indefinido)",
+        "correct_answer": "saliste",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.027",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (salir, Indefinido)",
+        "correct_answer": "salimos",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.028",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (salir, Indefinido)",
+        "correct_answer": "salieron",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.029",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (llegar, Indefinido)",
+        "correct_answer": "llegué",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.030",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (llegar, Indefinido)",
+        "correct_answer": "llegaste",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.031",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (llegar, Indefinido)",
+        "correct_answer": "llegamos",
+        "sort_order": 31
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.032",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (llegar, Indefinido)",
+        "correct_answer": "llegaron",
+        "sort_order": 32
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.033",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (empezar, Indefinido)",
+        "correct_answer": "empecé",
+        "sort_order": 33
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.034",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (empezar, Indefinido)",
+        "correct_answer": "empezaste",
+        "sort_order": 34
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.035",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (empezar, Indefinido)",
+        "correct_answer": "empezamos",
+        "sort_order": 35
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.036",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (empezar, Indefinido)",
+        "correct_answer": "empezaron",
+        "sort_order": 36
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.037",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Вчера я работал дома»",
+        "correct_answer": "ayer trabajé en casa",
+        "sort_order": 37,
+        "options": [
+          "ayer",
+          "trabajé",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.038",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы поели в ресторане»",
+        "correct_answer": "comimos en el restaurante",
+        "sort_order": 38,
+        "options": [
+          "comimos",
+          "en",
+          "el",
+          "restaurante"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.039",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они жили в Мадриде»",
+        "correct_answer": "vivieron en madrid",
+        "sort_order": 39,
+        "options": [
+          "vivieron",
+          "en",
+          "madrid"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.040",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я приехал вчера»",
+        "correct_answer": "llegué ayer",
+        "sort_order": 40,
+        "options": [
+          "llegué",
+          "ayer"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.190-indefinido-regular.041",
+        "theory_block_key": "es.first-steps.theory.190-indefinido-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я начал в девять»",
+        "correct_answer": "empecé a las nueve",
+        "sort_order": 41,
+        "options": [
+          "empecé",
+          "a",
+          "las",
+          "nueve"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.001",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (ir, Indefinido)",
+        "correct_answer": "fui",
+        "sort_order": 1,
+        "explanation": "Формы fui/fuiste/fue/fuimos/fueron совпадают у ir и ser; значение определяет контекст."
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.002",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (ir, Indefinido)",
+        "correct_answer": "fuiste",
+        "sort_order": 2,
+        "explanation": "Формы fui/fuiste/fue/fuimos/fueron совпадают у ir и ser; значение определяет контекст."
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.003",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (ir, Indefinido)",
+        "correct_answer": "fue",
+        "sort_order": 3,
+        "explanation": "Формы fui/fuiste/fue/fuimos/fueron совпадают у ir и ser; значение определяет контекст."
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.004",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (ir, Indefinido)",
+        "correct_answer": "fuimos",
+        "sort_order": 4,
+        "explanation": "Формы fui/fuiste/fue/fuimos/fueron совпадают у ir и ser; значение определяет контекст."
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.005",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (ir, Indefinido)",
+        "correct_answer": "fueron",
+        "sort_order": 5,
+        "explanation": "Формы fui/fuiste/fue/fuimos/fueron совпадают у ir и ser; значение определяет контекст."
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.006",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (estar, Indefinido)",
+        "correct_answer": "estuve",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.007",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (estar, Indefinido)",
+        "correct_answer": "estuviste",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.008",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (estar, Indefinido)",
+        "correct_answer": "estuvo",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.009",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (estar, Indefinido)",
+        "correct_answer": "estuvimos",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.010",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (estar, Indefinido)",
+        "correct_answer": "estuvieron",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.011",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (tener, Indefinido)",
+        "correct_answer": "tuve",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.012",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (tener, Indefinido)",
+        "correct_answer": "tuviste",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.013",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (tener, Indefinido)",
+        "correct_answer": "tuvo",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.014",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (tener, Indefinido)",
+        "correct_answer": "tuvimos",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.015",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (tener, Indefinido)",
+        "correct_answer": "tuvieron",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.016",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (hacer, Indefinido)",
+        "correct_answer": "hice",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.017",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (hacer, Indefinido)",
+        "correct_answer": "hiciste",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.018",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (hacer, Indefinido)",
+        "correct_answer": "hizo",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.019",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (hacer, Indefinido)",
+        "correct_answer": "hicimos",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.020",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (hacer, Indefinido)",
+        "correct_answer": "hicieron",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.021",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (poder, Indefinido)",
+        "correct_answer": "pude",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.022",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (poder, Indefinido)",
+        "correct_answer": "pudiste",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.023",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (poder, Indefinido)",
+        "correct_answer": "pudo",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.024",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (poder, Indefinido)",
+        "correct_answer": "pudimos",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.025",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (poder, Indefinido)",
+        "correct_answer": "pudieron",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.026",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (venir, Indefinido)",
+        "correct_answer": "vine",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.027",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (venir, Indefinido)",
+        "correct_answer": "viniste",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.028",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (venir, Indefinido)",
+        "correct_answer": "vino",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.029",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (venir, Indefinido)",
+        "correct_answer": "vinimos",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.030",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (venir, Indefinido)",
+        "correct_answer": "vinieron",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.031",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (decir, Indefinido)",
+        "correct_answer": "dije",
+        "sort_order": 31
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.032",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (decir, Indefinido)",
+        "correct_answer": "dijiste",
+        "sort_order": 32
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.033",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (decir, Indefinido)",
+        "correct_answer": "dijo",
+        "sort_order": 33
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.034",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (decir, Indefinido)",
+        "correct_answer": "dijimos",
+        "sort_order": 34
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.035",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (decir, Indefinido)",
+        "correct_answer": "dijeron",
+        "sort_order": 35
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.036",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (ver, Indefinido)",
+        "correct_answer": "vi",
+        "sort_order": 36
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.037",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (ver, Indefinido)",
+        "correct_answer": "viste",
+        "sort_order": 37
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.038",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (ver, Indefinido)",
+        "correct_answer": "vio",
+        "sort_order": 38
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.039",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (ver, Indefinido)",
+        "correct_answer": "vimos",
+        "sort_order": 39
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.040",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (ver, Indefinido)",
+        "correct_answer": "vieron",
+        "sort_order": 40
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.041",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (dar, Indefinido)",
+        "correct_answer": "di",
+        "sort_order": 41
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.042",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (dar, Indefinido)",
+        "correct_answer": "diste",
+        "sort_order": 42
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.043",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (dar, Indefinido)",
+        "correct_answer": "dio",
+        "sort_order": 43
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.044",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (dar, Indefinido)",
+        "correct_answer": "dimos",
+        "sort_order": 44
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.045",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (dar, Indefinido)",
+        "correct_answer": "dieron",
+        "sort_order": 45
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.046",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (traer, Indefinido)",
+        "correct_answer": "traje",
+        "sort_order": 46
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.047",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (traer, Indefinido)",
+        "correct_answer": "trajiste",
+        "sort_order": 47
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.048",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (traer, Indefinido)",
+        "correct_answer": "trajo",
+        "sort_order": 48
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.049",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (traer, Indefinido)",
+        "correct_answer": "trajimos",
+        "sort_order": 49
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.050",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (traer, Indefinido)",
+        "correct_answer": "trajeron",
+        "sort_order": 50
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.051",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (poner, Indefinido)",
+        "correct_answer": "puse",
+        "sort_order": 51
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.052",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (poner, Indefinido)",
+        "correct_answer": "pusiste",
+        "sort_order": 52
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.053",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (poner, Indefinido)",
+        "correct_answer": "puso",
+        "sort_order": 53
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.054",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (poner, Indefinido)",
+        "correct_answer": "pusimos",
+        "sort_order": 54
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.055",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (poner, Indefinido)",
+        "correct_answer": "pusieron",
+        "sort_order": 55
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.056",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (saber, Indefinido)",
+        "correct_answer": "supe",
+        "sort_order": 56
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.057",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (saber, Indefinido)",
+        "correct_answer": "supiste",
+        "sort_order": 57
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.058",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (saber, Indefinido)",
+        "correct_answer": "supo",
+        "sort_order": 58
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.059",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (saber, Indefinido)",
+        "correct_answer": "supimos",
+        "sort_order": 59
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.060",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (saber, Indefinido)",
+        "correct_answer": "supieron",
+        "sort_order": 60
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.061",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (querer, Indefinido)",
+        "correct_answer": "quise",
+        "sort_order": 61
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.062",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (querer, Indefinido)",
+        "correct_answer": "quisiste",
+        "sort_order": 62
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.063",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (querer, Indefinido)",
+        "correct_answer": "quiso",
+        "sort_order": 63
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.064",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (querer, Indefinido)",
+        "correct_answer": "quisimos",
+        "sort_order": 64
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.065",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (querer, Indefinido)",
+        "correct_answer": "quisieron",
+        "sort_order": 65
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.066",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "choice",
+        "prompt": "Форма «fui» может относиться к:",
+        "correct_answer": "ir и ser",
+        "sort_order": 66,
+        "explanation": "Fui — форма yo и для ir, и для ser.",
+        "options": [
+          "только ir",
+          "только ser",
+          "ir и ser",
+          "estar и ser"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.067",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Вчера я был дома»",
+        "correct_answer": "ayer estuve en casa",
+        "sort_order": 67,
+        "options": [
+          "ayer",
+          "estuve",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.068",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я сделал это вчера»",
+        "correct_answer": "lo hice ayer",
+        "sort_order": 68,
+        "options": [
+          "lo",
+          "hice",
+          "ayer"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.069",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы смогли прийти»",
+        "correct_answer": "pudimos venir",
+        "sort_order": 69,
+        "options": [
+          "pudimos",
+          "venir"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.070",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она сказала правду»",
+        "correct_answer": "ella dijo la verdad",
+        "sort_order": 70,
+        "options": [
+          "ella",
+          "dijo",
+          "la",
+          "verdad"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.071",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я увидел его вчера»",
+        "correct_answer": "lo vi ayer",
+        "sort_order": 71,
+        "options": [
+          "lo",
+          "vi",
+          "ayer"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.072",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они принесли еду»",
+        "correct_answer": "trajeron la comida",
+        "sort_order": 72,
+        "options": [
+          "trajeron",
+          "la",
+          "comida"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.073",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я поставил чашку на стол»",
+        "correct_answer": "puse la taza en la mesa",
+        "sort_order": 73,
+        "options": [
+          "puse",
+          "la",
+          "taza",
+          "en",
+          "la",
+          "mesa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.200-indefinido-irregular.074",
+        "theory_block_key": "es.first-steps.theory.200-indefinido-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы узнали это вчера»",
+        "correct_answer": "lo supimos ayer",
+        "sort_order": 74,
+        "options": [
+          "lo",
+          "supimos",
+          "ayer"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.001",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "Hoy ___ mucho. (trabajar)",
+        "correct_answer": "he trabajado",
+        "sort_order": 1,
+        "options": [
+          "he trabajado",
+          "trabajé",
+          "trabajaba",
+          "trabajo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.002",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "Ayer ___ mucho. (trabajar)",
+        "correct_answer": "trabajé",
+        "sort_order": 2,
+        "options": [
+          "he trabajado",
+          "trabajé",
+          "trabajo",
+          "trabajaré"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.003",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "Esta semana ___ al gimnasio tres veces. (ir)",
+        "correct_answer": "he ido",
+        "sort_order": 3,
+        "options": [
+          "fui",
+          "he ido",
+          "voy",
+          "iba"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.004",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "La semana pasada ___ al gimnasio tres veces. (ir)",
+        "correct_answer": "fui",
+        "sort_order": 4,
+        "options": [
+          "he ido",
+          "fui",
+          "voy",
+          "he sido"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.005",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "Este año ___ mucho. (viajar)",
+        "correct_answer": "he viajado",
+        "sort_order": 5,
+        "options": [
+          "viajé",
+          "he viajado",
+          "viajo",
+          "viajaba"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.006",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "El año pasado ___ mucho. (viajar)",
+        "correct_answer": "viajé",
+        "sort_order": 6,
+        "options": [
+          "he viajado",
+          "viajé",
+          "viajo",
+          "viajaré"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.007",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "Hoy ___ a Ana. (ver)",
+        "correct_answer": "he visto",
+        "sort_order": 7,
+        "options": [
+          "vi",
+          "he visto",
+          "veo",
+          "visto"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.008",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "choice",
+        "prompt": "Ayer ___ a Ana. (ver)",
+        "correct_answer": "vi",
+        "sort_order": 8,
+        "options": [
+          "he visto",
+          "vi",
+          "veo",
+          "he vi"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.009",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "gap",
+        "prompt": "Hoy ___ mucho café. (beber)",
+        "correct_answer": "he bebido",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.010",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "gap",
+        "prompt": "Ayer ___ mucho café. (beber)",
+        "correct_answer": "bebí",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.011",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "gap",
+        "prompt": "Este mes ___ dos libros. (leer)",
+        "correct_answer": "he leído",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.012",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "gap",
+        "prompt": "El mes pasado ___ dos libros. (leer)",
+        "correct_answer": "leí",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.013",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "gap",
+        "prompt": "Esta mañana ___ temprano. (levantarse, Perfecto)",
+        "correct_answer": "me he levantado",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.014",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня я много работал»",
+        "correct_answer": "hoy he trabajado mucho",
+        "sort_order": 14,
+        "options": [
+          "hoy",
+          "he",
+          "trabajado",
+          "mucho"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.015",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Вчера я много работал»",
+        "correct_answer": "ayer trabajé mucho",
+        "sort_order": 15,
+        "options": [
+          "ayer",
+          "trabajé",
+          "mucho"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.016",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «На этой неделе мы уже виделись»",
+        "correct_answer": "esta semana ya nos hemos visto",
+        "sort_order": 16,
+        "options": [
+          "esta",
+          "semana",
+          "ya",
+          "nos",
+          "hemos",
+          "visto"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.210-perfecto-vs-indefinido.017",
+        "theory_block_key": "es.first-steps.theory.210-perfecto-vs-indefinido",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «На прошлой неделе мы встретились»",
+        "correct_answer": "la semana pasada nos vimos",
+        "sort_order": 17,
+        "options": [
+          "la",
+          "semana",
+          "pasada",
+          "nos",
+          "vimos"
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.common-actions",
+        "name": "Частые действия",
+        "description": "Большой набор самых полезных глаголов.",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.topic.time-dates",
+        "name": "Время и даты",
+        "description": "Дни недели, месяцы, части дня и календарная лексика.",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.topic.transport-travel",
+        "name": "Транспорт и поездки",
+        "description": "Транспорт, дорога, билеты и базовая лексика путешествий.",
+        "sort_order": 13
+      }
+    ]
+  }
+}

@@ -1,0 +1,2487 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.vocab-1",
+    "name": "1. Базовый словарь: люди и повседневность",
+    "description": "Базовая лексика про людей, семью, числа, время, внешность, тело, одежду, еду, кухню и дом.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 10,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A1"
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.greetings-people",
+        "name": "Приветствия и люди",
+        "description": "Базовые слова для знакомства, общения и описания людей.",
+        "sort_order": 1,
+        "vocabulary": [
+          {
+            "key": "es.vocab.hola",
+            "target": "hola",
+            "reference": "привет"
+          },
+          {
+            "key": "es.vocab.buenos-dias",
+            "target": "buenos días",
+            "reference": "доброе утро"
+          },
+          {
+            "key": "es.vocab.buenas-tardes",
+            "target": "buenas tardes",
+            "reference": "добрый день"
+          },
+          {
+            "key": "es.vocab.buenas-noches",
+            "target": "buenas noches",
+            "reference": "добрый вечер",
+            "notes": "Также: спокойной ночи"
+          },
+          {
+            "key": "es.vocab.adios",
+            "target": "adiós",
+            "reference": "пока",
+            "notes": "Также: до свидания"
+          },
+          {
+            "key": "es.vocab.hasta-luego",
+            "target": "hasta luego",
+            "reference": "до скорого"
+          },
+          {
+            "key": "es.vocab.hasta-manana",
+            "target": "hasta mañana",
+            "reference": "до завтра"
+          },
+          {
+            "key": "es.vocab.por-favor",
+            "target": "por favor",
+            "reference": "пожалуйста"
+          },
+          {
+            "key": "es.vocab.gracias",
+            "target": "gracias",
+            "reference": "спасибо"
+          },
+          {
+            "key": "es.vocab.de-nada",
+            "target": "de nada",
+            "reference": "не за что"
+          },
+          {
+            "key": "es.vocab.perdon",
+            "target": "perdón",
+            "reference": "извините",
+            "notes": "Также: прости"
+          },
+          {
+            "key": "es.vocab.lo-siento",
+            "target": "lo siento",
+            "reference": "мне жаль"
+          },
+          {
+            "key": "es.vocab.si.6ab33a",
+            "target": "sí",
+            "reference": "да"
+          },
+          {
+            "key": "es.vocab.no",
+            "target": "no",
+            "reference": "нет"
+          },
+          {
+            "key": "es.vocab.quiza",
+            "target": "quizá",
+            "reference": "возможно"
+          },
+          {
+            "key": "es.vocab.claro.db045d",
+            "target": "claro",
+            "reference": "конечно"
+          },
+          {
+            "key": "es.vocab.bien",
+            "target": "bien",
+            "reference": "хорошо"
+          },
+          {
+            "key": "es.vocab.mal",
+            "target": "mal",
+            "reference": "плохо"
+          },
+          {
+            "key": "es.vocab.tambien",
+            "target": "también",
+            "reference": "тоже"
+          },
+          {
+            "key": "es.vocab.tampoco",
+            "target": "tampoco",
+            "reference": "тоже не"
+          },
+          {
+            "key": "es.vocab.persona",
+            "target": "persona",
+            "reference": "человек"
+          },
+          {
+            "key": "es.vocab.hombre",
+            "target": "hombre",
+            "reference": "мужчина"
+          },
+          {
+            "key": "es.vocab.mujer.24a824",
+            "target": "mujer",
+            "reference": "женщина"
+          },
+          {
+            "key": "es.vocab.nino",
+            "target": "niño",
+            "reference": "мальчик",
+            "notes": "Также: ребёнок"
+          },
+          {
+            "key": "es.vocab.nina",
+            "target": "niña",
+            "reference": "девочка"
+          },
+          {
+            "key": "es.vocab.amigo",
+            "target": "amigo",
+            "reference": "друг"
+          },
+          {
+            "key": "es.vocab.amiga",
+            "target": "amiga",
+            "reference": "подруга"
+          },
+          {
+            "key": "es.vocab.senor",
+            "target": "señor",
+            "reference": "господин"
+          },
+          {
+            "key": "es.vocab.senora",
+            "target": "señora",
+            "reference": "госпожа"
+          },
+          {
+            "key": "es.vocab.nombre",
+            "target": "nombre",
+            "reference": "имя"
+          },
+          {
+            "key": "es.vocab.apellido",
+            "target": "apellido",
+            "reference": "фамилия"
+          },
+          {
+            "key": "es.vocab.edad",
+            "target": "edad",
+            "reference": "возраст"
+          },
+          {
+            "key": "es.vocab.pais",
+            "target": "país",
+            "reference": "страна"
+          },
+          {
+            "key": "es.vocab.idioma",
+            "target": "idioma",
+            "reference": "язык"
+          },
+          {
+            "key": "es.vocab.espanol",
+            "target": "español",
+            "reference": "испанский язык"
+          },
+          {
+            "key": "es.vocab.ruso",
+            "target": "ruso",
+            "reference": "русский язык"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.family",
+        "name": "Семья",
+        "description": "Родственники, близкие и отношения между людьми.",
+        "sort_order": 2,
+        "vocabulary": [
+          {
+            "key": "es.vocab.familia",
+            "target": "familia",
+            "reference": "семья"
+          },
+          {
+            "key": "es.vocab.padre",
+            "target": "padre",
+            "reference": "отец"
+          },
+          {
+            "key": "es.vocab.madre",
+            "target": "madre",
+            "reference": "мать"
+          },
+          {
+            "key": "es.vocab.papa",
+            "target": "papá",
+            "reference": "папа"
+          },
+          {
+            "key": "es.vocab.mama",
+            "target": "mamá",
+            "reference": "мама"
+          },
+          {
+            "key": "es.vocab.hijo",
+            "target": "hijo",
+            "reference": "сын"
+          },
+          {
+            "key": "es.vocab.hija",
+            "target": "hija",
+            "reference": "дочь"
+          },
+          {
+            "key": "es.vocab.hermano",
+            "target": "hermano",
+            "reference": "брат"
+          },
+          {
+            "key": "es.vocab.hermana",
+            "target": "hermana",
+            "reference": "сестра"
+          },
+          {
+            "key": "es.vocab.abuelo",
+            "target": "abuelo",
+            "reference": "дедушка"
+          },
+          {
+            "key": "es.vocab.abuela",
+            "target": "abuela",
+            "reference": "бабушка"
+          },
+          {
+            "key": "es.vocab.nieto",
+            "target": "nieto",
+            "reference": "внук"
+          },
+          {
+            "key": "es.vocab.nieta",
+            "target": "nieta",
+            "reference": "внучка"
+          },
+          {
+            "key": "es.vocab.tio",
+            "target": "tío",
+            "reference": "дядя"
+          },
+          {
+            "key": "es.vocab.tia",
+            "target": "tía",
+            "reference": "тётя"
+          },
+          {
+            "key": "es.vocab.primo",
+            "target": "primo",
+            "reference": "двоюродный брат"
+          },
+          {
+            "key": "es.vocab.prima",
+            "target": "prima",
+            "reference": "двоюродная сестра"
+          },
+          {
+            "key": "es.vocab.marido",
+            "target": "marido",
+            "reference": "муж"
+          },
+          {
+            "key": "es.vocab.mujer.c7bda1",
+            "target": "mujer",
+            "reference": "жена"
+          },
+          {
+            "key": "es.vocab.esposo",
+            "target": "esposo",
+            "reference": "супруг"
+          },
+          {
+            "key": "es.vocab.esposa",
+            "target": "esposa",
+            "reference": "супруга"
+          },
+          {
+            "key": "es.vocab.pareja",
+            "target": "pareja",
+            "reference": "партнёр",
+            "notes": "Также: пара"
+          },
+          {
+            "key": "es.vocab.novio",
+            "target": "novio",
+            "reference": "парень",
+            "notes": "Также: жених"
+          },
+          {
+            "key": "es.vocab.novia",
+            "target": "novia",
+            "reference": "девушка",
+            "notes": "Также: невеста"
+          },
+          {
+            "key": "es.vocab.padres",
+            "target": "padres",
+            "reference": "родители"
+          },
+          {
+            "key": "es.vocab.hijos",
+            "target": "hijos",
+            "reference": "дети"
+          },
+          {
+            "key": "es.vocab.pariente",
+            "target": "pariente",
+            "reference": "родственник"
+          },
+          {
+            "key": "es.vocab.bebe",
+            "target": "bebé",
+            "reference": "младенец"
+          },
+          {
+            "key": "es.vocab.adulto",
+            "target": "adulto",
+            "reference": "взрослый"
+          },
+          {
+            "key": "es.vocab.joven.098ad9",
+            "target": "joven",
+            "reference": "молодой человек"
+          },
+          {
+            "key": "es.vocab.vecino",
+            "target": "vecino",
+            "reference": "сосед"
+          },
+          {
+            "key": "es.vocab.vecina",
+            "target": "vecina",
+            "reference": "соседка"
+          },
+          {
+            "key": "es.vocab.companero.f85383",
+            "target": "compañero",
+            "reference": "товарищ",
+            "notes": "Также: коллега"
+          },
+          {
+            "key": "es.vocab.companera.8118d4",
+            "target": "compañera",
+            "reference": "товарищ",
+            "notes": "Также: коллега"
+          },
+          {
+            "key": "es.vocab.gente",
+            "target": "gente",
+            "reference": "люди"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.grammar-essentials",
+        "name": "Местоимения и служебные слова",
+        "description": "Личные и объектные местоимения, указательные и базовые служебные слова.",
+        "sort_order": 3,
+        "vocabulary": [
+          {
+            "key": "es.vocab.yo",
+            "target": "yo",
+            "reference": "я"
+          },
+          {
+            "key": "es.vocab.tu.6dc1c8",
+            "target": "tú",
+            "reference": "ты"
+          },
+          {
+            "key": "es.vocab.el",
+            "target": "él",
+            "reference": "он"
+          },
+          {
+            "key": "es.vocab.ella",
+            "target": "ella",
+            "reference": "она"
+          },
+          {
+            "key": "es.vocab.usted",
+            "target": "usted",
+            "reference": "Вы"
+          },
+          {
+            "key": "es.vocab.nosotros",
+            "target": "nosotros",
+            "reference": "мы"
+          },
+          {
+            "key": "es.vocab.vosotros",
+            "target": "vosotros",
+            "reference": "вы"
+          },
+          {
+            "key": "es.vocab.ellos",
+            "target": "ellos",
+            "reference": "они"
+          },
+          {
+            "key": "es.vocab.ustedes",
+            "target": "ustedes",
+            "reference": "вы"
+          },
+          {
+            "key": "es.vocab.me",
+            "target": "me",
+            "reference": "меня",
+            "notes": "Также: мне; себя"
+          },
+          {
+            "key": "es.vocab.te.50f81c",
+            "target": "te",
+            "reference": "тебя",
+            "notes": "Также: тебе; себя"
+          },
+          {
+            "key": "es.vocab.se",
+            "target": "se",
+            "reference": "себя",
+            "notes": "Также: ему; ей"
+          },
+          {
+            "key": "es.vocab.nos",
+            "target": "nos",
+            "reference": "нас",
+            "notes": "Также: нам; себя"
+          },
+          {
+            "key": "es.vocab.os",
+            "target": "os",
+            "reference": "вас",
+            "notes": "Также: вам; себя"
+          },
+          {
+            "key": "es.vocab.lo",
+            "target": "lo",
+            "reference": "его",
+            "notes": "Также: это"
+          },
+          {
+            "key": "es.vocab.la",
+            "target": "la",
+            "reference": "её",
+            "notes": "Также: это"
+          },
+          {
+            "key": "es.vocab.los",
+            "target": "los",
+            "reference": "их"
+          },
+          {
+            "key": "es.vocab.las",
+            "target": "las",
+            "reference": "их"
+          },
+          {
+            "key": "es.vocab.le",
+            "target": "le",
+            "reference": "ему",
+            "notes": "Также: ей"
+          },
+          {
+            "key": "es.vocab.les",
+            "target": "les",
+            "reference": "им"
+          },
+          {
+            "key": "es.vocab.mi",
+            "target": "mi",
+            "reference": "мой",
+            "notes": "Также: моя"
+          },
+          {
+            "key": "es.vocab.tu.5023e9",
+            "target": "tu",
+            "reference": "твой",
+            "notes": "Также: твоя"
+          },
+          {
+            "key": "es.vocab.su",
+            "target": "su",
+            "reference": "его",
+            "notes": "Также: её; Ваш; их"
+          },
+          {
+            "key": "es.vocab.nuestro",
+            "target": "nuestro",
+            "reference": "наш"
+          },
+          {
+            "key": "es.vocab.este",
+            "target": "este",
+            "reference": "этот"
+          },
+          {
+            "key": "es.vocab.esta",
+            "target": "esta",
+            "reference": "эта"
+          },
+          {
+            "key": "es.vocab.estos",
+            "target": "estos",
+            "reference": "эти"
+          },
+          {
+            "key": "es.vocab.estas",
+            "target": "estas",
+            "reference": "эти"
+          },
+          {
+            "key": "es.vocab.ese",
+            "target": "ese",
+            "reference": "тот"
+          },
+          {
+            "key": "es.vocab.esa",
+            "target": "esa",
+            "reference": "та"
+          },
+          {
+            "key": "es.vocab.aqui",
+            "target": "aquí",
+            "reference": "здесь"
+          },
+          {
+            "key": "es.vocab.alli",
+            "target": "allí",
+            "reference": "там"
+          },
+          {
+            "key": "es.vocab.algo",
+            "target": "algo",
+            "reference": "что-то"
+          },
+          {
+            "key": "es.vocab.nada",
+            "target": "nada",
+            "reference": "ничего"
+          },
+          {
+            "key": "es.vocab.nadie",
+            "target": "nadie",
+            "reference": "никто"
+          },
+          {
+            "key": "es.vocab.alguien",
+            "target": "alguien",
+            "reference": "кто-то"
+          },
+          {
+            "key": "es.vocab.verdad",
+            "target": "verdad",
+            "reference": "правда"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.numbers",
+        "name": "Числа",
+        "description": "Числа и базовые количественные слова.",
+        "sort_order": 4,
+        "vocabulary": [
+          {
+            "key": "es.vocab.cero",
+            "target": "cero",
+            "reference": "ноль"
+          },
+          {
+            "key": "es.vocab.uno",
+            "target": "uno",
+            "reference": "один"
+          },
+          {
+            "key": "es.vocab.dos",
+            "target": "dos",
+            "reference": "два"
+          },
+          {
+            "key": "es.vocab.tres",
+            "target": "tres",
+            "reference": "три"
+          },
+          {
+            "key": "es.vocab.cuatro",
+            "target": "cuatro",
+            "reference": "четыре"
+          },
+          {
+            "key": "es.vocab.cinco",
+            "target": "cinco",
+            "reference": "пять"
+          },
+          {
+            "key": "es.vocab.seis",
+            "target": "seis",
+            "reference": "шесть"
+          },
+          {
+            "key": "es.vocab.siete",
+            "target": "siete",
+            "reference": "семь"
+          },
+          {
+            "key": "es.vocab.ocho",
+            "target": "ocho",
+            "reference": "восемь"
+          },
+          {
+            "key": "es.vocab.nueve",
+            "target": "nueve",
+            "reference": "девять"
+          },
+          {
+            "key": "es.vocab.diez",
+            "target": "diez",
+            "reference": "десять"
+          },
+          {
+            "key": "es.vocab.once",
+            "target": "once",
+            "reference": "одиннадцать"
+          },
+          {
+            "key": "es.vocab.doce",
+            "target": "doce",
+            "reference": "двенадцать"
+          },
+          {
+            "key": "es.vocab.trece",
+            "target": "trece",
+            "reference": "тринадцать"
+          },
+          {
+            "key": "es.vocab.catorce",
+            "target": "catorce",
+            "reference": "четырнадцать"
+          },
+          {
+            "key": "es.vocab.quince",
+            "target": "quince",
+            "reference": "пятнадцать"
+          },
+          {
+            "key": "es.vocab.dieciseis",
+            "target": "dieciséis",
+            "reference": "шестнадцать"
+          },
+          {
+            "key": "es.vocab.diecisiete",
+            "target": "diecisiete",
+            "reference": "семнадцать"
+          },
+          {
+            "key": "es.vocab.dieciocho",
+            "target": "dieciocho",
+            "reference": "восемнадцать"
+          },
+          {
+            "key": "es.vocab.diecinueve",
+            "target": "diecinueve",
+            "reference": "девятнадцать"
+          },
+          {
+            "key": "es.vocab.veinte",
+            "target": "veinte",
+            "reference": "двадцать"
+          },
+          {
+            "key": "es.vocab.veintiuno",
+            "target": "veintiuno",
+            "reference": "двадцать один"
+          },
+          {
+            "key": "es.vocab.veintidos",
+            "target": "veintidós",
+            "reference": "двадцать два"
+          },
+          {
+            "key": "es.vocab.veintitres",
+            "target": "veintitrés",
+            "reference": "двадцать три"
+          },
+          {
+            "key": "es.vocab.veinticuatro",
+            "target": "veinticuatro",
+            "reference": "двадцать четыре"
+          },
+          {
+            "key": "es.vocab.veinticinco",
+            "target": "veinticinco",
+            "reference": "двадцать пять"
+          },
+          {
+            "key": "es.vocab.treinta",
+            "target": "treinta",
+            "reference": "тридцать"
+          },
+          {
+            "key": "es.vocab.cuarenta",
+            "target": "cuarenta",
+            "reference": "сорок"
+          },
+          {
+            "key": "es.vocab.cincuenta",
+            "target": "cincuenta",
+            "reference": "пятьдесят"
+          },
+          {
+            "key": "es.vocab.sesenta",
+            "target": "sesenta",
+            "reference": "шестьдесят"
+          },
+          {
+            "key": "es.vocab.setenta",
+            "target": "setenta",
+            "reference": "семьдесят"
+          },
+          {
+            "key": "es.vocab.ochenta",
+            "target": "ochenta",
+            "reference": "восемьдесят"
+          },
+          {
+            "key": "es.vocab.noventa",
+            "target": "noventa",
+            "reference": "девяносто"
+          },
+          {
+            "key": "es.vocab.cien",
+            "target": "cien",
+            "reference": "сто"
+          },
+          {
+            "key": "es.vocab.ciento",
+            "target": "ciento",
+            "reference": "сто в составном числе"
+          },
+          {
+            "key": "es.vocab.doscientos",
+            "target": "doscientos",
+            "reference": "двести"
+          },
+          {
+            "key": "es.vocab.quinientos",
+            "target": "quinientos",
+            "reference": "пятьсот"
+          },
+          {
+            "key": "es.vocab.mil",
+            "target": "mil",
+            "reference": "тысяча"
+          },
+          {
+            "key": "es.vocab.un-millon",
+            "target": "un millón",
+            "reference": "миллион"
+          },
+          {
+            "key": "es.vocab.primero.1ea24e",
+            "target": "primero",
+            "reference": "первый"
+          },
+          {
+            "key": "es.vocab.segundo.630d58",
+            "target": "segundo",
+            "reference": "второй"
+          },
+          {
+            "key": "es.vocab.tercero",
+            "target": "tercero",
+            "reference": "третий"
+          },
+          {
+            "key": "es.vocab.mitad",
+            "target": "mitad",
+            "reference": "половина"
+          },
+          {
+            "key": "es.vocab.doble",
+            "target": "doble",
+            "reference": "двойной"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.time-dates",
+        "name": "Время и даты",
+        "description": "Дни недели, месяцы, части дня и календарная лексика.",
+        "sort_order": 5,
+        "vocabulary": [
+          {
+            "key": "es.vocab.tiempo.d417bd",
+            "target": "tiempo",
+            "reference": "время"
+          },
+          {
+            "key": "es.vocab.hora",
+            "target": "hora",
+            "reference": "час",
+            "notes": "Также: время"
+          },
+          {
+            "key": "es.vocab.minuto",
+            "target": "minuto",
+            "reference": "минута"
+          },
+          {
+            "key": "es.vocab.segundo.23c4ee",
+            "target": "segundo",
+            "reference": "секунда"
+          },
+          {
+            "key": "es.vocab.dia",
+            "target": "día",
+            "reference": "день"
+          },
+          {
+            "key": "es.vocab.semana",
+            "target": "semana",
+            "reference": "неделя"
+          },
+          {
+            "key": "es.vocab.mes",
+            "target": "mes",
+            "reference": "месяц"
+          },
+          {
+            "key": "es.vocab.ano",
+            "target": "año",
+            "reference": "год"
+          },
+          {
+            "key": "es.vocab.hoy",
+            "target": "hoy",
+            "reference": "сегодня"
+          },
+          {
+            "key": "es.vocab.ayer",
+            "target": "ayer",
+            "reference": "вчера"
+          },
+          {
+            "key": "es.vocab.manana",
+            "target": "mañana",
+            "reference": "завтра",
+            "notes": "Также: утро"
+          },
+          {
+            "key": "es.vocab.anteayer",
+            "target": "anteayer",
+            "reference": "позавчера"
+          },
+          {
+            "key": "es.vocab.pasado-manana",
+            "target": "pasado mañana",
+            "reference": "послезавтра"
+          },
+          {
+            "key": "es.vocab.ahora",
+            "target": "ahora",
+            "reference": "сейчас"
+          },
+          {
+            "key": "es.vocab.luego",
+            "target": "luego",
+            "reference": "потом"
+          },
+          {
+            "key": "es.vocab.antes",
+            "target": "antes",
+            "reference": "до",
+            "notes": "Также: раньше"
+          },
+          {
+            "key": "es.vocab.despues.ab952f",
+            "target": "después",
+            "reference": "после",
+            "notes": "Также: потом"
+          },
+          {
+            "key": "es.vocab.temprano",
+            "target": "temprano",
+            "reference": "рано"
+          },
+          {
+            "key": "es.vocab.tarde",
+            "target": "tarde",
+            "reference": "поздно",
+            "notes": "Также: вечер"
+          },
+          {
+            "key": "es.vocab.noche",
+            "target": "noche",
+            "reference": "ночь",
+            "notes": "Также: вечер"
+          },
+          {
+            "key": "es.vocab.mediodia",
+            "target": "mediodía",
+            "reference": "полдень"
+          },
+          {
+            "key": "es.vocab.medianoche",
+            "target": "medianoche",
+            "reference": "полночь"
+          },
+          {
+            "key": "es.vocab.lunes",
+            "target": "lunes",
+            "reference": "понедельник"
+          },
+          {
+            "key": "es.vocab.martes",
+            "target": "martes",
+            "reference": "вторник"
+          },
+          {
+            "key": "es.vocab.miercoles",
+            "target": "miércoles",
+            "reference": "среда"
+          },
+          {
+            "key": "es.vocab.jueves",
+            "target": "jueves",
+            "reference": "четверг"
+          },
+          {
+            "key": "es.vocab.viernes",
+            "target": "viernes",
+            "reference": "пятница"
+          },
+          {
+            "key": "es.vocab.sabado",
+            "target": "sábado",
+            "reference": "суббота"
+          },
+          {
+            "key": "es.vocab.domingo",
+            "target": "domingo",
+            "reference": "воскресенье"
+          },
+          {
+            "key": "es.vocab.enero",
+            "target": "enero",
+            "reference": "январь"
+          },
+          {
+            "key": "es.vocab.febrero",
+            "target": "febrero",
+            "reference": "февраль"
+          },
+          {
+            "key": "es.vocab.marzo",
+            "target": "marzo",
+            "reference": "март"
+          },
+          {
+            "key": "es.vocab.abril",
+            "target": "abril",
+            "reference": "апрель"
+          },
+          {
+            "key": "es.vocab.mayo",
+            "target": "mayo",
+            "reference": "май"
+          },
+          {
+            "key": "es.vocab.junio",
+            "target": "junio",
+            "reference": "июнь"
+          },
+          {
+            "key": "es.vocab.julio",
+            "target": "julio",
+            "reference": "июль"
+          },
+          {
+            "key": "es.vocab.agosto",
+            "target": "agosto",
+            "reference": "август"
+          },
+          {
+            "key": "es.vocab.septiembre",
+            "target": "septiembre",
+            "reference": "сентябрь"
+          },
+          {
+            "key": "es.vocab.octubre",
+            "target": "octubre",
+            "reference": "октябрь"
+          },
+          {
+            "key": "es.vocab.noviembre",
+            "target": "noviembre",
+            "reference": "ноябрь"
+          },
+          {
+            "key": "es.vocab.diciembre",
+            "target": "diciembre",
+            "reference": "декабрь"
+          },
+          {
+            "key": "es.vocab.primavera",
+            "target": "primavera",
+            "reference": "весна"
+          },
+          {
+            "key": "es.vocab.verano",
+            "target": "verano",
+            "reference": "лето"
+          },
+          {
+            "key": "es.vocab.otono",
+            "target": "otoño",
+            "reference": "осень"
+          },
+          {
+            "key": "es.vocab.invierno",
+            "target": "invierno",
+            "reference": "зима"
+          },
+          {
+            "key": "es.vocab.fecha",
+            "target": "fecha",
+            "reference": "дата"
+          },
+          {
+            "key": "es.vocab.calendario",
+            "target": "calendario",
+            "reference": "календарь"
+          },
+          {
+            "key": "es.vocab.cumpleanos",
+            "target": "cumpleaños",
+            "reference": "день рождения"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.colors-appearance",
+        "name": "Цвета и внешность",
+        "description": "Цвета и базовое описание внешности.",
+        "sort_order": 6,
+        "vocabulary": [
+          {
+            "key": "es.vocab.color",
+            "target": "color",
+            "reference": "цвет"
+          },
+          {
+            "key": "es.vocab.blanco",
+            "target": "blanco",
+            "reference": "белый"
+          },
+          {
+            "key": "es.vocab.negro",
+            "target": "negro",
+            "reference": "чёрный"
+          },
+          {
+            "key": "es.vocab.gris",
+            "target": "gris",
+            "reference": "серый"
+          },
+          {
+            "key": "es.vocab.rojo",
+            "target": "rojo",
+            "reference": "красный"
+          },
+          {
+            "key": "es.vocab.azul",
+            "target": "azul",
+            "reference": "синий",
+            "notes": "Также: голубой"
+          },
+          {
+            "key": "es.vocab.verde",
+            "target": "verde",
+            "reference": "зелёный"
+          },
+          {
+            "key": "es.vocab.amarillo",
+            "target": "amarillo",
+            "reference": "жёлтый"
+          },
+          {
+            "key": "es.vocab.naranja.6f7bb8",
+            "target": "naranja",
+            "reference": "оранжевый"
+          },
+          {
+            "key": "es.vocab.rosa",
+            "target": "rosa",
+            "reference": "розовый"
+          },
+          {
+            "key": "es.vocab.morado",
+            "target": "morado",
+            "reference": "фиолетовый"
+          },
+          {
+            "key": "es.vocab.violeta",
+            "target": "violeta",
+            "reference": "фиолетовый"
+          },
+          {
+            "key": "es.vocab.marron",
+            "target": "marrón",
+            "reference": "коричневый"
+          },
+          {
+            "key": "es.vocab.beige",
+            "target": "beige",
+            "reference": "бежевый"
+          },
+          {
+            "key": "es.vocab.claro.05b9be",
+            "target": "claro",
+            "reference": "светлый"
+          },
+          {
+            "key": "es.vocab.oscuro",
+            "target": "oscuro",
+            "reference": "тёмный"
+          },
+          {
+            "key": "es.vocab.alto",
+            "target": "alto",
+            "reference": "высокий"
+          },
+          {
+            "key": "es.vocab.bajo",
+            "target": "bajo",
+            "reference": "низкий"
+          },
+          {
+            "key": "es.vocab.delgado",
+            "target": "delgado",
+            "reference": "худой",
+            "notes": "Также: стройный"
+          },
+          {
+            "key": "es.vocab.gordo",
+            "target": "gordo",
+            "reference": "толстый"
+          },
+          {
+            "key": "es.vocab.fuerte",
+            "target": "fuerte",
+            "reference": "сильный"
+          },
+          {
+            "key": "es.vocab.debil",
+            "target": "débil",
+            "reference": "слабый"
+          },
+          {
+            "key": "es.vocab.guapo",
+            "target": "guapo",
+            "reference": "красивый",
+            "notes": "Также: симпатичный"
+          },
+          {
+            "key": "es.vocab.bonito",
+            "target": "bonito",
+            "reference": "красивый"
+          },
+          {
+            "key": "es.vocab.feo",
+            "target": "feo",
+            "reference": "некрасивый"
+          },
+          {
+            "key": "es.vocab.joven.34f797",
+            "target": "joven",
+            "reference": "молодой"
+          },
+          {
+            "key": "es.vocab.mayor",
+            "target": "mayor",
+            "reference": "старший",
+            "notes": "Также: пожилой"
+          },
+          {
+            "key": "es.vocab.rubio",
+            "target": "rubio",
+            "reference": "светловолосый"
+          },
+          {
+            "key": "es.vocab.moreno",
+            "target": "moreno",
+            "reference": "темноволосый"
+          },
+          {
+            "key": "es.vocab.calvo",
+            "target": "calvo",
+            "reference": "лысый"
+          },
+          {
+            "key": "es.vocab.barba",
+            "target": "barba",
+            "reference": "борода"
+          },
+          {
+            "key": "es.vocab.bigote",
+            "target": "bigote",
+            "reference": "усы"
+          },
+          {
+            "key": "es.vocab.rizado",
+            "target": "rizado",
+            "reference": "кудрявый"
+          },
+          {
+            "key": "es.vocab.liso",
+            "target": "liso",
+            "reference": "прямой",
+            "notes": "Также: гладкий"
+          },
+          {
+            "key": "es.vocab.largo",
+            "target": "largo",
+            "reference": "длинный"
+          },
+          {
+            "key": "es.vocab.corto",
+            "target": "corto",
+            "reference": "короткий"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.body-health",
+        "name": "Тело и здоровье",
+        "description": "Части тела, самочувствие и базовая медицинская лексика.",
+        "sort_order": 7,
+        "vocabulary": [
+          {
+            "key": "es.vocab.cabeza",
+            "target": "cabeza",
+            "reference": "голова"
+          },
+          {
+            "key": "es.vocab.cara",
+            "target": "cara",
+            "reference": "лицо"
+          },
+          {
+            "key": "es.vocab.pelo",
+            "target": "pelo",
+            "reference": "волосы"
+          },
+          {
+            "key": "es.vocab.ojo",
+            "target": "ojo",
+            "reference": "глаз"
+          },
+          {
+            "key": "es.vocab.ojos",
+            "target": "ojos",
+            "reference": "глаза"
+          },
+          {
+            "key": "es.vocab.oreja",
+            "target": "oreja",
+            "reference": "ухо"
+          },
+          {
+            "key": "es.vocab.nariz",
+            "target": "nariz",
+            "reference": "нос"
+          },
+          {
+            "key": "es.vocab.boca",
+            "target": "boca",
+            "reference": "рот"
+          },
+          {
+            "key": "es.vocab.diente",
+            "target": "diente",
+            "reference": "зуб"
+          },
+          {
+            "key": "es.vocab.dientes",
+            "target": "dientes",
+            "reference": "зубы"
+          },
+          {
+            "key": "es.vocab.cuello",
+            "target": "cuello",
+            "reference": "шея"
+          },
+          {
+            "key": "es.vocab.hombro",
+            "target": "hombro",
+            "reference": "плечо"
+          },
+          {
+            "key": "es.vocab.brazo",
+            "target": "brazo",
+            "reference": "рука"
+          },
+          {
+            "key": "es.vocab.mano",
+            "target": "mano",
+            "reference": "кисть",
+            "notes": "Также: рука"
+          },
+          {
+            "key": "es.vocab.dedo",
+            "target": "dedo",
+            "reference": "палец"
+          },
+          {
+            "key": "es.vocab.pecho",
+            "target": "pecho",
+            "reference": "грудь"
+          },
+          {
+            "key": "es.vocab.espalda",
+            "target": "espalda",
+            "reference": "спина"
+          },
+          {
+            "key": "es.vocab.barriga",
+            "target": "barriga",
+            "reference": "живот"
+          },
+          {
+            "key": "es.vocab.estomago",
+            "target": "estómago",
+            "reference": "желудок"
+          },
+          {
+            "key": "es.vocab.pierna",
+            "target": "pierna",
+            "reference": "нога"
+          },
+          {
+            "key": "es.vocab.rodilla",
+            "target": "rodilla",
+            "reference": "колено"
+          },
+          {
+            "key": "es.vocab.pie",
+            "target": "pie",
+            "reference": "ступня"
+          },
+          {
+            "key": "es.vocab.pies",
+            "target": "pies",
+            "reference": "ступни"
+          },
+          {
+            "key": "es.vocab.corazon",
+            "target": "corazón",
+            "reference": "сердце"
+          },
+          {
+            "key": "es.vocab.cuerpo",
+            "target": "cuerpo",
+            "reference": "тело"
+          },
+          {
+            "key": "es.vocab.salud",
+            "target": "salud",
+            "reference": "здоровье"
+          },
+          {
+            "key": "es.vocab.dolor",
+            "target": "dolor",
+            "reference": "боль"
+          },
+          {
+            "key": "es.vocab.fiebre",
+            "target": "fiebre",
+            "reference": "температура",
+            "notes": "Также: жар"
+          },
+          {
+            "key": "es.vocab.tos",
+            "target": "tos",
+            "reference": "кашель"
+          },
+          {
+            "key": "es.vocab.resfriado",
+            "target": "resfriado",
+            "reference": "простуда"
+          },
+          {
+            "key": "es.vocab.enfermo",
+            "target": "enfermo",
+            "reference": "больной"
+          },
+          {
+            "key": "es.vocab.sano",
+            "target": "sano",
+            "reference": "здоровый"
+          },
+          {
+            "key": "es.vocab.medico",
+            "target": "médico",
+            "reference": "врач"
+          },
+          {
+            "key": "es.vocab.medica",
+            "target": "médica",
+            "reference": "врач"
+          },
+          {
+            "key": "es.vocab.hospital",
+            "target": "hospital",
+            "reference": "больница"
+          },
+          {
+            "key": "es.vocab.farmacia",
+            "target": "farmacia",
+            "reference": "аптека"
+          },
+          {
+            "key": "es.vocab.medicina",
+            "target": "medicina",
+            "reference": "лекарство"
+          },
+          {
+            "key": "es.vocab.cita",
+            "target": "cita",
+            "reference": "приём",
+            "notes": "Также: запись"
+          },
+          {
+            "key": "es.vocab.cansado",
+            "target": "cansado",
+            "reference": "уставший"
+          },
+          {
+            "key": "es.vocab.mareado",
+            "target": "mareado",
+            "reference": "испытывающий головокружение"
+          },
+          {
+            "key": "es.vocab.hambre",
+            "target": "hambre",
+            "reference": "голод"
+          },
+          {
+            "key": "es.vocab.sed",
+            "target": "sed",
+            "reference": "жажда"
+          },
+          {
+            "key": "es.vocab.sueno.f5880e",
+            "target": "sueño",
+            "reference": "сон",
+            "notes": "Также: сонливость"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.clothes",
+        "name": "Одежда",
+        "description": "Одежда, аксессуары, размер и действия с одеждой.",
+        "sort_order": 8,
+        "vocabulary": [
+          {
+            "key": "es.vocab.ropa",
+            "target": "ropa",
+            "reference": "одежда"
+          },
+          {
+            "key": "es.vocab.camiseta",
+            "target": "camiseta",
+            "reference": "футболка"
+          },
+          {
+            "key": "es.vocab.camisa",
+            "target": "camisa",
+            "reference": "рубашка"
+          },
+          {
+            "key": "es.vocab.pantalon",
+            "target": "pantalón",
+            "reference": "брюки"
+          },
+          {
+            "key": "es.vocab.pantalones",
+            "target": "pantalones",
+            "reference": "брюки"
+          },
+          {
+            "key": "es.vocab.vaqueros",
+            "target": "vaqueros",
+            "reference": "джинсы"
+          },
+          {
+            "key": "es.vocab.falda",
+            "target": "falda",
+            "reference": "юбка"
+          },
+          {
+            "key": "es.vocab.vestido",
+            "target": "vestido",
+            "reference": "платье"
+          },
+          {
+            "key": "es.vocab.chaqueta",
+            "target": "chaqueta",
+            "reference": "куртка",
+            "notes": "Также: пиджак"
+          },
+          {
+            "key": "es.vocab.abrigo",
+            "target": "abrigo",
+            "reference": "пальто"
+          },
+          {
+            "key": "es.vocab.sudadera",
+            "target": "sudadera",
+            "reference": "толстовка"
+          },
+          {
+            "key": "es.vocab.jersey",
+            "target": "jersey",
+            "reference": "свитер"
+          },
+          {
+            "key": "es.vocab.zapato",
+            "target": "zapato",
+            "reference": "туфля",
+            "notes": "Также: ботинок"
+          },
+          {
+            "key": "es.vocab.zapatos",
+            "target": "zapatos",
+            "reference": "обувь",
+            "notes": "Также: туфли"
+          },
+          {
+            "key": "es.vocab.zapatillas",
+            "target": "zapatillas",
+            "reference": "кроссовки"
+          },
+          {
+            "key": "es.vocab.bota",
+            "target": "bota",
+            "reference": "сапог",
+            "notes": "Также: ботинок"
+          },
+          {
+            "key": "es.vocab.calcetines",
+            "target": "calcetines",
+            "reference": "носки"
+          },
+          {
+            "key": "es.vocab.ropa-interior",
+            "target": "ropa interior",
+            "reference": "нижнее бельё"
+          },
+          {
+            "key": "es.vocab.sombrero",
+            "target": "sombrero",
+            "reference": "шляпа"
+          },
+          {
+            "key": "es.vocab.gorra",
+            "target": "gorra",
+            "reference": "кепка"
+          },
+          {
+            "key": "es.vocab.bufanda",
+            "target": "bufanda",
+            "reference": "шарф"
+          },
+          {
+            "key": "es.vocab.guantes",
+            "target": "guantes",
+            "reference": "перчатки"
+          },
+          {
+            "key": "es.vocab.cinturon",
+            "target": "cinturón",
+            "reference": "ремень"
+          },
+          {
+            "key": "es.vocab.bolso",
+            "target": "bolso",
+            "reference": "сумка"
+          },
+          {
+            "key": "es.vocab.mochila",
+            "target": "mochila",
+            "reference": "рюкзак"
+          },
+          {
+            "key": "es.vocab.reloj",
+            "target": "reloj",
+            "reference": "часы"
+          },
+          {
+            "key": "es.vocab.gafas",
+            "target": "gafas",
+            "reference": "очки"
+          },
+          {
+            "key": "es.vocab.gafas-de-sol",
+            "target": "gafas de sol",
+            "reference": "солнечные очки"
+          },
+          {
+            "key": "es.vocab.talla",
+            "target": "talla",
+            "reference": "размер одежды"
+          },
+          {
+            "key": "es.vocab.tamano",
+            "target": "tamaño",
+            "reference": "размер"
+          },
+          {
+            "key": "es.vocab.bolsillo",
+            "target": "bolsillo",
+            "reference": "карман"
+          },
+          {
+            "key": "es.vocab.boton",
+            "target": "botón",
+            "reference": "пуговица",
+            "notes": "Также: кнопка"
+          },
+          {
+            "key": "es.vocab.cremallera",
+            "target": "cremallera",
+            "reference": "молния"
+          },
+          {
+            "key": "es.vocab.llevar.0d60dd",
+            "target": "llevar",
+            "reference": "носить",
+            "notes": "Также: нести"
+          },
+          {
+            "key": "es.vocab.ponerse",
+            "target": "ponerse",
+            "reference": "надевать"
+          },
+          {
+            "key": "es.vocab.quitarse",
+            "target": "quitarse",
+            "reference": "снимать с себя"
+          },
+          {
+            "key": "es.vocab.vestirse",
+            "target": "vestirse",
+            "reference": "одеваться"
+          },
+          {
+            "key": "es.vocab.probarse",
+            "target": "probarse",
+            "reference": "примерять"
+          },
+          {
+            "key": "es.vocab.quedar.f74281",
+            "target": "quedar",
+            "reference": "сидеть",
+            "notes": "Также: подходить по размеру"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.food-drinks",
+        "name": "Еда и напитки",
+        "description": "Самые частые продукты, напитки и слова для приёма пищи.",
+        "sort_order": 9,
+        "vocabulary": [
+          {
+            "key": "es.vocab.comida.712951",
+            "target": "comida",
+            "reference": "еда"
+          },
+          {
+            "key": "es.vocab.bebida",
+            "target": "bebida",
+            "reference": "напиток"
+          },
+          {
+            "key": "es.vocab.agua",
+            "target": "agua",
+            "reference": "вода"
+          },
+          {
+            "key": "es.vocab.cafe",
+            "target": "café",
+            "reference": "кофе"
+          },
+          {
+            "key": "es.vocab.te.f73926",
+            "target": "té",
+            "reference": "чай"
+          },
+          {
+            "key": "es.vocab.leche",
+            "target": "leche",
+            "reference": "молоко"
+          },
+          {
+            "key": "es.vocab.zumo",
+            "target": "zumo",
+            "reference": "сок"
+          },
+          {
+            "key": "es.vocab.cerveza",
+            "target": "cerveza",
+            "reference": "пиво"
+          },
+          {
+            "key": "es.vocab.vino",
+            "target": "vino",
+            "reference": "вино"
+          },
+          {
+            "key": "es.vocab.pan",
+            "target": "pan",
+            "reference": "хлеб"
+          },
+          {
+            "key": "es.vocab.arroz",
+            "target": "arroz",
+            "reference": "рис"
+          },
+          {
+            "key": "es.vocab.pasta",
+            "target": "pasta",
+            "reference": "паста",
+            "notes": "Также: макароны"
+          },
+          {
+            "key": "es.vocab.patata",
+            "target": "patata",
+            "reference": "картофель"
+          },
+          {
+            "key": "es.vocab.carne",
+            "target": "carne",
+            "reference": "мясо"
+          },
+          {
+            "key": "es.vocab.pollo",
+            "target": "pollo",
+            "reference": "курица"
+          },
+          {
+            "key": "es.vocab.cerdo",
+            "target": "cerdo",
+            "reference": "свинина"
+          },
+          {
+            "key": "es.vocab.ternera",
+            "target": "ternera",
+            "reference": "говядина",
+            "notes": "Также: телятина"
+          },
+          {
+            "key": "es.vocab.pescado",
+            "target": "pescado",
+            "reference": "рыба"
+          },
+          {
+            "key": "es.vocab.huevo",
+            "target": "huevo",
+            "reference": "яйцо"
+          },
+          {
+            "key": "es.vocab.queso",
+            "target": "queso",
+            "reference": "сыр"
+          },
+          {
+            "key": "es.vocab.yogur",
+            "target": "yogur",
+            "reference": "йогурт"
+          },
+          {
+            "key": "es.vocab.mantequilla",
+            "target": "mantequilla",
+            "reference": "сливочное масло"
+          },
+          {
+            "key": "es.vocab.aceite",
+            "target": "aceite",
+            "reference": "масло"
+          },
+          {
+            "key": "es.vocab.sal",
+            "target": "sal",
+            "reference": "соль"
+          },
+          {
+            "key": "es.vocab.azucar",
+            "target": "azúcar",
+            "reference": "сахар"
+          },
+          {
+            "key": "es.vocab.pimienta",
+            "target": "pimienta",
+            "reference": "перец"
+          },
+          {
+            "key": "es.vocab.sopa",
+            "target": "sopa",
+            "reference": "суп"
+          },
+          {
+            "key": "es.vocab.ensalada",
+            "target": "ensalada",
+            "reference": "салат"
+          },
+          {
+            "key": "es.vocab.bocadillo",
+            "target": "bocadillo",
+            "reference": "сэндвич",
+            "notes": "Также: бутерброд"
+          },
+          {
+            "key": "es.vocab.desayuno",
+            "target": "desayuno",
+            "reference": "завтрак"
+          },
+          {
+            "key": "es.vocab.comida.0558ea",
+            "target": "comida",
+            "reference": "обед",
+            "notes": "Также: еда"
+          },
+          {
+            "key": "es.vocab.cena",
+            "target": "cena",
+            "reference": "ужин"
+          },
+          {
+            "key": "es.vocab.postre",
+            "target": "postre",
+            "reference": "десерт"
+          },
+          {
+            "key": "es.vocab.fruta",
+            "target": "fruta",
+            "reference": "фрукт"
+          },
+          {
+            "key": "es.vocab.manzana",
+            "target": "manzana",
+            "reference": "яблоко"
+          },
+          {
+            "key": "es.vocab.platano",
+            "target": "plátano",
+            "reference": "банан"
+          },
+          {
+            "key": "es.vocab.naranja.b3d46f",
+            "target": "naranja",
+            "reference": "апельсин"
+          },
+          {
+            "key": "es.vocab.pera",
+            "target": "pera",
+            "reference": "груша"
+          },
+          {
+            "key": "es.vocab.fresa",
+            "target": "fresa",
+            "reference": "клубника"
+          },
+          {
+            "key": "es.vocab.uva",
+            "target": "uva",
+            "reference": "виноград"
+          },
+          {
+            "key": "es.vocab.limon",
+            "target": "limón",
+            "reference": "лимон"
+          },
+          {
+            "key": "es.vocab.verdura",
+            "target": "verdura",
+            "reference": "овощ"
+          },
+          {
+            "key": "es.vocab.tomate",
+            "target": "tomate",
+            "reference": "помидор"
+          },
+          {
+            "key": "es.vocab.pepino",
+            "target": "pepino",
+            "reference": "огурец"
+          },
+          {
+            "key": "es.vocab.cebolla",
+            "target": "cebolla",
+            "reference": "лук"
+          },
+          {
+            "key": "es.vocab.ajo",
+            "target": "ajo",
+            "reference": "чеснок"
+          },
+          {
+            "key": "es.vocab.zanahoria",
+            "target": "zanahoria",
+            "reference": "морковь"
+          },
+          {
+            "key": "es.vocab.pimiento",
+            "target": "pimiento",
+            "reference": "перец"
+          },
+          {
+            "key": "es.vocab.seta",
+            "target": "seta",
+            "reference": "гриб"
+          },
+          {
+            "key": "es.vocab.champinon",
+            "target": "champiñón",
+            "reference": "шампиньон"
+          },
+          {
+            "key": "es.vocab.lechuga",
+            "target": "lechuga",
+            "reference": "салат-латук"
+          },
+          {
+            "key": "es.vocab.judias",
+            "target": "judías",
+            "reference": "фасоль"
+          },
+          {
+            "key": "es.vocab.guisantes",
+            "target": "guisantes",
+            "reference": "горошек"
+          },
+          {
+            "key": "es.vocab.dulce.eb27e2",
+            "target": "dulce",
+            "reference": "сладкое",
+            "notes": "Также: сладкий"
+          },
+          {
+            "key": "es.vocab.pastel",
+            "target": "pastel",
+            "reference": "торт",
+            "notes": "Также: пирог"
+          },
+          {
+            "key": "es.vocab.galleta",
+            "target": "galleta",
+            "reference": "печенье"
+          },
+          {
+            "key": "es.vocab.chocolate",
+            "target": "chocolate",
+            "reference": "шоколад"
+          },
+          {
+            "key": "es.vocab.helado",
+            "target": "helado",
+            "reference": "мороженое"
+          },
+          {
+            "key": "es.vocab.rico",
+            "target": "rico",
+            "reference": "вкусный",
+            "notes": "Также: богатый"
+          },
+          {
+            "key": "es.vocab.delicioso",
+            "target": "delicioso",
+            "reference": "вкусный"
+          },
+          {
+            "key": "es.vocab.caliente",
+            "target": "caliente",
+            "reference": "горячий"
+          },
+          {
+            "key": "es.vocab.frio.1a0c69",
+            "target": "frío",
+            "reference": "холодный"
+          },
+          {
+            "key": "es.vocab.tener-hambre",
+            "target": "tener hambre",
+            "reference": "быть голодным"
+          },
+          {
+            "key": "es.vocab.tener-sed",
+            "target": "tener sed",
+            "reference": "хотеть пить"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.kitchen-household",
+        "name": "Кухня и быт",
+        "description": "Посуда, бытовые предметы и домашние действия.",
+        "sort_order": 10,
+        "vocabulary": [
+          {
+            "key": "es.vocab.plato",
+            "target": "plato",
+            "reference": "тарелка"
+          },
+          {
+            "key": "es.vocab.vaso",
+            "target": "vaso",
+            "reference": "стакан"
+          },
+          {
+            "key": "es.vocab.taza",
+            "target": "taza",
+            "reference": "чашка"
+          },
+          {
+            "key": "es.vocab.cuchara",
+            "target": "cuchara",
+            "reference": "ложка"
+          },
+          {
+            "key": "es.vocab.tenedor",
+            "target": "tenedor",
+            "reference": "вилка"
+          },
+          {
+            "key": "es.vocab.cuchillo",
+            "target": "cuchillo",
+            "reference": "нож"
+          },
+          {
+            "key": "es.vocab.servilleta",
+            "target": "servilleta",
+            "reference": "салфетка"
+          },
+          {
+            "key": "es.vocab.botella",
+            "target": "botella",
+            "reference": "бутылка"
+          },
+          {
+            "key": "es.vocab.caja",
+            "target": "caja",
+            "reference": "коробка"
+          },
+          {
+            "key": "es.vocab.bolsa",
+            "target": "bolsa",
+            "reference": "пакет",
+            "notes": "Также: сумка"
+          },
+          {
+            "key": "es.vocab.olla",
+            "target": "olla",
+            "reference": "кастрюля"
+          },
+          {
+            "key": "es.vocab.sarten",
+            "target": "sartén",
+            "reference": "сковорода"
+          },
+          {
+            "key": "es.vocab.tabla",
+            "target": "tabla",
+            "reference": "доска"
+          },
+          {
+            "key": "es.vocab.basura",
+            "target": "basura",
+            "reference": "мусор"
+          },
+          {
+            "key": "es.vocab.papel",
+            "target": "papel",
+            "reference": "бумага"
+          },
+          {
+            "key": "es.vocab.jabon",
+            "target": "jabón",
+            "reference": "мыло"
+          },
+          {
+            "key": "es.vocab.champu",
+            "target": "champú",
+            "reference": "шампунь"
+          },
+          {
+            "key": "es.vocab.cepillo",
+            "target": "cepillo",
+            "reference": "щётка"
+          },
+          {
+            "key": "es.vocab.pasta-de-dientes",
+            "target": "pasta de dientes",
+            "reference": "зубная паста"
+          },
+          {
+            "key": "es.vocab.detergente",
+            "target": "detergente",
+            "reference": "моющее средство"
+          },
+          {
+            "key": "es.vocab.escoba",
+            "target": "escoba",
+            "reference": "метла"
+          },
+          {
+            "key": "es.vocab.aspiradora",
+            "target": "aspiradora",
+            "reference": "пылесос"
+          },
+          {
+            "key": "es.vocab.lavar",
+            "target": "lavar",
+            "reference": "мыть",
+            "notes": "Также: стирать"
+          },
+          {
+            "key": "es.vocab.cocinar",
+            "target": "cocinar",
+            "reference": "готовить"
+          },
+          {
+            "key": "es.vocab.cortar",
+            "target": "cortar",
+            "reference": "резать"
+          },
+          {
+            "key": "es.vocab.abrir",
+            "target": "abrir",
+            "reference": "открывать"
+          },
+          {
+            "key": "es.vocab.cerrar",
+            "target": "cerrar",
+            "reference": "закрывать"
+          },
+          {
+            "key": "es.vocab.encender",
+            "target": "encender",
+            "reference": "включать",
+            "notes": "Также: зажигать"
+          },
+          {
+            "key": "es.vocab.apagar",
+            "target": "apagar",
+            "reference": "выключать"
+          },
+          {
+            "key": "es.vocab.poner-la-mesa",
+            "target": "poner la mesa",
+            "reference": "накрывать на стол"
+          },
+          {
+            "key": "es.vocab.fregar",
+            "target": "fregar",
+            "reference": "мыть посуду",
+            "notes": "Также: драить"
+          },
+          {
+            "key": "es.vocab.secar",
+            "target": "secar",
+            "reference": "сушить",
+            "notes": "Также: вытирать"
+          },
+          {
+            "key": "es.vocab.guardar",
+            "target": "guardar",
+            "reference": "убирать на место",
+            "notes": "Также: хранить"
+          },
+          {
+            "key": "es.vocab.tirar",
+            "target": "tirar",
+            "reference": "выбрасывать",
+            "notes": "Также: бросать"
+          },
+          {
+            "key": "es.vocab.llenar",
+            "target": "llenar",
+            "reference": "наполнять"
+          },
+          {
+            "key": "es.vocab.vaciar",
+            "target": "vaciar",
+            "reference": "опустошать"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.home",
+        "name": "Дом",
+        "description": "Комнаты, мебель и основные слова про жильё.",
+        "sort_order": 11,
+        "vocabulary": [
+          {
+            "key": "es.vocab.casa",
+            "target": "casa",
+            "reference": "дом"
+          },
+          {
+            "key": "es.vocab.piso",
+            "target": "piso",
+            "reference": "квартира"
+          },
+          {
+            "key": "es.vocab.habitacion.523011",
+            "target": "habitación",
+            "reference": "комната"
+          },
+          {
+            "key": "es.vocab.dormitorio",
+            "target": "dormitorio",
+            "reference": "спальня"
+          },
+          {
+            "key": "es.vocab.salon",
+            "target": "salón",
+            "reference": "гостиная"
+          },
+          {
+            "key": "es.vocab.cocina",
+            "target": "cocina",
+            "reference": "кухня"
+          },
+          {
+            "key": "es.vocab.bano",
+            "target": "baño",
+            "reference": "ванная"
+          },
+          {
+            "key": "es.vocab.pasillo",
+            "target": "pasillo",
+            "reference": "коридор"
+          },
+          {
+            "key": "es.vocab.balcon",
+            "target": "balcón",
+            "reference": "балкон"
+          },
+          {
+            "key": "es.vocab.puerta",
+            "target": "puerta",
+            "reference": "дверь"
+          },
+          {
+            "key": "es.vocab.ventana",
+            "target": "ventana",
+            "reference": "окно"
+          },
+          {
+            "key": "es.vocab.pared",
+            "target": "pared",
+            "reference": "стена"
+          },
+          {
+            "key": "es.vocab.suelo",
+            "target": "suelo",
+            "reference": "пол"
+          },
+          {
+            "key": "es.vocab.techo",
+            "target": "techo",
+            "reference": "потолок"
+          },
+          {
+            "key": "es.vocab.escalera",
+            "target": "escalera",
+            "reference": "лестница"
+          },
+          {
+            "key": "es.vocab.ascensor",
+            "target": "ascensor",
+            "reference": "лифт"
+          },
+          {
+            "key": "es.vocab.llave",
+            "target": "llave",
+            "reference": "ключ"
+          },
+          {
+            "key": "es.vocab.mesa",
+            "target": "mesa",
+            "reference": "стол"
+          },
+          {
+            "key": "es.vocab.silla",
+            "target": "silla",
+            "reference": "стул"
+          },
+          {
+            "key": "es.vocab.sofa",
+            "target": "sofá",
+            "reference": "диван"
+          },
+          {
+            "key": "es.vocab.cama",
+            "target": "cama",
+            "reference": "кровать"
+          },
+          {
+            "key": "es.vocab.armario",
+            "target": "armario",
+            "reference": "шкаф"
+          },
+          {
+            "key": "es.vocab.estanteria",
+            "target": "estantería",
+            "reference": "полка",
+            "notes": "Также: стеллаж"
+          },
+          {
+            "key": "es.vocab.escritorio",
+            "target": "escritorio",
+            "reference": "письменный стол"
+          },
+          {
+            "key": "es.vocab.lampara",
+            "target": "lámpara",
+            "reference": "лампа"
+          },
+          {
+            "key": "es.vocab.luz",
+            "target": "luz",
+            "reference": "свет"
+          },
+          {
+            "key": "es.vocab.television",
+            "target": "televisión",
+            "reference": "телевизор"
+          },
+          {
+            "key": "es.vocab.nevera",
+            "target": "nevera",
+            "reference": "холодильник"
+          },
+          {
+            "key": "es.vocab.horno",
+            "target": "horno",
+            "reference": "духовка"
+          },
+          {
+            "key": "es.vocab.microondas",
+            "target": "microondas",
+            "reference": "микроволновка"
+          },
+          {
+            "key": "es.vocab.lavadora",
+            "target": "lavadora",
+            "reference": "стиральная машина"
+          },
+          {
+            "key": "es.vocab.ducha",
+            "target": "ducha",
+            "reference": "душ"
+          },
+          {
+            "key": "es.vocab.banera",
+            "target": "bañera",
+            "reference": "ванна"
+          },
+          {
+            "key": "es.vocab.espejo",
+            "target": "espejo",
+            "reference": "зеркало"
+          },
+          {
+            "key": "es.vocab.toalla",
+            "target": "toalla",
+            "reference": "полотенце"
+          },
+          {
+            "key": "es.vocab.almohada",
+            "target": "almohada",
+            "reference": "подушка"
+          },
+          {
+            "key": "es.vocab.manta",
+            "target": "manta",
+            "reference": "одеяло",
+            "notes": "Также: плед"
+          },
+          {
+            "key": "es.vocab.sabana",
+            "target": "sábana",
+            "reference": "простыня"
+          },
+          {
+            "key": "es.vocab.jardin",
+            "target": "jardín",
+            "reference": "сад"
+          },
+          {
+            "key": "es.vocab.garaje",
+            "target": "garaje",
+            "reference": "гараж"
+          },
+          {
+            "key": "es.vocab.entrada",
+            "target": "entrada",
+            "reference": "вход"
+          },
+          {
+            "key": "es.vocab.salida.58e774",
+            "target": "salida",
+            "reference": "выход"
+          },
+          {
+            "key": "es.vocab.vivir",
+            "target": "vivir",
+            "reference": "жить"
+          },
+          {
+            "key": "es.vocab.alquilar",
+            "target": "alquilar",
+            "reference": "снимать",
+            "notes": "Также: арендовать"
+          },
+          {
+            "key": "es.vocab.limpiar",
+            "target": "limpiar",
+            "reference": "убирать",
+            "notes": "Также: чистить"
+          },
+          {
+            "key": "es.vocab.ordenar",
+            "target": "ordenar",
+            "reference": "наводить порядок"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,2246 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.present",
+    "name": "4. Настоящее и частые глаголы",
+    "description": "Presente, частые неправильные глаголы, gustar, конструкции с инфинитивом и ir a + infinitivo.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 40,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A1",
+      "A2"
+    ],
+    "prerequisite_keys": [
+      "es.first-steps.foundations"
+    ],
+    "theory_blocks": [
+      {
+        "key": "es.first-steps.theory.040-present-regular",
+        "kind": "text",
+        "title": "Presente: правильные глаголы",
+        "content": "В настоящем времени у правильных глаголов меняется окончание.\n\n-AR: hablo, hablas, habla, hablamos, habláis, hablan.\n-ER: como, comes, come, comemos, coméis, comen.\n-IR: vivo, vives, vive, vivimos, vivís, viven.\n\nPresente описывает то, что происходит сейчас, регулярно или является общим фактом.",
+        "sort_order": 40
+      },
+      {
+        "key": "es.first-steps.theory.050-present-irregular",
+        "kind": "text",
+        "title": "Presente: частые неправильные глаголы",
+        "content": "Частые глаголы нужно довести до автоматизма. Некоторые меняют только форму yo: tengo, hago, digo, pongo, salgo, conozco. Другие меняют корень: puedo, quiero, duermo, pido, vuelvo, pienso, prefiero.\n\nОсобенно важные формы: soy, estoy, tengo, hago, voy, puedo, quiero, vengo, digo, veo, sé.\n\nУ stem-changing глаголов nosotros и vosotros часто сохраняют исходный корень: puedo → podemos, quiero → queremos, duermo → dormimos.",
+        "sort_order": 50
+      },
+      {
+        "key": "es.first-steps.theory.060-gustar",
+        "kind": "text",
+        "title": "Gustar и похожие конструкции",
+        "content": "С gustar то, что нравится, грамматически является подлежащим. Поэтому: «Me gusta el café» и «Me gustan los libros».\n\nПеред gustar используется косвенное местоимение: me, te, le, nos, os, les. Для уточнения человека можно добавить «A mí», «A Ana», «A ellos».\n\nТак же работают encantar и некоторые похожие конструкции.",
+        "sort_order": 60
+      },
+      {
+        "key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "text",
+        "title": "Частые конструкции с инфинитивом",
+        "content": "После многих частых глаголов сразу идёт инфинитив: poder + infinitivo, querer + infinitivo, necesitar + infinitivo. Обязанность: tener que + infinitivo.\n\nС местоимениями возможны два положения: «Te quiero ayudar» / «Quiero ayudarte», «Lo puedo ver» / «Puedo verlo». У возвратных глаголов работает тот же принцип: «Me quiero levantar» / «Quiero levantarme».\n\nВажно различать venir — двигаться сюда, к точке говорящего, и volver — возвращаться обратно.",
+        "sort_order": 160
+      },
+      {
+        "key": "es.first-steps.theory.160-near-future",
+        "kind": "text",
+        "title": "Ближайшее будущее: ir a + infinitivo",
+        "content": "Очень частый способ говорить о планах: форма ir + a + инфинитив.\n\n«Voy a estudiar», «Vamos a cocinar», «¿Vas a salir hoy?»\n\nМеняется только ir: voy, vas, va, vamos, vais, van. Инфинитив остаётся неизменным.",
+        "sort_order": 170
+      }
+    ],
+    "theory_exercises": [
+      {
+        "key": "es.first-steps.ex.040-present-regular.001",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (hablar)",
+        "correct_answer": "hablo",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.002",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (hablar)",
+        "correct_answer": "hablas",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.003",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (hablar)",
+        "correct_answer": "hablamos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.004",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (hablar)",
+        "correct_answer": "hablan",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.005",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (trabajar)",
+        "correct_answer": "trabajo",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.006",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (trabajar)",
+        "correct_answer": "trabajas",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.007",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (trabajar)",
+        "correct_answer": "trabajamos",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.008",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (trabajar)",
+        "correct_answer": "trabajan",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.009",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (estudiar)",
+        "correct_answer": "estudio",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.010",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (estudiar)",
+        "correct_answer": "estudias",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.011",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (estudiar)",
+        "correct_answer": "estudiamos",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.012",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (estudiar)",
+        "correct_answer": "estudian",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.013",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (comprar)",
+        "correct_answer": "compro",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.014",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (comprar)",
+        "correct_answer": "compras",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.015",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (comprar)",
+        "correct_answer": "compramos",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.016",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (comprar)",
+        "correct_answer": "compran",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.017",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (escuchar)",
+        "correct_answer": "escucho",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.018",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (escuchar)",
+        "correct_answer": "escuchas",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.019",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (escuchar)",
+        "correct_answer": "escuchamos",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.020",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (escuchar)",
+        "correct_answer": "escuchan",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.021",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (mirar)",
+        "correct_answer": "miro",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.022",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (mirar)",
+        "correct_answer": "miras",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.023",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (mirar)",
+        "correct_answer": "miramos",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.024",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (mirar)",
+        "correct_answer": "miran",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.025",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (cocinar)",
+        "correct_answer": "cocino",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.026",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (cocinar)",
+        "correct_answer": "cocinas",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.027",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (cocinar)",
+        "correct_answer": "cocinamos",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.028",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (cocinar)",
+        "correct_answer": "cocinan",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.029",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (caminar)",
+        "correct_answer": "camino",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.030",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (caminar)",
+        "correct_answer": "caminas",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.031",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (caminar)",
+        "correct_answer": "caminamos",
+        "sort_order": 31
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.032",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (caminar)",
+        "correct_answer": "caminan",
+        "sort_order": 32
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.033",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (viajar)",
+        "correct_answer": "viajo",
+        "sort_order": 33
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.034",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (viajar)",
+        "correct_answer": "viajas",
+        "sort_order": 34
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.035",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (viajar)",
+        "correct_answer": "viajamos",
+        "sort_order": 35
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.036",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (viajar)",
+        "correct_answer": "viajan",
+        "sort_order": 36
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.037",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (necesitar)",
+        "correct_answer": "necesito",
+        "sort_order": 37
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.038",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (necesitar)",
+        "correct_answer": "necesitas",
+        "sort_order": 38
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.039",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (necesitar)",
+        "correct_answer": "necesitamos",
+        "sort_order": 39
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.040",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (necesitar)",
+        "correct_answer": "necesitan",
+        "sort_order": 40
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.041",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (comer)",
+        "correct_answer": "como",
+        "sort_order": 41
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.042",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (comer)",
+        "correct_answer": "comes",
+        "sort_order": 42
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.043",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (comer)",
+        "correct_answer": "comemos",
+        "sort_order": 43
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.044",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (comer)",
+        "correct_answer": "comen",
+        "sort_order": 44
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.045",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (beber)",
+        "correct_answer": "bebo",
+        "sort_order": 45
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.046",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (beber)",
+        "correct_answer": "bebes",
+        "sort_order": 46
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.047",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (beber)",
+        "correct_answer": "bebemos",
+        "sort_order": 47
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.048",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (beber)",
+        "correct_answer": "beben",
+        "sort_order": 48
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.049",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (aprender)",
+        "correct_answer": "aprendo",
+        "sort_order": 49
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.050",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (aprender)",
+        "correct_answer": "aprendes",
+        "sort_order": 50
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.051",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (aprender)",
+        "correct_answer": "aprendemos",
+        "sort_order": 51
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.052",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (aprender)",
+        "correct_answer": "aprenden",
+        "sort_order": 52
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.053",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (leer)",
+        "correct_answer": "leo",
+        "sort_order": 53
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.054",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (leer)",
+        "correct_answer": "lees",
+        "sort_order": 54
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.055",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (leer)",
+        "correct_answer": "leemos",
+        "sort_order": 55
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.056",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (leer)",
+        "correct_answer": "leen",
+        "sort_order": 56
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.057",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (correr)",
+        "correct_answer": "corro",
+        "sort_order": 57
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.058",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (correr)",
+        "correct_answer": "corres",
+        "sort_order": 58
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.059",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (correr)",
+        "correct_answer": "corremos",
+        "sort_order": 59
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.060",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (correr)",
+        "correct_answer": "corren",
+        "sort_order": 60
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.061",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (vivir)",
+        "correct_answer": "vivo",
+        "sort_order": 61
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.062",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (vivir)",
+        "correct_answer": "vives",
+        "sort_order": 62
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.063",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (vivir)",
+        "correct_answer": "vivimos",
+        "sort_order": 63
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.064",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (vivir)",
+        "correct_answer": "viven",
+        "sort_order": 64
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.065",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (escribir)",
+        "correct_answer": "escribo",
+        "sort_order": 65
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.066",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (escribir)",
+        "correct_answer": "escribes",
+        "sort_order": 66
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.067",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (escribir)",
+        "correct_answer": "escribimos",
+        "sort_order": 67
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.068",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (escribir)",
+        "correct_answer": "escriben",
+        "sort_order": 68
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.069",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "yo ___ (abrir)",
+        "correct_answer": "abro",
+        "sort_order": 69
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.070",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "tú ___ (abrir)",
+        "correct_answer": "abres",
+        "sort_order": 70
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.071",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (abrir)",
+        "correct_answer": "abrimos",
+        "sort_order": 71
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.072",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (abrir)",
+        "correct_answer": "abren",
+        "sort_order": 72
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.073",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я работаю дома»",
+        "correct_answer": "trabajo en casa",
+        "sort_order": 73,
+        "options": [
+          "trabajo",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.074",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы изучаем испанский»",
+        "correct_answer": "estudiamos español",
+        "sort_order": 74,
+        "options": [
+          "estudiamos",
+          "español"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.075",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они едят в ресторане»",
+        "correct_answer": "comen en el restaurante",
+        "sort_order": 75,
+        "options": [
+          "comen",
+          "en",
+          "el",
+          "restaurante"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.076",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты живёшь в городе»",
+        "correct_answer": "vives en la ciudad",
+        "sort_order": 76,
+        "options": [
+          "vives",
+          "en",
+          "la",
+          "ciudad"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.077",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я читаю книгу»",
+        "correct_answer": "leo un libro",
+        "sort_order": 77,
+        "options": [
+          "leo",
+          "un",
+          "libro"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.040-present-regular.078",
+        "theory_block_key": "es.first-steps.theory.040-present-regular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы пишем сообщения»",
+        "correct_answer": "escribimos mensajes",
+        "sort_order": 78,
+        "options": [
+          "escribimos",
+          "mensajes"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.001",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (tener)",
+        "correct_answer": "tengo",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.002",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (tener)",
+        "correct_answer": "tienes",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.003",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (tener)",
+        "correct_answer": "tenemos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.004",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (tener)",
+        "correct_answer": "tienen",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.005",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (hacer)",
+        "correct_answer": "hago",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.006",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (hacer)",
+        "correct_answer": "haces",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.007",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (hacer)",
+        "correct_answer": "hacemos",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.008",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (hacer)",
+        "correct_answer": "hacen",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.009",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (ir)",
+        "correct_answer": "voy",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.010",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (ir)",
+        "correct_answer": "vas",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.011",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (ir)",
+        "correct_answer": "vamos",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.012",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (ir)",
+        "correct_answer": "van",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.013",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (poder)",
+        "correct_answer": "puedo",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.014",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (poder)",
+        "correct_answer": "puedes",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.015",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (poder)",
+        "correct_answer": "podemos",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.016",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (poder)",
+        "correct_answer": "pueden",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.017",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (querer)",
+        "correct_answer": "quiero",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.018",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (querer)",
+        "correct_answer": "quieres",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.019",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (querer)",
+        "correct_answer": "queremos",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.020",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (querer)",
+        "correct_answer": "quieren",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.021",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (venir)",
+        "correct_answer": "vengo",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.022",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (venir)",
+        "correct_answer": "vienes",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.023",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (venir)",
+        "correct_answer": "venimos",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.024",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (venir)",
+        "correct_answer": "vienen",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.025",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (decir)",
+        "correct_answer": "digo",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.026",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (decir)",
+        "correct_answer": "dices",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.027",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (decir)",
+        "correct_answer": "decimos",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.028",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (decir)",
+        "correct_answer": "dicen",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.029",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (poner)",
+        "correct_answer": "pongo",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.030",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (poner)",
+        "correct_answer": "pones",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.031",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (poner)",
+        "correct_answer": "ponemos",
+        "sort_order": 31
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.032",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (poner)",
+        "correct_answer": "ponen",
+        "sort_order": 32
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.033",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (salir)",
+        "correct_answer": "salgo",
+        "sort_order": 33
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.034",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (salir)",
+        "correct_answer": "sales",
+        "sort_order": 34
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.035",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (salir)",
+        "correct_answer": "salimos",
+        "sort_order": 35
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.036",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (salir)",
+        "correct_answer": "salen",
+        "sort_order": 36
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.037",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (ver)",
+        "correct_answer": "veo",
+        "sort_order": 37
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.038",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (ver)",
+        "correct_answer": "ves",
+        "sort_order": 38
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.039",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (ver)",
+        "correct_answer": "vemos",
+        "sort_order": 39
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.040",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (ver)",
+        "correct_answer": "ven",
+        "sort_order": 40
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.041",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (dar)",
+        "correct_answer": "doy",
+        "sort_order": 41
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.042",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (dar)",
+        "correct_answer": "das",
+        "sort_order": 42
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.043",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (dar)",
+        "correct_answer": "damos",
+        "sort_order": 43
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.044",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (dar)",
+        "correct_answer": "dan",
+        "sort_order": 44
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.045",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (saber)",
+        "correct_answer": "sé",
+        "sort_order": 45
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.046",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (saber)",
+        "correct_answer": "sabes",
+        "sort_order": 46
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.047",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (saber)",
+        "correct_answer": "sabemos",
+        "sort_order": 47
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.048",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (saber)",
+        "correct_answer": "saben",
+        "sort_order": 48
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.049",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (conocer)",
+        "correct_answer": "conozco",
+        "sort_order": 49
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.050",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (conocer)",
+        "correct_answer": "conoces",
+        "sort_order": 50
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.051",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (conocer)",
+        "correct_answer": "conocemos",
+        "sort_order": 51
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.052",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (conocer)",
+        "correct_answer": "conocen",
+        "sort_order": 52
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.053",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (traer)",
+        "correct_answer": "traigo",
+        "sort_order": 53
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.054",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (traer)",
+        "correct_answer": "traes",
+        "sort_order": 54
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.055",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (traer)",
+        "correct_answer": "traemos",
+        "sort_order": 55
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.056",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (traer)",
+        "correct_answer": "traen",
+        "sort_order": 56
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.057",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (oír)",
+        "correct_answer": "oigo",
+        "sort_order": 57
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.058",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (oír)",
+        "correct_answer": "oyes",
+        "sort_order": 58
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.059",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (oír)",
+        "correct_answer": "oímos",
+        "sort_order": 59
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.060",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (oír)",
+        "correct_answer": "oyen",
+        "sort_order": 60
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.061",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (dormir)",
+        "correct_answer": "duermo",
+        "sort_order": 61
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.062",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (dormir)",
+        "correct_answer": "duermes",
+        "sort_order": 62
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.063",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (dormir)",
+        "correct_answer": "dormimos",
+        "sort_order": 63
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.064",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (dormir)",
+        "correct_answer": "duermen",
+        "sort_order": 64
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.065",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (pedir)",
+        "correct_answer": "pido",
+        "sort_order": 65
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.066",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (pedir)",
+        "correct_answer": "pides",
+        "sort_order": 66
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.067",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (pedir)",
+        "correct_answer": "pedimos",
+        "sort_order": 67
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.068",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (pedir)",
+        "correct_answer": "piden",
+        "sort_order": 68
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.069",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (jugar)",
+        "correct_answer": "juego",
+        "sort_order": 69
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.070",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (jugar)",
+        "correct_answer": "juegas",
+        "sort_order": 70
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.071",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (jugar)",
+        "correct_answer": "jugamos",
+        "sort_order": 71
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.072",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (jugar)",
+        "correct_answer": "juegan",
+        "sort_order": 72
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.073",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (empezar)",
+        "correct_answer": "empiezo",
+        "sort_order": 73
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.074",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (empezar)",
+        "correct_answer": "empiezas",
+        "sort_order": 74
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.075",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (empezar)",
+        "correct_answer": "empezamos",
+        "sort_order": 75
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.076",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (empezar)",
+        "correct_answer": "empiezan",
+        "sort_order": 76
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.077",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (encontrar)",
+        "correct_answer": "encuentro",
+        "sort_order": 77
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.078",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (encontrar)",
+        "correct_answer": "encuentras",
+        "sort_order": 78
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.079",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (encontrar)",
+        "correct_answer": "encontramos",
+        "sort_order": 79
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.080",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (encontrar)",
+        "correct_answer": "encuentran",
+        "sort_order": 80
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.081",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (volver)",
+        "correct_answer": "vuelvo",
+        "sort_order": 81
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.082",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (volver)",
+        "correct_answer": "vuelves",
+        "sort_order": 82
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.083",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (volver)",
+        "correct_answer": "volvemos",
+        "sort_order": 83
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.084",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (volver)",
+        "correct_answer": "vuelven",
+        "sort_order": 84
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.085",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (pensar)",
+        "correct_answer": "pienso",
+        "sort_order": 85
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.086",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (pensar)",
+        "correct_answer": "piensas",
+        "sort_order": 86
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.087",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (pensar)",
+        "correct_answer": "pensamos",
+        "sort_order": 87
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.088",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (pensar)",
+        "correct_answer": "piensan",
+        "sort_order": 88
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.089",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "yo ___ (preferir)",
+        "correct_answer": "prefiero",
+        "sort_order": 89
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.090",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "tú ___ (preferir)",
+        "correct_answer": "prefieres",
+        "sort_order": 90
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.091",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "nosotros ___ (preferir)",
+        "correct_answer": "preferimos",
+        "sort_order": 91
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.092",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (preferir)",
+        "correct_answer": "prefieren",
+        "sort_order": 92
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.093",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «tener»",
+        "correct_answer": "tengo",
+        "sort_order": 93
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.094",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «hacer»",
+        "correct_answer": "hago",
+        "sort_order": 94
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.095",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «ir»",
+        "correct_answer": "voy",
+        "sort_order": 95
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.096",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «poder»",
+        "correct_answer": "puedo",
+        "sort_order": 96
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.097",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «querer»",
+        "correct_answer": "quiero",
+        "sort_order": 97
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.098",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «venir»",
+        "correct_answer": "vengo",
+        "sort_order": 98
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.099",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «decir»",
+        "correct_answer": "digo",
+        "sort_order": 99
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.100",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «poner»",
+        "correct_answer": "pongo",
+        "sort_order": 100
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.101",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «salir»",
+        "correct_answer": "salgo",
+        "sort_order": 101
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.102",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «ver»",
+        "correct_answer": "veo",
+        "sort_order": 102
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.103",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «dar»",
+        "correct_answer": "doy",
+        "sort_order": 103
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.104",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «saber»",
+        "correct_answer": "sé",
+        "sort_order": 104
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.105",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «conocer»",
+        "correct_answer": "conozco",
+        "sort_order": 105
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.106",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «traer»",
+        "correct_answer": "traigo",
+        "sort_order": 106
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.107",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "input",
+        "prompt": "Форма yo глагола «oír»",
+        "correct_answer": "oigo",
+        "sort_order": 107
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.108",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я могу помочь»",
+        "correct_answer": "puedo ayudar",
+        "sort_order": 108,
+        "options": [
+          "puedo",
+          "ayudar"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.109",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу выйти сегодня»",
+        "correct_answer": "quiero salir hoy",
+        "sort_order": 109,
+        "options": [
+          "quiero",
+          "salir",
+          "hoy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.110",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы идём в спортзал»",
+        "correct_answer": "vamos al gimnasio",
+        "sort_order": 110,
+        "options": [
+          "vamos",
+          "al",
+          "gimnasio"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.111",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она приходит завтра»",
+        "correct_answer": "ella viene mañana",
+        "sort_order": 111,
+        "options": [
+          "ella",
+          "viene",
+          "mañana"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.112",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я вижу твою машину»",
+        "correct_answer": "veo tu coche",
+        "sort_order": 112,
+        "options": [
+          "veo",
+          "tu",
+          "coche"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.113",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они спят восемь часов»",
+        "correct_answer": "duermen ocho horas",
+        "sort_order": 113,
+        "options": [
+          "duermen",
+          "ocho",
+          "horas"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.114",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я предпочитаю кофе»",
+        "correct_answer": "prefiero café",
+        "sort_order": 114,
+        "options": [
+          "prefiero",
+          "café"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.050-present-irregular.115",
+        "theory_block_key": "es.first-steps.theory.050-present-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы возвращаемся домой»",
+        "correct_answer": "volvemos a casa",
+        "sort_order": 115,
+        "options": [
+          "volvemos",
+          "a",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.001",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "gap",
+        "prompt": "___ gusta el café. (a mí)",
+        "correct_answer": "me",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.002",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "gap",
+        "prompt": "___ gusta viajar. (a ti)",
+        "correct_answer": "te",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.003",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "gap",
+        "prompt": "___ gusta la música. (a Ana)",
+        "correct_answer": "le",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.004",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "gap",
+        "prompt": "___ gustan los libros. (a nosotros)",
+        "correct_answer": "nos",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.005",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "gap",
+        "prompt": "___ gusta este restaurante. (a vosotros)",
+        "correct_answer": "os",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.006",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "gap",
+        "prompt": "___ gustan los videojuegos. (a ellos)",
+        "correct_answer": "les",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.007",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "choice",
+        "prompt": "Me ___ el café.",
+        "correct_answer": "gusta",
+        "sort_order": 7,
+        "options": [
+          "gusta",
+          "gustan",
+          "gusto",
+          "gustas"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.008",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "choice",
+        "prompt": "Me ___ los libros.",
+        "correct_answer": "gustan",
+        "sort_order": 8,
+        "options": [
+          "gusta",
+          "gustan",
+          "gustamos",
+          "gustáis"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.009",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "choice",
+        "prompt": "A Ana ___ gusta viajar.",
+        "correct_answer": "le",
+        "sort_order": 9,
+        "options": [
+          "la",
+          "le",
+          "lo",
+          "se"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.010",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "choice",
+        "prompt": "A nosotros ___ encantan las películas.",
+        "correct_answer": "nos",
+        "sort_order": 10,
+        "options": [
+          "nos",
+          "los",
+          "les",
+          "se"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.011",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мне нравится кофе»",
+        "correct_answer": "me gusta el café",
+        "sort_order": 11,
+        "options": [
+          "me",
+          "gusta",
+          "el",
+          "café"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.012",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мне нравятся эти книги»",
+        "correct_answer": "me gustan estos libros",
+        "sort_order": 12,
+        "options": [
+          "me",
+          "gustan",
+          "estos",
+          "libros"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.013",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ей очень нравится путешествовать»",
+        "correct_answer": "le encanta viajar",
+        "sort_order": 13,
+        "options": [
+          "le",
+          "encanta",
+          "viajar"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.014",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Нам нравится плавать»",
+        "correct_answer": "nos gusta nadar",
+        "sort_order": 14,
+        "options": [
+          "nos",
+          "gusta",
+          "nadar"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.060-gustar.015",
+        "theory_block_key": "es.first-steps.theory.060-gustar",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «А мне нравится чай»",
+        "correct_answer": "a mí me gusta el té",
+        "sort_order": 15,
+        "options": [
+          "a",
+          "mí",
+          "me",
+          "gusta",
+          "el",
+          "té"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.001",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Yo ___ que trabajar hoy. (tener)",
+        "correct_answer": "tengo",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.002",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Tú ___ que estudiar. (tener)",
+        "correct_answer": "tienes",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.003",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Nosotros ___ que salir temprano. (tener)",
+        "correct_answer": "tenemos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.004",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Ellos ___ que volver mañana. (tener)",
+        "correct_answer": "tienen",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.005",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Quiero ___ español. (aprender)",
+        "correct_answer": "aprender",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.006",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Puedo ___ mañana. (venir)",
+        "correct_answer": "venir",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.007",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "gap",
+        "prompt": "Necesito ___ contigo. (hablar)",
+        "correct_answer": "hablar",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.008",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "choice",
+        "prompt": "«Мне нужно работать»",
+        "correct_answer": "tengo que trabajar",
+        "sort_order": 8,
+        "options": [
+          "tengo trabajar",
+          "tengo que trabajar",
+          "soy que trabajar",
+          "he trabajar"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.009",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "choice",
+        "prompt": "«Я могу помочь тебе»",
+        "correct_answer": "puedo ayudarte",
+        "sort_order": 9,
+        "options": [
+          "puedo ayudarte",
+          "puedo te ayudarme",
+          "te puedo ayudarme",
+          "puedo ayudas"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.010",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "choice",
+        "prompt": "Venir означает прежде всего:",
+        "correct_answer": "приходить или приезжать сюда",
+        "sort_order": 10,
+        "options": [
+          "возвращаться обратно",
+          "приходить или приезжать сюда",
+          "уходить",
+          "оставаться"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.011",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "choice",
+        "prompt": "Volver означает прежде всего:",
+        "correct_answer": "возвращаться",
+        "sort_order": 11,
+        "options": [
+          "приходить сюда",
+          "возвращаться",
+          "начинать",
+          "просить"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.012",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я должен работать сегодня»",
+        "correct_answer": "tengo que trabajar hoy",
+        "sort_order": 12,
+        "options": [
+          "tengo",
+          "que",
+          "trabajar",
+          "hoy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.013",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу попросить тебя»",
+        "correct_answer": "quiero pedirte algo",
+        "sort_order": 13,
+        "options": [
+          "quiero",
+          "pedirte",
+          "algo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.014",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты можешь помочь мне»",
+        "correct_answer": "puedes ayudarme",
+        "sort_order": 14,
+        "options": [
+          "puedes",
+          "ayudarme"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.015",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она меня понимает»",
+        "correct_answer": "ella me entiende",
+        "sort_order": 15,
+        "options": [
+          "ella",
+          "me",
+          "entiende"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.016",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они меня ждут»",
+        "correct_answer": "ellos me esperan",
+        "sort_order": 16,
+        "options": [
+          "ellos",
+          "me",
+          "esperan"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.017",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я его вижу»",
+        "correct_answer": "lo veo",
+        "sort_order": 17,
+        "options": [
+          "lo",
+          "veo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.018",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я его нахожу»",
+        "correct_answer": "lo encuentro",
+        "sort_order": 18,
+        "options": [
+          "lo",
+          "encuentro"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.019",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я возвращаюсь домой»",
+        "correct_answer": "vuelvo a casa",
+        "sort_order": 19,
+        "options": [
+          "vuelvo",
+          "a",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.155-frequent-constructions.020",
+        "theory_block_key": "es.first-steps.theory.155-frequent-constructions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты приходишь ко мне домой»",
+        "correct_answer": "vienes a mi casa",
+        "sort_order": 20,
+        "options": [
+          "vienes",
+          "a",
+          "mi",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.001",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "yo ___ a estudiar. (ir)",
+        "correct_answer": "voy",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.002",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "tú ___ a estudiar. (ir)",
+        "correct_answer": "vas",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.003",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ a estudiar. (ir)",
+        "correct_answer": "va",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.004",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "nosotros ___ a estudiar. (ir)",
+        "correct_answer": "vamos",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.005",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "vosotros ___ a estudiar. (ir)",
+        "correct_answer": "vais",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.006",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ a estudiar. (ir)",
+        "correct_answer": "van",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.007",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "Yo ___ a trabajar mañana. (ir)",
+        "correct_answer": "voy",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.008",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "Tú ___ a cocinar hoy. (ir)",
+        "correct_answer": "vas",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.009",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "Ella ___ a viajar en agosto. (ir)",
+        "correct_answer": "va",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.010",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "Nosotros ___ a salir esta noche. (ir)",
+        "correct_answer": "vamos",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.011",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "gap",
+        "prompt": "Ellos ___ a comprar un coche. (ir)",
+        "correct_answer": "van",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.012",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я собираюсь учить испанский»",
+        "correct_answer": "voy a estudiar español",
+        "sort_order": 12,
+        "options": [
+          "voy",
+          "a",
+          "estudiar",
+          "español"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.013",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы собираемся поесть дома»",
+        "correct_answer": "vamos a comer en casa",
+        "sort_order": 13,
+        "options": [
+          "vamos",
+          "a",
+          "comer",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.014",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты собираешься выходить сегодня?»",
+        "correct_answer": "vas a salir hoy",
+        "sort_order": 14,
+        "options": [
+          "vas",
+          "a",
+          "salir",
+          "hoy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.160-near-future.015",
+        "theory_block_key": "es.first-steps.theory.160-near-future",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они собираются путешествовать летом»",
+        "correct_answer": "van a viajar en verano",
+        "sort_order": 15,
+        "options": [
+          "van",
+          "a",
+          "viajar",
+          "en",
+          "verano"
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.common-actions",
+        "name": "Частые действия",
+        "description": "Большой набор самых полезных глаголов.",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.topic.work-study",
+        "name": "Работа и учёба",
+        "description": "Работа, обучение, техника и повседневные учебные действия.",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.topic.hobbies-sport",
+        "name": "Хобби и спорт",
+        "description": "Досуг, игры, музыка, спорт и активность.",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.topic.emotions-states",
+        "name": "Эмоции и состояния",
+        "description": "Чувства, настроение, желания и физические состояния.",
+        "sort_order": 17
+      }
+    ]
+  }
+}
