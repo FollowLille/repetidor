@@ -1,0 +1,2612 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.vocab-2",
+    "name": "2. Базовый словарь: мир вокруг",
+    "description": "Базовая лексика про город, транспорт, погоду, работу, досуг, эмоции, покупки, действия, прилагательные, предлоги и вопросы.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 20,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A1",
+      "A2"
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.city-places",
+        "name": "Город и места",
+        "description": "Городские объекты, ориентирование и повседневные места.",
+        "sort_order": 12,
+        "vocabulary": [
+          {
+            "key": "es.vocab.ciudad",
+            "target": "ciudad",
+            "reference": "город"
+          },
+          {
+            "key": "es.vocab.pueblo",
+            "target": "pueblo",
+            "reference": "посёлок",
+            "notes": "Также: деревня"
+          },
+          {
+            "key": "es.vocab.calle",
+            "target": "calle",
+            "reference": "улица"
+          },
+          {
+            "key": "es.vocab.avenida",
+            "target": "avenida",
+            "reference": "проспект"
+          },
+          {
+            "key": "es.vocab.plaza",
+            "target": "plaza",
+            "reference": "площадь"
+          },
+          {
+            "key": "es.vocab.centro",
+            "target": "centro",
+            "reference": "центр"
+          },
+          {
+            "key": "es.vocab.barrio",
+            "target": "barrio",
+            "reference": "район"
+          },
+          {
+            "key": "es.vocab.edificio",
+            "target": "edificio",
+            "reference": "здание"
+          },
+          {
+            "key": "es.vocab.tienda",
+            "target": "tienda",
+            "reference": "магазин"
+          },
+          {
+            "key": "es.vocab.supermercado",
+            "target": "supermercado",
+            "reference": "супермаркет"
+          },
+          {
+            "key": "es.vocab.mercado",
+            "target": "mercado",
+            "reference": "рынок"
+          },
+          {
+            "key": "es.vocab.centro-comercial",
+            "target": "centro comercial",
+            "reference": "торговый центр"
+          },
+          {
+            "key": "es.vocab.restaurante",
+            "target": "restaurante",
+            "reference": "ресторан"
+          },
+          {
+            "key": "es.vocab.cafeteria",
+            "target": "cafetería",
+            "reference": "кафе"
+          },
+          {
+            "key": "es.vocab.bar",
+            "target": "bar",
+            "reference": "бар"
+          },
+          {
+            "key": "es.vocab.hotel",
+            "target": "hotel",
+            "reference": "отель"
+          },
+          {
+            "key": "es.vocab.banco",
+            "target": "banco",
+            "reference": "банк"
+          },
+          {
+            "key": "es.vocab.cajero",
+            "target": "cajero",
+            "reference": "банкомат"
+          },
+          {
+            "key": "es.vocab.oficina",
+            "target": "oficina",
+            "reference": "офис"
+          },
+          {
+            "key": "es.vocab.escuela",
+            "target": "escuela",
+            "reference": "школа"
+          },
+          {
+            "key": "es.vocab.universidad",
+            "target": "universidad",
+            "reference": "университет"
+          },
+          {
+            "key": "es.vocab.biblioteca",
+            "target": "biblioteca",
+            "reference": "библиотека"
+          },
+          {
+            "key": "es.vocab.museo",
+            "target": "museo",
+            "reference": "музей"
+          },
+          {
+            "key": "es.vocab.cine",
+            "target": "cine",
+            "reference": "кинотеатр"
+          },
+          {
+            "key": "es.vocab.teatro",
+            "target": "teatro",
+            "reference": "театр"
+          },
+          {
+            "key": "es.vocab.parque",
+            "target": "parque",
+            "reference": "парк"
+          },
+          {
+            "key": "es.vocab.gimnasio",
+            "target": "gimnasio",
+            "reference": "спортзал"
+          },
+          {
+            "key": "es.vocab.piscina",
+            "target": "piscina",
+            "reference": "бассейн"
+          },
+          {
+            "key": "es.vocab.estacion",
+            "target": "estación",
+            "reference": "станция",
+            "notes": "Также: вокзал"
+          },
+          {
+            "key": "es.vocab.aeropuerto",
+            "target": "aeropuerto",
+            "reference": "аэропорт"
+          },
+          {
+            "key": "es.vocab.parada",
+            "target": "parada",
+            "reference": "остановка"
+          },
+          {
+            "key": "es.vocab.policia",
+            "target": "policía",
+            "reference": "полиция"
+          },
+          {
+            "key": "es.vocab.comisaria",
+            "target": "comisaría",
+            "reference": "полицейский участок"
+          },
+          {
+            "key": "es.vocab.correos",
+            "target": "correos",
+            "reference": "почта"
+          },
+          {
+            "key": "es.vocab.iglesia",
+            "target": "iglesia",
+            "reference": "церковь"
+          },
+          {
+            "key": "es.vocab.puente",
+            "target": "puente",
+            "reference": "мост"
+          },
+          {
+            "key": "es.vocab.semaforo",
+            "target": "semáforo",
+            "reference": "светофор"
+          },
+          {
+            "key": "es.vocab.esquina",
+            "target": "esquina",
+            "reference": "угол"
+          },
+          {
+            "key": "es.vocab.acera",
+            "target": "acera",
+            "reference": "тротуар"
+          },
+          {
+            "key": "es.vocab.mapa",
+            "target": "mapa",
+            "reference": "карта"
+          },
+          {
+            "key": "es.vocab.direccion",
+            "target": "dirección",
+            "reference": "адрес",
+            "notes": "Также: направление"
+          },
+          {
+            "key": "es.vocab.cerca.c3a752",
+            "target": "cerca",
+            "reference": "близко"
+          },
+          {
+            "key": "es.vocab.lejos.8dfb3d",
+            "target": "lejos",
+            "reference": "далеко"
+          },
+          {
+            "key": "es.vocab.derecha",
+            "target": "derecha",
+            "reference": "право",
+            "notes": "Также: правая сторона"
+          },
+          {
+            "key": "es.vocab.izquierda",
+            "target": "izquierda",
+            "reference": "лево",
+            "notes": "Также: левая сторона"
+          },
+          {
+            "key": "es.vocab.recto",
+            "target": "recto",
+            "reference": "прямо"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.transport-travel",
+        "name": "Транспорт и поездки",
+        "description": "Транспорт, дорога, билеты и базовая лексика путешествий.",
+        "sort_order": 13,
+        "vocabulary": [
+          {
+            "key": "es.vocab.coche",
+            "target": "coche",
+            "reference": "машина"
+          },
+          {
+            "key": "es.vocab.autobus",
+            "target": "autobús",
+            "reference": "автобус"
+          },
+          {
+            "key": "es.vocab.metro",
+            "target": "metro",
+            "reference": "метро"
+          },
+          {
+            "key": "es.vocab.tren",
+            "target": "tren",
+            "reference": "поезд"
+          },
+          {
+            "key": "es.vocab.avion",
+            "target": "avión",
+            "reference": "самолёт"
+          },
+          {
+            "key": "es.vocab.taxi",
+            "target": "taxi",
+            "reference": "такси"
+          },
+          {
+            "key": "es.vocab.bicicleta",
+            "target": "bicicleta",
+            "reference": "велосипед"
+          },
+          {
+            "key": "es.vocab.moto",
+            "target": "moto",
+            "reference": "мотоцикл"
+          },
+          {
+            "key": "es.vocab.billete",
+            "target": "billete",
+            "reference": "билет"
+          },
+          {
+            "key": "es.vocab.tarjeta",
+            "target": "tarjeta",
+            "reference": "карта",
+            "notes": "Также: проездной"
+          },
+          {
+            "key": "es.vocab.viaje.062f77",
+            "target": "viaje",
+            "reference": "поездка",
+            "notes": "Также: путешествие"
+          },
+          {
+            "key": "es.vocab.vacaciones",
+            "target": "vacaciones",
+            "reference": "отпуск"
+          },
+          {
+            "key": "es.vocab.maleta",
+            "target": "maleta",
+            "reference": "чемодан"
+          },
+          {
+            "key": "es.vocab.equipaje",
+            "target": "equipaje",
+            "reference": "багаж"
+          },
+          {
+            "key": "es.vocab.pasaporte",
+            "target": "pasaporte",
+            "reference": "паспорт"
+          },
+          {
+            "key": "es.vocab.reserva",
+            "target": "reserva",
+            "reference": "бронь"
+          },
+          {
+            "key": "es.vocab.hotel",
+            "target": "hotel",
+            "reference": "отель"
+          },
+          {
+            "key": "es.vocab.habitacion.7f5d05",
+            "target": "habitación",
+            "reference": "номер",
+            "notes": "Также: комната"
+          },
+          {
+            "key": "es.vocab.salida.97bda1",
+            "target": "salida",
+            "reference": "отправление",
+            "notes": "Также: выход"
+          },
+          {
+            "key": "es.vocab.llegada",
+            "target": "llegada",
+            "reference": "прибытие"
+          },
+          {
+            "key": "es.vocab.anden",
+            "target": "andén",
+            "reference": "платформа"
+          },
+          {
+            "key": "es.vocab.asiento",
+            "target": "asiento",
+            "reference": "место",
+            "notes": "Также: сиденье"
+          },
+          {
+            "key": "es.vocab.conductor",
+            "target": "conductor",
+            "reference": "водитель"
+          },
+          {
+            "key": "es.vocab.pasajero",
+            "target": "pasajero",
+            "reference": "пассажир"
+          },
+          {
+            "key": "es.vocab.carretera",
+            "target": "carretera",
+            "reference": "дорога",
+            "notes": "Также: шоссе"
+          },
+          {
+            "key": "es.vocab.trafico",
+            "target": "tráfico",
+            "reference": "движение",
+            "notes": "Также: трафик"
+          },
+          {
+            "key": "es.vocab.gasolina",
+            "target": "gasolina",
+            "reference": "бензин"
+          },
+          {
+            "key": "es.vocab.conducir",
+            "target": "conducir",
+            "reference": "водить"
+          },
+          {
+            "key": "es.vocab.viajar",
+            "target": "viajar",
+            "reference": "путешествовать"
+          },
+          {
+            "key": "es.vocab.salir.56026e",
+            "target": "salir",
+            "reference": "уезжать",
+            "notes": "Также: выходить"
+          },
+          {
+            "key": "es.vocab.llegar",
+            "target": "llegar",
+            "reference": "прибывать"
+          },
+          {
+            "key": "es.vocab.volver",
+            "target": "volver",
+            "reference": "возвращаться"
+          },
+          {
+            "key": "es.vocab.ir",
+            "target": "ir",
+            "reference": "идти",
+            "notes": "Также: ехать"
+          },
+          {
+            "key": "es.vocab.venir",
+            "target": "venir",
+            "reference": "приходить",
+            "notes": "Также: приезжать"
+          },
+          {
+            "key": "es.vocab.subir",
+            "target": "subir",
+            "reference": "подниматься",
+            "notes": "Также: садиться"
+          },
+          {
+            "key": "es.vocab.bajar",
+            "target": "bajar",
+            "reference": "спускаться",
+            "notes": "Также: выходить"
+          },
+          {
+            "key": "es.vocab.perder.4bf849",
+            "target": "perder",
+            "reference": "терять",
+            "notes": "Также: опаздывать на транспорт; Также: проигрывать"
+          },
+          {
+            "key": "es.vocab.encontrar",
+            "target": "encontrar",
+            "reference": "находить"
+          },
+          {
+            "key": "es.vocab.visitar",
+            "target": "visitar",
+            "reference": "посещать"
+          },
+          {
+            "key": "es.vocab.quedarse",
+            "target": "quedarse",
+            "reference": "оставаться"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.weather-nature",
+        "name": "Погода и природа",
+        "description": "Погода, природные объекты и несколько частых животных.",
+        "sort_order": 14,
+        "vocabulary": [
+          {
+            "key": "es.vocab.tiempo.5fe806",
+            "target": "tiempo",
+            "reference": "погода"
+          },
+          {
+            "key": "es.vocab.sol",
+            "target": "sol",
+            "reference": "солнце"
+          },
+          {
+            "key": "es.vocab.lluvia",
+            "target": "lluvia",
+            "reference": "дождь"
+          },
+          {
+            "key": "es.vocab.nieve",
+            "target": "nieve",
+            "reference": "снег"
+          },
+          {
+            "key": "es.vocab.viento",
+            "target": "viento",
+            "reference": "ветер"
+          },
+          {
+            "key": "es.vocab.nube",
+            "target": "nube",
+            "reference": "облако"
+          },
+          {
+            "key": "es.vocab.cielo",
+            "target": "cielo",
+            "reference": "небо"
+          },
+          {
+            "key": "es.vocab.calor",
+            "target": "calor",
+            "reference": "жара"
+          },
+          {
+            "key": "es.vocab.frio.11166b",
+            "target": "frío",
+            "reference": "холод"
+          },
+          {
+            "key": "es.vocab.temperatura",
+            "target": "temperatura",
+            "reference": "температура"
+          },
+          {
+            "key": "es.vocab.grado",
+            "target": "grado",
+            "reference": "градус"
+          },
+          {
+            "key": "es.vocab.tormenta",
+            "target": "tormenta",
+            "reference": "гроза",
+            "notes": "Также: буря"
+          },
+          {
+            "key": "es.vocab.niebla",
+            "target": "niebla",
+            "reference": "туман"
+          },
+          {
+            "key": "es.vocab.llover",
+            "target": "llover",
+            "reference": "идти о дожде"
+          },
+          {
+            "key": "es.vocab.nevar",
+            "target": "nevar",
+            "reference": "идти о снеге"
+          },
+          {
+            "key": "es.vocab.hacer-sol",
+            "target": "hacer sol",
+            "reference": "быть солнечно"
+          },
+          {
+            "key": "es.vocab.hacer-calor",
+            "target": "hacer calor",
+            "reference": "быть жарко"
+          },
+          {
+            "key": "es.vocab.hacer-frio",
+            "target": "hacer frío",
+            "reference": "быть холодно"
+          },
+          {
+            "key": "es.vocab.mar",
+            "target": "mar",
+            "reference": "море"
+          },
+          {
+            "key": "es.vocab.rio",
+            "target": "río",
+            "reference": "река"
+          },
+          {
+            "key": "es.vocab.lago",
+            "target": "lago",
+            "reference": "озеро"
+          },
+          {
+            "key": "es.vocab.montana",
+            "target": "montaña",
+            "reference": "гора"
+          },
+          {
+            "key": "es.vocab.bosque",
+            "target": "bosque",
+            "reference": "лес"
+          },
+          {
+            "key": "es.vocab.arbol",
+            "target": "árbol",
+            "reference": "дерево"
+          },
+          {
+            "key": "es.vocab.flor",
+            "target": "flor",
+            "reference": "цветок"
+          },
+          {
+            "key": "es.vocab.hierba",
+            "target": "hierba",
+            "reference": "трава"
+          },
+          {
+            "key": "es.vocab.playa",
+            "target": "playa",
+            "reference": "пляж"
+          },
+          {
+            "key": "es.vocab.campo",
+            "target": "campo",
+            "reference": "поле",
+            "notes": "Также: сельская местность"
+          },
+          {
+            "key": "es.vocab.naturaleza",
+            "target": "naturaleza",
+            "reference": "природа"
+          },
+          {
+            "key": "es.vocab.animal",
+            "target": "animal",
+            "reference": "животное"
+          },
+          {
+            "key": "es.vocab.perro",
+            "target": "perro",
+            "reference": "собака"
+          },
+          {
+            "key": "es.vocab.gato",
+            "target": "gato",
+            "reference": "кошка"
+          },
+          {
+            "key": "es.vocab.pajaro",
+            "target": "pájaro",
+            "reference": "птица"
+          },
+          {
+            "key": "es.vocab.pez",
+            "target": "pez",
+            "reference": "рыба"
+          },
+          {
+            "key": "es.vocab.caballo",
+            "target": "caballo",
+            "reference": "лошадь"
+          },
+          {
+            "key": "es.vocab.dia-soleado",
+            "target": "día soleado",
+            "reference": "солнечный день"
+          },
+          {
+            "key": "es.vocab.nublado",
+            "target": "nublado",
+            "reference": "облачно",
+            "notes": "Также: пасмурный"
+          },
+          {
+            "key": "es.vocab.humedo",
+            "target": "húmedo",
+            "reference": "влажный"
+          },
+          {
+            "key": "es.vocab.seco",
+            "target": "seco",
+            "reference": "сухой"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.work-study",
+        "name": "Работа и учёба",
+        "description": "Работа, обучение, техника и повседневные учебные действия.",
+        "sort_order": 15,
+        "vocabulary": [
+          {
+            "key": "es.vocab.trabajo",
+            "target": "trabajo",
+            "reference": "работа"
+          },
+          {
+            "key": "es.vocab.trabajar",
+            "target": "trabajar",
+            "reference": "работать"
+          },
+          {
+            "key": "es.vocab.empleo",
+            "target": "empleo",
+            "reference": "работа",
+            "notes": "Также: занятость"
+          },
+          {
+            "key": "es.vocab.empresa",
+            "target": "empresa",
+            "reference": "компания"
+          },
+          {
+            "key": "es.vocab.jefe",
+            "target": "jefe",
+            "reference": "начальник"
+          },
+          {
+            "key": "es.vocab.jefa",
+            "target": "jefa",
+            "reference": "начальница"
+          },
+          {
+            "key": "es.vocab.companero.7e031c",
+            "target": "compañero",
+            "reference": "коллега"
+          },
+          {
+            "key": "es.vocab.companera.099c07",
+            "target": "compañera",
+            "reference": "коллега"
+          },
+          {
+            "key": "es.vocab.reunion",
+            "target": "reunión",
+            "reference": "встреча",
+            "notes": "Также: совещание"
+          },
+          {
+            "key": "es.vocab.proyecto",
+            "target": "proyecto",
+            "reference": "проект"
+          },
+          {
+            "key": "es.vocab.tarea",
+            "target": "tarea",
+            "reference": "задача",
+            "notes": "Также: домашнее задание"
+          },
+          {
+            "key": "es.vocab.problema",
+            "target": "problema",
+            "reference": "проблема"
+          },
+          {
+            "key": "es.vocab.solucion",
+            "target": "solución",
+            "reference": "решение"
+          },
+          {
+            "key": "es.vocab.correo",
+            "target": "correo",
+            "reference": "почта",
+            "notes": "Также: письмо"
+          },
+          {
+            "key": "es.vocab.mensaje",
+            "target": "mensaje",
+            "reference": "сообщение"
+          },
+          {
+            "key": "es.vocab.ordenador",
+            "target": "ordenador",
+            "reference": "компьютер"
+          },
+          {
+            "key": "es.vocab.portatil",
+            "target": "portátil",
+            "reference": "ноутбук"
+          },
+          {
+            "key": "es.vocab.pantalla",
+            "target": "pantalla",
+            "reference": "экран"
+          },
+          {
+            "key": "es.vocab.teclado",
+            "target": "teclado",
+            "reference": "клавиатура"
+          },
+          {
+            "key": "es.vocab.raton",
+            "target": "ratón",
+            "reference": "мышь"
+          },
+          {
+            "key": "es.vocab.telefono",
+            "target": "teléfono",
+            "reference": "телефон"
+          },
+          {
+            "key": "es.vocab.internet",
+            "target": "internet",
+            "reference": "интернет"
+          },
+          {
+            "key": "es.vocab.archivo",
+            "target": "archivo",
+            "reference": "файл"
+          },
+          {
+            "key": "es.vocab.documento",
+            "target": "documento",
+            "reference": "документ"
+          },
+          {
+            "key": "es.vocab.estudiar",
+            "target": "estudiar",
+            "reference": "учиться",
+            "notes": "Также: изучать"
+          },
+          {
+            "key": "es.vocab.aprender",
+            "target": "aprender",
+            "reference": "учить",
+            "notes": "Также: узнавать"
+          },
+          {
+            "key": "es.vocab.ensenar",
+            "target": "enseñar",
+            "reference": "обучать",
+            "notes": "Также: показывать"
+          },
+          {
+            "key": "es.vocab.profesor",
+            "target": "profesor",
+            "reference": "преподаватель"
+          },
+          {
+            "key": "es.vocab.profesora",
+            "target": "profesora",
+            "reference": "преподавательница"
+          },
+          {
+            "key": "es.vocab.estudiante",
+            "target": "estudiante",
+            "reference": "студент"
+          },
+          {
+            "key": "es.vocab.clase",
+            "target": "clase",
+            "reference": "занятие",
+            "notes": "Также: класс"
+          },
+          {
+            "key": "es.vocab.curso",
+            "target": "curso",
+            "reference": "курс"
+          },
+          {
+            "key": "es.vocab.examen",
+            "target": "examen",
+            "reference": "экзамен"
+          },
+          {
+            "key": "es.vocab.pregunta",
+            "target": "pregunta",
+            "reference": "вопрос"
+          },
+          {
+            "key": "es.vocab.respuesta",
+            "target": "respuesta",
+            "reference": "ответ"
+          },
+          {
+            "key": "es.vocab.libro",
+            "target": "libro",
+            "reference": "книга"
+          },
+          {
+            "key": "es.vocab.cuaderno",
+            "target": "cuaderno",
+            "reference": "тетрадь"
+          },
+          {
+            "key": "es.vocab.boligrafo",
+            "target": "bolígrafo",
+            "reference": "ручка"
+          },
+          {
+            "key": "es.vocab.lapiz",
+            "target": "lápiz",
+            "reference": "карандаш"
+          },
+          {
+            "key": "es.vocab.leer",
+            "target": "leer",
+            "reference": "читать"
+          },
+          {
+            "key": "es.vocab.escribir",
+            "target": "escribir",
+            "reference": "писать"
+          },
+          {
+            "key": "es.vocab.explicar",
+            "target": "explicar",
+            "reference": "объяснять"
+          },
+          {
+            "key": "es.vocab.entender",
+            "target": "entender",
+            "reference": "понимать"
+          },
+          {
+            "key": "es.vocab.recordar",
+            "target": "recordar",
+            "reference": "помнить"
+          },
+          {
+            "key": "es.vocab.olvidar",
+            "target": "olvidar",
+            "reference": "забывать"
+          },
+          {
+            "key": "es.vocab.practicar",
+            "target": "practicar",
+            "reference": "практиковаться"
+          },
+          {
+            "key": "es.vocab.programador",
+            "target": "programador",
+            "reference": "программист"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.hobbies-sport",
+        "name": "Хобби и спорт",
+        "description": "Досуг, игры, музыка, спорт и активность.",
+        "sort_order": 16,
+        "vocabulary": [
+          {
+            "key": "es.vocab.tiempo-libre",
+            "target": "tiempo libre",
+            "reference": "свободное время"
+          },
+          {
+            "key": "es.vocab.aficion",
+            "target": "afición",
+            "reference": "хобби",
+            "notes": "Также: увлечение"
+          },
+          {
+            "key": "es.vocab.musica",
+            "target": "música",
+            "reference": "музыка"
+          },
+          {
+            "key": "es.vocab.pelicula",
+            "target": "película",
+            "reference": "фильм"
+          },
+          {
+            "key": "es.vocab.serie",
+            "target": "serie",
+            "reference": "сериал"
+          },
+          {
+            "key": "es.vocab.juego",
+            "target": "juego",
+            "reference": "игра"
+          },
+          {
+            "key": "es.vocab.videojuego",
+            "target": "videojuego",
+            "reference": "видеоигра"
+          },
+          {
+            "key": "es.vocab.libro",
+            "target": "libro",
+            "reference": "книга"
+          },
+          {
+            "key": "es.vocab.foto",
+            "target": "foto",
+            "reference": "фотография"
+          },
+          {
+            "key": "es.vocab.fotografia",
+            "target": "fotografía",
+            "reference": "фотография"
+          },
+          {
+            "key": "es.vocab.viaje.178a42",
+            "target": "viaje",
+            "reference": "путешествие"
+          },
+          {
+            "key": "es.vocab.deporte",
+            "target": "deporte",
+            "reference": "спорт"
+          },
+          {
+            "key": "es.vocab.futbol",
+            "target": "fútbol",
+            "reference": "футбол"
+          },
+          {
+            "key": "es.vocab.baloncesto",
+            "target": "baloncesto",
+            "reference": "баскетбол"
+          },
+          {
+            "key": "es.vocab.tenis",
+            "target": "tenis",
+            "reference": "теннис"
+          },
+          {
+            "key": "es.vocab.natacion",
+            "target": "natación",
+            "reference": "плавание"
+          },
+          {
+            "key": "es.vocab.boxeo",
+            "target": "boxeo",
+            "reference": "бокс"
+          },
+          {
+            "key": "es.vocab.gimnasio",
+            "target": "gimnasio",
+            "reference": "спортзал"
+          },
+          {
+            "key": "es.vocab.entrenamiento",
+            "target": "entrenamiento",
+            "reference": "тренировка"
+          },
+          {
+            "key": "es.vocab.ejercicio",
+            "target": "ejercicio",
+            "reference": "упражнение"
+          },
+          {
+            "key": "es.vocab.equipo",
+            "target": "equipo",
+            "reference": "команда"
+          },
+          {
+            "key": "es.vocab.partido",
+            "target": "partido",
+            "reference": "матч"
+          },
+          {
+            "key": "es.vocab.jugador",
+            "target": "jugador",
+            "reference": "игрок"
+          },
+          {
+            "key": "es.vocab.jugar",
+            "target": "jugar",
+            "reference": "играть"
+          },
+          {
+            "key": "es.vocab.correr",
+            "target": "correr",
+            "reference": "бегать"
+          },
+          {
+            "key": "es.vocab.nadar",
+            "target": "nadar",
+            "reference": "плавать"
+          },
+          {
+            "key": "es.vocab.caminar",
+            "target": "caminar",
+            "reference": "ходить пешком"
+          },
+          {
+            "key": "es.vocab.bailar",
+            "target": "bailar",
+            "reference": "танцевать"
+          },
+          {
+            "key": "es.vocab.cantar",
+            "target": "cantar",
+            "reference": "петь"
+          },
+          {
+            "key": "es.vocab.tocar",
+            "target": "tocar",
+            "reference": "играть на инструменте",
+            "notes": "Также: трогать"
+          },
+          {
+            "key": "es.vocab.escuchar",
+            "target": "escuchar",
+            "reference": "слушать"
+          },
+          {
+            "key": "es.vocab.ver.e54e02",
+            "target": "ver",
+            "reference": "смотреть",
+            "notes": "Также: видеть"
+          },
+          {
+            "key": "es.vocab.dibujar",
+            "target": "dibujar",
+            "reference": "рисовать"
+          },
+          {
+            "key": "es.vocab.viajar",
+            "target": "viajar",
+            "reference": "путешествовать"
+          },
+          {
+            "key": "es.vocab.salir.7f6221",
+            "target": "salir",
+            "reference": "выходить",
+            "notes": "Также: гулять; Также: уезжать"
+          },
+          {
+            "key": "es.vocab.quedar.a45516",
+            "target": "quedar",
+            "reference": "договариваться о встрече"
+          },
+          {
+            "key": "es.vocab.descansar",
+            "target": "descansar",
+            "reference": "отдыхать"
+          },
+          {
+            "key": "es.vocab.entrenar",
+            "target": "entrenar",
+            "reference": "тренироваться"
+          },
+          {
+            "key": "es.vocab.ganar",
+            "target": "ganar",
+            "reference": "выигрывать",
+            "notes": "Также: зарабатывать"
+          },
+          {
+            "key": "es.vocab.perder.254ca4",
+            "target": "perder",
+            "reference": "проигрывать"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.emotions-states",
+        "name": "Эмоции и состояния",
+        "description": "Чувства, настроение, желания и физические состояния.",
+        "sort_order": 17,
+        "vocabulary": [
+          {
+            "key": "es.vocab.feliz",
+            "target": "feliz",
+            "reference": "счастливый"
+          },
+          {
+            "key": "es.vocab.triste",
+            "target": "triste",
+            "reference": "грустный"
+          },
+          {
+            "key": "es.vocab.contento",
+            "target": "contento",
+            "reference": "довольный"
+          },
+          {
+            "key": "es.vocab.enfadado",
+            "target": "enfadado",
+            "reference": "злой"
+          },
+          {
+            "key": "es.vocab.nervioso",
+            "target": "nervioso",
+            "reference": "нервный"
+          },
+          {
+            "key": "es.vocab.tranquilo",
+            "target": "tranquilo",
+            "reference": "спокойный"
+          },
+          {
+            "key": "es.vocab.preocupado",
+            "target": "preocupado",
+            "reference": "обеспокоенный"
+          },
+          {
+            "key": "es.vocab.cansado",
+            "target": "cansado",
+            "reference": "уставший"
+          },
+          {
+            "key": "es.vocab.aburrido",
+            "target": "aburrido",
+            "reference": "скучающий"
+          },
+          {
+            "key": "es.vocab.ocupado",
+            "target": "ocupado",
+            "reference": "занятый"
+          },
+          {
+            "key": "es.vocab.libre",
+            "target": "libre",
+            "reference": "свободный"
+          },
+          {
+            "key": "es.vocab.sorprendido",
+            "target": "sorprendido",
+            "reference": "удивлённый"
+          },
+          {
+            "key": "es.vocab.asustado",
+            "target": "asustado",
+            "reference": "испуганный"
+          },
+          {
+            "key": "es.vocab.enamorado",
+            "target": "enamorado",
+            "reference": "влюблённый"
+          },
+          {
+            "key": "es.vocab.seguro",
+            "target": "seguro",
+            "reference": "уверенный",
+            "notes": "Также: безопасный"
+          },
+          {
+            "key": "es.vocab.inseguro",
+            "target": "inseguro",
+            "reference": "неуверенный"
+          },
+          {
+            "key": "es.vocab.bien",
+            "target": "bien",
+            "reference": "хорошо"
+          },
+          {
+            "key": "es.vocab.mal",
+            "target": "mal",
+            "reference": "плохо"
+          },
+          {
+            "key": "es.vocab.mejor",
+            "target": "mejor",
+            "reference": "лучше"
+          },
+          {
+            "key": "es.vocab.peor",
+            "target": "peor",
+            "reference": "хуже"
+          },
+          {
+            "key": "es.vocab.hambre",
+            "target": "hambre",
+            "reference": "голод"
+          },
+          {
+            "key": "es.vocab.sed",
+            "target": "sed",
+            "reference": "жажда"
+          },
+          {
+            "key": "es.vocab.sueno.b1ccb3",
+            "target": "sueño",
+            "reference": "сонливость"
+          },
+          {
+            "key": "es.vocab.prisa",
+            "target": "prisa",
+            "reference": "спешка"
+          },
+          {
+            "key": "es.vocab.miedo",
+            "target": "miedo",
+            "reference": "страх"
+          },
+          {
+            "key": "es.vocab.alegria",
+            "target": "alegría",
+            "reference": "радость"
+          },
+          {
+            "key": "es.vocab.pena",
+            "target": "pena",
+            "reference": "грусть",
+            "notes": "Также: жалость"
+          },
+          {
+            "key": "es.vocab.amor",
+            "target": "amor",
+            "reference": "любовь"
+          },
+          {
+            "key": "es.vocab.odio",
+            "target": "odio",
+            "reference": "ненависть"
+          },
+          {
+            "key": "es.vocab.ganas",
+            "target": "ganas",
+            "reference": "желание"
+          },
+          {
+            "key": "es.vocab.sentir",
+            "target": "sentir",
+            "reference": "чувствовать"
+          },
+          {
+            "key": "es.vocab.sentirse",
+            "target": "sentirse",
+            "reference": "чувствовать себя"
+          },
+          {
+            "key": "es.vocab.gustar",
+            "target": "gustar",
+            "reference": "нравиться"
+          },
+          {
+            "key": "es.vocab.encantar",
+            "target": "encantar",
+            "reference": "очень нравиться"
+          },
+          {
+            "key": "es.vocab.querer",
+            "target": "querer",
+            "reference": "хотеть",
+            "notes": "Также: любить"
+          },
+          {
+            "key": "es.vocab.preferir",
+            "target": "preferir",
+            "reference": "предпочитать"
+          },
+          {
+            "key": "es.vocab.necesitar",
+            "target": "necesitar",
+            "reference": "нуждаться"
+          },
+          {
+            "key": "es.vocab.esperar",
+            "target": "esperar",
+            "reference": "ждать",
+            "notes": "Также: надеяться"
+          },
+          {
+            "key": "es.vocab.pensar",
+            "target": "pensar",
+            "reference": "думать"
+          },
+          {
+            "key": "es.vocab.creer.e92c11",
+            "target": "creer",
+            "reference": "верить",
+            "notes": "Также: считать"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.shopping-money",
+        "name": "Покупки и деньги",
+        "description": "Цены, оплата, размеры, количество и покупки.",
+        "sort_order": 18,
+        "vocabulary": [
+          {
+            "key": "es.vocab.tienda",
+            "target": "tienda",
+            "reference": "магазин"
+          },
+          {
+            "key": "es.vocab.comprar",
+            "target": "comprar",
+            "reference": "покупать"
+          },
+          {
+            "key": "es.vocab.vender",
+            "target": "vender",
+            "reference": "продавать"
+          },
+          {
+            "key": "es.vocab.precio",
+            "target": "precio",
+            "reference": "цена"
+          },
+          {
+            "key": "es.vocab.dinero",
+            "target": "dinero",
+            "reference": "деньги"
+          },
+          {
+            "key": "es.vocab.euro",
+            "target": "euro",
+            "reference": "евро"
+          },
+          {
+            "key": "es.vocab.centimo",
+            "target": "céntimo",
+            "reference": "цент"
+          },
+          {
+            "key": "es.vocab.tarjeta",
+            "target": "tarjeta",
+            "reference": "карта",
+            "notes": "Также: проездной"
+          },
+          {
+            "key": "es.vocab.efectivo",
+            "target": "efectivo",
+            "reference": "наличные"
+          },
+          {
+            "key": "es.vocab.cambio",
+            "target": "cambio",
+            "reference": "сдача",
+            "notes": "Также: обмен"
+          },
+          {
+            "key": "es.vocab.cuenta",
+            "target": "cuenta",
+            "reference": "счёт"
+          },
+          {
+            "key": "es.vocab.ticket",
+            "target": "ticket",
+            "reference": "чек",
+            "notes": "Также: билет"
+          },
+          {
+            "key": "es.vocab.oferta",
+            "target": "oferta",
+            "reference": "скидка",
+            "notes": "Также: предложение"
+          },
+          {
+            "key": "es.vocab.descuento",
+            "target": "descuento",
+            "reference": "скидка"
+          },
+          {
+            "key": "es.vocab.caro",
+            "target": "caro",
+            "reference": "дорогой"
+          },
+          {
+            "key": "es.vocab.barato",
+            "target": "barato",
+            "reference": "дешёвый"
+          },
+          {
+            "key": "es.vocab.costar",
+            "target": "costar",
+            "reference": "стоить"
+          },
+          {
+            "key": "es.vocab.pagar",
+            "target": "pagar",
+            "reference": "платить"
+          },
+          {
+            "key": "es.vocab.cobrar",
+            "target": "cobrar",
+            "reference": "взимать оплату",
+            "notes": "Также: получать зарплату"
+          },
+          {
+            "key": "es.vocab.probar",
+            "target": "probar",
+            "reference": "пробовать",
+            "notes": "Также: примерять"
+          },
+          {
+            "key": "es.vocab.elegir",
+            "target": "elegir",
+            "reference": "выбирать"
+          },
+          {
+            "key": "es.vocab.buscar",
+            "target": "buscar",
+            "reference": "искать"
+          },
+          {
+            "key": "es.vocab.encontrar",
+            "target": "encontrar",
+            "reference": "находить"
+          },
+          {
+            "key": "es.vocab.necesitar",
+            "target": "necesitar",
+            "reference": "нуждаться"
+          },
+          {
+            "key": "es.vocab.querer",
+            "target": "querer",
+            "reference": "хотеть",
+            "notes": "Также: любить"
+          },
+          {
+            "key": "es.vocab.talla",
+            "target": "talla",
+            "reference": "размер одежды"
+          },
+          {
+            "key": "es.vocab.tamano",
+            "target": "tamaño",
+            "reference": "размер"
+          },
+          {
+            "key": "es.vocab.kilo",
+            "target": "kilo",
+            "reference": "килограмм"
+          },
+          {
+            "key": "es.vocab.gramo",
+            "target": "gramo",
+            "reference": "грамм"
+          },
+          {
+            "key": "es.vocab.litro",
+            "target": "litro",
+            "reference": "литр"
+          },
+          {
+            "key": "es.vocab.medio",
+            "target": "medio",
+            "reference": "половина",
+            "notes": "Также: средний"
+          },
+          {
+            "key": "es.vocab.mucho",
+            "target": "mucho",
+            "reference": "много"
+          },
+          {
+            "key": "es.vocab.poco",
+            "target": "poco",
+            "reference": "мало"
+          },
+          {
+            "key": "es.vocab.bastante",
+            "target": "bastante",
+            "reference": "достаточно"
+          },
+          {
+            "key": "es.vocab.demasiado.fd0c60",
+            "target": "demasiado",
+            "reference": "слишком много"
+          },
+          {
+            "key": "es.vocab.otro",
+            "target": "otro",
+            "reference": "другой"
+          },
+          {
+            "key": "es.vocab.mismo",
+            "target": "mismo",
+            "reference": "тот же"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.common-actions",
+        "name": "Частые действия",
+        "description": "Большой набор самых полезных глаголов.",
+        "sort_order": 19,
+        "vocabulary": [
+          {
+            "key": "es.vocab.ser",
+            "target": "ser",
+            "reference": "быть"
+          },
+          {
+            "key": "es.vocab.estar",
+            "target": "estar",
+            "reference": "быть",
+            "notes": "Также: находиться"
+          },
+          {
+            "key": "es.vocab.haber",
+            "target": "haber",
+            "reference": "иметься",
+            "notes": "Также: вспомогательный глагол"
+          },
+          {
+            "key": "es.vocab.tener",
+            "target": "tener",
+            "reference": "иметь"
+          },
+          {
+            "key": "es.vocab.hacer",
+            "target": "hacer",
+            "reference": "делать"
+          },
+          {
+            "key": "es.vocab.ir",
+            "target": "ir",
+            "reference": "идти",
+            "notes": "Также: ехать"
+          },
+          {
+            "key": "es.vocab.venir",
+            "target": "venir",
+            "reference": "приходить",
+            "notes": "Также: приезжать"
+          },
+          {
+            "key": "es.vocab.poder",
+            "target": "poder",
+            "reference": "мочь"
+          },
+          {
+            "key": "es.vocab.querer",
+            "target": "querer",
+            "reference": "хотеть",
+            "notes": "Также: любить"
+          },
+          {
+            "key": "es.vocab.decir",
+            "target": "decir",
+            "reference": "говорить",
+            "notes": "Также: сказать"
+          },
+          {
+            "key": "es.vocab.hablar",
+            "target": "hablar",
+            "reference": "говорить",
+            "notes": "Также: разговаривать"
+          },
+          {
+            "key": "es.vocab.ver.89c0e4",
+            "target": "ver",
+            "reference": "видеть",
+            "notes": "Также: смотреть"
+          },
+          {
+            "key": "es.vocab.mirar",
+            "target": "mirar",
+            "reference": "смотреть"
+          },
+          {
+            "key": "es.vocab.oir",
+            "target": "oír",
+            "reference": "слышать"
+          },
+          {
+            "key": "es.vocab.escuchar",
+            "target": "escuchar",
+            "reference": "слушать"
+          },
+          {
+            "key": "es.vocab.saber",
+            "target": "saber",
+            "reference": "знать",
+            "notes": "Также: уметь"
+          },
+          {
+            "key": "es.vocab.conocer",
+            "target": "conocer",
+            "reference": "знать",
+            "notes": "Также: быть знакомым"
+          },
+          {
+            "key": "es.vocab.pensar",
+            "target": "pensar",
+            "reference": "думать"
+          },
+          {
+            "key": "es.vocab.creer.882971",
+            "target": "creer",
+            "reference": "считать",
+            "notes": "Также: верить"
+          },
+          {
+            "key": "es.vocab.entender",
+            "target": "entender",
+            "reference": "понимать"
+          },
+          {
+            "key": "es.vocab.recordar",
+            "target": "recordar",
+            "reference": "помнить"
+          },
+          {
+            "key": "es.vocab.olvidar",
+            "target": "olvidar",
+            "reference": "забывать"
+          },
+          {
+            "key": "es.vocab.aprender",
+            "target": "aprender",
+            "reference": "учить",
+            "notes": "Также: узнавать"
+          },
+          {
+            "key": "es.vocab.estudiar",
+            "target": "estudiar",
+            "reference": "учиться",
+            "notes": "Также: изучать"
+          },
+          {
+            "key": "es.vocab.trabajar",
+            "target": "trabajar",
+            "reference": "работать"
+          },
+          {
+            "key": "es.vocab.vivir",
+            "target": "vivir",
+            "reference": "жить"
+          },
+          {
+            "key": "es.vocab.comer",
+            "target": "comer",
+            "reference": "есть"
+          },
+          {
+            "key": "es.vocab.beber",
+            "target": "beber",
+            "reference": "пить"
+          },
+          {
+            "key": "es.vocab.cocinar",
+            "target": "cocinar",
+            "reference": "готовить"
+          },
+          {
+            "key": "es.vocab.dormir",
+            "target": "dormir",
+            "reference": "спать"
+          },
+          {
+            "key": "es.vocab.despertarse",
+            "target": "despertarse",
+            "reference": "просыпаться"
+          },
+          {
+            "key": "es.vocab.levantarse",
+            "target": "levantarse",
+            "reference": "вставать"
+          },
+          {
+            "key": "es.vocab.ducharse",
+            "target": "ducharse",
+            "reference": "принимать душ"
+          },
+          {
+            "key": "es.vocab.vestirse",
+            "target": "vestirse",
+            "reference": "одеваться"
+          },
+          {
+            "key": "es.vocab.salir.7f6221",
+            "target": "salir",
+            "reference": "выходить",
+            "notes": "Также: гулять; Также: уезжать"
+          },
+          {
+            "key": "es.vocab.llegar",
+            "target": "llegar",
+            "reference": "прибывать"
+          },
+          {
+            "key": "es.vocab.volver",
+            "target": "volver",
+            "reference": "возвращаться"
+          },
+          {
+            "key": "es.vocab.entrar",
+            "target": "entrar",
+            "reference": "входить"
+          },
+          {
+            "key": "es.vocab.subir",
+            "target": "subir",
+            "reference": "подниматься",
+            "notes": "Также: садиться"
+          },
+          {
+            "key": "es.vocab.bajar",
+            "target": "bajar",
+            "reference": "спускаться",
+            "notes": "Также: выходить"
+          },
+          {
+            "key": "es.vocab.caminar",
+            "target": "caminar",
+            "reference": "ходить пешком"
+          },
+          {
+            "key": "es.vocab.correr",
+            "target": "correr",
+            "reference": "бегать"
+          },
+          {
+            "key": "es.vocab.nadar",
+            "target": "nadar",
+            "reference": "плавать"
+          },
+          {
+            "key": "es.vocab.conducir",
+            "target": "conducir",
+            "reference": "водить"
+          },
+          {
+            "key": "es.vocab.viajar",
+            "target": "viajar",
+            "reference": "путешествовать"
+          },
+          {
+            "key": "es.vocab.comprar",
+            "target": "comprar",
+            "reference": "покупать"
+          },
+          {
+            "key": "es.vocab.vender",
+            "target": "vender",
+            "reference": "продавать"
+          },
+          {
+            "key": "es.vocab.pagar",
+            "target": "pagar",
+            "reference": "платить"
+          },
+          {
+            "key": "es.vocab.costar",
+            "target": "costar",
+            "reference": "стоить"
+          },
+          {
+            "key": "es.vocab.dar",
+            "target": "dar",
+            "reference": "давать"
+          },
+          {
+            "key": "es.vocab.traer",
+            "target": "traer",
+            "reference": "приносить",
+            "notes": "Также: привозить"
+          },
+          {
+            "key": "es.vocab.llevar.246a23",
+            "target": "llevar",
+            "reference": "нести",
+            "notes": "Также: носить; отвозить"
+          },
+          {
+            "key": "es.vocab.poner",
+            "target": "poner",
+            "reference": "класть",
+            "notes": "Также: ставить"
+          },
+          {
+            "key": "es.vocab.quitar",
+            "target": "quitar",
+            "reference": "убирать",
+            "notes": "Также: снимать"
+          },
+          {
+            "key": "es.vocab.abrir",
+            "target": "abrir",
+            "reference": "открывать"
+          },
+          {
+            "key": "es.vocab.cerrar",
+            "target": "cerrar",
+            "reference": "закрывать"
+          },
+          {
+            "key": "es.vocab.buscar",
+            "target": "buscar",
+            "reference": "искать"
+          },
+          {
+            "key": "es.vocab.encontrar",
+            "target": "encontrar",
+            "reference": "находить"
+          },
+          {
+            "key": "es.vocab.perder.4bf849",
+            "target": "perder",
+            "reference": "терять",
+            "notes": "Также: опаздывать на транспорт; Также: проигрывать"
+          },
+          {
+            "key": "es.vocab.ganar",
+            "target": "ganar",
+            "reference": "выигрывать",
+            "notes": "Также: зарабатывать"
+          },
+          {
+            "key": "es.vocab.pedir",
+            "target": "pedir",
+            "reference": "просить",
+            "notes": "Также: заказывать"
+          },
+          {
+            "key": "es.vocab.preguntar",
+            "target": "preguntar",
+            "reference": "спрашивать"
+          },
+          {
+            "key": "es.vocab.responder",
+            "target": "responder",
+            "reference": "отвечать"
+          },
+          {
+            "key": "es.vocab.ayudar",
+            "target": "ayudar",
+            "reference": "помогать"
+          },
+          {
+            "key": "es.vocab.usar",
+            "target": "usar",
+            "reference": "использовать"
+          },
+          {
+            "key": "es.vocab.necesitar",
+            "target": "necesitar",
+            "reference": "нуждаться"
+          },
+          {
+            "key": "es.vocab.empezar",
+            "target": "empezar",
+            "reference": "начинать"
+          },
+          {
+            "key": "es.vocab.terminar",
+            "target": "terminar",
+            "reference": "заканчивать"
+          },
+          {
+            "key": "es.vocab.seguir",
+            "target": "seguir",
+            "reference": "продолжать",
+            "notes": "Также: следовать"
+          },
+          {
+            "key": "es.vocab.esperar",
+            "target": "esperar",
+            "reference": "ждать",
+            "notes": "Также: надеяться"
+          },
+          {
+            "key": "es.vocab.quedar.c82b6e",
+            "target": "quedar",
+            "reference": "оставаться",
+            "notes": "Также: договариваться"
+          },
+          {
+            "key": "es.vocab.gustar",
+            "target": "gustar",
+            "reference": "нравиться"
+          },
+          {
+            "key": "es.vocab.sentir",
+            "target": "sentir",
+            "reference": "чувствовать"
+          },
+          {
+            "key": "es.vocab.jugar",
+            "target": "jugar",
+            "reference": "играть"
+          },
+          {
+            "key": "es.vocab.leer",
+            "target": "leer",
+            "reference": "читать"
+          },
+          {
+            "key": "es.vocab.escribir",
+            "target": "escribir",
+            "reference": "писать"
+          },
+          {
+            "key": "es.vocab.mandar",
+            "target": "mandar",
+            "reference": "отправлять"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.adjectives",
+        "name": "Частые прилагательные",
+        "description": "Базовые характеристики для описания людей, предметов и ситуаций.",
+        "sort_order": 20,
+        "vocabulary": [
+          {
+            "key": "es.vocab.bueno",
+            "target": "bueno",
+            "reference": "хороший"
+          },
+          {
+            "key": "es.vocab.malo",
+            "target": "malo",
+            "reference": "плохой"
+          },
+          {
+            "key": "es.vocab.grande",
+            "target": "grande",
+            "reference": "большой"
+          },
+          {
+            "key": "es.vocab.pequeno",
+            "target": "pequeño",
+            "reference": "маленький"
+          },
+          {
+            "key": "es.vocab.nuevo",
+            "target": "nuevo",
+            "reference": "новый"
+          },
+          {
+            "key": "es.vocab.viejo",
+            "target": "viejo",
+            "reference": "старый"
+          },
+          {
+            "key": "es.vocab.joven.34f797",
+            "target": "joven",
+            "reference": "молодой"
+          },
+          {
+            "key": "es.vocab.importante",
+            "target": "importante",
+            "reference": "важный"
+          },
+          {
+            "key": "es.vocab.interesante",
+            "target": "interesante",
+            "reference": "интересный"
+          },
+          {
+            "key": "es.vocab.facil",
+            "target": "fácil",
+            "reference": "лёгкий"
+          },
+          {
+            "key": "es.vocab.dificil",
+            "target": "difícil",
+            "reference": "сложный"
+          },
+          {
+            "key": "es.vocab.rapido",
+            "target": "rápido",
+            "reference": "быстрый"
+          },
+          {
+            "key": "es.vocab.lento",
+            "target": "lento",
+            "reference": "медленный"
+          },
+          {
+            "key": "es.vocab.largo",
+            "target": "largo",
+            "reference": "длинный"
+          },
+          {
+            "key": "es.vocab.corto",
+            "target": "corto",
+            "reference": "короткий"
+          },
+          {
+            "key": "es.vocab.alto",
+            "target": "alto",
+            "reference": "высокий"
+          },
+          {
+            "key": "es.vocab.bajo",
+            "target": "bajo",
+            "reference": "низкий"
+          },
+          {
+            "key": "es.vocab.cerca.875cf5",
+            "target": "cerca",
+            "reference": "близкий",
+            "notes": "Также: близко"
+          },
+          {
+            "key": "es.vocab.lejos.05d602",
+            "target": "lejos",
+            "reference": "далёкий",
+            "notes": "Также: далеко"
+          },
+          {
+            "key": "es.vocab.abierto",
+            "target": "abierto",
+            "reference": "открытый"
+          },
+          {
+            "key": "es.vocab.cerrado",
+            "target": "cerrado",
+            "reference": "закрытый"
+          },
+          {
+            "key": "es.vocab.lleno",
+            "target": "lleno",
+            "reference": "полный"
+          },
+          {
+            "key": "es.vocab.vacio",
+            "target": "vacío",
+            "reference": "пустой"
+          },
+          {
+            "key": "es.vocab.limpio",
+            "target": "limpio",
+            "reference": "чистый"
+          },
+          {
+            "key": "es.vocab.sucio",
+            "target": "sucio",
+            "reference": "грязный"
+          },
+          {
+            "key": "es.vocab.caliente",
+            "target": "caliente",
+            "reference": "горячий"
+          },
+          {
+            "key": "es.vocab.frio.1a0c69",
+            "target": "frío",
+            "reference": "холодный"
+          },
+          {
+            "key": "es.vocab.dulce.aa7979",
+            "target": "dulce",
+            "reference": "сладкий"
+          },
+          {
+            "key": "es.vocab.salado",
+            "target": "salado",
+            "reference": "солёный"
+          },
+          {
+            "key": "es.vocab.caro",
+            "target": "caro",
+            "reference": "дорогой"
+          },
+          {
+            "key": "es.vocab.barato",
+            "target": "barato",
+            "reference": "дешёвый"
+          },
+          {
+            "key": "es.vocab.bonito",
+            "target": "bonito",
+            "reference": "красивый"
+          },
+          {
+            "key": "es.vocab.feo",
+            "target": "feo",
+            "reference": "некрасивый"
+          },
+          {
+            "key": "es.vocab.fuerte",
+            "target": "fuerte",
+            "reference": "сильный"
+          },
+          {
+            "key": "es.vocab.debil",
+            "target": "débil",
+            "reference": "слабый"
+          },
+          {
+            "key": "es.vocab.feliz",
+            "target": "feliz",
+            "reference": "счастливый"
+          },
+          {
+            "key": "es.vocab.triste",
+            "target": "triste",
+            "reference": "грустный"
+          },
+          {
+            "key": "es.vocab.cansado",
+            "target": "cansado",
+            "reference": "уставший"
+          },
+          {
+            "key": "es.vocab.ocupado",
+            "target": "ocupado",
+            "reference": "занятый"
+          },
+          {
+            "key": "es.vocab.libre",
+            "target": "libre",
+            "reference": "свободный"
+          },
+          {
+            "key": "es.vocab.correcto",
+            "target": "correcto",
+            "reference": "правильный"
+          },
+          {
+            "key": "es.vocab.incorrecto",
+            "target": "incorrecto",
+            "reference": "неправильный"
+          },
+          {
+            "key": "es.vocab.igual",
+            "target": "igual",
+            "reference": "одинаковый"
+          },
+          {
+            "key": "es.vocab.diferente",
+            "target": "diferente",
+            "reference": "разный"
+          },
+          {
+            "key": "es.vocab.primero.1ea24e",
+            "target": "primero",
+            "reference": "первый"
+          },
+          {
+            "key": "es.vocab.ultimo",
+            "target": "último",
+            "reference": "последний"
+          },
+          {
+            "key": "es.vocab.otro",
+            "target": "otro",
+            "reference": "другой"
+          },
+          {
+            "key": "es.vocab.mismo",
+            "target": "mismo",
+            "reference": "тот же"
+          },
+          {
+            "key": "es.vocab.todo",
+            "target": "todo",
+            "reference": "весь"
+          },
+          {
+            "key": "es.vocab.cada",
+            "target": "cada",
+            "reference": "каждый"
+          },
+          {
+            "key": "es.vocab.algun",
+            "target": "algún",
+            "reference": "какой-то",
+            "notes": "Также: некоторый"
+          },
+          {
+            "key": "es.vocab.ningun",
+            "target": "ningún",
+            "reference": "никакой"
+          },
+          {
+            "key": "es.vocab.mucho",
+            "target": "mucho",
+            "reference": "много"
+          },
+          {
+            "key": "es.vocab.poco",
+            "target": "poco",
+            "reference": "мало"
+          },
+          {
+            "key": "es.vocab.bastante",
+            "target": "bastante",
+            "reference": "достаточно"
+          },
+          {
+            "key": "es.vocab.demasiado.d8b48e",
+            "target": "demasiado",
+            "reference": "слишком"
+          },
+          {
+            "key": "es.vocab.solo",
+            "target": "solo",
+            "reference": "один",
+            "notes": "Также: только"
+          },
+          {
+            "key": "es.vocab.junto",
+            "target": "junto",
+            "reference": "вместе",
+            "notes": "Также: рядом"
+          },
+          {
+            "key": "es.vocab.posible",
+            "target": "posible",
+            "reference": "возможный"
+          },
+          {
+            "key": "es.vocab.necesario",
+            "target": "necesario",
+            "reference": "необходимый"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.prepositions-position",
+        "name": "Предлоги и положение",
+        "description": "Базовые предлоги и пространственные выражения.",
+        "sort_order": 21,
+        "vocabulary": [
+          {
+            "key": "es.vocab.en",
+            "target": "en",
+            "reference": "в",
+            "notes": "Также: на"
+          },
+          {
+            "key": "es.vocab.a",
+            "target": "a",
+            "reference": "к",
+            "notes": "Также: в"
+          },
+          {
+            "key": "es.vocab.de",
+            "target": "de",
+            "reference": "из",
+            "notes": "Также: от; о"
+          },
+          {
+            "key": "es.vocab.con",
+            "target": "con",
+            "reference": "с"
+          },
+          {
+            "key": "es.vocab.sin",
+            "target": "sin",
+            "reference": "без"
+          },
+          {
+            "key": "es.vocab.para",
+            "target": "para",
+            "reference": "для",
+            "notes": "Также: чтобы"
+          },
+          {
+            "key": "es.vocab.por",
+            "target": "por",
+            "reference": "по",
+            "notes": "Также: через; из-за"
+          },
+          {
+            "key": "es.vocab.sobre",
+            "target": "sobre",
+            "reference": "на",
+            "notes": "Также: о; над"
+          },
+          {
+            "key": "es.vocab.entre",
+            "target": "entre",
+            "reference": "между"
+          },
+          {
+            "key": "es.vocab.hasta",
+            "target": "hasta",
+            "reference": "до"
+          },
+          {
+            "key": "es.vocab.desde",
+            "target": "desde",
+            "reference": "с",
+            "notes": "Также: от"
+          },
+          {
+            "key": "es.vocab.antes-de",
+            "target": "antes de",
+            "reference": "до"
+          },
+          {
+            "key": "es.vocab.despues-de",
+            "target": "después de",
+            "reference": "после"
+          },
+          {
+            "key": "es.vocab.delante-de",
+            "target": "delante de",
+            "reference": "перед"
+          },
+          {
+            "key": "es.vocab.detras-de",
+            "target": "detrás de",
+            "reference": "за",
+            "notes": "Также: позади"
+          },
+          {
+            "key": "es.vocab.encima-de",
+            "target": "encima de",
+            "reference": "на",
+            "notes": "Также: над"
+          },
+          {
+            "key": "es.vocab.debajo-de",
+            "target": "debajo de",
+            "reference": "под"
+          },
+          {
+            "key": "es.vocab.al-lado-de",
+            "target": "al lado de",
+            "reference": "рядом с"
+          },
+          {
+            "key": "es.vocab.cerca-de",
+            "target": "cerca de",
+            "reference": "рядом с"
+          },
+          {
+            "key": "es.vocab.lejos-de",
+            "target": "lejos de",
+            "reference": "далеко от"
+          },
+          {
+            "key": "es.vocab.dentro-de",
+            "target": "dentro de",
+            "reference": "внутри"
+          },
+          {
+            "key": "es.vocab.fuera-de",
+            "target": "fuera de",
+            "reference": "снаружи",
+            "notes": "Также: вне"
+          },
+          {
+            "key": "es.vocab.a-la-derecha-de",
+            "target": "a la derecha de",
+            "reference": "справа от"
+          },
+          {
+            "key": "es.vocab.a-la-izquierda-de",
+            "target": "a la izquierda de",
+            "reference": "слева от"
+          },
+          {
+            "key": "es.vocab.frente-a",
+            "target": "frente a",
+            "reference": "напротив"
+          }
+        ]
+      },
+      {
+        "key": "es.first-steps.topic.questions-connectors",
+        "name": "Вопросы и связки",
+        "description": "Вопросительные слова и короткие связки для соединения мыслей.",
+        "sort_order": 22,
+        "vocabulary": [
+          {
+            "key": "es.vocab.que",
+            "target": "qué",
+            "reference": "что",
+            "notes": "Также: какой"
+          },
+          {
+            "key": "es.vocab.quien",
+            "target": "quién",
+            "reference": "кто"
+          },
+          {
+            "key": "es.vocab.quienes",
+            "target": "quiénes",
+            "reference": "кто во множественном числе"
+          },
+          {
+            "key": "es.vocab.donde",
+            "target": "dónde",
+            "reference": "где"
+          },
+          {
+            "key": "es.vocab.adonde",
+            "target": "adónde",
+            "reference": "куда"
+          },
+          {
+            "key": "es.vocab.de-donde",
+            "target": "de dónde",
+            "reference": "откуда"
+          },
+          {
+            "key": "es.vocab.cuando.bbbbb8",
+            "target": "cuándo",
+            "reference": "когда"
+          },
+          {
+            "key": "es.vocab.como",
+            "target": "cómo",
+            "reference": "как"
+          },
+          {
+            "key": "es.vocab.cual",
+            "target": "cuál",
+            "reference": "какой",
+            "notes": "Также: который"
+          },
+          {
+            "key": "es.vocab.cuales",
+            "target": "cuáles",
+            "reference": "какие",
+            "notes": "Также: которые"
+          },
+          {
+            "key": "es.vocab.cuanto",
+            "target": "cuánto",
+            "reference": "сколько",
+            "notes": "Также: насколько"
+          },
+          {
+            "key": "es.vocab.cuanta",
+            "target": "cuánta",
+            "reference": "сколько"
+          },
+          {
+            "key": "es.vocab.cuantos",
+            "target": "cuántos",
+            "reference": "сколько"
+          },
+          {
+            "key": "es.vocab.cuantas",
+            "target": "cuántas",
+            "reference": "сколько"
+          },
+          {
+            "key": "es.vocab.por-que",
+            "target": "por qué",
+            "reference": "почему"
+          },
+          {
+            "key": "es.vocab.porque",
+            "target": "porque",
+            "reference": "потому что"
+          },
+          {
+            "key": "es.vocab.y",
+            "target": "y",
+            "reference": "и"
+          },
+          {
+            "key": "es.vocab.o",
+            "target": "o",
+            "reference": "или"
+          },
+          {
+            "key": "es.vocab.pero",
+            "target": "pero",
+            "reference": "но"
+          },
+          {
+            "key": "es.vocab.tambien",
+            "target": "también",
+            "reference": "тоже"
+          },
+          {
+            "key": "es.vocab.tampoco",
+            "target": "tampoco",
+            "reference": "тоже не"
+          },
+          {
+            "key": "es.vocab.entonces",
+            "target": "entonces",
+            "reference": "тогда",
+            "notes": "Также: значит"
+          },
+          {
+            "key": "es.vocab.asi-que",
+            "target": "así que",
+            "reference": "так что"
+          },
+          {
+            "key": "es.vocab.aunque",
+            "target": "aunque",
+            "reference": "хотя"
+          },
+          {
+            "key": "es.vocab.si.0cd441",
+            "target": "si",
+            "reference": "если"
+          },
+          {
+            "key": "es.vocab.cuando.5728d2",
+            "target": "cuando",
+            "reference": "когда"
+          },
+          {
+            "key": "es.vocab.mientras",
+            "target": "mientras",
+            "reference": "пока",
+            "notes": "Также: в то время как"
+          },
+          {
+            "key": "es.vocab.primero.8ebc3d",
+            "target": "primero",
+            "reference": "сначала"
+          },
+          {
+            "key": "es.vocab.despues.63ee08",
+            "target": "después",
+            "reference": "потом"
+          },
+          {
+            "key": "es.vocab.por-eso",
+            "target": "por eso",
+            "reference": "поэтому"
+          },
+          {
+            "key": "es.vocab.ademas",
+            "target": "además",
+            "reference": "кроме того"
+          }
+        ]
+      }
+    ]
+  }
+}

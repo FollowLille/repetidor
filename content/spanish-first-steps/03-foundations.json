@@ -1,0 +1,1538 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.foundations",
+    "name": "3. Основа предложения",
+    "description": "Порядок слов, ser, estar/hay, вопросы, отрицание, артикли, согласование, числа, время и даты.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 30,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A1"
+    ],
+    "theory_blocks": [
+      {
+        "key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "text",
+        "title": "Базовое предложение и личные местоимения",
+        "content": "В испанском базовый порядок обычно: подлежащее + глагол + дополнение: «Yo estudio español». Личное местоимение часто можно опустить, потому что форма глагола уже показывает лицо: «Estudio español».\n\nОсновные местоимения: yo, tú, él, ella, usted, nosotros/nosotras, vosotros/vosotras, ellos/ellas, ustedes. Usted и ustedes требуют формы 3-го лица.\n\nОтрицание строится просто: no ставится перед глаголом. Вопрос часто сохраняет тот же порядок слов, а смысл задают интонация и вопросительные слова.",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.theory.020-ser",
+        "kind": "text",
+        "title": "Ser: кто это и что это",
+        "content": "Ser используют для идентичности, профессии, происхождения, устойчивой характеристики, материала, времени и даты.\n\nsoy, eres, es, somos, sois, son\n\nПримеры: «Soy de Rusia», «Ella es médica», «Hoy es lunes», «Son las tres». Перед профессией без уточнения артикль обычно не нужен: «Es profesor».",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.theory.030-estar-hay",
+        "kind": "text",
+        "title": "Estar и hay: состояние, место и наличие",
+        "content": "Estar отвечает за состояние и местонахождение конкретного объекта: «Estoy cansado», «El libro está en la mesa».\n\nHay означает «есть / имеется» и вводит существование чего-то: «Hay un café cerca», «Hay dos libros».\n\nКороткая логика: конкретный объект находится где-то → estar. Сообщаем, что что-то вообще есть → hay.",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.theory.070-questions-negation",
+        "kind": "text",
+        "title": "Вопросы и отрицание",
+        "content": "No ставится непосредственно перед спрягаемым глаголом: «No trabajo hoy». Для двойного отрицания после глагола возможны слова nada, nunca, nadie: «No veo nada».\n\nВопросительные слова пишутся с ударением: qué, quién, dónde, cuándo, cómo, cuál, cuánto, por qué.\n\nPorque значит «потому что», por qué значит «почему».",
+        "sort_order": 70
+      },
+      {
+        "key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "text",
+        "title": "Род, число, артикли и согласование",
+        "content": "Определённые артикли: el, la, los, las. Неопределённые: un, una, unos, unas.\n\nПрилагательное обычно согласуется с существительным в роде и числе: «una camisa negra», «dos coches nuevos». Многие прилагательные на -e не меняются по роду: «un libro interesante», «una película interesante».\n\nМножественное число обычно образуется -s после гласной и -es после согласной.",
+        "sort_order": 80
+      },
+      {
+        "key": "es.first-steps.theory.090-numbers-time",
+        "kind": "text",
+        "title": "Числа, время и даты",
+        "content": "Числа 0–15 лучше знать целиком. 16–19 начинаются с dieci-, 21–29 с veinti-. После 30 обычно используется y: treinta y dos.\n\nДля времени: «Es la una» для одного часа и «Son las dos» для остальных. Минуты добавляются через y: «Son las tres y veinte».\n\nДата: «Hoy es 15 de agosto». Возраст выражается через tener: «Tengo treinta años».",
+        "sort_order": 90
+      }
+    ],
+    "theory_exercises": [
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.001",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "choice",
+        "prompt": "Выберите местоимение: «я»",
+        "correct_answer": "yo",
+        "sort_order": 1,
+        "options": [
+          "yo",
+          "tú",
+          "él",
+          "nosotros"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.002",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "choice",
+        "prompt": "Выберите местоимение: «ты»",
+        "correct_answer": "tú",
+        "sort_order": 2,
+        "options": [
+          "yo",
+          "tú",
+          "usted",
+          "ellos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.003",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "choice",
+        "prompt": "Выберите местоимение: «мы»",
+        "correct_answer": "nosotros",
+        "sort_order": 3,
+        "options": [
+          "nosotros",
+          "vosotros",
+          "ellos",
+          "ustedes"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.004",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "choice",
+        "prompt": "Выберите вежливое «Вы» для одного человека",
+        "correct_answer": "usted",
+        "sort_order": 4,
+        "options": [
+          "tú",
+          "usted",
+          "ustedes",
+          "vosotros"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.005",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "choice",
+        "prompt": "Выберите «они»",
+        "correct_answer": "ellos",
+        "sort_order": 5,
+        "options": [
+          "él",
+          "ellos",
+          "nosotros",
+          "ustedes"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.006",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "choice",
+        "prompt": "Какая форма глагола обычно идёт с usted?",
+        "correct_answer": "3-е лицо единственного числа",
+        "sort_order": 6,
+        "options": [
+          "1-е лицо",
+          "2-е лицо",
+          "3-е лицо единственного числа",
+          "3-е лицо множественного числа"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.007",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я изучаю испанский»",
+        "correct_answer": "yo estudio español",
+        "sort_order": 7,
+        "options": [
+          "yo",
+          "estudio",
+          "español"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.008",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы работаем сегодня»",
+        "correct_answer": "nosotros trabajamos hoy",
+        "sort_order": 8,
+        "options": [
+          "nosotros",
+          "trabajamos",
+          "hoy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.009",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она живёт здесь»",
+        "correct_answer": "ella vive aquí",
+        "sort_order": 9,
+        "options": [
+          "ella",
+          "vive",
+          "aquí"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.010",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я не работаю сегодня»",
+        "correct_answer": "yo no trabajo hoy",
+        "sort_order": 10,
+        "options": [
+          "yo",
+          "no",
+          "trabajo",
+          "hoy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.011",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они не живут здесь»",
+        "correct_answer": "ellos no viven aquí",
+        "sort_order": 11,
+        "options": [
+          "ellos",
+          "no",
+          "viven",
+          "aquí"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.012",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты говоришь по-испански»",
+        "correct_answer": "tú hablas español",
+        "sort_order": 12,
+        "options": [
+          "tú",
+          "hablas",
+          "español"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.013",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «У вас есть время»",
+        "correct_answer": "usted tiene tiempo",
+        "sort_order": 13,
+        "options": [
+          "usted",
+          "tiene",
+          "tiempo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.014",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы учимся дома»",
+        "correct_answer": "estudiamos en casa",
+        "sort_order": 14,
+        "options": [
+          "estudiamos",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.015",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу кофе»",
+        "correct_answer": "quiero café",
+        "sort_order": 15,
+        "options": [
+          "quiero",
+          "café"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.016",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня понедельник»",
+        "correct_answer": "hoy es lunes",
+        "sort_order": 16,
+        "options": [
+          "hoy",
+          "es",
+          "lunes"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.017",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мария работает в банке»",
+        "correct_answer": "maría trabaja en un banco",
+        "sort_order": 17,
+        "options": [
+          "maría",
+          "trabaja",
+          "en",
+          "un",
+          "banco"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.010-sentence-basics.018",
+        "theory_block_key": "es.first-steps.theory.010-sentence-basics",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мой друг живёт в Мадриде»",
+        "correct_answer": "mi amigo vive en madrid",
+        "sort_order": 18,
+        "options": [
+          "mi",
+          "amigo",
+          "vive",
+          "en",
+          "madrid"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.001",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "yo ___ (ser)",
+        "correct_answer": "soy",
+        "sort_order": 1,
+        "explanation": "Форма ser в настоящем времени."
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.002",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "tú ___ (ser)",
+        "correct_answer": "eres",
+        "sort_order": 2,
+        "explanation": "Форма ser в настоящем времени."
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.003",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (ser)",
+        "correct_answer": "es",
+        "sort_order": 3,
+        "explanation": "Форма ser в настоящем времени."
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.004",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "nosotros ___ (ser)",
+        "correct_answer": "somos",
+        "sort_order": 4,
+        "explanation": "Форма ser в настоящем времени."
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.005",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "vosotros ___ (ser)",
+        "correct_answer": "sois",
+        "sort_order": 5,
+        "explanation": "Форма ser в настоящем времени."
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.006",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (ser)",
+        "correct_answer": "son",
+        "sort_order": 6,
+        "explanation": "Форма ser в настоящем времени."
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.007",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Yo ___ de Rusia. (ser)",
+        "correct_answer": "soy",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.008",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Ana ___ médica. (ser)",
+        "correct_answer": "es",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.009",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Nosotros ___ amigos. (ser)",
+        "correct_answer": "somos",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.010",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Hoy ___ viernes. (ser)",
+        "correct_answer": "es",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.011",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Ellos ___ estudiantes. (ser)",
+        "correct_answer": "son",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.012",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Tú ___ muy amable. (ser)",
+        "correct_answer": "eres",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.013",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Vosotros ___ de España. (ser)",
+        "correct_answer": "sois",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.014",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "¿Quién ___ él? (ser)",
+        "correct_answer": "es",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.015",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Madrid ___ una ciudad grande. (ser)",
+        "correct_answer": "es",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.016",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "gap",
+        "prompt": "Estas mesas ___ de madera. (ser)",
+        "correct_answer": "son",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.017",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "choice",
+        "prompt": "Выберите ser: «Мы из России»",
+        "correct_answer": "somos",
+        "sort_order": 17,
+        "options": [
+          "somos",
+          "estamos",
+          "son",
+          "sois"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.018",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "choice",
+        "prompt": "Выберите ser: «Она преподаватель»",
+        "correct_answer": "es",
+        "sort_order": 18,
+        "options": [
+          "está",
+          "es",
+          "soy",
+          "son"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.019",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "choice",
+        "prompt": "Выберите правильное: «Сейчас два часа»",
+        "correct_answer": "son",
+        "sort_order": 19,
+        "options": [
+          "es",
+          "está",
+          "son",
+          "están"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.020",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "choice",
+        "prompt": "Для профессии без уточнения обычно:",
+        "correct_answer": "артикль не нужен",
+        "sort_order": 20,
+        "options": [
+          "нужен el",
+          "нужна la",
+          "артикль не нужен",
+          "нужен un"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.021",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я программист»",
+        "correct_answer": "soy programador",
+        "sort_order": 21,
+        "options": [
+          "soy",
+          "programador"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.022",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы из Екатеринбурга»",
+        "correct_answer": "somos de ekaterimburgo",
+        "sort_order": 22,
+        "options": [
+          "somos",
+          "de",
+          "ekaterimburgo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.023",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня воскресенье»",
+        "correct_answer": "hoy es domingo",
+        "sort_order": 23,
+        "options": [
+          "hoy",
+          "es",
+          "domingo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.020-ser.024",
+        "theory_block_key": "es.first-steps.theory.020-ser",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они хорошие друзья»",
+        "correct_answer": "son buenos amigos",
+        "sort_order": 24,
+        "options": [
+          "son",
+          "buenos",
+          "amigos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.001",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "yo ___ (estar)",
+        "correct_answer": "estoy",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.002",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "tú ___ (estar)",
+        "correct_answer": "estás",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.003",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "él/ella/usted ___ (estar)",
+        "correct_answer": "está",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.004",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "nosotros ___ (estar)",
+        "correct_answer": "estamos",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.005",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "vosotros ___ (estar)",
+        "correct_answer": "estáis",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.006",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (estar)",
+        "correct_answer": "están",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.007",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "Yo ___ cansado hoy. (estar)",
+        "correct_answer": "estoy",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.008",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "La taza ___ en la mesa. (estar)",
+        "correct_answer": "está",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.009",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "Nosotros ___ en casa. (estar)",
+        "correct_answer": "estamos",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.010",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "Ellos ___ ocupados. (estar)",
+        "correct_answer": "están",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.011",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "¿Dónde ___ el banco? (estar)",
+        "correct_answer": "está",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.012",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "Tú ___ muy tranquilo hoy. (estar)",
+        "correct_answer": "estás",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.013",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "___ un supermercado cerca. (hay)",
+        "correct_answer": "hay",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.014",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "___ dos sillas en la cocina. (hay)",
+        "correct_answer": "hay",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.015",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "En mi barrio ___ un parque. (hay)",
+        "correct_answer": "hay",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.016",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "gap",
+        "prompt": "No ___ leche en la nevera. (hay)",
+        "correct_answer": "hay",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.017",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "choice",
+        "prompt": "«Книга находится на столе»: выберите глагол",
+        "correct_answer": "está",
+        "sort_order": 17,
+        "options": [
+          "es",
+          "está",
+          "hay",
+          "son"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.018",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "choice",
+        "prompt": "«В комнате есть стол»: выберите слово",
+        "correct_answer": "hay",
+        "sort_order": 18,
+        "options": [
+          "es",
+          "está",
+          "hay",
+          "son"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.019",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "choice",
+        "prompt": "«Я устал»:",
+        "correct_answer": "estoy cansado",
+        "sort_order": 19,
+        "options": [
+          "soy cansado",
+          "estoy cansado",
+          "hay cansado",
+          "es cansado"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.020",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "choice",
+        "prompt": "«Здесь есть аптека»:",
+        "correct_answer": "hay una farmacia aquí",
+        "sort_order": 20,
+        "options": [
+          "está una farmacia aquí",
+          "hay una farmacia aquí",
+          "es una farmacia aquí",
+          "son una farmacia aquí"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.021",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Кафе находится рядом»",
+        "correct_answer": "el café está cerca",
+        "sort_order": 21,
+        "options": [
+          "el",
+          "café",
+          "está",
+          "cerca"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.022",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Рядом есть кафе»",
+        "correct_answer": "hay un café cerca",
+        "sort_order": 22,
+        "options": [
+          "hay",
+          "un",
+          "café",
+          "cerca"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.023",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы сегодня дома»",
+        "correct_answer": "hoy estamos en casa",
+        "sort_order": 23,
+        "options": [
+          "hoy",
+          "estamos",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.030-estar-hay.024",
+        "theory_block_key": "es.first-steps.theory.030-estar-hay",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «На кухне есть две чашки»",
+        "correct_answer": "hay dos tazas en la cocina",
+        "sort_order": 24,
+        "options": [
+          "hay",
+          "dos",
+          "tazas",
+          "en",
+          "la",
+          "cocina"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.001",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Почему?»",
+        "correct_answer": "por qué",
+        "sort_order": 1,
+        "options": [
+          "porque",
+          "por qué",
+          "para qué",
+          "qué"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.002",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Потому что»",
+        "correct_answer": "porque",
+        "sort_order": 2,
+        "options": [
+          "por qué",
+          "porque",
+          "por que",
+          "qué"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.003",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Где?»",
+        "correct_answer": "dónde",
+        "sort_order": 3,
+        "options": [
+          "adónde",
+          "dónde",
+          "cuándo",
+          "cómo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.004",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Куда?»",
+        "correct_answer": "adónde",
+        "sort_order": 4,
+        "options": [
+          "dónde",
+          "adónde",
+          "de dónde",
+          "cuál"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.005",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Когда?»",
+        "correct_answer": "cuándo",
+        "sort_order": 5,
+        "options": [
+          "cómo",
+          "cuándo",
+          "cuánto",
+          "quién"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.006",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Как?»",
+        "correct_answer": "cómo",
+        "sort_order": 6,
+        "options": [
+          "cuál",
+          "cómo",
+          "qué",
+          "dónde"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.007",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Кто?»",
+        "correct_answer": "quién",
+        "sort_order": 7,
+        "options": [
+          "quién",
+          "qué",
+          "cuál",
+          "cuánto"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.008",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "choice",
+        "prompt": "«Сколько?»",
+        "correct_answer": "cuánto",
+        "sort_order": 8,
+        "options": [
+          "cuándo",
+          "cuánto",
+          "cómo",
+          "qué"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.009",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "Yo ___ trabajo hoy. (не работаю)",
+        "correct_answer": "no",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.010",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "No veo ___. (ничего)",
+        "correct_answer": "nada",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.011",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "No viene ___. (никто)",
+        "correct_answer": "nadie",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.012",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "¿___ vives? — En Madrid.",
+        "correct_answer": "dónde",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.013",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "¿___ estudias español? — Porque me gusta.",
+        "correct_answer": "por qué",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.014",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "¿___ cuesta? — Veinte euros.",
+        "correct_answer": "cuánto",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.015",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "¿___ es ella? — Ana.",
+        "correct_answer": "quién",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.016",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "gap",
+        "prompt": "¿___ llegas? — Mañana.",
+        "correct_answer": "cuándo",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.017",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Почему ты изучаешь испанский?»",
+        "correct_answer": "por qué estudias español",
+        "sort_order": 17,
+        "options": [
+          "por",
+          "qué",
+          "estudias",
+          "español"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.018",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я ничего не понимаю»",
+        "correct_answer": "no entiendo nada",
+        "sort_order": 18,
+        "options": [
+          "no",
+          "entiendo",
+          "nada"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.019",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Где находится станция?»",
+        "correct_answer": "dónde está la estación",
+        "sort_order": 19,
+        "options": [
+          "dónde",
+          "está",
+          "la",
+          "estación"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.020",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сколько это стоит?»",
+        "correct_answer": "cuánto cuesta esto",
+        "sort_order": 20,
+        "options": [
+          "cuánto",
+          "cuesta",
+          "esto"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.070-questions-negation.021",
+        "theory_block_key": "es.first-steps.theory.070-questions-negation",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я не хочу идти»",
+        "correct_answer": "no quiero ir",
+        "sort_order": 21,
+        "options": [
+          "no",
+          "quiero",
+          "ir"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.001",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "___ casa (неопределённый артикль)",
+        "correct_answer": "una",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.002",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "___ coche (неопределённый артикль)",
+        "correct_answer": "un",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.003",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "___ libros (определённый артикль)",
+        "correct_answer": "los",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.004",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "___ mesas (определённый артикль)",
+        "correct_answer": "las",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.005",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "una camisa ___ (negro)",
+        "correct_answer": "negra",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.006",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "dos coches ___ (nuevo)",
+        "correct_answer": "nuevos",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.007",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "un libro ___ (interesante)",
+        "correct_answer": "interesante",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.008",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "unas películas ___ (interesante)",
+        "correct_answer": "interesantes",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.009",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "una casa ___ (grande)",
+        "correct_answer": "grande",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.010",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "gap",
+        "prompt": "dos casas ___ (grande)",
+        "correct_answer": "grandes",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.011",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "choice",
+        "prompt": "Множественное число «hotel»",
+        "correct_answer": "hoteles",
+        "sort_order": 11,
+        "options": [
+          "hotels",
+          "hoteles",
+          "hotel",
+          "hotelas"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.012",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "choice",
+        "prompt": "Множественное число «ciudad»",
+        "correct_answer": "ciudades",
+        "sort_order": 12,
+        "options": [
+          "ciudads",
+          "ciudades",
+          "ciudados",
+          "ciudad"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.013",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "choice",
+        "prompt": "Правильное сочетание",
+        "correct_answer": "una camiseta blanca",
+        "sort_order": 13,
+        "options": [
+          "un camiseta blanco",
+          "una camiseta blanca",
+          "una camiseta blanco",
+          "un camiseta blanca"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.014",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "choice",
+        "prompt": "Правильное сочетание",
+        "correct_answer": "los coches nuevos",
+        "sort_order": 14,
+        "options": [
+          "las coches nuevas",
+          "los coches nuevos",
+          "los coche nuevo",
+          "el coches nuevos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.015",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «большой чёрный автомобиль»",
+        "correct_answer": "un coche negro grande",
+        "sort_order": 15,
+        "options": [
+          "un",
+          "coche",
+          "negro",
+          "grande"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.016",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «две белые футболки»",
+        "correct_answer": "dos camisetas blancas",
+        "sort_order": 16,
+        "options": [
+          "dos",
+          "camisetas",
+          "blancas"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.017",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «интересная книга»",
+        "correct_answer": "un libro interesante",
+        "sort_order": 17,
+        "options": [
+          "un",
+          "libro",
+          "interesante"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.080-articles-agreement.018",
+        "theory_block_key": "es.first-steps.theory.080-articles-agreement",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «новые квартиры»",
+        "correct_answer": "los pisos nuevos",
+        "sort_order": 18,
+        "options": [
+          "los",
+          "pisos",
+          "nuevos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.001",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 0",
+        "correct_answer": "cero",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.002",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 1",
+        "correct_answer": "uno",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.003",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 2",
+        "correct_answer": "dos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.004",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 5",
+        "correct_answer": "cinco",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.005",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 7",
+        "correct_answer": "siete",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.006",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 10",
+        "correct_answer": "diez",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.007",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 11",
+        "correct_answer": "once",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.008",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 15",
+        "correct_answer": "quince",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.009",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 16",
+        "correct_answer": "dieciséis",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.010",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 20",
+        "correct_answer": "veinte",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.011",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 21",
+        "correct_answer": "veintiuno",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.012",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 22",
+        "correct_answer": "veintidós",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.013",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 25",
+        "correct_answer": "veinticinco",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.014",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 30",
+        "correct_answer": "treinta",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.015",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 40",
+        "correct_answer": "cuarenta",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.016",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 50",
+        "correct_answer": "cincuenta",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.017",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 60",
+        "correct_answer": "sesenta",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.018",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 70",
+        "correct_answer": "setenta",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.019",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 80",
+        "correct_answer": "ochenta",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.020",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 90",
+        "correct_answer": "noventa",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.021",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 100",
+        "correct_answer": "cien",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.022",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Напишите по-испански: 1000",
+        "correct_answer": "mil",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.023",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "32 по-испански",
+        "correct_answer": "treinta y dos",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.024",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "47 по-испански",
+        "correct_answer": "cuarenta y siete",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.025",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "58 по-испански",
+        "correct_answer": "cincuenta y ocho",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.026",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Tengo ___ años. (35)",
+        "correct_answer": "treinta y cinco",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.027",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Son las ___ y veinte. (3)",
+        "correct_answer": "tres",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.028",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Es la ___. (1:00)",
+        "correct_answer": "una",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.029",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "input",
+        "prompt": "Hoy es quince ___ agosto.",
+        "correct_answer": "de",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.030",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мне тридцать пять лет»",
+        "correct_answer": "tengo treinta y cinco años",
+        "sort_order": 30,
+        "options": [
+          "tengo",
+          "treinta",
+          "y",
+          "cinco",
+          "años"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.031",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сейчас три часа двадцать минут»",
+        "correct_answer": "son las tres y veinte",
+        "sort_order": 31,
+        "options": [
+          "son",
+          "las",
+          "tres",
+          "y",
+          "veinte"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.090-numbers-time.032",
+        "theory_block_key": "es.first-steps.theory.090-numbers-time",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня пятнадцатое августа»",
+        "correct_answer": "hoy es quince de agosto",
+        "sort_order": 32,
+        "options": [
+          "hoy",
+          "es",
+          "quince",
+          "de",
+          "agosto"
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.greetings-people",
+        "name": "Приветствия и люди",
+        "description": "Базовые слова для знакомства, общения и описания людей.",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.topic.grammar-essentials",
+        "name": "Местоимения и служебные слова",
+        "description": "Личные и объектные местоимения, указательные и базовые служебные слова.",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.topic.numbers",
+        "name": "Числа",
+        "description": "Числа и базовые количественные слова.",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.topic.time-dates",
+        "name": "Время и даты",
+        "description": "Дни недели, месяцы, части дня и календарная лексика.",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.topic.adjectives",
+        "name": "Частые прилагательные",
+        "description": "Базовые характеристики для описания людей, предметов и ситуаций.",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.topic.questions-connectors",
+        "name": "Вопросы и связки",
+        "description": "Вопросительные слова и короткие связки для соединения мыслей.",
+        "sort_order": 22
+      }
+    ]
+  }
+}

@@ -1,0 +1,1459 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.pronouns",
+    "name": "5. Местоимения и повседневная речь",
+    "description": "Возвратные глаголы, прямые и косвенные местоимения, комбинации me lo / se la, предлоги и сравнения.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 50,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A1",
+      "A2"
+    ],
+    "prerequisite_keys": [
+      "es.first-steps.present"
+    ],
+    "theory_blocks": [
+      {
+        "key": "es.first-steps.theory.100-reflexives",
+        "kind": "text",
+        "title": "Возвратные глаголы и распорядок дня",
+        "content": "Возвратные местоимения: me, te, se, nos, os, se. Они стоят перед спрягаемым глаголом: «Me levanto a las siete».\n\nИнфинитив сохраняет -se: levantarse, ducharse, vestirse. С двумя глаголами местоимение можно поставить перед первым или присоединить к инфинитиву: «Me quiero levantar» / «Quiero levantarme».",
+        "sort_order": 100
+      },
+      {
+        "key": "es.first-steps.theory.110-direct-object",
+        "kind": "text",
+        "title": "Прямое дополнение: lo, la, los, las",
+        "content": "Прямое дополнение отвечает на «кого? что?». Вместо повторения существительного используются lo, la, los, las.\n\n«Veo el coche» → «Lo veo». «Compro las entradas» → «Las compro».\n\nМестоимение обычно стоит перед спрягаемым глаголом, а с инфинитивом может присоединяться к нему: «Lo quiero comprar» / «Quiero comprarlo».",
+        "sort_order": 110
+      },
+      {
+        "key": "es.first-steps.theory.120-indirect-object",
+        "kind": "text",
+        "title": "Косвенное дополнение: me, te, le, nos, os, les",
+        "content": "Косвенное дополнение обычно отвечает на «кому?». Формы: me, te, le, nos, os, les.\n\n«Doy el libro a Ana» → «Le doy el libro». В испанском косвенное местоимение часто сохраняется даже при явном дополнении: «Le escribo a mi madre».",
+        "sort_order": 120
+      },
+      {
+        "key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "text",
+        "title": "Два местоимения вместе",
+        "content": "Порядок: косвенное местоимение + прямое. Получаем me lo, te la, nos los и так далее.\n\nLe/les перед lo/la/los/las превращается в se: «Doy el libro a Ana» → «Se lo doy».\n\nС инфинитивом оба местоимения можно присоединить к концу: «Voy a dárselo».",
+        "sort_order": 130
+      },
+      {
+        "key": "es.first-steps.theory.140-prepositions",
+        "kind": "text",
+        "title": "Базовые предлоги",
+        "content": "A часто обозначает направление и используется перед человеком как личное a: «Voy a Madrid», «Veo a Ana». De выражает происхождение и принадлежность. En обычно означает место. Con — «с», sin — «без».\n\nPor и para нельзя переводить одним русским словом. Для базы: para часто указывает цель, адресата или направление; por — причину, путь, обмен или продолжительность.",
+        "sort_order": 140
+      },
+      {
+        "key": "es.first-steps.theory.150-comparisons",
+        "kind": "text",
+        "title": "Сравнение",
+        "content": "Больше/меньше: más ... que, menos ... que. Равенство: tan ... como для качеств и tanto/tanta/tantos/tantas ... como для количества.\n\nНеправильные сравнительные формы: mejor — лучше, peor — хуже, mayor — старше/больше по возрасту, menor — младше/меньше по возрасту.\n\n«Este libro es más interesante que ese».",
+        "sort_order": 150
+      }
+    ],
+    "theory_exercises": [
+      {
+        "key": "es.first-steps.ex.100-reflexives.001",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (levantarse)",
+        "correct_answer": "me levanto",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.002",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (levantarse)",
+        "correct_answer": "te levantas",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.003",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (levantarse)",
+        "correct_answer": "nos levantamos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.004",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (levantarse)",
+        "correct_answer": "se levantan",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.005",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (ducharse)",
+        "correct_answer": "me ducho",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.006",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (ducharse)",
+        "correct_answer": "te duchas",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.007",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (ducharse)",
+        "correct_answer": "nos duchamos",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.008",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (ducharse)",
+        "correct_answer": "se duchan",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.009",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (vestirse)",
+        "correct_answer": "me visto",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.010",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (vestirse)",
+        "correct_answer": "te vistes",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.011",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (vestirse)",
+        "correct_answer": "nos vestimos",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.012",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (vestirse)",
+        "correct_answer": "se visten",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.013",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (despertarse)",
+        "correct_answer": "me despierto",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.014",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (despertarse)",
+        "correct_answer": "te despiertas",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.015",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (despertarse)",
+        "correct_answer": "nos despertamos",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.016",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (despertarse)",
+        "correct_answer": "se despiertan",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.017",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (acostarse)",
+        "correct_answer": "me acuesto",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.018",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (acostarse)",
+        "correct_answer": "te acuestas",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.019",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (acostarse)",
+        "correct_answer": "nos acostamos",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.020",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (acostarse)",
+        "correct_answer": "se acuestan",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.021",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (sentirse)",
+        "correct_answer": "me siento",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.022",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (sentirse)",
+        "correct_answer": "te sientes",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.023",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (sentirse)",
+        "correct_answer": "nos sentimos",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.024",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (sentirse)",
+        "correct_answer": "se sienten",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.025",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (llamarse)",
+        "correct_answer": "me llamo",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.026",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (llamarse)",
+        "correct_answer": "te llamas",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.027",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (llamarse)",
+        "correct_answer": "nos llamamos",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.028",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (llamarse)",
+        "correct_answer": "se llaman",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.029",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "yo ___ (quedarse)",
+        "correct_answer": "me quedo",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.030",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "tú ___ (quedarse)",
+        "correct_answer": "te quedas",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.031",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "nosotros ___ (quedarse)",
+        "correct_answer": "nos quedamos",
+        "sort_order": 31
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.032",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ (quedarse)",
+        "correct_answer": "se quedan",
+        "sort_order": 32
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.033",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я встаю в семь»",
+        "correct_answer": "me levanto a las siete",
+        "sort_order": 33,
+        "options": [
+          "me",
+          "levanto",
+          "a",
+          "las",
+          "siete"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.034",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы принимаем душ утром»",
+        "correct_answer": "nos duchamos por la mañana",
+        "sort_order": 34,
+        "options": [
+          "nos",
+          "duchamos",
+          "por",
+          "la",
+          "mañana"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.035",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она одевается быстро»",
+        "correct_answer": "se viste rápido",
+        "sort_order": 35,
+        "options": [
+          "se",
+          "viste",
+          "rápido"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.036",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу лечь спать рано»",
+        "correct_answer": "quiero acostarme temprano",
+        "sort_order": 36,
+        "options": [
+          "quiero",
+          "acostarme",
+          "temprano"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.100-reflexives.037",
+        "theory_block_key": "es.first-steps.theory.100-reflexives",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы остаёмся дома»",
+        "correct_answer": "nos quedamos en casa",
+        "sort_order": 37,
+        "options": [
+          "nos",
+          "quedamos",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.001",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "Veo el coche. → ___ veo.",
+        "correct_answer": "lo",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.002",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "Compro la camiseta. → ___ compro.",
+        "correct_answer": "la",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.003",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "Leo los libros. → ___ leo.",
+        "correct_answer": "los",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.004",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "Necesito las llaves. → ___ necesito.",
+        "correct_answer": "las",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.005",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Ves a Carlos? Sí, ___ veo.",
+        "correct_answer": "lo",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.006",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Conoces a Ana? Sí, ___ conozco.",
+        "correct_answer": "la",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.007",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "choice",
+        "prompt": "«Я его вижу»",
+        "correct_answer": "lo veo",
+        "sort_order": 7,
+        "options": [
+          "le veo",
+          "lo veo",
+          "la veo",
+          "se veo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.008",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "choice",
+        "prompt": "«Я её покупаю» о camiseta",
+        "correct_answer": "la compro",
+        "sort_order": 8,
+        "options": [
+          "lo compro",
+          "le compro",
+          "la compro",
+          "se compro"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.009",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "choice",
+        "prompt": "«Я их читаю» о libros",
+        "correct_answer": "los leo",
+        "sort_order": 9,
+        "options": [
+          "les leo",
+          "los leo",
+          "las leo",
+          "lo leo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.010",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я его вижу каждый день»",
+        "correct_answer": "lo veo cada día",
+        "sort_order": 10,
+        "options": [
+          "lo",
+          "veo",
+          "cada",
+          "día"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.011",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу её купить»",
+        "correct_answer": "la quiero comprar",
+        "sort_order": 11,
+        "options": [
+          "la",
+          "quiero",
+          "comprar"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.012",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу купить её»",
+        "correct_answer": "quiero comprarla",
+        "sort_order": 12,
+        "options": [
+          "quiero",
+          "comprarla"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.013",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы их знаем»",
+        "correct_answer": "los conocemos",
+        "sort_order": 13,
+        "options": [
+          "los",
+          "conocemos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.014",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она их открывает» о ventanas",
+        "correct_answer": "las abre",
+        "sort_order": 14,
+        "options": [
+          "las",
+          "abre"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.015",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Tienes el libro? Sí, ___ tengo.",
+        "correct_answer": "lo",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.016",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Compras las entradas? Sí, ___ compro.",
+        "correct_answer": "las",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.017",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Ves los coches? Sí, ___ veo.",
+        "correct_answer": "los",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.018",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Abres la puerta? Sí, ___ abro.",
+        "correct_answer": "la",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.019",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "No encuentro mis llaves. No ___ encuentro.",
+        "correct_answer": "las",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.020",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "gap",
+        "prompt": "¿Lees el mensaje? Sí, ___ leo.",
+        "correct_answer": "lo",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.021",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я не могу его найти»",
+        "correct_answer": "no lo puedo encontrar",
+        "sort_order": 21,
+        "options": [
+          "no",
+          "lo",
+          "puedo",
+          "encontrar"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.022",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я могу найти его»",
+        "correct_answer": "puedo encontrarlo",
+        "sort_order": 22,
+        "options": [
+          "puedo",
+          "encontrarlo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.023",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она меня видит»",
+        "correct_answer": "ella me ve",
+        "sort_order": 23,
+        "options": [
+          "ella",
+          "me",
+          "ve"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.110-direct-object.024",
+        "theory_block_key": "es.first-steps.theory.110-direct-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они нас знают»",
+        "correct_answer": "ellos nos conocen",
+        "sort_order": 24,
+        "options": [
+          "ellos",
+          "nos",
+          "conocen"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.001",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Doy el libro a Ana. → ___ doy el libro.",
+        "correct_answer": "le",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.002",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Escribo a mi madre. → ___ escribo.",
+        "correct_answer": "le",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.003",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Carlos da café a nosotros. → ___ da café.",
+        "correct_answer": "nos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.004",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Digo la verdad a ti. → ___ digo la verdad.",
+        "correct_answer": "te",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.005",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Mandamos un mensaje a ellos. → ___ mandamos un mensaje.",
+        "correct_answer": "les",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.006",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я пишу ей каждый день»",
+        "correct_answer": "le escribo cada día",
+        "sort_order": 6,
+        "options": [
+          "le",
+          "escribo",
+          "cada",
+          "día"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.007",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она даёт мне книгу»",
+        "correct_answer": "me da un libro",
+        "sort_order": 7,
+        "options": [
+          "me",
+          "da",
+          "un",
+          "libro"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.008",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы им говорим правду»",
+        "correct_answer": "les decimos la verdad",
+        "sort_order": 8,
+        "options": [
+          "les",
+          "decimos",
+          "la",
+          "verdad"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.009",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я тебе помогаю»",
+        "correct_answer": "te ayudo",
+        "sort_order": 9,
+        "options": [
+          "te",
+          "ayudo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.010",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Mi madre ___ escribe cada día. (a mí)",
+        "correct_answer": "me",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.011",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Yo ___ escribo cada día. (a ti)",
+        "correct_answer": "te",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.012",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Ana ___ da el libro. (a nosotros)",
+        "correct_answer": "nos",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.013",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "Nosotros ___ damos las gracias. (a ellos)",
+        "correct_answer": "les",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.014",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "gap",
+        "prompt": "¿Qué ___ dices? (a mí)",
+        "correct_answer": "me",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.015",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Он мне говорит правду»",
+        "correct_answer": "me dice la verdad",
+        "sort_order": 15,
+        "options": [
+          "me",
+          "dice",
+          "la",
+          "verdad"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.016",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я посылаю тебе сообщение»",
+        "correct_answer": "te mando un mensaje",
+        "sort_order": 16,
+        "options": [
+          "te",
+          "mando",
+          "un",
+          "mensaje"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.017",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она нам приносит кофе»",
+        "correct_answer": "nos trae café",
+        "sort_order": 17,
+        "options": [
+          "nos",
+          "trae",
+          "café"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.120-indirect-object.018",
+        "theory_block_key": "es.first-steps.theory.120-indirect-object",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы им покупаем еду»",
+        "correct_answer": "les compramos comida",
+        "sort_order": 18,
+        "options": [
+          "les",
+          "compramos",
+          "comida"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.001",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Я даю его ей»",
+        "correct_answer": "se lo doy",
+        "sort_order": 1,
+        "options": [
+          "le lo doy",
+          "se lo doy",
+          "lo le doy",
+          "se le doy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.002",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Она отправляет её мне» о foto",
+        "correct_answer": "me la manda",
+        "sort_order": 2,
+        "options": [
+          "me lo manda",
+          "me la manda",
+          "la me manda",
+          "se la manda"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.003",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Мы покупаем их тебе» о libros",
+        "correct_answer": "te los compramos",
+        "sort_order": 3,
+        "options": [
+          "te los compramos",
+          "los te compramos",
+          "te las compramos",
+          "se los compramos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.004",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "Что происходит с le/les перед lo/la/los/las?",
+        "correct_answer": "превращается в se",
+        "sort_order": 4,
+        "options": [
+          "остаётся le",
+          "превращается в se",
+          "исчезает",
+          "становится lo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.005",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я даю её тебе» о llave",
+        "correct_answer": "te la doy",
+        "sort_order": 5,
+        "options": [
+          "te",
+          "la",
+          "doy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.006",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Он показывает её нам» о foto",
+        "correct_answer": "nos la enseña",
+        "sort_order": 6,
+        "options": [
+          "nos",
+          "la",
+          "enseña"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.007",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я даю его ей» о libro",
+        "correct_answer": "se lo doy",
+        "sort_order": 7,
+        "options": [
+          "se",
+          "lo",
+          "doy"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.008",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они покупают их для нас» о entradas",
+        "correct_answer": "nos las compran",
+        "sort_order": 8,
+        "options": [
+          "nos",
+          "las",
+          "compran"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.009",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я собираюсь отдать это ему»",
+        "correct_answer": "voy a dárselo",
+        "sort_order": 9,
+        "options": [
+          "voy",
+          "a",
+          "dárselo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.010",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Он даёт мне это»",
+        "correct_answer": "me lo da",
+        "sort_order": 10,
+        "options": [
+          "lo me da",
+          "me lo da",
+          "me le da",
+          "se me da"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.011",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Я объясняю это тебе»",
+        "correct_answer": "te lo explico",
+        "sort_order": 11,
+        "options": [
+          "lo te explico",
+          "te lo explico",
+          "te le explico",
+          "se lo explico"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.012",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Мы отправляем её ей» о foto",
+        "correct_answer": "se la mandamos",
+        "sort_order": 12,
+        "options": [
+          "le la mandamos",
+          "se la mandamos",
+          "la se mandamos",
+          "se lo mandamos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.013",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "choice",
+        "prompt": "«Они дают их нам» о libros",
+        "correct_answer": "nos los dan",
+        "sort_order": 13,
+        "options": [
+          "los nos dan",
+          "nos los dan",
+          "nos las dan",
+          "se los dan"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.014",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я тебе это скажу»",
+        "correct_answer": "te lo digo",
+        "sort_order": 14,
+        "options": [
+          "te",
+          "lo",
+          "digo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.015",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Она мне её даёт» о llave",
+        "correct_answer": "me la da",
+        "sort_order": 15,
+        "options": [
+          "me",
+          "la",
+          "da"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.016",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы им это объясняем»",
+        "correct_answer": "se lo explicamos",
+        "sort_order": 16,
+        "options": [
+          "se",
+          "lo",
+          "explicamos"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.017",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я хочу дать это тебе»",
+        "correct_answer": "quiero dártelo",
+        "sort_order": 17,
+        "options": [
+          "quiero",
+          "dártelo"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.130-combined-pronouns.018",
+        "theory_block_key": "es.first-steps.theory.130-combined-pronouns",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты можешь отправить её мне» о foto",
+        "correct_answer": "puedes mandármela",
+        "sort_order": 18,
+        "options": [
+          "puedes",
+          "mandármela"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.001",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Vivo ___ Madrid.",
+        "correct_answer": "en",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.002",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Voy ___ Madrid.",
+        "correct_answer": "a",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.003",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Soy ___ Rusia.",
+        "correct_answer": "de",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.004",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Café ___ leche.",
+        "correct_answer": "con",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.005",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Café ___ azúcar.",
+        "correct_answer": "sin",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.006",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Este regalo es ___ ti.",
+        "correct_answer": "para",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.007",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "Trabajo ___ la mañana.",
+        "correct_answer": "por",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.008",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "El libro está ___ la mesa.",
+        "correct_answer": "sobre",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.009",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "gap",
+        "prompt": "La farmacia está ___ el banco y el café.",
+        "correct_answer": "entre",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.010",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "choice",
+        "prompt": "Voy ___ casa.",
+        "correct_answer": "a",
+        "sort_order": 10,
+        "options": [
+          "a",
+          "en",
+          "de",
+          "por"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.011",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "choice",
+        "prompt": "Estoy ___ casa.",
+        "correct_answer": "en",
+        "sort_order": 11,
+        "options": [
+          "a",
+          "en",
+          "para",
+          "de"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.012",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "choice",
+        "prompt": "Este libro es ___ Ana.",
+        "correct_answer": "para",
+        "sort_order": 12,
+        "options": [
+          "por",
+          "para",
+          "de",
+          "a"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.013",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "choice",
+        "prompt": "Gracias ___ tu ayuda.",
+        "correct_answer": "por",
+        "sort_order": 13,
+        "options": [
+          "para",
+          "por",
+          "a",
+          "en"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.014",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "choice",
+        "prompt": "Veo ___ Ana.",
+        "correct_answer": "a",
+        "sort_order": 14,
+        "options": [
+          "a",
+          "en",
+          "de",
+          "sin"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.015",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ключи на столе»",
+        "correct_answer": "las llaves están sobre la mesa",
+        "sort_order": 15,
+        "options": [
+          "las",
+          "llaves",
+          "están",
+          "sobre",
+          "la",
+          "mesa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.016",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Аптека рядом с банком»",
+        "correct_answer": "la farmacia está al lado del banco",
+        "sort_order": 16,
+        "options": [
+          "la",
+          "farmacia",
+          "está",
+          "al",
+          "lado",
+          "del",
+          "banco"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.017",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я иду без куртки»",
+        "correct_answer": "voy sin chaqueta",
+        "sort_order": 17,
+        "options": [
+          "voy",
+          "sin",
+          "chaqueta"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.140-prepositions.018",
+        "theory_block_key": "es.first-steps.theory.140-prepositions",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Этот кофе для тебя»",
+        "correct_answer": "este café es para ti",
+        "sort_order": 18,
+        "options": [
+          "este",
+          "café",
+          "es",
+          "para",
+          "ti"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.001",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "gap",
+        "prompt": "Este coche es ___ caro que ese. (более)",
+        "correct_answer": "más",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.002",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "gap",
+        "prompt": "Esta casa es ___ grande que la otra. (менее)",
+        "correct_answer": "menos",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.003",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "gap",
+        "prompt": "Ana es tan alta ___ Marta.",
+        "correct_answer": "como",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.004",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "gap",
+        "prompt": "Este libro es ___ que ese. (лучше)",
+        "correct_answer": "mejor",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.005",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "gap",
+        "prompt": "Hoy estoy ___ que ayer. (хуже)",
+        "correct_answer": "peor",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.006",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "choice",
+        "prompt": "«больше ... чем»",
+        "correct_answer": "más ... que",
+        "sort_order": 6,
+        "options": [
+          "más ... como",
+          "más ... que",
+          "tan ... que",
+          "menos ... como"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.007",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "choice",
+        "prompt": "«такой же ... как»",
+        "correct_answer": "tan ... como",
+        "sort_order": 7,
+        "options": [
+          "tan ... como",
+          "tanto ... que",
+          "más ... como",
+          "igual ... que"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.008",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "choice",
+        "prompt": "Сравнительная форма bueno",
+        "correct_answer": "mejor",
+        "sort_order": 8,
+        "options": [
+          "más bueno",
+          "mejor",
+          "bueno más",
+          "mayor"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.009",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "choice",
+        "prompt": "Сравнительная форма malo",
+        "correct_answer": "peor",
+        "sort_order": 9,
+        "options": [
+          "más malo",
+          "menor",
+          "peor",
+          "mayor"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.010",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Этот ресторан лучше того»",
+        "correct_answer": "este restaurante es mejor que ese",
+        "sort_order": 10,
+        "options": [
+          "este",
+          "restaurante",
+          "es",
+          "mejor",
+          "que",
+          "ese"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.011",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Моя машина быстрее твоей машины»",
+        "correct_answer": "mi coche es más rápido que tu coche",
+        "sort_order": 11,
+        "options": [
+          "mi",
+          "coche",
+          "es",
+          "más",
+          "rápido",
+          "que",
+          "tu",
+          "coche"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.150-comparisons.012",
+        "theory_block_key": "es.first-steps.theory.150-comparisons",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня я менее уставший»",
+        "correct_answer": "hoy estoy menos cansado",
+        "sort_order": 12,
+        "options": [
+          "hoy",
+          "estoy",
+          "menos",
+          "cansado"
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.grammar-essentials",
+        "name": "Местоимения и служебные слова",
+        "description": "Личные и объектные местоимения, указательные и базовые служебные слова.",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.topic.home",
+        "name": "Дом",
+        "description": "Комнаты, мебель и основные слова про жильё.",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.topic.food-drinks",
+        "name": "Еда и напитки",
+        "description": "Самые частые продукты, напитки и слова для приёма пищи.",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.topic.city-places",
+        "name": "Город и места",
+        "description": "Городские объекты, ориентирование и повседневные места.",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.topic.prepositions-position",
+        "name": "Предлоги и положение",
+        "description": "Базовые предлоги и пространственные выражения.",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.topic.adjectives",
+        "name": "Частые прилагательные",
+        "description": "Базовые характеристики для описания людей, предметов и ситуаций.",
+        "sort_order": 20
+      }
+    ]
+  }
+}

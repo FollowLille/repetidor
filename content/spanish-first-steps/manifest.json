@@ -1,0 +1,121 @@
+{
+  "name": "Spanish First Steps",
+  "course_key": "es.first-steps",
+  "format": "repetidor-course",
+  "version": 1,
+  "files": [
+    {
+      "file": "00-spanish-first-steps.json",
+      "course_key": "es.first-steps",
+      "name": "Spanish First Steps",
+      "levels": [
+        "A1",
+        "A2"
+      ],
+      "theory_blocks": 0,
+      "exercises": 0,
+      "topics": 0,
+      "vocabulary_entries": 0
+    },
+    {
+      "file": "01-vocabulary-everyday.json",
+      "course_key": "es.first-steps.vocab-1",
+      "name": "1. Базовый словарь: люди и повседневность",
+      "levels": [
+        "A1"
+      ],
+      "theory_blocks": 0,
+      "exercises": 0,
+      "topics": 11,
+      "vocabulary_entries": 464
+    },
+    {
+      "file": "02-vocabulary-world.json",
+      "course_key": "es.first-steps.vocab-2",
+      "name": "2. Базовый словарь: мир вокруг",
+      "levels": [
+        "A1",
+        "A2"
+      ],
+      "theory_blocks": 0,
+      "exercises": 0,
+      "topics": 11,
+      "vocabulary_entries": 482
+    },
+    {
+      "file": "03-foundations.json",
+      "course_key": "es.first-steps.foundations",
+      "name": "3. Основа предложения",
+      "levels": [
+        "A1"
+      ],
+      "theory_blocks": 6,
+      "exercises": 137,
+      "topics": 6,
+      "vocabulary_entries": 0
+    },
+    {
+      "file": "04-present-verbs.json",
+      "course_key": "es.first-steps.present",
+      "name": "4. Настоящее и частые глаголы",
+      "levels": [
+        "A1",
+        "A2"
+      ],
+      "theory_blocks": 5,
+      "exercises": 243,
+      "topics": 4,
+      "vocabulary_entries": 0
+    },
+    {
+      "file": "05-pronouns-daily.json",
+      "course_key": "es.first-steps.pronouns",
+      "name": "5. Местоимения и повседневная речь",
+      "levels": [
+        "A1",
+        "A2"
+      ],
+      "theory_blocks": 6,
+      "exercises": 127,
+      "topics": 6,
+      "vocabulary_entries": 0
+    },
+    {
+      "file": "06-perfecto.json",
+      "course_key": "es.first-steps.perfecto",
+      "name": "6. Pretérito Perfecto",
+      "levels": [
+        "A2"
+      ],
+      "theory_blocks": 2,
+      "exercises": 93,
+      "topics": 2,
+      "vocabulary_entries": 0
+    },
+    {
+      "file": "07-indefinido.json",
+      "course_key": "es.first-steps.indefinido",
+      "name": "7. Pretérito Indefinido",
+      "levels": [
+        "A2"
+      ],
+      "theory_blocks": 3,
+      "exercises": 132,
+      "topics": 3,
+      "vocabulary_entries": 0
+    }
+  ],
+  "totals": {
+    "theory_blocks": 22,
+    "exercises": 732,
+    "topics_with_content": 22,
+    "vocabulary_entries": 946,
+    "unique_vocabulary_pairs": 863,
+    "exercise_types": {
+      "choice": 63,
+      "sentence_builder": 130,
+      "gap": 467,
+      "input": 72
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps",
+    "name": "Spanish First Steps",
+    "description": "Первые шаги в испанском: большой базовый маршрут от словаря и настоящего времени до знакомых конструкций A2 и двух основных прошедших времён.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "levels": [
+      "A1",
+      "A2"
+    ],
+    "sort_order": 10
+  }
+}

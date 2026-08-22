@@ -1,0 +1,858 @@
+{
+  "format": "repetidor-course",
+  "version": 1,
+  "course": {
+    "key": "es.first-steps.perfecto",
+    "name": "6. Pretérito Perfecto",
+    "description": "Pretérito Perfecto, маркеры времени и частые неправильные причастия.",
+    "target_language": "es",
+    "reference_language": "ru",
+    "theory_language": "ru",
+    "sort_order": 60,
+    "parent_key": "es.first-steps",
+    "levels": [
+      "A2"
+    ],
+    "prerequisite_keys": [
+      "es.first-steps.present"
+    ],
+    "theory_blocks": [
+      {
+        "key": "es.first-steps.theory.170-perfecto",
+        "kind": "text",
+        "title": "Pretérito Perfecto",
+        "content": "Pretérito Perfecto строится как haber в настоящем + причастие: he hablado, has comido, hemos vivido.\n\nЧасто используется для прошлого, связанного с текущим периодом: hoy, esta semana, este mes, últimamente, alguna vez, todavía no, ya.\n\nПравильное причастие: -ar → -ado, -er/-ir → -ido.",
+        "sort_order": 180
+      },
+      {
+        "key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "text",
+        "title": "Perfecto: неправильные причастия",
+        "content": "Частые неправильные причастия нужно запомнить: hacer → hecho, decir → dicho, ver → visto, poner → puesto, escribir → escrito, abrir → abierto, volver → vuelto, romper → roto.\n\nОни не меняются по лицу или роду после haber: «He hecho», «Han hecho».",
+        "sort_order": 190
+      }
+    ],
+    "theory_exercises": [
+      {
+        "key": "es.first-steps.ex.170-perfecto.001",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ hablado. (hablar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.002",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ hablado. (hablar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.003",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ hablado. (hablar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.004",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ hablado. (hablar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.005",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ trabajado. (trabajar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.006",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ trabajado. (trabajar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.007",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ trabajado. (trabajar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.008",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ trabajado. (trabajar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.009",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ estudiado. (estudiar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.010",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ estudiado. (estudiar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.011",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ estudiado. (estudiar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.012",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ estudiado. (estudiar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.013",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ comido. (comer, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.014",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ comido. (comer, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.015",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ comido. (comer, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.016",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ comido. (comer, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.017",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ bebido. (beber, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.018",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ bebido. (beber, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.019",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ bebido. (beber, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.020",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ bebido. (beber, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.021",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ vivido. (vivir, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.022",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ vivido. (vivir, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.023",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ vivido. (vivir, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.024",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ vivido. (vivir, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 24
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.025",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ salido. (salir, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 25
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.026",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ salido. (salir, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 26
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.027",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ salido. (salir, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 27
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.028",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ salido. (salir, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 28
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.029",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ llegado. (llegar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 29
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.030",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ llegado. (llegar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 30
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.031",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ llegado. (llegar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 31
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.032",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ llegado. (llegar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 32
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.033",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ viajado. (viajar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 33
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.034",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ viajado. (viajar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 34
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.035",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ viajado. (viajar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 35
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.036",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ viajado. (viajar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 36
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.037",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ comprado. (comprar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 37
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.038",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ comprado. (comprar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 38
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.039",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ comprado. (comprar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 39
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.040",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ comprado. (comprar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 40
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.041",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ cocinado. (cocinar, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 41
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.042",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ cocinado. (cocinar, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 42
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.043",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ cocinado. (cocinar, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 43
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.044",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ cocinado. (cocinar, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 44
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.045",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "yo ___ aprendido. (aprender, Pretérito Perfecto)",
+        "correct_answer": "he",
+        "sort_order": 45
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.046",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "tú ___ aprendido. (aprender, Pretérito Perfecto)",
+        "correct_answer": "has",
+        "sort_order": 46
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.047",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "nosotros ___ aprendido. (aprender, Pretérito Perfecto)",
+        "correct_answer": "hemos",
+        "sort_order": 47
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.048",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "gap",
+        "prompt": "ellos/ustedes ___ aprendido. (aprender, Pretérito Perfecto)",
+        "correct_answer": "han",
+        "sort_order": 48
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.049",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Полная форма Perfecto: yo / trabajar",
+        "correct_answer": "he trabajado",
+        "sort_order": 49
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.050",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Полная форма Perfecto: tú / comer",
+        "correct_answer": "has comido",
+        "sort_order": 50
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.051",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Полная форма Perfecto: nosotros / vivir",
+        "correct_answer": "hemos vivido",
+        "sort_order": 51
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.052",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Полная форма Perfecto: ellos/ustedes / viajar",
+        "correct_answer": "han viajado",
+        "sort_order": 52
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.053",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Полная форма Perfecto: yo / salir",
+        "correct_answer": "he salido",
+        "sort_order": 53
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.054",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Полная форма Perfecto: tú / llegar",
+        "correct_answer": "has llegado",
+        "sort_order": 54
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.055",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня я много работал»",
+        "correct_answer": "hoy he trabajado mucho",
+        "sort_order": 55,
+        "options": [
+          "hoy",
+          "he",
+          "trabajado",
+          "mucho"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.056",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы уже поели»",
+        "correct_answer": "ya hemos comido",
+        "sort_order": 56,
+        "options": [
+          "ya",
+          "hemos",
+          "comido"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.057",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я ещё не выходил»",
+        "correct_answer": "todavía no he salido",
+        "sort_order": 57,
+        "options": [
+          "todavía",
+          "no",
+          "he",
+          "salido"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.058",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Они путешествовали на этой неделе»",
+        "correct_answer": "esta semana han viajado",
+        "sort_order": 58,
+        "options": [
+          "esta",
+          "semana",
+          "han",
+          "viajado"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.059",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: estar",
+        "correct_answer": "he estado",
+        "sort_order": 59
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.060",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: tener",
+        "correct_answer": "he tenido",
+        "sort_order": 60
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.061",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: poder",
+        "correct_answer": "he podido",
+        "sort_order": 61
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.062",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: pedir",
+        "correct_answer": "he pedido",
+        "sort_order": 62
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.063",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: venir",
+        "correct_answer": "he venido",
+        "sort_order": 63
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.064",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: ir",
+        "correct_answer": "he ido",
+        "sort_order": 64
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.065",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «В последнее время я много работал»",
+        "correct_answer": "últimamente he trabajado mucho",
+        "sort_order": 65,
+        "options": [
+          "últimamente",
+          "he",
+          "trabajado",
+          "mucho"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.066",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «На этой неделе я был дома»",
+        "correct_answer": "esta semana he estado en casa",
+        "sort_order": 66,
+        "options": [
+          "esta",
+          "semana",
+          "he",
+          "estado",
+          "en",
+          "casa"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.170-perfecto.067",
+        "theory_block_key": "es.first-steps.theory.170-perfecto",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Сегодня я не смог прийти»",
+        "correct_answer": "hoy no he podido venir",
+        "sort_order": 67,
+        "options": [
+          "hoy",
+          "no",
+          "he",
+          "podido",
+          "venir"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.001",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола hacer",
+        "correct_answer": "hecho",
+        "sort_order": 1
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.002",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: hacer",
+        "correct_answer": "he hecho",
+        "sort_order": 2
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.003",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола decir",
+        "correct_answer": "dicho",
+        "sort_order": 3
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.004",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: decir",
+        "correct_answer": "he dicho",
+        "sort_order": 4
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.005",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола ver",
+        "correct_answer": "visto",
+        "sort_order": 5
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.006",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: ver",
+        "correct_answer": "he visto",
+        "sort_order": 6
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.007",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола poner",
+        "correct_answer": "puesto",
+        "sort_order": 7
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.008",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: poner",
+        "correct_answer": "he puesto",
+        "sort_order": 8
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.009",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола escribir",
+        "correct_answer": "escrito",
+        "sort_order": 9
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.010",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: escribir",
+        "correct_answer": "he escrito",
+        "sort_order": 10
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.011",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола abrir",
+        "correct_answer": "abierto",
+        "sort_order": 11
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.012",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: abrir",
+        "correct_answer": "he abierto",
+        "sort_order": 12
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.013",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола volver",
+        "correct_answer": "vuelto",
+        "sort_order": 13
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.014",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: volver",
+        "correct_answer": "he vuelto",
+        "sort_order": 14
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.015",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Причастие глагола romper",
+        "correct_answer": "roto",
+        "sort_order": 15
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.016",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "input",
+        "prompt": "Форма «я» в Perfecto: romper",
+        "correct_answer": "he roto",
+        "sort_order": 16
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.017",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "Hoy he ___ mucho. (hacer)",
+        "correct_answer": "hecho",
+        "sort_order": 17
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.018",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "¿Has ___ la película? (ver)",
+        "correct_answer": "visto",
+        "sort_order": 18
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.019",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "Hemos ___ la puerta. (abrir)",
+        "correct_answer": "abierto",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.020",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "Ana ha ___ un mensaje. (escribir)",
+        "correct_answer": "escrito",
+        "sort_order": 20
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.021",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "Ellos han ___ a casa. (volver)",
+        "correct_answer": "vuelto",
+        "sort_order": 21
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.022",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "¿Qué has ___? (decir)",
+        "correct_answer": "dicho",
+        "sort_order": 22
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.023",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "gap",
+        "prompt": "He ___ las llaves en la mesa. (poner)",
+        "correct_answer": "puesto",
+        "sort_order": 23
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.024",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Я уже сделал это»",
+        "correct_answer": "ya lo he hecho",
+        "sort_order": 24,
+        "options": [
+          "ya",
+          "lo",
+          "he",
+          "hecho"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.025",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Ты видел этот фильм?»",
+        "correct_answer": "has visto esta película",
+        "sort_order": 25,
+        "options": [
+          "has",
+          "visto",
+          "esta",
+          "película"
+        ]
+      },
+      {
+        "key": "es.first-steps.ex.180-perfecto-irregular.026",
+        "theory_block_key": "es.first-steps.theory.180-perfecto-irregular",
+        "kind": "sentence_builder",
+        "prompt": "Соберите: «Мы вернулись домой»",
+        "correct_answer": "hemos vuelto a casa",
+        "sort_order": 26,
+        "options": [
+          "hemos",
+          "vuelto",
+          "a",
+          "casa"
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "key": "es.first-steps.topic.common-actions",
+        "name": "Частые действия",
+        "description": "Большой набор самых полезных глаголов.",
+        "sort_order": 19
+      },
+      {
+        "key": "es.first-steps.topic.time-dates",
+        "name": "Время и даты",
+        "description": "Дни недели, месяцы, части дня и календарная лексика.",
+        "sort_order": 5
+      }
+    ]
+  }
+}
